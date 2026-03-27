@@ -14,7 +14,7 @@ const CONFIG = {
   // ── Google API Key ─────────────────────────────────────
   // Restricted to: HTTP referrer *.forumplaybook.com/*
   // Enabled APIs: Google Drive API v3 + YouTube Data API v3
-  GOOGLE_API_KEY: 'YOUR_API_KEY_HERE',
+  GOOGLE_API_KEY: 'AIzaSyCqRzfwFluOvn2oXNis-5UL5oEgM618nu0',
 
   // ── Google Drive Folders ────────────────────────────────
   // One object per category. Order here = order in filter pills.
@@ -22,15 +22,12 @@ const CONFIG = {
   //     (drive.google.com/drive/folders/THIS_PART_HERE)
   // Folders must be set to "Anyone with the link can view"
   DRIVE_FOLDERS: [
-    { label: 'Facilitation Tools', id: 'FOLDER_ID_HERE' },
-    { label: 'Templates',          id: 'FOLDER_ID_HERE' },
-    { label: 'Frameworks',         id: 'FOLDER_ID_HERE' },
-    { label: 'Retreat Guides',     id: 'FOLDER_ID_HERE' },
+    { label: 'Forum Templates', id: '1WiseQewJb3yisikZ2xWXGWImo_hrANIR' },
   ],
 
   // ── YouTube Playlist ────────────────────────────────────
   // Get this from the playlist URL:
   // youtube.com/playlist?list=THIS_PART_HERE
-  YOUTUBE_PLAYLIST_ID: 'YOUR_PLAYLIST_ID_HERE',
+  YOUTUBE_PLAYLIST_ID: 'PLtzLM6Y0VXALboL2zJFZq9i3QlWwFO3zG',
 
 };
