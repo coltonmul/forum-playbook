@@ -12,9 +12,9 @@
 const CONFIG = {
 
   // ── Google API Key ─────────────────────────────────────
-  // Restricted to: HTTP referrer *.forumplaybook.com/*
+  // Restricted to: HTTP referrer forumplaybook.com/* and *.forumplaybook.com/*
   // Enabled APIs: Google Drive API v3 + YouTube Data API v3
-  GOOGLE_API_KEY: 'AIzaSyCqRzfwFluOvn2oXNis-5UL5oEgM618nu0',
+  GOOGLE_API_KEY: 'AIzaSyD-DZWNK5YL8qgVzAVCv0qt87VHGnykh8Y',
 
   // ── Google Drive Folders ────────────────────────────────
   // One object per category. Order here = order in filter pills.
