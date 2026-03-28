@@ -744,6 +744,16 @@ body {
   border-top: 0.5px solid var(--border);
   padding: 48px 40px;
 }
+.about-link {
+  color: var(--burn);
+  text-decoration: none;
+  border-bottom: 0.5px solid var(--burn);
+  transition: color 0.2s, border-color 0.2s;
+}
+.about-link:hover {
+  color: var(--teal);
+  border-color: var(--teal);
+}
 
 .about-title {
   font-family: var(--font-display);
