@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Forum Playbook Brand Guidelines v2</title>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --pitch:    #0E0E0C;
+  --burn:     #E8521A;
+  --brick:    #B83A14;
+  --gold:     #D4A832;
+  --teal:     #3A8A8A;
+  --blue:     #2A6E9A;
+  --linen:    #F0EBE0;
+  --linen-dk: #E8E2D6;
+  --dust:     #C4B8A8;
+  --deep-dust:#4A4038;
+  --border:   #C8C0B4;
+}
+
+@keyframes wave1 { 0%{transform:translateX(-100%)} 100%{transform:translateX(0%)} }
+@keyframes wave2 { 0%{transform:translateX(-100%)} 100%{transform:translateX(0%)} }
+
+html { background: var(--linen); }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 400;
+  color: var(--pitch);
+  background: var(--linen);
+  font-size: 13px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ── LAYOUT ── */
+.page {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 48px 40px 80px;
+}
+
+/* ── HEADER ── */
+.doc-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  border-bottom: 2px solid var(--burn);
+  margin-bottom: 48px;
+}
+.doc-header-left {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-family: 'Consolas', monospace;
+}
+.doc-header-sym {
+  font-size: 20px;
+  color: var(--burn);
+  line-height: 1.1;
+  padding-top: 2px;
+}
+.doc-header-stack { display: flex; flex-direction: column; gap: 3px; }
+.doc-header-name {
+  font-size: 16px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--pitch);
+  line-height: 1;
+}
+.doc-header-url {
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.04em;
+  color: var(--dust);
+  line-height: 1;
+}
+.doc-header-right {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  color: var(--dust);
+  text-align: right;
+  line-height: 1.8;
+  text-transform: uppercase;
+}
+
+/* ── HERO TITLE ── */
+.hero {
+  margin-bottom: 56px;
+  position: relative;
+}
+.hero-annot {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--dust);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.annot-box {
+  border: 0.5px solid var(--dust);
+  padding: 2px 6px;
+  font-size: 9px;
+  color: var(--dust);
+}
+.annot-line { flex: 1; height: 0.5px; background: var(--dust); max-width: 40px; }
+.hero-title {
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-size: 72px;
+  font-weight: 900;
+  color: var(--pitch);
+  line-height: 0.88;
+  letter-spacing: -1px;
+  margin-bottom: 6px;
+}
+.hero-title .accent { color: var(--burn); }
+.hero-sub {
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-size: 72px;
+  font-weight: 900;
+  color: var(--dust);
+  line-height: 0.88;
+  letter-spacing: -1px;
+  margin-bottom: 20px;
+}
+.hero-desc {
+  font-size: 13px;
+  color: var(--deep-dust);
+  max-width: 480px;
+  font-weight: 300;
+  line-height: 1.7;
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 0.5px solid var(--border);
+}
+
+/* ── SECTION ── */
+.section {
+  margin-bottom: 52px;
+}
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.section-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  color: var(--burn);
+  text-transform: uppercase;
+  border: 0.5px solid var(--burn);
+  padding: 2px 7px;
+}
+.section-title {
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--pitch);
+  letter-spacing: 0.02em;
+  line-height: 1;
+}
+.section-rule { flex: 1; height: 0.5px; background: var(--border); }
+
+/* ── COLORS ── */
+.color-tiers { display: flex; flex-direction: column; gap: 16px; }
+.color-tier-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--burn);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.color-tier-label::after { content: ''; flex: 1; height: 0.5px; background: var(--border); }
+.color-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+.swatch { display: flex; flex-direction: column; gap: 5px; }
+.swatch-box {
+  width: 100%;
+  padding-bottom: 72%;
+  border: 0.5px solid rgba(0,0,0,0.08);
+  position: relative;
+  transition: transform 0.2s;
+}
+.swatch:hover .swatch-box { transform: scale(1.04); }
+.swatch-name {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  color: var(--deep-dust);
+  line-height: 1.4;
+}
+.swatch-role {
+  font-family: 'DM Mono', monospace;
+  font-size: 7px;
+  color: var(--dust);
+  line-height: 1.3;
+}
+.swatch-hex {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  color: var(--dust);
+}
+
+/* ── TYPOGRAPHY ── */
+.type-grid { display: flex; flex-direction: column; gap: 0; border: 0.5px solid var(--border); }
+.type-row {
+  display: grid;
+  grid-template-columns: 180px 1fr 140px;
+  align-items: center;
+  border-bottom: 0.5px solid var(--border);
+  overflow: hidden;
+}
+.type-row:last-child { border-bottom: none; }
+.type-meta {
+  padding: 16px;
+  border-right: 0.5px solid var(--border);
+  background: var(--linen-dk);
+}
+.type-role {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  color: var(--dust);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.type-spec {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--deep-dust);
+  line-height: 1.5;
+}
+.type-sample { padding: 16px 20px; }
+.type-weights {
+  padding: 16px;
+  border-left: 0.5px solid var(--border);
+  background: var(--linen-dk);
+}
+.type-weight-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  color: var(--dust);
+  letter-spacing: 0.1em;
+}
+
+/* ── LOGO LOCKUP ── */
+.lockup-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+.lockup-card {
+  border: 0.5px solid var(--border);
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.lockup-card.dark { background: var(--pitch); }
+.lockup-display {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  font-family: 'Consolas', monospace;
+}
+.lockup-sym { color: var(--burn); line-height: 1.1; flex-shrink: 0; padding-top: 1px; }
+.lockup-stack { display: flex; flex-direction: column; gap: 3px; }
+.lockup-name { font-weight: 700; letter-spacing: 0.1em; line-height: 1; }
+.lockup-url { font-weight: 400; letter-spacing: 0.04em; line-height: 1; }
+.lockup-sizes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border-top: 0.5px solid var(--border);
+  padding-top: 16px;
+}
+.lockup-card.dark .lockup-sizes { border-top-color: #1E1E1C; }
+
+/* ── BUTTONS ── */
+.btn-grid { display: flex; gap: 10px; flex-wrap: wrap; align-items: flex-start; }
+.sh { position: relative; overflow: hidden; cursor: pointer; display: inline-block; transition: box-shadow 0.5s ease, transform 0.3s ease; }
+.sh::before, .sh::after { content: ''; position: absolute; inset: 0; transform: translateX(-100%); }
+.sh::before { z-index: 0; }
+.sh::after  { z-index: 1; }
+.sh:hover::before { animation: wave1 0.5s cubic-bezier(0.4,0,0.2,1) 0s forwards; }
+.sh:hover::after  { animation: wave2 0.5s cubic-bezier(0.4,0,0.2,1) 0.32s forwards; }
+.sh > span { position: relative; z-index: 2; transition: color 0.12s ease 0.32s; }
+.warm::before { background: var(--gold); }
+.warm::after  { background: var(--teal); }
+.warm:hover { box-shadow: 0 8px 28px rgba(58,138,138,0.5), 0 2px 8px rgba(58,138,138,0.25); transform: translateY(-2px); }
+.warm:hover > span { color: #fff; }
+.cool::before { background: var(--teal); }
+.cool::after  { background: var(--blue); }
+.cool:hover { box-shadow: 0 8px 28px rgba(42,110,154,0.5), 0 2px 8px rgba(42,110,154,0.25); transform: translateY(-2px); }
+.cool:hover > span { color: #fff; }
+.btn-primary {
+  background: var(--burn);
+  border: 0.5px solid var(--burn);
+  color: #fff;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  padding: 9px 18px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.btn-secondary {
+  background: transparent;
+  border: 0.5px solid var(--border);
+  color: var(--deep-dust);
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  padding: 9px 18px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.btn-ghost {
+  background: transparent;
+  border: 0.5px solid #8A8070;
+  color: var(--deep-dust);
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  padding: 9px 18px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.btn-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.1em;
+  color: var(--dust);
+  text-transform: uppercase;
+  margin-top: 6px;
+}
+
+/* ── DOCUMENT SYSTEM ── */
+.doc-preview {
+  border: 0.5px solid var(--border);
+  overflow: hidden;
+}
+.doc-hdr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: var(--linen);
+  font-family: 'Consolas', monospace;
+  position: relative;
+  border-bottom: 2px solid var(--burn);
+}
+.doc-hdr-left { display: flex; align-items: flex-start; gap: 7px; }
+.doc-hdr-sym { font-size: 13px; color: var(--burn); line-height: 1.15; padding-top: 1px; }
+.doc-hdr-stack { display: flex; flex-direction: column; gap: 2px; }
+.doc-hdr-name { font-size: 10px; font-weight: 700; letter-spacing: 0.1em; color: var(--pitch); line-height: 1; }
+.doc-hdr-url { font-size: 8px; color: var(--dust); line-height: 1; }
+.doc-hdr-fields { display: flex; align-items: center; gap: 12px; }
+.doc-hdr-field { display: flex; flex-direction: column; align-items: flex-end; gap: 1px; }
+.doc-hdr-field-label { font-family: 'DM Mono', monospace; font-size: 7px; letter-spacing: 0.14em; color: var(--dust); }
+.doc-hdr-field-val { font-family: 'DM Mono', monospace; font-size: 9px; font-weight: 700; color: var(--pitch); }
+.doc-hdr-field-val.acc { color: var(--burn); }
+.doc-hdr-div { width: 1px; height: 20px; background: var(--dust); opacity: 0.4; }
+.doc-body { background: #fff; padding: 24px 28px; min-height: 80px; }
+.doc-body-cat { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--burn); letter-spacing: 0.18em; margin-bottom: 8px; }
+.doc-body-title { font-family: 'Big Shoulders Display', sans-serif; font-size: 24px; font-weight: 900; color: var(--pitch); margin-bottom: 6px; }
+.doc-body-meta { display: flex; gap: 20px; font-family: 'DM Mono', monospace; font-size: 8px; color: var(--dust); letter-spacing: 0.1em; border-top: 0.5px solid var(--border); padding-top: 8px; }
+.doc-ftr {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 20px;
+  background: var(--linen);
+  font-family: 'Consolas', monospace;
+  border-top: 0.5px solid var(--border);
+}
+.doc-ftr-left { display: flex; align-items: flex-start; gap: 6px; }
+.doc-ftr-sym { font-size: 10px; color: var(--burn); line-height: 1.15; }
+.doc-ftr-stack { display: flex; flex-direction: column; gap: 2px; }
+.doc-ftr-name { font-size: 8px; font-weight: 700; letter-spacing: 0.1em; color: var(--pitch); }
+.doc-ftr-url { font-size: 7px; color: var(--dust); }
+.doc-ftr-right { font-family: 'DM Mono', monospace; font-size: 8px; color: var(--dust); display: flex; align-items: center; gap: 10px; }
+.doc-ftr-pg { color: var(--pitch); font-weight: 700; }
+
+/* ── VOICE ── */
+.voice-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.voice-card { border: 0.5px solid var(--border); padding: 20px; }
+.voice-card.yes { border-left: 3px solid var(--teal); }
+.voice-card.no  { border-left: 3px solid var(--dust); }
+.voice-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.voice-card.yes .voice-label { color: var(--teal); }
+.voice-card.no  .voice-label { color: var(--dust); }
+.voice-item {
+  font-size: 12px;
+  color: var(--deep-dust);
+  line-height: 1.6;
+  padding: 4px 0;
+  border-bottom: 0.5px solid var(--linen-dk);
+  font-weight: 300;
+}
+.voice-item:last-child { border-bottom: none; }
+
+/* ── USAGE RULES ── */
+.rules-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+.rule-card { border: 0.5px solid var(--border); padding: 18px; }
+.rule-num {
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--dust);
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.rule-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--burn);
+  margin-bottom: 8px;
+}
+.rule-body { font-size: 11px; color: var(--deep-dust); font-weight: 300; line-height: 1.6; }
+
+/* ── FOOTER ── */
+.page-footer {
+  margin-top: 64px;
+  padding-top: 20px;
+  border-top: 0.5px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.page-footer-left { display: flex; align-items: flex-start; gap: 7px; font-family: 'Consolas', monospace; }
+.page-footer-sym { font-size: 14px; color: var(--burn); line-height: 1.1; padding-top: 2px; }
+.page-footer-stack { display: flex; flex-direction: column; gap: 2px; }
+.page-footer-name { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: var(--pitch); }
+.page-footer-url { font-size: 9px; color: var(--dust); letter-spacing: 0.04em; }
+.page-footer-right { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--dust); letter-spacing: 0.1em; text-align: right; line-height: 1.8; }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- DOC HEADER -->
+  <div class="doc-header">
+    <div class="doc-header-left">
+      <span class="doc-header-sym">⎇</span>
+      <div class="doc-header-stack">
+        <div class="doc-header-name">FORUM PLAYBOOK</div>
+        <div class="doc-header-url">ForumPlaybook.com</div>
+      </div>
+    </div>
+    <div class="doc-header-right">
+      Brand Guidelines v2.0<br>
+      March 2026<br>
+      Internal Use
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-annot">
+      <div class="annot-box">FP</div>
+      <div class="annot-line"></div>
+      FP-000 / BRAND GUIDELINES
+      <div class="annot-line"></div>
+      <div class="annot-box">2026</div>
+    </div>
+    <div class="hero-title">FORUM<br>PLAYBOOK<br><span class="accent">BRAND GUIDE.</span></div>
+    <div class="hero-desc">
+      Forum Playbook is a Resource Hub for Forums, Moderators, &amp; Facilitators. This gets updated frequently so you don't have to make the same decisions twice. (Right now it's mostly just for me, you, and other AI. But still.)
+    </div>
+  </div>
+
+  <!-- COLORS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-tag">01</div>
+      <div class="section-title">COLOR SYSTEM</div>
+      <div class="section-rule"></div>
+    </div>
+    <div class="color-tiers">
+
+      <div class="color-tier">
+        <div class="color-tier-label">Foundation</div>
+        <div class="color-grid">
+          <div class="swatch">
+            <div class="swatch-box" style="background:#0E0E0C;"></div>
+            <div class="swatch-name">Pitch</div>
+            <div class="swatch-role">Nav &middot; headings &middot; footer</div>
+            <div class="swatch-hex">#0E0E0C</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-box" style="background:#E8521A;"></div>
+            <div class="swatch-name">Burn</div>
+            <div class="swatch-role">Primary accent &middot; CTA &middot; logo mark</div>
+            <div class="swatch-hex">#E8521A</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-box" style="background:#F0EBE0; border-color:#D4CCC0;"></div>
+            <div class="swatch-name">Linen</div>
+            <div class="swatch-role">Page background</div>
+            <div class="swatch-hex">#F0EBE0</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-box" style="background:#E8E2D6;"></div>
+            <div class="swatch-name">Linen Dark</div>
+            <div class="swatch-role">Section alternates &middot; search bar</div>
+            <div class="swatch-hex">#E8E2D6</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="color-tier">
+        <div class="color-tier-label">Accent</div>
+        <div class="color-grid">
+          <div class="swatch">
+            <div class="swatch-box" style="background:#B83A14;"></div>
+            <div class="swatch-name">Brick</div>
+            <div class="swatch-role">Warm wave 1 &middot; hero stripe</div>
+            <div class="swatch-hex">#B83A14</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-box" style="background:#D4A832;"></div>
+            <div class="swatch-name">Gold</div>
+            <div class="swatch-role">Warm hover wave 1</div>
+            <div class="swatch-hex">#D4A832</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-box" style="background:#3A8A8A;"></div>
+            <div class="swatch-name">Teal</div>
+            <div class="swatch-role">Warm wave 2 landing &middot; cool wave 1</div>
+            <div class="swatch-hex">#3A8A8A</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-box" style="background:#2A6E9A;"></div>
+            <div class="swatch-name">Blue</div>
+            <div class="swatch-role">Cool wave 2 landing &middot; video hover</div>
+            <div class="swatch-hex">#2A6E9A</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="color-tier">
+        <div class="color-tier-label">Neutral</div>
+        <div class="color-grid">
+          <div class="swatch">
+            <div class="swatch-box" style="background:#FFFFFF; border-color:#D4CCC0;"></div>
+            <div class="swatch-name">White</div>
+            <div class="swatch-role">Card backgrounds</div>
+            <div class="swatch-hex">#FFFFFF</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-box" style="background:#C8C0B4;"></div>
+            <div class="swatch-name">Border</div>
+            <div class="swatch-role">Section dividers &middot; hairlines</div>
+            <div class="swatch-hex">#C8C0B4</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-box" style="background:#C4B8A8;"></div>
+            <div class="swatch-name">Dust</div>
+            <div class="swatch-role">Decorative &middot; muted text</div>
+            <div class="swatch-hex">#C4B8A8</div>
+          </div>
+          <div class="swatch">
+            <div class="swatch-box" style="background:#4A4038;"></div>
+            <div class="swatch-name">Deep Dust</div>
+            <div class="swatch-role">Ghost button text &middot; dark body</div>
+            <div class="swatch-hex">#4A4038</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TYPOGRAPHY -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-tag">02</div>
+      <div class="section-title">TYPOGRAPHY</div>
+      <div class="section-rule"></div>
+    </div>
+    <div class="type-grid">
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-role">Display / Headings</div>
+          <div class="type-spec">Big Shoulders Display<br>700 · 900 weight<br>All caps · −1px tracking</div>
+        </div>
+        <div class="type-sample">
+          <div style="font-family:'Big Shoulders Display',sans-serif; font-size:36px; font-weight:900; color:var(--pitch); line-height:0.9; letter-spacing:-1px;">A RESOURCE<br>HUB FOR<br><span style="color:var(--burn);">FORUMS</span></div>
+        </div>
+        <div class="type-weights">
+          <div style="font-family:'Big Shoulders Display',sans-serif; font-size:14px; font-weight:700; color:var(--pitch);">700 — Heading</div>
+          <div style="font-family:'Big Shoulders Display',sans-serif; font-size:14px; font-weight:900; color:var(--pitch);">900 — Display</div>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-role">Labels / UI / Mono</div>
+          <div class="type-spec">DM Mono<br>400 · 500 weight<br>All caps · +0.12em tracking</div>
+        </div>
+        <div class="type-sample">
+          <div style="font-family:'DM Mono',monospace; font-size:11px; font-weight:500; color:var(--burn); letter-spacing:0.14em; text-transform:uppercase; margin-bottom:4px;">[ TOOLS ]</div>
+          <div style="font-family:'DM Mono',monospace; font-size:10px; color:var(--dust); letter-spacing:0.12em; text-transform:uppercase;">FP-001 · Updated March 2026 · v2.1</div>
+        </div>
+        <div class="type-weights">
+          <div style="font-family:'DM Mono',monospace; font-size:11px; font-weight:400; color:var(--pitch);">400 — Meta</div>
+          <div style="font-family:'DM Mono',monospace; font-size:11px; font-weight:500; color:var(--pitch);">500 — Label</div>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-role">Web Body Copy</div>
+          <div class="type-spec">DM Sans<br>300 · 400 weight<br>1.65 line height<br><span style="color:var(--burn);font-size:7px;letter-spacing:0.1em;text-transform:uppercase;">Web only</span></div>
+        </div>
+        <div class="type-sample">
+          <div style="font-family:'DM Sans',sans-serif; font-size:12px; font-weight:300; color:var(--deep-dust); line-height:1.65;">Templates, frameworks, and guides.</div>
+        </div>
+        <div class="type-weights">
+          <div style="font-family:'DM Sans',sans-serif; font-size:12px; font-weight:300; color:var(--pitch);">300 — Body</div>
+          <div style="font-family:'DM Sans',sans-serif; font-size:12px; font-weight:400; color:var(--pitch);">400 — UI</div>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-role">Document Body Copy</div>
+          <div class="type-spec">Roboto<br>400 · 700 weight<br>1.6 line height<br><span style="color:var(--burn);font-size:7px;letter-spacing:0.1em;text-transform:uppercase;">Docs &amp; print only</span></div>
+        </div>
+        <div class="type-sample">
+          <div style="font-family:'Roboto',sans-serif; font-size:12px; font-weight:400; color:var(--deep-dust); line-height:1.6;">Clearing rounds are a necessary best practice to open each meeting for the health of the group.</div>
+        </div>
+        <div class="type-weights">
+          <div style="font-family:'Roboto',sans-serif; font-size:12px; font-weight:400; color:var(--pitch);">400 — Body</div>
+          <div style="font-family:'Roboto',sans-serif; font-size:12px; font-weight:700; color:var(--pitch);">700 — Bold</div>
+        </div>
+      </div>
+      <div class="type-row">
+        <div class="type-meta">
+          <div class="type-role">Document Chrome</div>
+          <div class="type-spec">Consolas<br>400 · 700 weight<br>Header &amp; footer only</div>
+        </div>
+        <div class="type-sample">
+          <div style="font-family:'Consolas',monospace; font-size:13px; font-weight:700; color:var(--pitch); letter-spacing:0.08em; margin-bottom:3px;"><span style="color:var(--burn);">⎇</span> FORUM PLAYBOOK</div>
+          <div style="font-family:'Consolas',monospace; font-size:10px; font-weight:400; color:var(--dust); letter-spacing:0.04em;">ForumPlaybook.com</div>
+        </div>
+        <div class="type-weights">
+          <div style="font-family:'Consolas',monospace; font-size:11px; font-weight:400; color:var(--pitch);">400 — URL</div>
+          <div style="font-family:'Consolas',monospace; font-size:11px; font-weight:700; color:var(--pitch);">700 — Mark</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOGO -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-tag">03</div>
+      <div class="section-title">LOGO &amp; LOCKUP</div>
+      <div class="section-rule"></div>
+    </div>
+    <div class="lockup-grid">
+
+      <div class="lockup-card">
+        <div class="lockup-display" style="font-size:32px;">
+          <span class="lockup-sym" style="font-size:32px;">⎇</span>
+          <div class="lockup-stack">
+            <div class="lockup-name" style="font-size:28px; color:var(--pitch);">FORUM PLAYBOOK</div>
+            <div class="lockup-url" style="font-size:14px; color:var(--dust);">ForumPlaybook.com</div>
+          </div>
+        </div>
+        <div class="lockup-sizes">
+          <div class="lockup-display" style="font-size:16px;">
+            <span class="lockup-sym" style="font-size:16px;">⎇</span>
+            <div class="lockup-stack">
+              <div class="lockup-name" style="font-size:14px; color:var(--pitch);">FORUM PLAYBOOK</div>
+              <div class="lockup-url" style="font-size:9px; color:var(--dust);">ForumPlaybook.com</div>
+            </div>
+          </div>
+          <div class="lockup-display" style="font-size:11px;">
+            <span class="lockup-sym" style="font-size:11px;">⎇</span>
+            <div class="lockup-stack">
+              <div class="lockup-name" style="font-size:9px; color:var(--pitch);">FORUM PLAYBOOK</div>
+              <div class="lockup-url" style="font-size:7px; color:var(--dust);">ForumPlaybook.com</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="lockup-card dark">
+        <div class="lockup-display" style="font-size:32px;">
+          <span class="lockup-sym" style="font-size:32px;">⎇</span>
+          <div class="lockup-stack">
+            <div class="lockup-name" style="font-size:28px; color:#F0EBE0;">FORUM PLAYBOOK</div>
+            <div class="lockup-url" style="font-size:14px; color:#3A3A30;">ForumPlaybook.com</div>
+          </div>
+        </div>
+        <div class="lockup-sizes" style="border-top-color:#1E1E1C;">
+          <div class="lockup-display" style="font-size:16px;">
+            <span class="lockup-sym" style="font-size:16px;">⎇</span>
+            <div class="lockup-stack">
+              <div class="lockup-name" style="font-size:14px; color:#F0EBE0;">FORUM PLAYBOOK</div>
+              <div class="lockup-url" style="font-size:9px; color:#3A3A30;">ForumPlaybook.com</div>
+            </div>
+          </div>
+          <div class="lockup-display" style="font-size:11px;">
+            <span class="lockup-sym" style="font-size:11px;">⎇</span>
+            <div class="lockup-stack">
+              <div class="lockup-name" style="font-size:9px; color:#F0EBE0;">FORUM PLAYBOOK</div>
+              <div class="lockup-url" style="font-size:7px; color:#3A3A30;">ForumPlaybook.com</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- BUTTONS -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-tag">04</div>
+      <div class="section-title">BUTTON SYSTEM</div>
+      <div class="section-rule"></div>
+    </div>
+    <div style="background:var(--linen-dk); padding:28px; border:0.5px solid var(--border); margin-bottom:12px;">
+      <div class="btn-grid">
+        <div>
+          <div class="btn-primary sh warm"><span>↓ DOCX</span></div>
+          <div class="btn-label">Primary — Warm<br>Burn → Gold → Teal</div>
+        </div>
+        <div>
+          <div class="btn-secondary sh warm"><span>↓ PDF</span></div>
+          <div class="btn-label">Secondary — Warm<br>Transparent → Gold → Teal</div>
+        </div>
+        <div>
+          <div class="btn-ghost sh cool"><span>↗ Drive</span></div>
+          <div class="btn-label">Ghost — Cool<br>Transparent → Teal → Blue</div>
+        </div>
+        <div>
+          <div class="btn-primary sh warm" style="border:0.5px solid var(--pitch); background:var(--pitch);"><span>Who Built This?</span></div>
+          <div class="btn-label">Nav CTA — Warm<br>Pitch → Gold → Teal</div>
+        </div>
+      </div>
+    </div>
+    <div style="font-family:'DM Mono',monospace; font-size:9px; color:var(--dust); letter-spacing:0.1em; line-height:1.8;">
+      HOVER SYSTEM — Two-wave sweep: Wave 1 at 0s, Wave 2 at 0.32s delay, both 0.5s duration · Lift: translateY(−2px) · Shadow matches landing wave color at 50% opacity
+    </div>
+  </div>
+
+  <!-- DOCUMENT SYSTEM -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-tag">05</div>
+      <div class="section-title">DOCUMENT SYSTEM</div>
+      <div class="section-rule"></div>
+    </div>
+    <div class="doc-preview">
+      <!-- HEADER: single line, Consolas, 2pt Burn bottom rule -->
+      <div style="font-family:'Consolas',monospace; padding:8px 20px 9px; background:var(--linen); border-bottom:2px solid var(--burn); display:flex; align-items:baseline; gap:5px; flex-wrap:wrap; font-size:11px; line-height:1.4; white-space:nowrap; overflow:hidden;">
+        <span style="color:var(--burn); font-size:13px; flex-shrink:0;">⎇</span>
+        <span style="font-weight:700; color:var(--pitch); letter-spacing:0.08em; flex-shrink:0;">FORUM PLAYBOOK</span>
+        <span style="color:var(--dust); flex-shrink:0; margin:0 1px;">  </span>
+        <span style="color:var(--burn); font-weight:700; letter-spacing:0.04em; flex-shrink:0;">[ FACILITATION TOOLS ]</span>
+        <span style="color:var(--dust); flex-shrink:0;">  │  </span>
+        <span style="color:var(--dust); font-size:10px; flex-shrink:0; letter-spacing:0.04em;">DOCUMENT</span>
+        <span style="color:var(--dust); flex-shrink:0; margin:0 2px;"> </span>
+        <span style="font-weight:700; color:var(--pitch); flex-shrink:0;">CLEARING ROUND &amp; REPAIR PROCESS</span>
+        <span style="color:var(--dust); flex-shrink:0;">  │</span>
+        <span style="font-weight:700; color:var(--pitch); flex-shrink:0; margin-left:3px;">v1.1</span>
+        <span style="color:var(--dust); flex-shrink:0; margin:0 2px;">│</span>
+        <span style="color:var(--dust); font-size:10px; flex-shrink:0;">Updated: March 2026</span>
+        <span style="color:var(--dust); flex-shrink:0; margin:0 2px;">│</span>
+        <span style="color:var(--dust); font-size:10px; flex-shrink:0;">ForumPlaybook.com</span>
+      </div>
+      <!-- BODY: Roboto -->
+      <div class="doc-body">
+        <div class="doc-body-cat">[ FACILITATION TOOLS ]</div>
+        <div class="doc-body-title">CLEARING ROUND &amp; REPAIR PROCESS</div>
+        <div class="doc-body-meta" style="margin-bottom:10px;">
+          <span>v1.1</span>
+          <span>Updated: March 2026</span>
+          <span>ForumPlaybook.com</span>
+        </div>
+        <div style="font-family:'Roboto',sans-serif; font-size:11px; color:var(--deep-dust); line-height:1.6; font-weight:400;">Clearing rounds are a necessary best practice to open each meeting for the health of the group. It&#x2019;s not always about conflict; it&#x2019;s about clearing anything that may be preventing the group from being as vulnerable, respected, and connected as they can be.</div>
+      </div>
+      <!-- FOOTER: single line, Consolas, 0.5pt Border top rule, URL right-tabbed -->
+      <div style="font-family:'Consolas',monospace; padding:7px 20px 8px; background:var(--linen); border-top:0.5px solid var(--border); display:flex; align-items:baseline; justify-content:space-between; font-size:11px; line-height:1.4;">
+        <span style="display:flex; align-items:baseline; gap:5px;">
+          <span style="color:var(--burn); font-size:12px;">⎇</span>
+          <span style="font-weight:700; color:var(--pitch); letter-spacing:0.08em;">FORUM PLAYBOOK</span>
+          <span style="color:var(--dust); font-size:10px; margin-left:4px;">A Resource Hub for Forums, Moderators, &amp; Facilitators</span>
+        </span>
+        <span style="color:var(--dust); font-size:10px;">ForumPlaybook.com</span>
+      </div>
+    </div>
+    <div style="font-family:'DM Mono',monospace; font-size:9px; color:var(--dust); letter-spacing:0.1em; line-height:1.9; margin-top:10px;">
+      HEADER — Consolas · single line · 2pt Burn bottom rule · ⎇ mark + brand name + category (Burn) + pipe separators + document name + version + date + URL<br>
+      BODY — Roboto 400/700 · document content<br>
+      FOOTER — Consolas · single line · 0.5pt Border top rule · ⎇ mark + brand name + tagline (left) · URL (right-tabbed)
+    </div>
+  </div>
+
+  <!-- VOICE -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-tag">06</div>
+      <div class="section-title">VOICE &amp; TONE</div>
+      <div class="section-rule"></div>
+    </div>
+    <div class="voice-grid">
+      <div class="voice-card yes">
+        <div class="voice-label">✦ Is</div>
+        <div class="voice-item">Direct and confident. Says what it means.</div>
+        <div class="voice-item">Casually self-aware. Doesn't take itself too seriously.</div>
+        <div class="voice-item">Practical. Every word earns its place.</div>
+        <div class="voice-item">Warm but not soft. Precision with personality.</div>
+        <div class="voice-item">Facilitator-first. Speaks to the person running the room.</div>
+      </div>
+      <div class="voice-card no">
+        <div class="voice-label">Is Not</div>
+        <div class="voice-item">Corporate or jargon-heavy</div>
+        <div class="voice-item">Inspirational poster energy</div>
+        <div class="voice-item">Overly formal or academic</div>
+        <div class="voice-item">Vague or hedge-y</div>
+        <div class="voice-item">Trying to be a guru</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RULES -->
+  <div class="section">
+    <div class="section-header">
+      <div class="section-tag">07</div>
+      <div class="section-title">USAGE RULES</div>
+      <div class="section-rule"></div>
+    </div>
+    <div class="rules-grid">
+      <div class="rule-card">
+        <div class="rule-num">01</div>
+        <div class="rule-title">Logo positions only</div>
+        <div class="rule-body">⎇ FORUM PLAYBOOK is a visual mark. Use it in headers, footers, and nav. Never in running text, file names, or anything a search engine reads. SEO-facing text is always "Forum Playbook."</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-num">02</div>
+        <div class="rule-title">ADA always</div>
+        <div class="rule-body">All text on linen must pass 4.5:1 contrast minimum. Never use #A89880 or lighter as body text. Ghost button text is always #4A4038. Dust (#C4B8A8) is decorative only.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-num">03</div>
+        <div class="rule-title">Content stays in Drive</div>
+        <div class="rule-body">Resources live in Google Drive. Videos live on YouTube. The site auto-syncs. Never add content by editing code. File names drive sort order: prefix "00_" to pin to top.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-num">04</div>
+        <div class="rule-title">Two-wave hover only</div>
+        <div class="rule-body">Every interactive element uses the locked wave system. Warm family lands on Teal. Cool family lands on Blue. No other hover styles. No exceptions for "simpler" buttons.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-num">05</div>
+        <div class="rule-title">No frameworks</div>
+        <div class="rule-body">The site is vanilla HTML, CSS, and JS. No React, Vue, or build step. No Webflow, Squarespace, or CMS. This is intentional. Keeps costs at ~$1.25/month forever.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-num">06</div>
+        <div class="rule-title">Doc versioning</div>
+        <div class="rule-body">Every resource document carries a version number (v1.0, v2.1), category label, and version in the header. Update the version when content changes. Format: vMAJOR.MINOR.</div>
+      </div>
+      <div class="rule-card">
+        <div class="rule-num">07</div>
+        <div class="rule-title">Document body copy</div>
+        <div class="rule-body">Body copy in all resource documents is set in Roboto (400 for body, 700 for bold). Header and footer chrome is Consolas. Never use DM Sans or DM Mono in printed or downloaded documents.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE FOOTER -->
+  <div class="page-footer">
+    <div class="page-footer-left">
+      <span class="page-footer-sym">⎇</span>
+      <div class="page-footer-stack">
+        <div class="page-footer-name">FORUM PLAYBOOK</div>
+        <div class="page-footer-url">ForumPlaybook.com</div>
+      </div>
+    </div>
+    <div class="page-footer-right">
+      Brand Guidelines v2.0 · April 2026<br>
+      Internal reference · Not for redistribution
+    </div>
+  </div>
+
+</div>
+</body>
+</html>
