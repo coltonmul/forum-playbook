@@ -770,39 +770,6 @@ body {
 
 
 /* ══════════════════════════════════════════════════════════
-   COLOR PALETTE
-══════════════════════════════════════════════════════════ */
-.palette-section {
-  padding: 24px 40px 28px;
-  background: var(--linen-dark);
-  border-top: 0.5px solid var(--border);
-}
-.pal-label {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: #A89880;
-  margin-bottom: 14px;
-}
-.swatches { display: flex; gap: 10px; flex-wrap: wrap; }
-.sw { display: flex; flex-direction: column; gap: 5px; cursor: default; }
-.sw-box {
-  width: 48px;
-  height: 48px;
-  transition: transform 0.2s;
-}
-.sw:hover .sw-box { transform: scale(1.08); }
-.sw-name {
-  font-family: var(--font-mono);
-  font-size: 8px;
-  color: #8A8070;
-  line-height: 1.4;
-}
-.sw-name.teal { color: var(--teal); }
-
-
-/* ══════════════════════════════════════════════════════════
    FOOTER
 ══════════════════════════════════════════════════════════ */
 .footer {
