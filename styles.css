@@ -118,15 +118,15 @@ body {
   margin-right: 32px;
 }
 
-.logo-diamond {
-  width: 7px;
-  height: 7px;
-  background: var(--burn);
-  transform: rotate(45deg);
+/* Logo mark: ⎇ symbol in Consolas, Burn color */
+.logo-mark {
+  font-family: 'Consolas', monospace;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--burn);
   flex-shrink: 0;
-  transition: transform 0.4s cubic-bezier(0.4,0,0.2,1);
+  line-height: 1;
 }
-.logo:hover .logo-diamond { transform: rotate(225deg); }
 
 .nav-link {
   font-family: var(--font-mono);
@@ -821,22 +821,23 @@ body {
 }
 
 .footer-logo {
-  font-family: var(--font-display);
+  font-family: 'Consolas', monospace;
   font-size: 14px;
-  font-weight: 900;
+  font-weight: 700;
   color: #A8A494;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.08em;
   display: flex;
   align-items: center;
   gap: 6px;
 }
-.footer-logo-diamond {
-  width: 5px;
-  height: 5px;
-  background: var(--burn);
-  transform: rotate(45deg);
-  flex-shrink: 0;
+
+/* Footer mark: ⎇ symbol in Burn */
+.footer-logo-mark {
+  color: var(--burn);
+  font-weight: 400;
+  line-height: 1;
 }
+
 .footer-copy {
   font-family: var(--font-mono);
   font-size: 9px;
