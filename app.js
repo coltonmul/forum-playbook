@@ -34,7 +34,6 @@ const lightboxBg   = document.getElementById('lightbox-backdrop');
 // INIT
 // ════════════════════════════════════════════════════════════
 async function init() {
-  // Check config is set up
   if (
     !CONFIG.GOOGLE_API_KEY ||
     CONFIG.GOOGLE_API_KEY === 'YOUR_API_KEY_HERE' ||
@@ -44,7 +43,6 @@ async function init() {
     return;
   }
 
-  // Fetch in parallel
   await Promise.all([
     loadDriveFiles(),
     loadYouTubeVideos(),
@@ -111,7 +109,6 @@ async function loadYouTubeVideos() {
 
     if (data.error) throw new Error(data.error.message);
 
-    // Sort newest first
     CACHE.videos = (data.items || []).sort((a, b) =>
       new Date(b.snippet.publishedAt) - new Date(a.snippet.publishedAt)
     );
@@ -129,7 +126,6 @@ async function loadYouTubeVideos() {
 // FILTER PILLS — build from folder labels
 // ════════════════════════════════════════════════════════════
 function buildPills() {
-  // Remove any existing dynamic pills (keep "All")
   const existing = pillGroup.querySelectorAll('.pill[data-filter]:not([data-filter="all"])');
   existing.forEach(p => p.remove());
 
@@ -168,6 +164,30 @@ searchInput.addEventListener('input', e => {
 
 
 // ════════════════════════════════════════════════════════════
+// DOWNLOAD HELPER — fetches blob and names the file correctly
+// ════════════════════════════════════════════════════════════
+async function downloadFile(url, filename) {
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('Download failed');
+    const blob = await res.blob();
+    const blobUrl = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = blobUrl;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
+  } catch (err) {
+    console.error('Download error:', err);
+    // Fall back to opening in new tab
+    window.open(url, '_blank', 'noopener');
+  }
+}
+
+
+// ════════════════════════════════════════════════════════════
 // RENDER RESOURCE CARDS
 // ════════════════════════════════════════════════════════════
 function renderCards() {
@@ -179,7 +199,6 @@ function renderCards() {
     return matchesFilter && matchesSearch;
   });
 
-  // Update count
   resourceCount.textContent = `${filtered.length} resource${filtered.length !== 1 ? 's' : ''}`;
 
   if (filtered.length === 0) {
@@ -195,6 +214,16 @@ function renderCards() {
   emptyState.hidden = true;
   cardGrid.hidden = false;
   cardGrid.innerHTML = filtered.map((f, i) => buildCardHTML(f, i)).join('');
+
+  // Attach download handlers after rendering
+  cardGrid.querySelectorAll('[data-download-url]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      const url      = btn.dataset.downloadUrl;
+      const filename = btn.dataset.filename;
+      downloadFile(url, filename);
+    });
+  });
 }
 
 function buildCardHTML(file, index) {
@@ -220,42 +249,47 @@ function buildCardHTML(file, index) {
 }
 
 function buildButtonsHTML(file) {
-  const id   = file.id;
-  const mime = file.mimeType;
-  const base = `https://www.googleapis.com/drive/v3/files/${id}/export?key=${CONFIG.GOOGLE_API_KEY}`;
-  const driveUrl = `https://drive.google.com/file/d/${id}/view`;
+  const id       = file.id;
+  const mime     = file.mimeType;
+  const base     = `https://www.googleapis.com/drive/v3/files/${id}/export?key=${CONFIG.GOOGLE_API_KEY}`;
+  const baseName = cleanFileName(file.name);
+
+  // Fix: use open?id= so Drive opens the file natively instead of showing "no preview"
+  const driveUrl = `https://drive.google.com/open?id=${id}`;
 
   let html = '';
 
   if (mime === 'application/vnd.google-apps.document') {
     const docxUrl = `${base}&mimeType=application/vnd.openxmlformats-officedocument.wordprocessingml.document`;
     const pdfUrl  = `${base}&mimeType=application/pdf`;
-    html += btnPrimary('↓ DOCX', docxUrl);
-    html += btnSecondary('↓ PDF', pdfUrl);
+    html += btnDownload('↓ DOCX', docxUrl, `${baseName}.docx`, 'primary');
+    html += btnDownload('↓ PDF',  pdfUrl,  `${baseName}.pdf`,  'secondary');
     html += btnGhost('↗ Drive', driveUrl);
 
   } else if (mime === 'application/vnd.google-apps.spreadsheet') {
     const xlsxUrl = `${base}&mimeType=application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`;
     const pdfUrl  = `${base}&mimeType=application/pdf`;
-    html += btnPrimary('↓ XLSX', xlsxUrl);
-    html += btnSecondary('↓ PDF', pdfUrl);
+    html += btnDownload('↓ XLSX', xlsxUrl, `${baseName}.xlsx`, 'primary');
+    html += btnDownload('↓ PDF',  pdfUrl,  `${baseName}.pdf`,  'secondary');
     html += btnGhost('↗ Drive', driveUrl);
 
   } else if (mime === 'application/pdf') {
     const pdfUrl = `https://www.googleapis.com/drive/v3/files/${id}?alt=media&key=${CONFIG.GOOGLE_API_KEY}`;
-    html += btnSecondary('↓ PDF', pdfUrl);
+    html += btnDownload('↓ PDF', pdfUrl, `${baseName}.pdf`, 'secondary');
     html += btnGhost('↗ Drive', driveUrl);
 
   } else if (mime === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+    const dlUrl  = `https://www.googleapis.com/drive/v3/files/${id}?alt=media&key=${CONFIG.GOOGLE_API_KEY}`;
     const pdfUrl = `${base}&mimeType=application/pdf`;
-    html += btnPrimary('↓ DOCX', driveUrl);
-    html += btnSecondary('↓ PDF', pdfUrl);
+    html += btnDownload('↓ DOCX', dlUrl,   `${baseName}.docx`, 'primary');
+    html += btnDownload('↓ PDF',  pdfUrl,  `${baseName}.pdf`,  'secondary');
     html += btnGhost('↗ Drive', driveUrl);
 
   } else if (mime === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+    const dlUrl  = `https://www.googleapis.com/drive/v3/files/${id}?alt=media&key=${CONFIG.GOOGLE_API_KEY}`;
     const pdfUrl = `${base}&mimeType=application/pdf`;
-    html += btnPrimary('↓ XLSX', driveUrl);
-    html += btnSecondary('↓ PDF', pdfUrl);
+    html += btnDownload('↓ XLSX', dlUrl,   `${baseName}.xlsx`, 'primary');
+    html += btnDownload('↓ PDF',  pdfUrl,  `${baseName}.pdf`,  'secondary');
     html += btnGhost('↗ Drive', driveUrl);
 
   } else {
@@ -265,12 +299,14 @@ function buildButtonsHTML(file) {
   return html;
 }
 
-function btnPrimary(label, url) {
-  return `<a href="${url}" class="btn btn-primary sh warm" target="_blank" rel="noopener"><span>${label}</span></a>`;
+// Download buttons use data attributes; click handlers are attached after render
+function btnDownload(label, url, filename, style) {
+  const cls = style === 'primary'
+    ? 'btn btn-primary sh warm'
+    : 'btn sh warm';
+  return `<button class="${cls}" data-download-url="${url}" data-filename="${filename}"><span>${label}</span></button>`;
 }
-function btnSecondary(label, url) {
-  return `<a href="${url}" class="btn sh warm" target="_blank" rel="noopener"><span>${label}</span></a>`;
-}
+
 function btnGhost(label, url) {
   return `<a href="${url}" class="btn btn-ghost sh cool" target="_blank" rel="noopener"><span>${label}</span></a>`;
 }
@@ -332,13 +368,11 @@ videoGrid.addEventListener('click', e => {
   const videoId = card.dataset.videoid;
   if (!videoId) return;
 
-  // Mobile: open YouTube directly
   if (window.innerWidth < 680) {
     window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank', 'noopener');
     return;
   }
 
-  // Desktop: lightbox
   lightboxEmbed.innerHTML = `
     <iframe
       src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0"
@@ -387,7 +421,6 @@ function showConfigError() {
   cardGrid.hidden = true;
   emptyState.hidden = false;
   emptyMsg.textContent = 'Config not set up yet. Add your API key and folder IDs to config.js.';
-
   clearVideoSkeletons();
 }
 
@@ -441,7 +474,6 @@ function timeAgo(iso) {
 }
 
 function cleanFileName(name) {
-  // Strip leading sort prefix (00_, 01_, etc.) if present
   return name.replace(/^\d+_/, '').replace(/\.(docx?|xlsx?|pdf|gsheet|gdoc)$/i, '').toUpperCase();
 }
 
