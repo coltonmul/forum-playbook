@@ -1041,3 +1041,59 @@ body {
   .doc-meta { display: none; }
   .doc-row { gap: 8px; }
 }
+
+/* ── VIDEO THUMBNAIL — true 16:9 ratio ─────────────────── */
+.video-thumb-16x9 {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  background: #2A3028;
+  overflow: hidden;
+}
+
+.video-thumb-16x9 img {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0.9;
+  transition: opacity 0.3s;
+}
+.video-card:hover .video-thumb-16x9 img { opacity: 1; }
+
+.video-thumb-placeholder {
+  position: absolute;
+  inset: 0;
+  background: #2A3028;
+}
+
+.video-thumb-16x9 .play-btn {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+}
+
+.video-thumb-16x9 .yt-badge {
+  position: absolute;
+  bottom: 6px; right: 8px;
+  z-index: 2;
+}
+
+/* ── VIDEO INFO ROW — icon + text ───────────────────────── */
+.video-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 10px 14px 12px;
+}
+
+.video-type-icon {
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.video-text { flex: 1; min-width: 0; }
+
+/* ── FOLDER ICONS ───────────────────────────────────────── */
+.folder-icon { display: inline-block; vertical-align: middle; flex-shrink: 0; }
