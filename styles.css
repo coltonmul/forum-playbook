@@ -770,6 +770,20 @@ body {
 }
 
 
+.footer-links {
+  display: flex;
+  gap: 20px;
+}
+.footer-link {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: #4A4A38;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.footer-link:hover { color: #A8A494; }
+
 /* ══════════════════════════════════════════════════════════
    FOOTER
 ══════════════════════════════════════════════════════════ */
