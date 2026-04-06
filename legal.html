@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<title>Legal — Forum Playbook</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='16' fill='%23F0EBE0'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Roboto,sans-serif' font-weight='700' font-size='13' fill='%23E8521A' letter-spacing='0.5'>FP</text></svg>"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+a { text-decoration: none; color: inherit; }
+
+:root {
+  --pitch:      #0E0E0C;
+  --burn:       #E8521A;
+  --linen:      #F0EBE0;
+  --linen-dark: #E8E2D6;
+  --dust:       #C4B8A8;
+  --deep-dust:  #4A4038;
+  --border:     #C8C0B4;
+  --font-display: 'Big Shoulders Display', sans-serif;
+  --font-mono:    'DM Mono', monospace;
+  --font-body:    'DM Sans', sans-serif;
+}
+
+html { background: var(--linen); }
+body {
+  font-family: var(--font-body);
+  font-weight: 300;
+  color: var(--pitch);
+  background: var(--linen);
+  font-size: 14px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* NAV */
+.nav {
+  background: var(--linen);
+  border-bottom: 0.5px solid var(--border);
+  padding: 0 40px;
+  height: 54px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.logo {
+  font-family: var(--font-display);
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--pitch);
+  letter-spacing: 0.04em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.logo-mark {
+  font-family: 'Consolas', monospace;
+  font-size: 16px;
+  font-weight: 400;
+  color: var(--burn);
+  line-height: 1;
+}
+.nav-back {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: #8A8070;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-left: auto;
+  transition: color 0.2s;
+}
+.nav-back:hover { color: var(--pitch); }
+
+/* PAGE */
+.page {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 56px 40px 80px;
+}
+
+/* HEADER */
+.page-header {
+  margin-bottom: 48px;
+  padding-bottom: 24px;
+  border-bottom: 2px solid var(--burn);
+}
+.page-annot {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: #A89880;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.annot-box {
+  border: 0.5px solid var(--dust);
+  padding: 2px 6px;
+  font-size: 9px;
+}
+.annot-line { flex: 1; height: 0.5px; background: var(--dust); max-width: 40px; }
+.page-title {
+  font-family: var(--font-display);
+  font-size: 52px;
+  font-weight: 900;
+  color: var(--pitch);
+  line-height: 0.9;
+  letter-spacing: -0.5px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+.page-title .accent { color: var(--burn); }
+.page-meta {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: #A89880;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+/* SECTIONS */
+.legal-section {
+  margin-bottom: 48px;
+}
+.legal-section-tag {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.18em;
+  color: var(--burn);
+  text-transform: uppercase;
+  border: 0.5px solid var(--burn);
+  padding: 2px 7px;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+.legal-section-title {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--pitch);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+.legal-section p {
+  color: #7A7060;
+  margin-bottom: 12px;
+  font-weight: 300;
+}
+.legal-section p:last-child { margin-bottom: 0; }
+.legal-section a {
+  color: var(--burn);
+  border-bottom: 0.5px solid var(--burn);
+  transition: color 0.2s, border-color 0.2s;
+}
+.legal-section a:hover { color: #3A8A8A; border-color: #3A8A8A; }
+
+.divider {
+  height: 0.5px;
+  background: var(--border);
+  margin-bottom: 48px;
+}
+
+/* FOOTER */
+.footer {
+  background: var(--pitch);
+  padding: 18px 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.footer-logo {
+  font-family: 'Consolas', monospace;
+  font-size: 14px;
+  font-weight: 700;
+  color: #A8A494;
+  letter-spacing: 0.08em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.footer-logo-mark { color: var(--burn); font-weight: 400; }
+.footer-copy {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: #4A4A38;
+  letter-spacing: 0.1em;
+}
+.footer-links {
+  display: flex;
+  gap: 20px;
+}
+.footer-link {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  color: #4A4A38;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+}
+.footer-link:hover { color: #A8A494; }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<header class="nav" role="banner">
+  <a href="/" class="logo">
+    <span class="logo-mark">⎇</span>
+    FORUM PLAYBOOK
+  </a>
+  <a href="/" class="nav-back">Back to Site</a>
+</header>
+
+<!-- PAGE -->
+<main class="page">
+
+  <div class="page-header">
+    <div class="page-annot">
+      <div class="annot-box">FP</div>
+      <div class="annot-line"></div>
+      Legal
+      <div class="annot-line"></div>
+      <div class="annot-box">2026</div>
+    </div>
+    <div class="page-title">PRIVACY<br><span class="accent">& TERMS.</span></div>
+    <div class="page-meta">Last updated: April 2026</div>
+  </div>
+
+  <!-- PRIVACY POLICY -->
+  <div class="legal-section">
+    <div class="legal-section-tag">01</div>
+    <div class="legal-section-title">Privacy Policy</div>
+    <p>Forum Playbook is a free resource hub. This site does not collect, store, or sell personal information. There are no accounts, no forms, and no email signups.</p>
+    <p>This site uses Google Analytics to understand how people find and use it -- things like which pages are visited and how long people stick around. Google Analytics may collect anonymized data including your IP address, browser type, and general location. This data is processed by Google and is subject to <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's Privacy Policy</a>. No personally identifiable information is collected or stored by Forum Playbook.</p>
+    <p>This site also loads resources from Google Drive and videos from YouTube. Visiting those links may be subject to Google's privacy practices.</p>
+    <p>If you're in the EU or elsewhere with local privacy laws: this site makes no attempt to profile you, target you, or sell anything to you. If you have questions, you can reach out via <a href="https://www.linkedin.com/in/coltonmulligan" target="_blank" rel="noopener noreferrer">LinkedIn</a>.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- TERMS OF USE -->
+  <div class="legal-section">
+    <div class="legal-section-tag">02</div>
+    <div class="legal-section-title">Terms of Use</div>
+    <p>The resources on this site -- templates, frameworks, guides, and worksheets -- are here to be used. That's the whole point. Take them, adapt them, run better Forums with them.</p>
+    <p>A few things to keep in mind: where a resource credits a source, respect that credit. Some materials were created by Colton Mulligan, some were adapted from others' work, and some are widely circulated with unclear origins. Sources are cited when known. If something is yours and it's not credited correctly, reach out and it'll get fixed.</p>
+    <p>Don't repackage these resources and sell them. Don't claim you made them if you didn't. Beyond that, use your judgment -- these are tools for facilitators, not legal landmines.</p>
+    <p>This site is provided as-is, with no guarantees. Forum facilitation is a human endeavor and no template is a substitute for actually showing up prepared. If something on this site is broken or wrong, it's probably Colton's fault. He doesn't know how to code.</p>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- CONTACT -->
+  <div class="legal-section">
+    <div class="legal-section-tag">03</div>
+    <div class="legal-section-title">Contact</div>
+    <p>Questions, corrections, or credit disputes -- find Colton on <a href="https://www.linkedin.com/in/coltonmulligan" target="_blank" rel="noopener noreferrer">LinkedIn</a>.</p>
+  </div>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer" role="contentinfo">
+  <div class="footer-logo">
+    <span class="footer-logo-mark">⎇</span>
+    FORUM PLAYBOOK
+  </div>
+  <div class="footer-links">
+    <a href="/brand" class="footer-link">Brand</a>
+    <a href="/legal" class="footer-link">Legal</a>
+  </div>
+  <div class="footer-copy">© 2026 Forum Playbook</div>
+</footer>
+
+</body>
+</html>
