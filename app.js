@@ -570,7 +570,7 @@ function timeAgo(iso) {
 }
 
 function cleanFileName(name) {
-  return name.replace(/^\d+_/, '').replace(/\.(docx?|xlsx?|pdf|gsheet|gdoc)$/i, '').toUpperCase();
+  return name.replace(/^\d+[\._\-\s]+/, '').replace(/\.(docx?|xlsx?|pdf|gsheet|gdoc)$/i, '').toUpperCase();
 }
 
 
