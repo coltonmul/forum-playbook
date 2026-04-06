@@ -1,851 +1,484 @@
-/* ═══════════════════════════════════════════════════════════
-   FORUM PLAYBOOK — styles.css
-   Design: Schematic Light (locked)
-   Fonts: Big Shoulders Display / DM Mono / DM Sans
-   ═══════════════════════════════════════════════════════════ */
-
-/* ── RESET ─────────────────────────────────────────────── */
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-a { text-decoration: none; color: inherit; }
-button { background: none; border: none; font: inherit; cursor: pointer; }
-img { display: block; max-width: 100%; }
-
-/* ── CSS TOKENS ─────────────────────────────────────────── */
-:root {
-  --pitch:       #0E0E0C;
-  --burn:        #E8521A;
-  --brick:       #B83A14;
-  --gold:        #D4A832;
-  --teal:        #3A8A8A;
-  --blue:        #2A6E9A;
-  --linen:       #F0EBE0;
-  --linen-dark:  #E8E2D6;
-  --dust:        #C4B8A8;
-  --deep-dust:   #4A4038;
-  --border:      #C8C0B4;
-  --white:       #FFFFFF;
-
-  --font-display: 'Big Shoulders Display', sans-serif;
-  --font-mono:    'DM Mono', monospace;
-  --font-body:    'DM Sans', sans-serif;
-}
-
-/* ── BASE ───────────────────────────────────────────────── */
-html { scroll-behavior: smooth; }
-
-body {
-  background: var(--linen);
-  font-family: var(--font-body);
-  font-weight: 400;
-  color: var(--pitch);
-  min-height: 100vh;
-}
-
-/* ── STRIPE HOVER SYSTEM ────────────────────────────────── */
-@keyframes wave1 { 0% { transform: translateX(-100%); } 100% { transform: translateX(0%); } }
-@keyframes wave2 { 0% { transform: translateX(-100%); } 100% { transform: translateX(0%); } }
-
-.sh {
-  position: relative;
-  overflow: hidden;
-  cursor: pointer;
-  display: inline-block;
-  transition: box-shadow 0.5s ease, transform 0.3s ease;
-}
-.sh::before,
-.sh::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  transform: translateX(-100%);
-}
-.sh::before { z-index: 0; }
-.sh::after  { z-index: 1; }
-.sh:hover::before { animation: wave1 0.5s cubic-bezier(0.4,0,0.2,1) 0s    forwards; }
-.sh:hover::after  { animation: wave2 0.5s cubic-bezier(0.4,0,0.2,1) 0.32s forwards; }
-.sh > span { position: relative; z-index: 2; transition: color 0.12s ease 0.32s; }
-
-/* Warm family: Gold → Teal */
-.warm::before { background: var(--gold); }
-.warm::after  { background: var(--teal); }
-.warm:hover   { box-shadow: 0 8px 28px rgba(58,138,138,0.5), 0 2px 8px rgba(58,138,138,0.25); transform: translateY(-2px); }
-.warm:hover > span { color: #fff; }
-
-/* Cool family: Teal → Blue */
-.cool::before { background: var(--teal); }
-.cool::after  { background: var(--blue); }
-.cool:hover   { box-shadow: 0 8px 28px rgba(42,110,154,0.5), 0 2px 8px rgba(42,110,154,0.25); transform: translateY(-2px); }
-.cool:hover > span { color: #fff; }
-
-/* Dark pill: Gold → Teal */
-.dp::before { background: var(--gold); }
-.dp::after  { background: var(--teal); }
-.dp:hover   { box-shadow: 0 8px 28px rgba(58,138,138,0.5), 0 2px 8px rgba(58,138,138,0.25); transform: translateY(-2px); }
-.dp:hover > span { color: #fff; }
-
-
-/* ══════════════════════════════════════════════════════════
-   NAV
-══════════════════════════════════════════════════════════ */
-.nav {
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: var(--linen);
-  border-bottom: 0.5px solid var(--border);
-  padding: 0 40px;
-  height: 54px;
-  display: flex;
-  align-items: center;
-  gap: 32px;
-}
-
-.nav nav {
-  display: flex;
-  gap: 28px;
-  margin-right: auto;
-}
-
-.logo {
-  font-family: var(--font-display);
-  font-size: 18px;
-  font-weight: 900;
-  color: var(--pitch);
-  letter-spacing: 0.04em;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-right: 32px;
-}
-
-/* Logo mark: ⎇ symbol in Consolas, Burn color */
-.logo-mark {
-  font-family: 'Consolas', monospace;
-  font-size: 16px;
-  font-weight: 400;
-  color: var(--burn);
-  flex-shrink: 0;
-  line-height: 1;
-}
-
-.nav-link {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: #8A8070;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  position: relative;
-  padding-bottom: 2px;
-  transition: color 0.2s;
-}
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: -1px;
-  left: 0;
-  width: 0;
-  height: 1.5px;
-  background: linear-gradient(90deg, var(--brick), var(--burn), var(--gold), var(--teal));
-  transition: width 0.4s cubic-bezier(0.4,0,0.2,1);
-}
-.nav-link:hover { color: var(--pitch); }
-.nav-link:hover::after { width: 100%; }
-
-.nav-cta {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 7px 18px;
-  border: 0.5px solid var(--pitch);
-  color: var(--pitch);
-}
-.nav-cta:hover { border-color: var(--teal); }
-
-
-/* ══════════════════════════════════════════════════════════
-   HERO
-══════════════════════════════════════════════════════════ */
-.hero {
-  background: var(--linen);
-  padding: 40px 40px 0;
-  position: relative;
-  overflow: hidden;
-  min-height: 300px;
-}
-
-.hero-stripe {
-  position: absolute;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  width: 33.333%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  pointer-events: none;
-}
-.hs { flex: 1; align-self: flex-end; width: 100%; }
-
-.hero-inner { position: relative; z-index: 1; }
-
-/* Annotation bar */
-.annot {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  color: #A89880;
-  letter-spacing: 0.18em;
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-.annot-box {
-  border: 0.5px solid var(--dust);
-  padding: 2px 7px;
-  font-size: 9px;
-  color: #A89880;
-  transition: border-color 0.2s, color 0.2s;
-  cursor: default;
-}
-.annot-box:hover { border-color: var(--burn); color: var(--burn); }
-.annot-line { flex: 1; height: 0.5px; background: var(--dust); max-width: 60px; }
-
-/* Headline */
-.h1 {
-  font-family: var(--font-display);
-  font-size: 88px;
-  font-weight: 900;
-  color: var(--pitch);
-  line-height: 0.88;
-  letter-spacing: -1px;
-  margin-bottom: 4px;
-  text-transform: uppercase;
-}
-.h1 .accent { color: var(--burn); }
-.h1 .accent-gold { color: var(--gold); }
-
-/* h1-sub removed — TOGETHER. headline replaced with new hero copy */
-
-/* Hero bottom strip */
-.hero-bottom {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  padding: 24px 0 0;
-  border-top: 0.5px solid var(--dust);
-  margin-top: 32px;
-}
-
-.hero-sub {
-  font-size: 13px;
-  color: #7A7060;
-  max-width: 320px;
-  line-height: 1.65;
-  font-weight: 300;
-}
-
-/* Stats */
-.stats { display: flex; gap: 36px; padding-bottom: 4px; }
-.stat { cursor: default; }
-.stat-num {
-  font-family: var(--font-display);
-  font-size: 34px;
-  font-weight: 900;
-  color: var(--pitch);
-  line-height: 1;
-  transition: color 0.2s;
-}
-.stat:hover .stat-num { color: var(--burn); }
-.stat-label {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  color: #A89880;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin-top: 2px;
-}
-
-
-/* ══════════════════════════════════════════════════════════
-   SEARCH + FILTER ROW
-══════════════════════════════════════════════════════════ */
-.search-row {
-  background: var(--linen-dark);
-  padding: 18px 40px;
-  border-top: 0.5px solid var(--border);
-  border-bottom: 0.5px solid var(--border);
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  flex-wrap: wrap;
-}
-
-.search-wrap {
-  flex: 1;
-  min-width: 200px;
-  position: relative;
-  display: flex;
-  align-items: center;
-}
-.search-icon {
-  position: absolute;
-  left: 12px;
-  font-size: 16px;
-  color: #A89880;
-  pointer-events: none;
-  line-height: 1;
-}
-.search-input {
-  width: 100%;
-  background: var(--linen);
-  border: 0.5px solid var(--dust);
-  height: 40px;
-  padding: 0 14px 0 34px;
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: var(--pitch);
-  letter-spacing: 0.04em;
-  outline: none;
-  transition: border-color 0.2s;
-  -webkit-appearance: none;
-}
-.search-input::placeholder { color: #A89880; }
-.search-input:hover { border-color: #8A8070; }
-.search-input:focus { border-color: var(--teal); }
-
-/* Filter pills */
-.pills { display: flex; gap: 6px; flex-wrap: wrap; }
-
-.pill {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 6px 14px;
-  border: 0.5px solid var(--dust);
-  color: #5A5048;
-  cursor: pointer;
-  transition: border-color 0.2s;
-}
-.pill.active {
-  background: var(--pitch);
-  color: var(--linen);
-  border-color: var(--pitch);
-}
-
-
-/* ══════════════════════════════════════════════════════════
-   SECTION HEADERS
-══════════════════════════════════════════════════════════ */
-.section-header {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  padding: 20px 40px 0;
-}
-
-.resources-header {
-  background: var(--linen);
-  padding-bottom: 16px;
-  border-bottom: 0.5px solid var(--border);
-}
-
-.section-title {
-  font-family: var(--font-display);
-  font-size: 26px;
-  font-weight: 900;
-  color: var(--pitch);
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-}
-.section-count {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  color: #A89880;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-
-
-/* ══════════════════════════════════════════════════════════
-   RESOURCE CARDS
-══════════════════════════════════════════════════════════ */
-.cards {
-  padding: 24px 40px 40px;
-  background: var(--linen);
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
-/* Card base */
-.card {
-  background: var(--white);
-  border: 0.5px solid #D4CCC0;
-  position: relative;
-  padding: 20px;
-  overflow: hidden;
-  transition: border-color 0.25s, box-shadow 0.4s, transform 0.3s;
-}
-.card:hover {
-  border-color: var(--burn);
-  box-shadow: 0 10px 32px rgba(58,138,138,0.18), 0 2px 8px rgba(0,0,0,0.06);
-  transform: translateY(-2px);
-}
-
-/* Top stripe bar on hover */
-.card::after {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0;
-  height: 3px;
-  background: linear-gradient(90deg,
-    #B83A14 0%, #B83A14 16%,
-    #D4611A 16%, #D4611A 32%,
-    #E8521A 32%, #E8521A 48%,
-    #D4A832 48%, #D4A832 64%,
-    #3A8A8A 64%, #3A8A8A 80%,
-    #2A6E9A 80%, #2A6E9A 100%
-  );
-  background-size: 300% 100%;
-  background-position: 200% center;
-  opacity: 0;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: opacity 0.1s;
-}
-.card:hover::after {
-  opacity: 1;
-  animation: wave1 0.55s cubic-bezier(0.4,0,0.2,1) forwards;
-}
-
-/* Corner brackets */
-.corner-tl {
-  position: absolute;
-  top: -1px; left: -1px;
-  width: 12px; height: 12px;
-  border-top: 1px solid var(--burn);
-  border-left: 1px solid var(--burn);
-}
-.corner-br {
-  position: absolute;
-  bottom: -1px; right: -1px;
-  width: 12px; height: 12px;
-  border-bottom: 1px solid var(--dust);
-  border-right: 1px solid var(--dust);
-  transition: border-color 0.25s;
-}
-.card:hover .corner-br { border-color: var(--burn); }
-
-/* Card ID row */
-.card-id {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  color: var(--dust);
-  letter-spacing: 0.14em;
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  text-transform: uppercase;
-}
-.card-id-box {
-  border: 0.5px solid #D4CCC0;
-  padding: 1px 6px;
-  font-size: 8px;
-  color: var(--burn);
-  letter-spacing: 0.1em;
-}
-
-/* Card title */
-.card-title {
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--pitch);
-  line-height: 1.1;
-  margin-bottom: 6px;
-  letter-spacing: 0.02em;
-  text-transform: uppercase;
-}
-
-/* Card meta */
-.card-meta {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  color: #A89880;
-  letter-spacing: 0.08em;
-  margin-bottom: 16px;
-  text-transform: uppercase;
-}
-
-/* Card buttons */
-.card-btns {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-}
-
-.btn {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 6px 11px;
-  border: 0.5px solid var(--dust);
-  color: #5A5048;
-  cursor: pointer;
-  display: inline-block;
-}
-
-/* Primary download button */
-.btn-primary {
-  background: var(--burn);
-  border-color: var(--burn);
-  color: var(--white);
-}
-
-/* Ghost / Drive button */
-.btn-ghost {
-  border-color: #8A8070;
-  color: var(--deep-dust);
-}
-
-/* Skeleton cards */
-.skeleton { pointer-events: none; }
-.skel-line {
-  background: linear-gradient(90deg, #E8E2D6 25%, #F0EBE0 50%, #E8E2D6 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.4s infinite;
-  border-radius: 2px;
-  margin-bottom: 8px;
-  height: 10px;
-}
-.skel-short { width: 40%; }
-.skel-title { height: 18px; width: 80%; }
-.skel-meta  { width: 60%; }
-.skel-btns  { display: flex; gap: 6px; margin-top: 12px; }
-.skel-btn   { height: 28px; width: 64px; background: #E8E2D6; border-radius: 2px; }
-
-@keyframes shimmer {
-  0%   { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
-
-/* Empty state */
-.empty-state {
-  padding: 60px 40px;
-  text-align: center;
-  background: var(--linen);
-}
-.empty-icon {
-  font-size: 32px;
-  color: var(--dust);
-  margin-bottom: 12px;
-}
-.empty-title {
-  font-family: var(--font-display);
-  font-size: 20px;
-  font-weight: 700;
-  color: var(--pitch);
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-  margin-bottom: 6px;
-}
-.empty-msg {
-  font-family: var(--font-mono);
-  font-size: 11px;
-  color: #A89880;
-  letter-spacing: 0.08em;
-}
-
-
-/* ══════════════════════════════════════════════════════════
-   VIDEO HUB
-══════════════════════════════════════════════════════════ */
-.videos-section {
-  background: var(--linen-dark);
-  border-top: 0.5px solid var(--border);
-  padding-bottom: 40px;
-}
-
-.videos-section .section-header {
-  padding-bottom: 16px;
-}
-
-.video-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  padding: 0 40px;
-}
-
-.video-card {
-  background: var(--white);
-  border: 0.5px solid #D4CCC0;
-  overflow: hidden;
-  cursor: pointer;
-  transition: border-color 0.25s, box-shadow 0.4s, transform 0.3s;
-}
-.video-card:hover {
-  border-color: var(--teal);
-  box-shadow: 0 10px 32px rgba(42,110,154,0.18), 0 2px 8px rgba(0,0,0,0.06);
-  transform: translateY(-2px);
-}
-
-.video-thumb {
-  height: 90px;
-  background: #2A3028;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-}
-
-.video-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.85;
-  transition: opacity 0.3s;
-}
-.video-card:hover .video-thumb img { opacity: 1; }
-
-.play-btn {
-  position: absolute;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  background: rgba(232,82,26,0.85);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s, transform 0.2s;
-  z-index: 2;
-}
-.video-card:hover .play-btn { background: var(--burn); transform: scale(1.1); }
-
-.play-triangle {
-  width: 0;
-  height: 0;
-  border-style: solid;
-  border-width: 5px 0 5px 10px;
-  border-color: transparent transparent transparent #fff;
-  margin-left: 2px;
-}
-
-.yt-badge {
-  position: absolute;
-  bottom: 5px;
-  right: 7px;
-  background: rgba(0,0,0,0.55);
-  color: #fff;
-  font-family: var(--font-mono);
-  font-size: 8px;
-  padding: 2px 5px;
-  letter-spacing: 0.08em;
-}
-
-.video-info { padding: 10px 14px 12px; }
-
-.video-title {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  font-weight: 500;
-  color: var(--pitch);
-  line-height: 1.45;
-  margin-bottom: 4px;
-  letter-spacing: 0.02em;
-}
-
-.video-meta {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  color: #A89880;
-  letter-spacing: 0.06em;
-}
-
-/* Skeleton video */
-.skeleton-video { pointer-events: none; }
-.video-thumb-skel {
-  height: 90px;
-  background: linear-gradient(90deg, #D4CCC0 25%, #E8E2D6 50%, #D4CCC0 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.4s infinite;
-}
-
-
-/* ══════════════════════════════════════════════════════════
-   LIGHTBOX
-══════════════════════════════════════════════════════════ */
-.lightbox {
-  position: fixed;
-  inset: 0;
-  z-index: 200;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.lightbox[hidden] { display: none; }
-
-.lightbox-backdrop {
-  position: absolute;
-  inset: 0;
-  background: rgba(14,14,12,0.85);
-  cursor: pointer;
-}
-
-.lightbox-inner {
-  position: relative;
-  z-index: 1;
-  width: 90vw;
-  max-width: 900px;
-  aspect-ratio: 16/9;
-  background: var(--pitch);
-}
-
-.lightbox-embed {
-  width: 100%;
-  height: 100%;
-}
-.lightbox-embed iframe {
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-
-.lightbox-close {
-  position: absolute;
-  top: -36px;
-  right: 0;
-  color: var(--linen);
-  font-family: var(--font-mono);
-  font-size: 16px;
-  letter-spacing: 0.1em;
-  opacity: 0.7;
-  transition: opacity 0.2s;
-}
-.lightbox-close:hover { opacity: 1; }
-
-
-/* ══════════════════════════════════════════════════════════
-   ABOUT SECTION
-══════════════════════════════════════════════════════════ */
-.about-section {
-  background: var(--linen);
-  border-top: 0.5px solid var(--border);
-  padding: 48px 40px;
-}
-.about-link {
-  color: var(--burn);
-  text-decoration: none;
-  border-bottom: 0.5px solid var(--burn);
-  transition: color 0.2s, border-color 0.2s;
-}
-.about-link:hover {
-  color: var(--teal);
-  border-color: var(--teal);
-}
-
-.about-title {
-  font-family: var(--font-display);
-  font-size: 64px;
-  font-weight: 900;
-  color: var(--pitch);
-  line-height: 0.9;
-  letter-spacing: -0.5px;
-  text-transform: uppercase;
-  margin: 16px 0 24px;
-}
-.about-title .accent { color: var(--burn); }
-
-.about-body {
-  font-size: 15px;
-  color: #7A7060;
-  max-width: 560px;
-  line-height: 1.7;
-  font-weight: 300;
-}
-
-
-.footer-links {
-  display: flex;
-  gap: 20px;
-}
-.footer-link {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  color: #4A4A38;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  transition: color 0.2s;
-}
-.footer-link:hover { color: #A8A494; }
-
-/* ══════════════════════════════════════════════════════════
-   FOOTER
-══════════════════════════════════════════════════════════ */
-.footer {
-  background: var(--pitch);
-  padding: 18px 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.footer-logo {
-  font-family: 'Consolas', monospace;
-  font-size: 14px;
-  font-weight: 700;
-  color: #A8A494;
-  letter-spacing: 0.08em;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-/* Footer mark: ⎇ symbol in Burn */
-.footer-logo-mark {
-  color: var(--burn);
-  font-weight: 400;
-  line-height: 1;
-}
-
-.footer-copy {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  color: #4A4A38;
-  letter-spacing: 0.1em;
-}
-
-
-/* ══════════════════════════════════════════════════════════
-   RESPONSIVE — TABLET / MOBILE
-══════════════════════════════════════════════════════════ */
-@media (max-width: 900px) {
-  .video-grid { grid-template-columns: repeat(2, 1fr); }
-}
-
-@media (max-width: 680px) {
-  .nav { padding: 0 20px; gap: 16px; }
-  .hero { padding: 28px 20px 0; }
-  .h1, .h1-sub { font-size: 60px; }
-  .hero-stripe { width: 120px; }
-  .hero-bottom { flex-direction: column; gap: 20px; align-items: flex-start; }
-  .search-row { padding: 14px 20px; }
-  .section-header { padding: 16px 20px 0; }
-  .cards { padding: 16px 20px 24px; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .video-grid { grid-template-columns: 1fr; padding: 0 20px; }
-  .about-section { padding: 32px 20px; }
-  .about-title { font-size: 44px; }
-  .palette-section { padding: 20px; }
-  .footer { padding: 16px 20px; }
-}
-
-@media (max-width: 480px) {
-  .cards { grid-template-columns: 1fr; }
-  .h1, .h1-sub { font-size: 48px; }
-  .nav nav { display: none; }
-}
+// ═══════════════════════════════════════════════════════════
+// FORUM PLAYBOOK — app.js
+// Phase 1: Structure + API integration
+// ═══════════════════════════════════════════════════════════
+
+// ── Session cache (no localStorage) ────────────────────────
+const CACHE = {
+  files: [],       // All Drive files across all folders
+  videos: [],      // All YouTube playlist items
+};
+
+// ── State ───────────────────────────────────────────────────
+let activeFilter = 'all';
+let searchQuery  = '';
+
+// ── DOM refs ─────────────────────────────────────────────────
+const cardGrid     = document.getElementById('card-grid');
+const videoGrid    = document.getElementById('video-grid');
+const pillGroup    = document.getElementById('pill-group');
+const searchInput  = document.getElementById('search-input');
+const emptyState   = document.getElementById('empty-state');
+const emptyMsg     = document.getElementById('empty-msg');
+const resourceCount= document.getElementById('resource-count');
+const statResources= document.getElementById('stat-resources');
+const statCategories=document.getElementById('stat-categories');
+const statVideos   = document.getElementById('stat-videos');
+const lightbox     = document.getElementById('lightbox');
+const lightboxEmbed= document.getElementById('lightbox-embed');
+const lightboxClose= document.getElementById('lightbox-close');
+const lightboxBg   = document.getElementById('lightbox-backdrop');
+
+
+// ════════════════════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════════════════════
+async function init() {
+  if (
+    !CONFIG.GOOGLE_API_KEY ||
+    CONFIG.GOOGLE_API_KEY === 'YOUR_API_KEY_HERE' ||
+    CONFIG.DRIVE_FOLDERS.some(f => f.id === 'FOLDER_ID_HERE')
+  ) {
+    showConfigError();
+    return;
+  }
+
+  await Promise.all([
+    loadDriveFiles(),
+    loadYouTubeVideos(),
+  ]);
+}
+
+
+// ════════════════════════════════════════════════════════════
+// GOOGLE DRIVE — load all folders
+// ════════════════════════════════════════════════════════════
+async function loadDriveFiles() {
+  try {
+    const allFiles = [];
+
+    for (const folder of CONFIG.DRIVE_FOLDERS) {
+      const url = new URL('https://www.googleapis.com/drive/v3/files');
+      url.searchParams.set('q', `'${folder.id}' in parents and trashed = false`);
+      url.searchParams.set('fields', 'files(id,name,mimeType,modifiedTime)');
+      url.searchParams.set('orderBy', 'name');
+      url.searchParams.set('pageSize', '500');
+      url.searchParams.set('key', CONFIG.GOOGLE_API_KEY);
+
+      const res  = await fetch(url.toString());
+      const data = await res.json();
+
+      if (data.error) throw new Error(data.error.message);
+
+      const files = (data.files || []).map(f => ({
+        ...f,
+        category: folder.label,
+      }));
+      allFiles.push(...files);
+    }
+
+    CACHE.files = allFiles;
+    buildPills();
+    renderCards();
+    updateStats();
+
+  } catch (err) {
+    showDriveError(err.message);
+  }
+}
+
+
+// ════════════════════════════════════════════════════════════
+// YOUTUBE — load playlist
+// ════════════════════════════════════════════════════════════
+async function loadYouTubeVideos() {
+  try {
+    if (!CONFIG.YOUTUBE_PLAYLIST_ID || CONFIG.YOUTUBE_PLAYLIST_ID === 'YOUR_PLAYLIST_ID_HERE') {
+      clearVideoSkeletons();
+      return;
+    }
+
+    const url = new URL('https://www.googleapis.com/youtube/v3/playlistItems');
+    url.searchParams.set('part', 'snippet,contentDetails');
+    url.searchParams.set('playlistId', CONFIG.YOUTUBE_PLAYLIST_ID);
+    url.searchParams.set('maxResults', '50');
+    url.searchParams.set('key', CONFIG.GOOGLE_API_KEY);
+
+    const res  = await fetch(url.toString());
+    const data = await res.json();
+
+    if (data.error) throw new Error(data.error.message);
+
+    CACHE.videos = (data.items || []).sort((a, b) =>
+      new Date(b.snippet.publishedAt) - new Date(a.snippet.publishedAt)
+    );
+
+    renderVideos();
+    updateStats();
+
+  } catch (err) {
+    showVideoError(err.message);
+  }
+}
+
+
+// ════════════════════════════════════════════════════════════
+// FILTER PILLS — build from folder labels
+// ════════════════════════════════════════════════════════════
+function buildPills() {
+  const existing = pillGroup.querySelectorAll('.pill[data-filter]:not([data-filter="all"])');
+  existing.forEach(p => p.remove());
+
+  const categories = [...new Set(CACHE.files.map(f => f.category))];
+
+  categories.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'pill sh warm';
+    btn.dataset.filter = cat;
+    btn.innerHTML = `<span>${cat}</span>`;
+    btn.addEventListener('click', () => setFilter(cat));
+    pillGroup.appendChild(btn);
+  });
+}
+
+
+// ════════════════════════════════════════════════════════════
+// FILTER + SEARCH STATE
+// ════════════════════════════════════════════════════════════
+function setFilter(filter) {
+  activeFilter = filter;
+  pillGroup.querySelectorAll('.pill').forEach(p => {
+    const isActive = p.dataset.filter === filter;
+    p.classList.toggle('active', isActive);
+    p.classList.toggle('sh', true);
+    p.classList.toggle('dp', isActive);
+    p.classList.toggle('warm', !isActive);
+  });
+  renderCards();
+}
+
+searchInput.addEventListener('input', e => {
+  searchQuery = e.target.value.toLowerCase().trim();
+  renderCards();
+});
+
+
+// ════════════════════════════════════════════════════════════
+// DOWNLOAD HELPER — fetches blob and names the file correctly
+// ════════════════════════════════════════════════════════════
+async function downloadFile(url, filename) {
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('Download failed');
+    const blob = await res.blob();
+    const blobUrl = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = blobUrl;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
+  } catch (err) {
+    console.error('Download error:', err);
+    // Fall back to opening in new tab
+    window.open(url, '_blank', 'noopener');
+  }
+}
+
+
+// ════════════════════════════════════════════════════════════
+// RENDER RESOURCE CARDS
+// ════════════════════════════════════════════════════════════
+function renderCards() {
+  const filtered = CACHE.files.filter(f => {
+    const matchesFilter = activeFilter === 'all' || f.category === activeFilter;
+    const matchesSearch = !searchQuery ||
+      f.name.toLowerCase().includes(searchQuery) ||
+      f.category.toLowerCase().includes(searchQuery);
+    return matchesFilter && matchesSearch;
+  });
+
+  resourceCount.textContent = `${filtered.length} resource${filtered.length !== 1 ? 's' : ''}`;
+
+  if (filtered.length === 0) {
+    cardGrid.innerHTML = '';
+    cardGrid.hidden = true;
+    emptyState.hidden = false;
+    emptyMsg.textContent = searchQuery
+      ? `No results for "${searchQuery}".`
+      : 'No resources in this category yet.';
+    return;
+  }
+
+  emptyState.hidden = true;
+  cardGrid.hidden = false;
+  cardGrid.innerHTML = filtered.map((f, i) => buildCardHTML(f, i)).join('');
+
+  // Attach download handlers after rendering
+  cardGrid.querySelectorAll('[data-download-url]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      const url      = btn.dataset.downloadUrl;
+      const filename = btn.dataset.filename;
+      downloadFile(url, filename);
+    });
+  });
+}
+
+function buildCardHTML(file, index) {
+  const type    = getMimeLabel(file.mimeType);
+  const date    = formatDate(file.modifiedTime);
+  const num     = String(index + 1).padStart(3, '0');
+  const title   = cleanFileName(file.name);
+  const buttons = buildButtonsHTML(file);
+
+  return `
+    <div class="card">
+      <div class="corner-tl"></div>
+      <div class="corner-br"></div>
+      <div class="card-id">
+        DOC-${num}
+        <div class="card-id-box">${file.category.toUpperCase()}</div>
+      </div>
+      <div class="card-title">${title}</div>
+      <div class="card-meta">${type} — UPDATED ${date}</div>
+      <div class="card-btns">${buttons}</div>
+    </div>
+  `;
+}
+
+function buildButtonsHTML(file) {
+  const id       = file.id;
+  const mime     = file.mimeType;
+  const base     = `https://www.googleapis.com/drive/v3/files/${id}/export?key=${CONFIG.GOOGLE_API_KEY}`;
+  const baseName = cleanFileName(file.name);
+
+  // Fix: use open?id= so Drive opens the file natively instead of showing "no preview"
+  const driveUrl = `https://drive.google.com/open?id=${id}`;
+
+  let html = '';
+
+  if (mime === 'application/vnd.google-apps.document') {
+    const docxUrl = `${base}&mimeType=application/vnd.openxmlformats-officedocument.wordprocessingml.document`;
+    const pdfUrl  = `${base}&mimeType=application/pdf`;
+    html += btnDownload('↓ DOCX', docxUrl, `${baseName}.docx`, 'primary');
+    html += btnDownload('↓ PDF',  pdfUrl,  `${baseName}.pdf`,  'secondary');
+    html += btnGhost('↗ Drive', driveUrl);
+
+  } else if (mime === 'application/vnd.google-apps.spreadsheet') {
+    const xlsxUrl = `${base}&mimeType=application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`;
+    const pdfUrl  = `${base}&mimeType=application/pdf`;
+    html += btnDownload('↓ XLSX', xlsxUrl, `${baseName}.xlsx`, 'primary');
+    html += btnDownload('↓ PDF',  pdfUrl,  `${baseName}.pdf`,  'secondary');
+    html += btnGhost('↗ Drive', driveUrl);
+
+  } else if (mime === 'application/pdf') {
+    const pdfUrl = `https://www.googleapis.com/drive/v3/files/${id}?alt=media&key=${CONFIG.GOOGLE_API_KEY}`;
+    html += btnDownload('↓ PDF', pdfUrl, `${baseName}.pdf`, 'secondary');
+    html += btnGhost('↗ Drive', driveUrl);
+
+  } else if (mime === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
+    const dlUrl  = `https://www.googleapis.com/drive/v3/files/${id}?alt=media&key=${CONFIG.GOOGLE_API_KEY}`;
+    const pdfUrl = `${base}&mimeType=application/pdf`;
+    html += btnDownload('↓ DOCX', dlUrl,   `${baseName}.docx`, 'primary');
+    html += btnDownload('↓ PDF',  pdfUrl,  `${baseName}.pdf`,  'secondary');
+    html += btnGhost('↗ Drive', driveUrl);
+
+  } else if (mime === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+    const dlUrl  = `https://www.googleapis.com/drive/v3/files/${id}?alt=media&key=${CONFIG.GOOGLE_API_KEY}`;
+    const pdfUrl = `${base}&mimeType=application/pdf`;
+    html += btnDownload('↓ XLSX', dlUrl,   `${baseName}.xlsx`, 'primary');
+    html += btnDownload('↓ PDF',  pdfUrl,  `${baseName}.pdf`,  'secondary');
+    html += btnGhost('↗ Drive', driveUrl);
+
+  } else {
+    html += btnGhost('↗ Drive', driveUrl);
+  }
+
+  return html;
+}
+
+// Download buttons use data attributes; click handlers are attached after render
+function btnDownload(label, url, filename, style) {
+  const cls = style === 'primary'
+    ? 'btn btn-primary sh warm'
+    : 'btn sh warm';
+  return `<button class="${cls}" data-download-url="${url}" data-filename="${filename}"><span>${label}</span></button>`;
+}
+
+function btnGhost(label, url) {
+  return `<a href="${url}" class="btn btn-ghost sh cool" target="_blank" rel="noopener"><span>${label}</span></a>`;
+}
+
+
+// ════════════════════════════════════════════════════════════
+// RENDER VIDEO CARDS
+// ════════════════════════════════════════════════════════════
+function renderVideos() {
+  if (!CACHE.videos.length) {
+    clearVideoSkeletons();
+    return;
+  }
+
+  videoGrid.innerHTML = CACHE.videos.map(v => buildVideoCardHTML(v)).join('');
+}
+
+function buildVideoCardHTML(item) {
+  const snippet   = item.snippet;
+  const videoId   = snippet.resourceId?.videoId || '';
+  const title     = snippet.title;
+  const thumb     = snippet.thumbnails?.medium?.url || '';
+  const published = timeAgo(snippet.publishedAt);
+
+  return `
+    <div class="video-card" data-videoid="${videoId}" role="button" tabindex="0" aria-label="Play: ${title}">
+      <div class="video-thumb">
+        ${thumb ? `<img src="${thumb}" alt="${title}" loading="lazy" />` : ''}
+        <div class="play-btn" aria-hidden="true">
+          <div class="play-triangle"></div>
+        </div>
+        <div class="yt-badge">YouTube</div>
+      </div>
+      <div class="video-info">
+        <div class="video-title">${title}</div>
+        <div class="video-meta">${published}</div>
+      </div>
+    </div>
+  `;
+}
+
+function clearVideoSkeletons() {
+  videoGrid.innerHTML = `
+    <div class="empty-state" style="grid-column:1/-1;padding:40px 0;">
+      <div class="empty-icon">▷</div>
+      <div class="empty-title">No Videos Yet</div>
+      <div class="empty-msg">Add videos to your YouTube playlist and they'll appear here.</div>
+    </div>
+  `;
+}
+
+
+// ════════════════════════════════════════════════════════════
+// LIGHTBOX
+// ════════════════════════════════════════════════════════════
+videoGrid.addEventListener('click', e => {
+  const card = e.target.closest('[data-videoid]');
+  if (!card) return;
+  const videoId = card.dataset.videoid;
+  if (!videoId) return;
+
+  if (window.innerWidth < 680) {
+    window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank', 'noopener');
+    return;
+  }
+
+  lightboxEmbed.innerHTML = `
+    <iframe
+      src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0"
+      allow="autoplay; fullscreen"
+      allowfullscreen
+    ></iframe>
+  `;
+  lightbox.hidden = false;
+  document.body.style.overflow = 'hidden';
+  lightboxClose.focus();
+});
+
+videoGrid.addEventListener('keydown', e => {
+  if (e.key === 'Enter' || e.key === ' ') {
+    const card = e.target.closest('[data-videoid]');
+    if (card) card.click();
+  }
+});
+
+function closeLightbox() {
+  lightbox.hidden = true;
+  lightboxEmbed.innerHTML = '';
+  document.body.style.overflow = '';
+}
+
+lightboxClose.addEventListener('click', closeLightbox);
+lightboxBg.addEventListener('click', closeLightbox);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
+
+
+// ════════════════════════════════════════════════════════════
+// STATS
+// ════════════════════════════════════════════════════════════
+function updateStats() {
+  statResources.textContent  = CACHE.files.length  || '—';
+  statCategories.textContent = CONFIG.DRIVE_FOLDERS.length || '—';
+  statVideos.textContent     = CACHE.videos.length || '—';
+}
+
+
+// ════════════════════════════════════════════════════════════
+// ERROR STATES
+// ════════════════════════════════════════════════════════════
+function showConfigError() {
+  cardGrid.innerHTML = '';
+  cardGrid.hidden = true;
+  emptyState.hidden = false;
+  emptyMsg.textContent = 'Config not set up yet. Add your API key and folder IDs to config.js.';
+  clearVideoSkeletons();
+}
+
+function showDriveError(msg) {
+  cardGrid.innerHTML = '';
+  cardGrid.hidden = true;
+  emptyState.hidden = false;
+  emptyMsg.textContent = `Could not load resources. (${msg})`;
+}
+
+function showVideoError(msg) {
+  console.warn('YouTube API error:', msg);
+  clearVideoSkeletons();
+}
+
+
+// ════════════════════════════════════════════════════════════
+// UTILITIES
+// ════════════════════════════════════════════════════════════
+function getMimeLabel(mime) {
+  const map = {
+    'application/vnd.google-apps.document':     'GOOGLE DOC',
+    'application/vnd.google-apps.spreadsheet':  'GOOGLE SHEET',
+    'application/pdf':                          'PDF',
+    'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'DOCX',
+    'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':       'XLSX',
+  };
+  return map[mime] || 'FILE';
+}
+
+function formatDate(iso) {
+  if (!iso) return '';
+  const d = new Date(iso);
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}.${m}.${day}`;
+}
+
+function timeAgo(iso) {
+  if (!iso) return '';
+  const diff = Date.now() - new Date(iso).getTime();
+  const days = Math.floor(diff / 86400000);
+  if (days === 0) return 'Today';
+  if (days === 1) return 'Yesterday';
+  if (days < 7)  return `${days} days ago`;
+  if (days < 14) return '1 week ago';
+  if (days < 30) return `${Math.floor(days / 7)} weeks ago`;
+  if (days < 60) return '1 month ago';
+  return `${Math.floor(days / 30)} months ago`;
+}
+
+function cleanFileName(name) {
+  return name.replace(/^\d+_/, '').replace(/\.(docx?|xlsx?|pdf|gsheet|gdoc)$/i, '').toUpperCase();
+}
+
+
+// ════════════════════════════════════════════════════════════
+// GO
+// ════════════════════════════════════════════════════════════
+init();
