@@ -58,6 +58,9 @@ async function loadDriveFiles() {
     const allFiles = [];
 
     for (const folder of CONFIG.DRIVE_FOLDERS) {
+      // Skip API call for restricted folders — no files to fetch
+      if (folder.restricted) continue;
+
       const url = new URL('https://www.googleapis.com/drive/v3/files');
       url.searchParams.set('q', `'${folder.id}' in parents and trashed = false`);
       url.searchParams.set('fields', 'files(id,name,mimeType,modifiedTime)');
@@ -124,19 +127,19 @@ async function loadYouTubeVideos() {
 
 // ════════════════════════════════════════════════════════════
 // FILTER PILLS — build from folder labels
+// Restricted folders get their own pill but no file cards
 // ════════════════════════════════════════════════════════════
 function buildPills() {
   const existing = pillGroup.querySelectorAll('.pill[data-filter]:not([data-filter="all"])');
   existing.forEach(p => p.remove());
 
-  const categories = [...new Set(CACHE.files.map(f => f.category))];
-
-  categories.forEach(cat => {
+  // Include all folders in pills — restricted ones still get a pill
+  CONFIG.DRIVE_FOLDERS.forEach(folder => {
     const btn = document.createElement('button');
     btn.className = 'pill sh warm';
-    btn.dataset.filter = cat;
-    btn.innerHTML = `<span>${cat}</span>`;
-    btn.addEventListener('click', () => setFilter(cat));
+    btn.dataset.filter = folder.label;
+    btn.innerHTML = `<span>${folder.label}</span>`;
+    btn.addEventListener('click', () => setFilter(folder.label));
     pillGroup.appendChild(btn);
   });
 }
@@ -191,6 +194,16 @@ async function downloadFile(url, filename) {
 // RENDER RESOURCE CARDS
 // ════════════════════════════════════════════════════════════
 function renderCards() {
+  // Check if the active filter is a restricted folder
+  const activeFolder = CONFIG.DRIVE_FOLDERS.find(f => f.label === activeFilter);
+  if (activeFolder && activeFolder.restricted) {
+    cardGrid.hidden = false;
+    emptyState.hidden = true;
+    resourceCount.textContent = '0 resources';
+    cardGrid.innerHTML = buildRestrictedCardHTML(activeFolder.label);
+    return;
+  }
+
   const filtered = CACHE.files.filter(f => {
     const matchesFilter = activeFilter === 'all' || f.category === activeFilter;
     const matchesSearch = !searchQuery ||
@@ -226,6 +239,21 @@ function renderCards() {
   });
 }
 
+// ── Restricted folder notice card ───────────────────────────
+function buildRestrictedCardHTML(categoryLabel) {
+  return `
+    <div class="card card-restricted" style="grid-column:1/-1; opacity:0.72;">
+      <div class="corner-tl" style="border-color:#C4B8A8;"></div>
+      <div class="corner-br"></div>
+      <div class="card-id">
+        <div class="card-id-box" style="color:#C4B8A8; border-color:#C4B8A8;">${categoryLabel.toUpperCase()}</div>
+      </div>
+      <div class="card-title" style="color:#C4B8A8; font-size:16px;">ACCESS RESTRICTED</div>
+      <div class="card-meta" style="margin-bottom:0;">EO Legal now prohibits anyone from linking to EO official materials. You gotta hit up a trainer or staff member to get those documents directly.</div>
+    </div>
+  `;
+}
+
 function buildCardHTML(file, index) {
   const type    = getMimeLabel(file.mimeType);
   const date    = formatDate(file.modifiedTime);
@@ -254,7 +282,6 @@ function buildButtonsHTML(file) {
   const base     = `https://www.googleapis.com/drive/v3/files/${id}/export?key=${CONFIG.GOOGLE_API_KEY}`;
   const baseName = cleanFileName(file.name);
 
-  // Fix: use open?id= so Drive opens the file natively instead of showing "no preview"
   const driveUrl = `https://drive.google.com/open?id=${id}`;
 
   let html = '';
@@ -299,7 +326,6 @@ function buildButtonsHTML(file) {
   return html;
 }
 
-// Download buttons use data attributes; click handlers are attached after render
 function btnDownload(label, url, filename, style) {
   const cls = style === 'primary'
     ? 'btn btn-primary sh warm'
