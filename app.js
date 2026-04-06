@@ -1,12 +1,12 @@
 // ═══════════════════════════════════════════════════════════
 // FORUM PLAYBOOK — app.js
-// Phase 2: Recursive accordion + subfolder support
+// Phase 2: Recursive accordion, root-folder-driven taxonomy
 // ═══════════════════════════════════════════════════════════
 
 // ── Session cache (no localStorage) ────────────────────────
 const CACHE = {
-  folders: [],     // Nested folder tree per category
-  videos: [],      // All YouTube playlist items
+  sections: [],    // Top-level folder nodes (subfolders of root)
+  videos: [],      // YouTube playlist items
 };
 
 // ── State ───────────────────────────────────────────────────
@@ -16,8 +16,6 @@ let searchQuery = '';
 const accordionWrap = document.getElementById('accordion-wrap');
 const searchInput   = document.getElementById('search-input');
 const videoGrid     = document.getElementById('video-grid');
-const emptyState    = document.getElementById('empty-state');
-const emptyMsg      = document.getElementById('empty-msg');
 const resourceCount = document.getElementById('resource-count');
 const statResources = document.getElementById('stat-resources');
 const statCategories= document.getElementById('stat-categories');
@@ -33,10 +31,7 @@ const coreGrid      = document.getElementById('core-grid');
 // INIT
 // ════════════════════════════════════════════════════════════
 async function init() {
-  if (
-    !CONFIG.GOOGLE_API_KEY ||
-    CONFIG.GOOGLE_API_KEY === 'YOUR_API_KEY_HERE'
-  ) {
+  if (!CONFIG.GOOGLE_API_KEY || CONFIG.GOOGLE_API_KEY === 'YOUR_API_KEY_HERE') {
     showConfigError();
     return;
   }
@@ -44,14 +39,14 @@ async function init() {
   renderCoreResources();
 
   await Promise.all([
-    loadAllFolders(),
+    loadResourceLibrary(),
     loadYouTubeVideos(),
   ]);
 }
 
 
 // ════════════════════════════════════════════════════════════
-// CORE RESOURCES — render hardcoded featured cards
+// CORE RESOURCES — hardcoded featured cards
 // ════════════════════════════════════════════════════════════
 function renderCoreResources() {
   if (!coreGrid || !CONFIG.CORE_RESOURCES || !CONFIG.CORE_RESOURCES.length) return;
@@ -127,7 +122,7 @@ function iconSheet() {
 
 
 // ════════════════════════════════════════════════════════════
-// DRIVE — fetch folder contents (files + subfolders)
+// DRIVE — fetch folder contents
 // ════════════════════════════════════════════════════════════
 async function fetchFolderContents(folderId) {
   const url = new URL('https://www.googleapis.com/drive/v3/files');
@@ -143,39 +138,53 @@ async function fetchFolderContents(folderId) {
   return data.files || [];
 }
 
-// Recursively build a folder node: { name, id, files[], subfolders[] }
+// Recursively build a folder node
 async function buildFolderNode(folderId, folderName) {
-  const contents  = await fetchFolderContents(folderId);
-  const files     = contents.filter(f => f.mimeType !== 'application/vnd.google-apps.folder');
+  const restricted = isRestricted(folderName);
+
+  // Don't fetch contents of restricted folders
+  if (restricted) {
+    return { id: folderId, name: folderName, files: [], subfolders: [], restricted: true };
+  }
+
+  const contents   = await fetchFolderContents(folderId);
+  const files      = contents.filter(f => f.mimeType !== 'application/vnd.google-apps.folder');
   const rawFolders = contents.filter(f => f.mimeType === 'application/vnd.google-apps.folder');
 
-  // Recurse into subfolders
   const subfolders = await Promise.all(
     rawFolders.map(sf => buildFolderNode(sf.id, sf.name))
   );
 
-  return { id: folderId, name: folderName, files, subfolders };
+  return { id: folderId, name: folderName, files, subfolders, restricted: false };
 }
 
-async function loadAllFolders() {
+function isRestricted(name) {
+  const lower = name.toLowerCase();
+  return (CONFIG.RESTRICTED_FOLDER_NAMES || []).some(r => lower.includes(r.toLowerCase()));
+}
+
+async function loadResourceLibrary() {
   try {
     accordionWrap.innerHTML = buildSkeletonAccordion();
 
-    const trees = await Promise.all(
-      CONFIG.DRIVE_FOLDERS
-        .filter(f => !f.restricted)
-        .map(f => buildFolderNode(f.id, f.label))
+    // Fetch the root folder's immediate subfolders — these become top-level sections
+    const rootContents = await fetchFolderContents(CONFIG.DRIVE_ROOT_FOLDER_ID);
+    const topFolders   = rootContents.filter(f => f.mimeType === 'application/vnd.google-apps.folder');
+
+    // Also surface any loose files at root level (rare but handle gracefully)
+    const rootFiles    = rootContents.filter(f => f.mimeType !== 'application/vnd.google-apps.folder');
+
+    // Build each top-level section recursively
+    const sections = await Promise.all(
+      topFolders.map(f => buildFolderNode(f.id, f.name))
     );
 
-    CACHE.folders = trees;
+    // If there are loose root-level files, add a catch-all section
+    if (rootFiles.length) {
+      sections.unshift({ id: CONFIG.DRIVE_ROOT_FOLDER_ID, name: 'General', files: rootFiles, subfolders: [], restricted: false });
+    }
 
-    // Add restricted folders as placeholder nodes
-    CONFIG.DRIVE_FOLDERS
-      .filter(f => f.restricted)
-      .forEach(f => {
-        CACHE.folders.push({ id: f.id, name: f.label, files: [], subfolders: [], restricted: true });
-      });
-
+    CACHE.sections = sections;
     renderAccordion();
     updateStats();
 
@@ -198,23 +207,22 @@ searchInput.addEventListener('input', e => {
 // RENDER ACCORDION
 // ════════════════════════════════════════════════════════════
 function renderAccordion() {
-  if (!CACHE.folders.length) return;
+  if (!CACHE.sections.length) return;
 
-  // Count total matching files for resource count
   let totalMatching = 0;
 
-  const html = CACHE.folders.map(folder => {
-    if (folder.restricted) return buildRestrictedAccordionHTML(folder.name);
-    const { html: bodyHtml, count } = buildFolderBodyHTML(folder, 0);
+  const html = CACHE.sections.map(section => {
+    if (section.restricted) return buildRestrictedAccordionHTML(section.name);
+    const { html: bodyHtml, count } = buildFolderBodyHTML(section, 0);
     totalMatching += count;
-    return buildAccordionSectionHTML(folder.name, count, bodyHtml);
+    return buildAccordionSectionHTML(section.name, count, bodyHtml);
   }).join('');
 
   accordionWrap.innerHTML = html || `<div class="empty-state"><div class="empty-icon">◈</div><div class="empty-title">No resources found</div><div class="empty-msg">Try a different search term.</div></div>`;
 
   resourceCount.textContent = `${totalMatching} resource${totalMatching !== 1 ? 's' : ''}`;
 
-  // Attach toggle listeners
+  // Toggle listeners
   accordionWrap.querySelectorAll('.acc-header').forEach(header => {
     header.addEventListener('click', () => {
       header.classList.toggle('open');
@@ -230,7 +238,7 @@ function renderAccordion() {
     });
   });
 
-  // Attach download handlers
+  // Download handlers
   accordionWrap.querySelectorAll('[data-download-url]').forEach(btn => {
     btn.addEventListener('click', e => {
       e.preventDefault();
@@ -240,12 +248,11 @@ function renderAccordion() {
   });
 }
 
-// Recursively build folder body HTML, returns { html, count }
+// Recursively build folder body HTML
 function buildFolderBodyHTML(folder, depth) {
   let count = 0;
   let html  = '';
 
-  // Files first
   const matchingFiles = folder.files.filter(f => {
     if (!searchQuery) return true;
     return cleanFileName(f.name).toLowerCase().includes(searchQuery) ||
@@ -255,11 +262,9 @@ function buildFolderBodyHTML(folder, depth) {
   count += matchingFiles.length;
   html  += matchingFiles.map(f => buildDocRowHTML(f, depth)).join('');
 
-  // Then subfolders
   folder.subfolders.forEach(sf => {
     const { html: subHtml, count: subCount } = buildFolderBodyHTML(sf, depth + 1);
     count += subCount;
-    // Only show subfolder if it has matching content (or no search active)
     if (!searchQuery || subCount > 0) {
       html += buildSubfolderHTML(sf.name, subCount, subHtml, depth);
     }
@@ -270,7 +275,6 @@ function buildFolderBodyHTML(folder, depth) {
 
 function buildAccordionSectionHTML(name, count, bodyHtml) {
   const label = cleanFolderName(name);
-  const hasContent = count > 0 || !searchQuery;
   return `
     <div class="acc-category">
       <div class="acc-header">
@@ -293,7 +297,9 @@ function buildSubfolderHTML(name, count, bodyHtml, depth) {
   return `
     <div class="sub-folder" style="padding-left:${indent}px;">
       <div class="sub-header">
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="flex-shrink:0;"><path d="M1 3h4l1 1.5h5v6H1V3z" stroke="#D4A832" stroke-width="0.8" fill="#D4A832" fill-opacity="0.15"/></svg>
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="flex-shrink:0;">
+          <path d="M1 3h4l1 1.5h5v6H1V3z" stroke="#D4A832" stroke-width="0.8" fill="#D4A832" fill-opacity="0.15"/>
+        </svg>
         <div class="sub-folder-name">${label}</div>
         <div class="sub-folder-count">${count} doc${count !== 1 ? 's' : ''}</div>
         <span class="sub-caret">▼</span>
@@ -306,16 +312,16 @@ function buildSubfolderHTML(name, count, bodyHtml, depth) {
 }
 
 function buildDocRowHTML(file, depth) {
-  const title    = cleanFileName(file.name);
-  const type     = getMimeLabel(file.mimeType);
-  const date     = formatDate(file.modifiedTime);
-  const buttons  = buildDocButtonsHTML(file);
-  const indent   = depth * 12;
-  const docIcon  = getDocIcon(file.mimeType);
+  const title   = cleanFileName(file.name);
+  const type    = getMimeLabel(file.mimeType);
+  const date    = formatDate(file.modifiedTime);
+  const buttons = buildDocButtonsHTML(file);
+  const indent  = depth * 12;
+  const icon    = getDocIcon(file.mimeType);
 
   return `
     <div class="doc-row" style="padding-left:${16 + indent}px;">
-      ${docIcon}
+      ${icon}
       <div class="doc-name">${title}</div>
       <div class="doc-meta">${type} · ${date}</div>
       <div class="doc-btns">${buttons}</div>
@@ -324,18 +330,19 @@ function buildDocRowHTML(file, depth) {
 }
 
 function buildRestrictedAccordionHTML(name) {
+  const label = cleanFolderName(name);
   return `
     <div class="acc-category acc-restricted">
       <div class="acc-header">
         <div class="acc-header-left">
-          <div class="acc-cat-name" style="color:#C4B8A8;">${cleanFolderName(name)}</div>
+          <div class="acc-cat-name" style="color:#C4B8A8;">${label}</div>
           <div class="acc-count">Access restricted</div>
         </div>
         <span class="acc-caret">▼</span>
       </div>
       <div class="acc-body">
-        <div class="doc-row" style="padding: 16px;">
-          <div class="doc-name" style="color:#C4B8A8; font-size:11px; text-transform:none; letter-spacing:0.04em;">EO Legal now prohibits anyone from linking to EO official materials. You gotta hit up a trainer or staff member to get those documents directly.</div>
+        <div class="doc-row" style="padding:16px;">
+          <div class="doc-name" style="color:#A89880; font-size:10px; text-transform:none; letter-spacing:0.03em; line-height:1.6;">EO Legal now prohibits anyone from linking to EO official materials. You gotta hit up a trainer or staff member to get those documents directly.</div>
         </div>
       </div>
     </div>
@@ -437,12 +444,12 @@ function btnGhost(label, url) {
 // SKELETON LOADING STATE
 // ════════════════════════════════════════════════════════════
 function buildSkeletonAccordion() {
-  return [1,2,3].map(() => `
+  return [1,2,3,4].map(() => `
     <div class="acc-category skeleton">
       <div class="acc-header" style="pointer-events:none;">
         <div class="acc-header-left">
-          <div class="skel-line" style="width:160px;height:14px;margin:0;"></div>
-          <div class="skel-line" style="width:80px;height:10px;margin:0;"></div>
+          <div class="skel-line" style="width:180px;height:14px;margin:0;border-radius:2px;"></div>
+          <div class="skel-line" style="width:80px;height:10px;margin:0;border-radius:2px;"></div>
         </div>
       </div>
     </div>
@@ -451,7 +458,7 @@ function buildSkeletonAccordion() {
 
 
 // ════════════════════════════════════════════════════════════
-// YOUTUBE — load playlist in manual order
+// YOUTUBE — manual playlist order
 // ════════════════════════════════════════════════════════════
 async function loadYouTubeVideos() {
   try {
@@ -560,18 +567,18 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
 // STATS
 // ════════════════════════════════════════════════════════════
 function updateStats() {
-  const totalFiles = countAllFiles(CACHE.folders);
+  const totalFiles = countAllFiles(CACHE.sections);
   statResources.textContent  = totalFiles || '—';
-  statCategories.textContent = CONFIG.DRIVE_FOLDERS.filter(f => !f.restricted).length || '—';
+  statCategories.textContent = CACHE.sections.filter(s => !s.restricted).length || '—';
   statVideos.textContent     = CACHE.videos.length || '—';
 }
 
-function countAllFiles(folders) {
+function countAllFiles(sections) {
   let count = 0;
-  folders.forEach(f => {
-    if (f.restricted) return;
-    count += f.files.length;
-    count += countAllFiles(f.subfolders || []);
+  sections.forEach(s => {
+    if (s.restricted) return;
+    count += s.files.length;
+    count += countAllFiles(s.subfolders || []);
   });
   return count;
 }
@@ -581,7 +588,7 @@ function countAllFiles(folders) {
 // ERROR STATES
 // ════════════════════════════════════════════════════════════
 function showConfigError() {
-  accordionWrap.innerHTML = `<div class="empty-state"><div class="empty-icon">◈</div><div class="empty-title">Config not set up</div><div class="empty-msg">Add your API key and folder IDs to config.js.</div></div>`;
+  accordionWrap.innerHTML = `<div class="empty-state"><div class="empty-icon">◈</div><div class="empty-title">Config not set up</div><div class="empty-msg">Add your API key to config.js.</div></div>`;
   clearVideoSkeletons();
 }
 
