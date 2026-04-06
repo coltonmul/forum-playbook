@@ -61,7 +61,6 @@ function renderCoreResources() {
 
   coreGrid.innerHTML = CONFIG.CORE_RESOURCES.map(r => buildCoreCardHTML(r)).join('');
 
-  // Attach download handlers
   coreGrid.querySelectorAll('[data-download-url]').forEach(btn => {
     btn.addEventListener('click', e => {
       e.preventDefault();
@@ -132,17 +131,17 @@ function iconSheet() {
 
 // ════════════════════════════════════════════════════════════
 // GOOGLE DRIVE — load all folders
+// Excludes subfolders — files only
 // ════════════════════════════════════════════════════════════
 async function loadDriveFiles() {
   try {
     const allFiles = [];
 
     for (const folder of CONFIG.DRIVE_FOLDERS) {
-      // Skip API call for restricted folders — no files to fetch
       if (folder.restricted) continue;
 
       const url = new URL('https://www.googleapis.com/drive/v3/files');
-      url.searchParams.set('q', `'${folder.id}' in parents and trashed = false`);
+      url.searchParams.set('q', `'${folder.id}' in parents and trashed = false and mimeType != 'application/vnd.google-apps.folder'`);
       url.searchParams.set('fields', 'files(id,name,mimeType,modifiedTime)');
       url.searchParams.set('orderBy', 'name');
       url.searchParams.set('pageSize', '500');
@@ -206,14 +205,14 @@ async function loadYouTubeVideos() {
 
 
 // ════════════════════════════════════════════════════════════
-// FILTER PILLS — build from folder labels
-// Restricted folders get their own pill but no file cards
+// FILTER PILLS — restricted folders are hidden from pills
 // ════════════════════════════════════════════════════════════
 function buildPills() {
   const existing = pillGroup.querySelectorAll('.pill[data-filter]:not([data-filter="all"])');
   existing.forEach(p => p.remove());
 
-  CONFIG.DRIVE_FOLDERS.forEach(folder => {
+  // Only show pills for non-restricted folders
+  CONFIG.DRIVE_FOLDERS.filter(f => !f.restricted).forEach(folder => {
     const btn = document.createElement('button');
     btn.className = 'pill sh warm';
     btn.dataset.filter = folder.label;
@@ -245,7 +244,7 @@ searchInput.addEventListener('input', e => {
 
 
 // ════════════════════════════════════════════════════════════
-// DOWNLOAD HELPER — fetches blob and names the file correctly
+// DOWNLOAD HELPER
 // ════════════════════════════════════════════════════════════
 async function downloadFile(url, filename) {
   try {
@@ -269,17 +268,10 @@ async function downloadFile(url, filename) {
 
 // ════════════════════════════════════════════════════════════
 // RENDER RESOURCE CARDS
+// Restricted folders always show their notice card in All view
 // ════════════════════════════════════════════════════════════
 function renderCards() {
-  // Check if the active filter is a restricted folder
-  const activeFolder = CONFIG.DRIVE_FOLDERS.find(f => f.label === activeFilter);
-  if (activeFolder && activeFolder.restricted) {
-    cardGrid.hidden = false;
-    emptyState.hidden = true;
-    resourceCount.textContent = '0 resources';
-    cardGrid.innerHTML = buildRestrictedCardHTML(activeFolder.label);
-    return;
-  }
+  const restrictedFolders = CONFIG.DRIVE_FOLDERS.filter(f => f.restricted);
 
   const filtered = CACHE.files.filter(f => {
     const matchesFilter = activeFilter === 'all' || f.category === activeFilter;
@@ -289,9 +281,14 @@ function renderCards() {
     return matchesFilter && matchesSearch;
   });
 
+  // In All view, append restricted notice cards after real cards
+  const restrictedCards = (activeFilter === 'all' && !searchQuery)
+    ? restrictedFolders.map(f => buildRestrictedCardHTML(f.label)).join('')
+    : '';
+
   resourceCount.textContent = `${filtered.length} resource${filtered.length !== 1 ? 's' : ''}`;
 
-  if (filtered.length === 0) {
+  if (filtered.length === 0 && !restrictedCards) {
     cardGrid.innerHTML = '';
     cardGrid.hidden = true;
     emptyState.hidden = false;
@@ -303,7 +300,7 @@ function renderCards() {
 
   emptyState.hidden = true;
   cardGrid.hidden = false;
-  cardGrid.innerHTML = filtered.map((f, i) => buildCardHTML(f, i)).join('');
+  cardGrid.innerHTML = filtered.map((f, i) => buildCardHTML(f, i)).join('') + restrictedCards;
 
   cardGrid.querySelectorAll('[data-download-url]').forEach(btn => {
     btn.addEventListener('click', e => {
@@ -313,10 +310,9 @@ function renderCards() {
   });
 }
 
-// ── Restricted folder notice card ───────────────────────────
 function buildRestrictedCardHTML(categoryLabel) {
   return `
-    <div class="card card-restricted" style="grid-column:1/-1; opacity:0.72;">
+    <div class="card card-restricted" style="opacity:0.72;">
       <div class="corner-tl" style="border-color:#C4B8A8;"></div>
       <div class="corner-br"></div>
       <div class="card-id">
@@ -421,10 +417,10 @@ function renderVideos() {
 }
 
 function buildVideoCardHTML(item) {
-  const snippet = item.snippet;
-  const videoId = snippet.resourceId?.videoId || '';
-  const title   = snippet.title;
-  const thumb   = snippet.thumbnails?.medium?.url || '';
+  const snippet   = item.snippet;
+  const videoId   = snippet.resourceId?.videoId || '';
+  const title     = snippet.title;
+  const thumb     = snippet.thumbnails?.medium?.url || '';
   const published = timeAgo(snippet.publishedAt);
 
   return `
@@ -504,7 +500,7 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
 // ════════════════════════════════════════════════════════════
 function updateStats() {
   statResources.textContent   = CACHE.files.length  || '—';
-  statCategories.textContent  = CONFIG.DRIVE_FOLDERS.length || '—';
+  statCategories.textContent  = CONFIG.DRIVE_FOLDERS.filter(f => !f.restricted).length || '—';
   statVideos.textContent      = CACHE.videos.length || '—';
 }
 
