@@ -179,7 +179,7 @@ body {
   right: 0;
   top: 0;
   bottom: 0;
-  width: 240px;
+  width: 33.333%;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
@@ -223,6 +223,7 @@ body {
   text-transform: uppercase;
 }
 .h1 .accent { color: var(--burn); }
+.h1 .accent-gold { color: var(--gold); }
 
 /* h1-sub removed — TOGETHER. headline replaced with new hero copy */
 
