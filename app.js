@@ -5,8 +5,8 @@
 
 // ── Session cache (no localStorage) ────────────────────────
 const CACHE = {
-  sections: [],    // Top-level folder nodes (subfolders of root)
-  videos: [],      // YouTube playlist items
+  sections: [],
+  videos: [],
 };
 
 // ── State ───────────────────────────────────────────────────
@@ -35,9 +35,7 @@ async function init() {
     showConfigError();
     return;
   }
-
   renderCoreResources();
-
   await Promise.all([
     loadResourceLibrary(),
     loadYouTubeVideos(),
@@ -46,13 +44,11 @@ async function init() {
 
 
 // ════════════════════════════════════════════════════════════
-// CORE RESOURCES — hardcoded featured cards
+// CORE RESOURCES
 // ════════════════════════════════════════════════════════════
 function renderCoreResources() {
   if (!coreGrid || !CONFIG.CORE_RESOURCES || !CONFIG.CORE_RESOURCES.length) return;
-
   coreGrid.innerHTML = CONFIG.CORE_RESOURCES.map(r => buildCoreCardHTML(r)).join('');
-
   coreGrid.querySelectorAll('[data-download-url]').forEach(btn => {
     btn.addEventListener('click', e => {
       e.preventDefault();
@@ -66,7 +62,6 @@ function buildCoreCardHTML(resource) {
   const driveUrl = `https://drive.google.com/open?id=${resource.fileId}`;
   const icon     = resource.type === 'doc' ? iconDoc() : iconSheet();
   let buttons    = '';
-
   if (resource.type === 'doc') {
     const docxUrl = `${base}&mimeType=application/vnd.openxmlformats-officedocument.wordprocessingml.document`;
     const pdfUrl  = `${base}&mimeType=application/pdf`;
@@ -80,11 +75,9 @@ function buildCoreCardHTML(resource) {
     buttons += btnDownload('↓ PDF',  pdfUrl,  `${resource.title}.pdf`,  'secondary');
     buttons += btnGhost('↗ Drive', driveUrl);
   }
-
   return `
     <div class="card core-card">
-      <div class="corner-tl"></div>
-      <div class="corner-br"></div>
+      <div class="corner-tl"></div><div class="corner-br"></div>
       <div class="core-badge">CORE RESOURCE</div>
       <div class="core-icon">${icon}</div>
       <div class="card-title">${resource.title.toUpperCase()}</div>
@@ -122,7 +115,36 @@ function iconSheet() {
 
 
 // ════════════════════════════════════════════════════════════
-// DRIVE — fetch folder contents
+// FOLDER ICONS — open and closed states
+// ════════════════════════════════════════════════════════════
+function folderClosed() {
+  return `<svg class="folder-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M1 4.5h4.5l1.5 2H15v7.5H1V4.5z" stroke="#D4A832" stroke-width="0.9" fill="#D4A832" fill-opacity="0.15"/>
+    <path d="M1 4.5h4.5l1.5 2" stroke="#D4A832" stroke-width="0.9" stroke-linejoin="round"/>
+  </svg>`;
+}
+
+function folderOpen() {
+  return `<svg class="folder-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M1 4.5h4.5l1.5 2H15v7.5H1V4.5z" stroke="#D4A832" stroke-width="0.9" fill="#D4A832" fill-opacity="0.28"/>
+    <path d="M1 4.5h4.5l1.5 2" stroke="#D4A832" stroke-width="0.9" stroke-linejoin="round"/>
+    <line x1="1" y1="6.5" x2="15" y2="6.5" stroke="#D4A832" stroke-width="0.75"/>
+    <path d="M3.5 9.5h9" stroke="#D4A832" stroke-width="0.6" stroke-linecap="round"/>
+    <path d="M3.5 11.5h6" stroke="#D4A832" stroke-width="0.6" stroke-linecap="round"/>
+  </svg>`;
+}
+
+// Video camera icon for video cards
+function videoIcon() {
+  return `<svg class="video-type-icon" width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+    <rect x="1" y="3" width="10" height="10" stroke="#E8521A" stroke-width="0.9"/>
+    <path d="M11 6l4-2v8l-4-2V6z" stroke="#E8521A" stroke-width="0.9" fill="#E8521A" fill-opacity="0.15"/>
+  </svg>`;
+}
+
+
+// ════════════════════════════════════════════════════════════
+// DRIVE — fetch and recurse
 // ════════════════════════════════════════════════════════════
 async function fetchFolderContents(folderId) {
   const url = new URL('https://www.googleapis.com/drive/v3/files');
@@ -131,29 +153,20 @@ async function fetchFolderContents(folderId) {
   url.searchParams.set('orderBy', 'name');
   url.searchParams.set('pageSize', '200');
   url.searchParams.set('key', CONFIG.GOOGLE_API_KEY);
-
   const res  = await fetch(url.toString());
   const data = await res.json();
   if (data.error) throw new Error(data.error.message);
   return data.files || [];
 }
 
-// Recursively build a folder node
 async function buildFolderNode(folderId, folderName) {
   const restricted = isRestricted(folderName);
-
-  // Don't fetch contents of restricted folders
-  if (restricted) {
-    return { id: folderId, name: folderName, files: [], subfolders: [], restricted: true };
-  }
+  if (restricted) return { id: folderId, name: folderName, files: [], subfolders: [], restricted: true };
 
   const contents   = await fetchFolderContents(folderId);
   const files      = contents.filter(f => f.mimeType !== 'application/vnd.google-apps.folder');
   const rawFolders = contents.filter(f => f.mimeType === 'application/vnd.google-apps.folder');
-
-  const subfolders = await Promise.all(
-    rawFolders.map(sf => buildFolderNode(sf.id, sf.name))
-  );
+  const subfolders = await Promise.all(rawFolders.map(sf => buildFolderNode(sf.id, sf.name)));
 
   return { id: folderId, name: folderName, files, subfolders, restricted: false };
 }
@@ -166,28 +179,16 @@ function isRestricted(name) {
 async function loadResourceLibrary() {
   try {
     accordionWrap.innerHTML = buildSkeletonAccordion();
-
-    // Fetch the root folder's immediate subfolders — these become top-level sections
     const rootContents = await fetchFolderContents(CONFIG.DRIVE_ROOT_FOLDER_ID);
     const topFolders   = rootContents.filter(f => f.mimeType === 'application/vnd.google-apps.folder');
-
-    // Also surface any loose files at root level (rare but handle gracefully)
     const rootFiles    = rootContents.filter(f => f.mimeType !== 'application/vnd.google-apps.folder');
-
-    // Build each top-level section recursively
-    const sections = await Promise.all(
-      topFolders.map(f => buildFolderNode(f.id, f.name))
-    );
-
-    // If there are loose root-level files, add a catch-all section
+    const sections     = await Promise.all(topFolders.map(f => buildFolderNode(f.id, f.name)));
     if (rootFiles.length) {
       sections.unshift({ id: CONFIG.DRIVE_ROOT_FOLDER_ID, name: 'General', files: rootFiles, subfolders: [], restricted: false });
     }
-
     CACHE.sections = sections;
     renderAccordion();
     updateStats();
-
   } catch (err) {
     accordionWrap.innerHTML = `<div class="empty-state"><div class="empty-icon">◈</div><div class="empty-title">Could not load resources</div><div class="empty-msg">${err.message}</div></div>`;
   }
@@ -208,7 +209,6 @@ searchInput.addEventListener('input', e => {
 // ════════════════════════════════════════════════════════════
 function renderAccordion() {
   if (!CACHE.sections.length) return;
-
   let totalMatching = 0;
 
   const html = CACHE.sections.map(section => {
@@ -219,22 +219,31 @@ function renderAccordion() {
   }).join('');
 
   accordionWrap.innerHTML = html || `<div class="empty-state"><div class="empty-icon">◈</div><div class="empty-title">No resources found</div><div class="empty-msg">Try a different search term.</div></div>`;
-
   resourceCount.textContent = `${totalMatching} resource${totalMatching !== 1 ? 's' : ''}`;
 
-  // Toggle listeners
+  // Toggle: top-level accordion
   accordionWrap.querySelectorAll('.acc-header').forEach(header => {
     header.addEventListener('click', () => {
-      header.classList.toggle('open');
+      const isOpen = header.classList.toggle('open');
       header.nextElementSibling.classList.toggle('open');
+      // Swap folder icon
+      const closed = header.querySelector('.fi-closed');
+      const open   = header.querySelector('.fi-open');
+      if (closed) closed.style.display = isOpen ? 'none' : 'inline';
+      if (open)   open.style.display   = isOpen ? 'inline' : 'none';
     });
   });
 
+  // Toggle: subfolders at any depth
   accordionWrap.querySelectorAll('.sub-header').forEach(header => {
     header.addEventListener('click', e => {
       e.stopPropagation();
-      header.classList.toggle('open');
+      const isOpen = header.classList.toggle('open');
       header.nextElementSibling.classList.toggle('open');
+      const closed = header.querySelector('.fi-closed');
+      const open   = header.querySelector('.fi-open');
+      if (closed) closed.style.display = isOpen ? 'none' : 'inline';
+      if (open)   open.style.display   = isOpen ? 'inline' : 'none';
     });
   });
 
@@ -248,7 +257,6 @@ function renderAccordion() {
   });
 }
 
-// Recursively build folder body HTML
 function buildFolderBodyHTML(folder, depth) {
   let count = 0;
   let html  = '';
@@ -273,12 +281,21 @@ function buildFolderBodyHTML(folder, depth) {
   return { html, count };
 }
 
+// Dual folder icon pair -- closed visible by default, open hidden
+function folderIconPair() {
+  return `
+    <span class="fi-closed" style="display:inline;line-height:0;">${folderClosed()}</span>
+    <span class="fi-open"   style="display:none; line-height:0;">${folderOpen()}</span>
+  `;
+}
+
 function buildAccordionSectionHTML(name, count, bodyHtml) {
   const label = cleanFolderName(name);
   return `
     <div class="acc-category">
       <div class="acc-header">
         <div class="acc-header-left">
+          ${folderIconPair()}
           <div class="acc-cat-name">${label}</div>
           <div class="acc-count">${count} document${count !== 1 ? 's' : ''}</div>
         </div>
@@ -297,9 +314,7 @@ function buildSubfolderHTML(name, count, bodyHtml, depth) {
   return `
     <div class="sub-folder" style="padding-left:${indent}px;">
       <div class="sub-header">
-        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="flex-shrink:0;">
-          <path d="M1 3h4l1 1.5h5v6H1V3z" stroke="#D4A832" stroke-width="0.8" fill="#D4A832" fill-opacity="0.15"/>
-        </svg>
+        ${folderIconPair()}
         <div class="sub-folder-name">${label}</div>
         <div class="sub-folder-count">${count} doc${count !== 1 ? 's' : ''}</div>
         <span class="sub-caret">▼</span>
@@ -318,7 +333,6 @@ function buildDocRowHTML(file, depth) {
   const buttons = buildDocButtonsHTML(file);
   const indent  = depth * 12;
   const icon    = getDocIcon(file.mimeType);
-
   return `
     <div class="doc-row" style="padding-left:${16 + indent}px;">
       ${icon}
@@ -335,6 +349,7 @@ function buildRestrictedAccordionHTML(name) {
     <div class="acc-category acc-restricted">
       <div class="acc-header">
         <div class="acc-header-left">
+          ${folderIconPair()}
           <div class="acc-cat-name" style="color:#C4B8A8;">${label}</div>
           <div class="acc-count">Access restricted</div>
         </div>
@@ -342,7 +357,7 @@ function buildRestrictedAccordionHTML(name) {
       </div>
       <div class="acc-body">
         <div class="doc-row" style="padding:16px;">
-          <div class="doc-name" style="color:#A89880; font-size:10px; text-transform:none; letter-spacing:0.03em; line-height:1.6;">EO Legal now prohibits anyone from linking to EO official materials. You gotta hit up a trainer or staff member to get those documents directly.</div>
+          <div class="doc-name" style="color:#A89880;font-size:10px;text-transform:none;letter-spacing:0.03em;line-height:1.6;">EO Legal now prohibits anyone from linking to EO official materials. You gotta hit up a trainer or staff member to get those documents directly.</div>
         </div>
       </div>
     </div>
@@ -426,7 +441,6 @@ function buildDocButtonsHTML(file) {
   } else {
     html += btnGhost('↗ Drive', driveUrl);
   }
-
   return html;
 }
 
@@ -441,15 +455,16 @@ function btnGhost(label, url) {
 
 
 // ════════════════════════════════════════════════════════════
-// SKELETON LOADING STATE
+// SKELETON
 // ════════════════════════════════════════════════════════════
 function buildSkeletonAccordion() {
   return [1,2,3,4].map(() => `
     <div class="acc-category skeleton">
       <div class="acc-header" style="pointer-events:none;">
-        <div class="acc-header-left">
+        <div class="acc-header-left" style="gap:10px;">
+          <div style="width:16px;height:16px;background:#E8E2D6;border-radius:2px;flex-shrink:0;"></div>
           <div class="skel-line" style="width:180px;height:14px;margin:0;border-radius:2px;"></div>
-          <div class="skel-line" style="width:80px;height:10px;margin:0;border-radius:2px;"></div>
+          <div class="skel-line" style="width:70px;height:10px;margin:0;border-radius:2px;"></div>
         </div>
       </div>
     </div>
@@ -466,21 +481,17 @@ async function loadYouTubeVideos() {
       clearVideoSkeletons();
       return;
     }
-
     const url = new URL('https://www.googleapis.com/youtube/v3/playlistItems');
     url.searchParams.set('part', 'snippet,contentDetails');
     url.searchParams.set('playlistId', CONFIG.YOUTUBE_PLAYLIST_ID);
     url.searchParams.set('maxResults', '50');
     url.searchParams.set('key', CONFIG.GOOGLE_API_KEY);
-
     const res  = await fetch(url.toString());
     const data = await res.json();
     if (data.error) throw new Error(data.error.message);
-
     CACHE.videos = data.items || [];
     renderVideos();
     updateStats();
-
   } catch (err) {
     showVideoError(err.message);
   }
@@ -488,7 +499,7 @@ async function loadYouTubeVideos() {
 
 
 // ════════════════════════════════════════════════════════════
-// RENDER VIDEO CARDS
+// RENDER VIDEO CARDS — 16:9 thumbnails + video icon
 // ════════════════════════════════════════════════════════════
 function renderVideos() {
   if (!CACHE.videos.length) { clearVideoSkeletons(); return; }
@@ -504,14 +515,17 @@ function buildVideoCardHTML(item) {
 
   return `
     <div class="video-card" data-videoid="${videoId}" role="button" tabindex="0" aria-label="Play: ${title}">
-      <div class="video-thumb">
-        ${thumb ? `<img src="${thumb}" alt="${title}" loading="lazy" />` : ''}
+      <div class="video-thumb-16x9">
+        ${thumb ? `<img src="${thumb}" alt="${title}" loading="lazy" />` : '<div class="video-thumb-placeholder"></div>'}
         <div class="play-btn" aria-hidden="true"><div class="play-triangle"></div></div>
         <div class="yt-badge">YouTube</div>
       </div>
       <div class="video-info">
-        <div class="video-title">${title}</div>
-        <div class="video-meta">${published}</div>
+        ${videoIcon()}
+        <div class="video-text">
+          <div class="video-title">${title}</div>
+          <div class="video-meta">${published}</div>
+        </div>
       </div>
     </div>
   `;
