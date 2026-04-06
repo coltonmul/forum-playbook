@@ -21,8 +21,12 @@ const CONFIG = {
   // id: the folder ID from the Google Drive URL
   //     (drive.google.com/drive/folders/THIS_PART_HERE)
   // Folders must be set to "Anyone with the link can view"
+  //
+  // restricted: true — hides files and shows a notice card instead.
+  // Use this for folders that cannot be publicly linked per policy.
   DRIVE_FOLDERS: [
-    { label: 'Forum Templates', id: '1WiseQewJb3yisikZ2xWXGWImo_hrANIR' },
+    { label: 'Forum Templates',              id: '1WiseQewJb3yisikZ2xWXGWImo_hrANIR' },
+    { label: 'Official EO Global Documents', id: '1wZUTcEdu2y0LQOpXAC9BLG6n0GlXQf3w', restricted: true },
   ],
 
   // ── YouTube Playlist ────────────────────────────────────
