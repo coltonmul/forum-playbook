@@ -36,17 +36,18 @@ const CONFIG = {
     },
   ],
 
-  // ── Google Drive Folders ────────────────────────────────
-  // One object per category. Order here = order in filter pills.
-  // id: the folder ID from the Google Drive URL
-  //     (drive.google.com/drive/folders/THIS_PART_HERE)
-  // Folders must be set to "Anyone with the link can view"
-  //
-  // restricted: true — hides files and shows a notice card instead.
-  // Use this for folders that cannot be publicly linked per policy.
-  DRIVE_FOLDERS: [
-    { label: 'Forum Templates',              id: '1WiseQewJb3yisikZ2xWXGWImo_hrANIR' },
-    { label: 'Official EO Global Documents', id: '1wZUTcEdu2y0LQOpXAC9BLG6n0GlXQf3w', restricted: true },
+  // ── Root Drive Folder ───────────────────────────────────
+  // The site reads the immediate subfolders of this folder
+  // and turns each one into a top-level accordion section.
+  // Add subfolders in Drive to add new sections — no code changes needed.
+  DRIVE_ROOT_FOLDER_ID: '1WiseQewJb3yisikZ2xWXGWImo_hrANIR',
+
+  // ── Restricted Folder Names ─────────────────────────────
+  // Folders whose names match anything in this list will show
+  // the access-restricted notice instead of their contents.
+  // Match is case-insensitive. Update here if you rename the folder in Drive.
+  RESTRICTED_FOLDER_NAMES: [
+    'official eo global tools and documents',
   ],
 
   // ── YouTube Playlist ────────────────────────────────────
