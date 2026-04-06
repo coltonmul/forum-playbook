@@ -14,20 +14,21 @@ let activeFilter = 'all';
 let searchQuery  = '';
 
 // ── DOM refs ─────────────────────────────────────────────────
-const cardGrid     = document.getElementById('card-grid');
-const videoGrid    = document.getElementById('video-grid');
-const pillGroup    = document.getElementById('pill-group');
-const searchInput  = document.getElementById('search-input');
-const emptyState   = document.getElementById('empty-state');
-const emptyMsg     = document.getElementById('empty-msg');
-const resourceCount= document.getElementById('resource-count');
-const statResources= document.getElementById('stat-resources');
-const statCategories=document.getElementById('stat-categories');
-const statVideos   = document.getElementById('stat-videos');
-const lightbox     = document.getElementById('lightbox');
-const lightboxEmbed= document.getElementById('lightbox-embed');
-const lightboxClose= document.getElementById('lightbox-close');
-const lightboxBg   = document.getElementById('lightbox-backdrop');
+const cardGrid      = document.getElementById('card-grid');
+const videoGrid     = document.getElementById('video-grid');
+const pillGroup     = document.getElementById('pill-group');
+const searchInput   = document.getElementById('search-input');
+const emptyState    = document.getElementById('empty-state');
+const emptyMsg      = document.getElementById('empty-msg');
+const resourceCount = document.getElementById('resource-count');
+const statResources = document.getElementById('stat-resources');
+const statCategories= document.getElementById('stat-categories');
+const statVideos    = document.getElementById('stat-videos');
+const lightbox      = document.getElementById('lightbox');
+const lightboxEmbed = document.getElementById('lightbox-embed');
+const lightboxClose = document.getElementById('lightbox-close');
+const lightboxBg    = document.getElementById('lightbox-backdrop');
+const coreGrid      = document.getElementById('core-grid');
 
 
 // ════════════════════════════════════════════════════════════
@@ -43,10 +44,89 @@ async function init() {
     return;
   }
 
+  renderCoreResources();
+
   await Promise.all([
     loadDriveFiles(),
     loadYouTubeVideos(),
   ]);
+}
+
+
+// ════════════════════════════════════════════════════════════
+// CORE RESOURCES — render hardcoded featured cards
+// ════════════════════════════════════════════════════════════
+function renderCoreResources() {
+  if (!coreGrid || !CONFIG.CORE_RESOURCES || !CONFIG.CORE_RESOURCES.length) return;
+
+  coreGrid.innerHTML = CONFIG.CORE_RESOURCES.map(r => buildCoreCardHTML(r)).join('');
+
+  // Attach download handlers
+  coreGrid.querySelectorAll('[data-download-url]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault();
+      downloadFile(btn.dataset.downloadUrl, btn.dataset.filename);
+    });
+  });
+}
+
+function buildCoreCardHTML(resource) {
+  const base     = `https://www.googleapis.com/drive/v3/files/${resource.fileId}/export?key=${CONFIG.GOOGLE_API_KEY}`;
+  const driveUrl = `https://drive.google.com/open?id=${resource.fileId}`;
+  const icon     = resource.type === 'doc' ? iconDoc() : iconSheet();
+  let buttons    = '';
+
+  if (resource.type === 'doc') {
+    const docxUrl = `${base}&mimeType=application/vnd.openxmlformats-officedocument.wordprocessingml.document`;
+    const pdfUrl  = `${base}&mimeType=application/pdf`;
+    buttons += btnDownload('↓ DOCX', docxUrl, `${resource.title}.docx`, 'primary');
+    buttons += btnDownload('↓ PDF',  pdfUrl,  `${resource.title}.pdf`,  'secondary');
+    buttons += btnGhost('↗ Drive', driveUrl);
+  } else if (resource.type === 'sheet') {
+    const xlsxUrl = `${base}&mimeType=application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`;
+    const pdfUrl  = `${base}&mimeType=application/pdf`;
+    buttons += btnDownload('↓ XLSX', xlsxUrl, `${resource.title}.xlsx`, 'primary');
+    buttons += btnDownload('↓ PDF',  pdfUrl,  `${resource.title}.pdf`,  'secondary');
+    buttons += btnGhost('↗ Drive', driveUrl);
+  }
+
+  return `
+    <div class="card core-card">
+      <div class="corner-tl"></div>
+      <div class="corner-br"></div>
+      <div class="core-badge">CORE RESOURCE</div>
+      <div class="core-icon">${icon}</div>
+      <div class="card-title">${resource.title.toUpperCase()}</div>
+      <div class="card-meta">${resource.subtitle}</div>
+      <div class="card-btns">${buttons}</div>
+    </div>
+  `;
+}
+
+function iconDoc() {
+  return `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="6" y="3" width="16" height="22" stroke="#E8521A" stroke-width="1"/>
+    <rect x="9" y="8" width="10" height="1" fill="#E8521A"/>
+    <rect x="9" y="11" width="10" height="1" fill="#C4B8A8"/>
+    <rect x="9" y="14" width="10" height="1" fill="#C4B8A8"/>
+    <rect x="9" y="17" width="6" height="1" fill="#C4B8A8"/>
+    <circle cx="23" cy="22" r="5" fill="#E8E2D6" stroke="#E8521A" stroke-width="1"/>
+    <path d="M21 22l1.5 1.5L25 20.5" stroke="#E8521A" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`;
+}
+
+function iconSheet() {
+  return `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="4" y="4" width="24" height="24" stroke="#E8521A" stroke-width="1"/>
+    <line x1="4" y1="10" x2="28" y2="10" stroke="#E8521A" stroke-width="1"/>
+    <line x1="4" y1="16" x2="28" y2="16" stroke="#C4B8A8" stroke-width="0.75"/>
+    <line x1="4" y1="22" x2="28" y2="22" stroke="#C4B8A8" stroke-width="0.75"/>
+    <line x1="11" y1="4" x2="11" y2="28" stroke="#C4B8A8" stroke-width="0.75"/>
+    <line x1="20" y1="4" x2="20" y2="28" stroke="#C4B8A8" stroke-width="0.75"/>
+    <rect x="4" y="4" width="7" height="6" fill="#E8521A" fill-opacity="0.15"/>
+    <rect x="11" y="4" width="9" height="6" fill="#E8521A" fill-opacity="0.08"/>
+    <rect x="20" y="4" width="8" height="6" fill="#E8521A" fill-opacity="0.08"/>
+  </svg>`;
 }
 
 
@@ -92,7 +172,8 @@ async function loadDriveFiles() {
 
 
 // ════════════════════════════════════════════════════════════
-// YOUTUBE — load playlist
+// YOUTUBE — load playlist in manual order (no date sort)
+// Control order by dragging videos in YouTube Studio
 // ════════════════════════════════════════════════════════════
 async function loadYouTubeVideos() {
   try {
@@ -112,9 +193,8 @@ async function loadYouTubeVideos() {
 
     if (data.error) throw new Error(data.error.message);
 
-    CACHE.videos = (data.items || []).sort((a, b) =>
-      new Date(b.snippet.publishedAt) - new Date(a.snippet.publishedAt)
-    );
+    // Respect playlist manual order — no sort applied
+    CACHE.videos = data.items || [];
 
     renderVideos();
     updateStats();
@@ -133,7 +213,6 @@ function buildPills() {
   const existing = pillGroup.querySelectorAll('.pill[data-filter]:not([data-filter="all"])');
   existing.forEach(p => p.remove());
 
-  // Include all folders in pills — restricted ones still get a pill
   CONFIG.DRIVE_FOLDERS.forEach(folder => {
     const btn = document.createElement('button');
     btn.className = 'pill sh warm';
@@ -153,7 +232,6 @@ function setFilter(filter) {
   pillGroup.querySelectorAll('.pill').forEach(p => {
     const isActive = p.dataset.filter === filter;
     p.classList.toggle('active', isActive);
-    p.classList.toggle('sh', true);
     p.classList.toggle('dp', isActive);
     p.classList.toggle('warm', !isActive);
   });
@@ -184,7 +262,6 @@ async function downloadFile(url, filename) {
     setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
   } catch (err) {
     console.error('Download error:', err);
-    // Fall back to opening in new tab
     window.open(url, '_blank', 'noopener');
   }
 }
@@ -228,13 +305,10 @@ function renderCards() {
   cardGrid.hidden = false;
   cardGrid.innerHTML = filtered.map((f, i) => buildCardHTML(f, i)).join('');
 
-  // Attach download handlers after rendering
   cardGrid.querySelectorAll('[data-download-url]').forEach(btn => {
     btn.addEventListener('click', e => {
       e.preventDefault();
-      const url      = btn.dataset.downloadUrl;
-      const filename = btn.dataset.filename;
-      downloadFile(url, filename);
+      downloadFile(btn.dataset.downloadUrl, btn.dataset.filename);
     });
   });
 }
@@ -281,7 +355,6 @@ function buildButtonsHTML(file) {
   const mime     = file.mimeType;
   const base     = `https://www.googleapis.com/drive/v3/files/${id}/export?key=${CONFIG.GOOGLE_API_KEY}`;
   const baseName = cleanFileName(file.name);
-
   const driveUrl = `https://drive.google.com/open?id=${id}`;
 
   let html = '';
@@ -327,9 +400,7 @@ function buildButtonsHTML(file) {
 }
 
 function btnDownload(label, url, filename, style) {
-  const cls = style === 'primary'
-    ? 'btn btn-primary sh warm'
-    : 'btn sh warm';
+  const cls = style === 'primary' ? 'btn btn-primary sh warm' : 'btn sh warm';
   return `<button class="${cls}" data-download-url="${url}" data-filename="${filename}"><span>${label}</span></button>`;
 }
 
@@ -346,15 +417,14 @@ function renderVideos() {
     clearVideoSkeletons();
     return;
   }
-
   videoGrid.innerHTML = CACHE.videos.map(v => buildVideoCardHTML(v)).join('');
 }
 
 function buildVideoCardHTML(item) {
-  const snippet   = item.snippet;
-  const videoId   = snippet.resourceId?.videoId || '';
-  const title     = snippet.title;
-  const thumb     = snippet.thumbnails?.medium?.url || '';
+  const snippet = item.snippet;
+  const videoId = snippet.resourceId?.videoId || '';
+  const title   = snippet.title;
+  const thumb   = snippet.thumbnails?.medium?.url || '';
   const published = timeAgo(snippet.publishedAt);
 
   return `
@@ -433,9 +503,9 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
 // STATS
 // ════════════════════════════════════════════════════════════
 function updateStats() {
-  statResources.textContent  = CACHE.files.length  || '—';
-  statCategories.textContent = CONFIG.DRIVE_FOLDERS.length || '—';
-  statVideos.textContent     = CACHE.videos.length || '—';
+  statResources.textContent   = CACHE.files.length  || '—';
+  statCategories.textContent  = CONFIG.DRIVE_FOLDERS.length || '—';
+  statVideos.textContent      = CACHE.videos.length || '—';
 }
 
 
@@ -479,9 +549,9 @@ function getMimeLabel(mime) {
 
 function formatDate(iso) {
   if (!iso) return '';
-  const d = new Date(iso);
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const d   = new Date(iso);
+  const y   = d.getFullYear();
+  const m   = String(d.getMonth() + 1).padStart(2, '0');
   const day = String(d.getDate()).padStart(2, '0');
   return `${y}.${m}.${day}`;
 }
