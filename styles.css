@@ -583,6 +583,10 @@ body {
 .core-card {
   background: var(--linen-dark);
   border-left: 2px solid var(--burn);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .core-badge {
@@ -594,11 +598,18 @@ body {
   border: 0.5px solid var(--burn);
   padding: 2px 6px;
   display: inline-block;
-  margin-bottom: 14px;
+  margin-bottom: 16px;
 }
 
-.core-icon {
-  margin-bottom: 12px;
+.core-icon-wrap {
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.core-card .card-btns {
+  justify-content: center;
 }
 
 
@@ -693,18 +704,18 @@ body {
 
 .video-title {
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 500;
   color: var(--pitch);
-  line-height: 1.45;
-  margin-bottom: 4px;
+  line-height: 1.5;
+  margin-bottom: 5px;
   letter-spacing: 0.02em;
 }
 
 .video-meta {
   font-family: var(--font-mono);
   font-size: 9px;
-  color: #A89880;
+  color: #8A8070;
   letter-spacing: 0.06em;
 }
 
@@ -874,7 +885,7 @@ body {
 
 @media (max-width: 480px) {
   .cards { grid-template-columns: 1fr; }
-  .core-grid { grid-template-columns: 1fr; }
+  /* core-grid stays 2-col on mobile */
   .h1 { font-size: 48px; }
   .nav nav { display: none; }
 }
@@ -1046,7 +1057,7 @@ body {
 .video-thumb-16x9 {
   position: relative;
   width: 100%;
-  padding-bottom: 56.25%;
+  padding-bottom: 42%;
   background: #2A3028;
   overflow: hidden;
 }
@@ -1085,7 +1096,7 @@ body {
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  padding: 10px 14px 12px;
+  padding: 12px 14px 14px;
 }
 
 .video-type-icon {
