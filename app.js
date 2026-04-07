@@ -44,7 +44,7 @@ async function init() {
 
 
 // ════════════════════════════════════════════════════════════
-// CORE RESOURCES
+// CORE RESOURCES — centered icon, Option B style
 // ════════════════════════════════════════════════════════════
 function renderCoreResources() {
   if (!coreGrid || !CONFIG.CORE_RESOURCES || !CONFIG.CORE_RESOURCES.length) return;
@@ -60,8 +60,9 @@ function renderCoreResources() {
 function buildCoreCardHTML(resource) {
   const base     = `https://www.googleapis.com/drive/v3/files/${resource.fileId}/export?key=${CONFIG.GOOGLE_API_KEY}`;
   const driveUrl = `https://drive.google.com/open?id=${resource.fileId}`;
-  const icon     = resource.type === 'doc' ? iconDoc() : iconSheet();
+  const icon     = resource.type === 'doc' ? coreIconDoc() : coreIconSheet();
   let buttons    = '';
+
   if (resource.type === 'doc') {
     const docxUrl = `${base}&mimeType=application/vnd.openxmlformats-officedocument.wordprocessingml.document`;
     const pdfUrl  = `${base}&mimeType=application/pdf`;
@@ -75,11 +76,13 @@ function buildCoreCardHTML(resource) {
     buttons += btnDownload('↓ PDF',  pdfUrl,  `${resource.title}.pdf`,  'secondary');
     buttons += btnGhost('↗ Drive', driveUrl);
   }
+
   return `
     <div class="card core-card">
-      <div class="corner-tl"></div><div class="corner-br"></div>
+      <div class="corner-tl"></div>
+      <div class="corner-br"></div>
       <div class="core-badge">CORE RESOURCE</div>
-      <div class="core-icon">${icon}</div>
+      <div class="core-icon-wrap">${icon}</div>
       <div class="card-title">${resource.title.toUpperCase()}</div>
       <div class="card-meta">${resource.subtitle}</div>
       <div class="card-btns">${buttons}</div>
@@ -87,35 +90,41 @@ function buildCoreCardHTML(resource) {
   `;
 }
 
-function iconDoc() {
-  return `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect x="6" y="3" width="16" height="22" stroke="#E8521A" stroke-width="1"/>
-    <rect x="9" y="8" width="10" height="1" fill="#E8521A"/>
-    <rect x="9" y="11" width="10" height="1" fill="#C4B8A8"/>
-    <rect x="9" y="14" width="10" height="1" fill="#C4B8A8"/>
-    <rect x="9" y="17" width="6" height="1" fill="#C4B8A8"/>
-    <circle cx="23" cy="22" r="5" fill="#E8E2D6" stroke="#E8521A" stroke-width="1"/>
-    <path d="M21 22l1.5 1.5L25 20.5" stroke="#E8521A" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/>
+// Large centered doc icon
+function coreIconDoc() {
+  return `<svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="6" y="2" width="32" height="42" stroke="#E8521A" stroke-width="1.5"/>
+    <rect x="2" y="6" width="32" height="42" stroke="#C4B8A8" stroke-width="1" fill="#F8F4EE"/>
+    <rect x="10" y="14" width="16" height="2" fill="#E8521A"/>
+    <rect x="10" y="19" width="16" height="1.5" fill="#C4B8A8"/>
+    <rect x="10" y="23" width="16" height="1.5" fill="#C4B8A8"/>
+    <rect x="10" y="27" width="10" height="1.5" fill="#C4B8A8"/>
+    <rect x="10" y="31" width="13" height="1.5" fill="#C4B8A8"/>
+    <circle cx="38" cy="38" r="9" fill="#F0EBE0" stroke="#E8521A" stroke-width="1.2"/>
+    <path d="M35 38l2.5 2.5L42 35" stroke="#E8521A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>`;
 }
 
-function iconSheet() {
-  return `<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect x="4" y="4" width="24" height="24" stroke="#E8521A" stroke-width="1"/>
-    <line x1="4" y1="10" x2="28" y2="10" stroke="#E8521A" stroke-width="1"/>
-    <line x1="4" y1="16" x2="28" y2="16" stroke="#C4B8A8" stroke-width="0.75"/>
-    <line x1="4" y1="22" x2="28" y2="22" stroke="#C4B8A8" stroke-width="0.75"/>
-    <line x1="11" y1="4" x2="11" y2="28" stroke="#C4B8A8" stroke-width="0.75"/>
-    <line x1="20" y1="4" x2="20" y2="28" stroke="#C4B8A8" stroke-width="0.75"/>
-    <rect x="4" y="4" width="7" height="6" fill="#E8521A" fill-opacity="0.15"/>
-    <rect x="11" y="4" width="9" height="6" fill="#E8521A" fill-opacity="0.08"/>
-    <rect x="20" y="4" width="8" height="6" fill="#E8521A" fill-opacity="0.08"/>
+// Large centered sheet icon
+function coreIconSheet() {
+  return `<svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="2" y="6" width="32" height="42" stroke="#C4B8A8" stroke-width="1" fill="#F8F4EE"/>
+    <rect x="6" y="2" width="40" height="44" stroke="#3A8A8A" stroke-width="1.5" fill="#fff"/>
+    <line x1="6" y1="12" x2="46" y2="12" stroke="#3A8A8A" stroke-width="1.2"/>
+    <line x1="6" y1="22" x2="46" y2="22" stroke="#C4B8A8" stroke-width="0.8"/>
+    <line x1="6" y1="32" x2="46" y2="32" stroke="#C4B8A8" stroke-width="0.8"/>
+    <line x1="6" y1="42" x2="46" y2="42" stroke="#C4B8A8" stroke-width="0.8"/>
+    <line x1="20" y1="2" x2="20" y2="46" stroke="#C4B8A8" stroke-width="0.8"/>
+    <line x1="34" y1="2" x2="34" y2="46" stroke="#C4B8A8" stroke-width="0.8"/>
+    <rect x="6" y="2" width="14" height="10" fill="#3A8A8A" fill-opacity="0.2"/>
+    <rect x="20" y="2" width="14" height="10" fill="#3A8A8A" fill-opacity="0.1"/>
+    <rect x="34" y="2" width="12" height="10" fill="#3A8A8A" fill-opacity="0.1"/>
   </svg>`;
 }
 
 
 // ════════════════════════════════════════════════════════════
-// FOLDER ICONS — open and closed states
+// FOLDER ICONS — open / closed states
 // ════════════════════════════════════════════════════════════
 function folderClosed() {
   return `<svg class="folder-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -134,7 +143,14 @@ function folderOpen() {
   </svg>`;
 }
 
-// Video camera icon for video cards
+function folderIconPair() {
+  return `
+    <span class="fi-closed" style="display:inline;line-height:0;">${folderClosed()}</span>
+    <span class="fi-open"   style="display:none; line-height:0;">${folderOpen()}</span>
+  `;
+}
+
+// Video camera icon
 function videoIcon() {
   return `<svg class="video-type-icon" width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
     <rect x="1" y="3" width="10" height="10" stroke="#E8521A" stroke-width="0.9"/>
@@ -162,12 +178,10 @@ async function fetchFolderContents(folderId) {
 async function buildFolderNode(folderId, folderName) {
   const restricted = isRestricted(folderName);
   if (restricted) return { id: folderId, name: folderName, files: [], subfolders: [], restricted: true };
-
   const contents   = await fetchFolderContents(folderId);
   const files      = contents.filter(f => f.mimeType !== 'application/vnd.google-apps.folder');
   const rawFolders = contents.filter(f => f.mimeType === 'application/vnd.google-apps.folder');
   const subfolders = await Promise.all(rawFolders.map(sf => buildFolderNode(sf.id, sf.name)));
-
   return { id: folderId, name: folderName, files, subfolders, restricted: false };
 }
 
@@ -221,12 +235,10 @@ function renderAccordion() {
   accordionWrap.innerHTML = html || `<div class="empty-state"><div class="empty-icon">◈</div><div class="empty-title">No resources found</div><div class="empty-msg">Try a different search term.</div></div>`;
   resourceCount.textContent = `${totalMatching} resource${totalMatching !== 1 ? 's' : ''}`;
 
-  // Toggle: top-level accordion
   accordionWrap.querySelectorAll('.acc-header').forEach(header => {
     header.addEventListener('click', () => {
       const isOpen = header.classList.toggle('open');
       header.nextElementSibling.classList.toggle('open');
-      // Swap folder icon
       const closed = header.querySelector('.fi-closed');
       const open   = header.querySelector('.fi-open');
       if (closed) closed.style.display = isOpen ? 'none' : 'inline';
@@ -234,7 +246,6 @@ function renderAccordion() {
     });
   });
 
-  // Toggle: subfolders at any depth
   accordionWrap.querySelectorAll('.sub-header').forEach(header => {
     header.addEventListener('click', e => {
       e.stopPropagation();
@@ -247,7 +258,6 @@ function renderAccordion() {
     });
   });
 
-  // Download handlers
   accordionWrap.querySelectorAll('[data-download-url]').forEach(btn => {
     btn.addEventListener('click', e => {
       e.preventDefault();
@@ -260,33 +270,19 @@ function renderAccordion() {
 function buildFolderBodyHTML(folder, depth) {
   let count = 0;
   let html  = '';
-
   const matchingFiles = folder.files.filter(f => {
     if (!searchQuery) return true;
     return cleanFileName(f.name).toLowerCase().includes(searchQuery) ||
            folder.name.toLowerCase().includes(searchQuery);
   });
-
   count += matchingFiles.length;
   html  += matchingFiles.map(f => buildDocRowHTML(f, depth)).join('');
-
   folder.subfolders.forEach(sf => {
     const { html: subHtml, count: subCount } = buildFolderBodyHTML(sf, depth + 1);
     count += subCount;
-    if (!searchQuery || subCount > 0) {
-      html += buildSubfolderHTML(sf.name, subCount, subHtml, depth);
-    }
+    if (!searchQuery || subCount > 0) html += buildSubfolderHTML(sf.name, subCount, subHtml, depth);
   });
-
   return { html, count };
-}
-
-// Dual folder icon pair -- closed visible by default, open hidden
-function folderIconPair() {
-  return `
-    <span class="fi-closed" style="display:inline;line-height:0;">${folderClosed()}</span>
-    <span class="fi-open"   style="display:none; line-height:0;">${folderOpen()}</span>
-  `;
 }
 
 function buildAccordionSectionHTML(name, count, bodyHtml) {
@@ -409,7 +405,6 @@ function buildDocButtonsHTML(file) {
   const baseName = cleanFileName(file.name);
   const driveUrl = `https://drive.google.com/open?id=${id}`;
   let html = '';
-
   if (mime === 'application/vnd.google-apps.document') {
     const docxUrl = `${base}&mimeType=application/vnd.openxmlformats-officedocument.wordprocessingml.document`;
     const pdfUrl  = `${base}&mimeType=application/pdf`;
@@ -462,7 +457,7 @@ function buildSkeletonAccordion() {
     <div class="acc-category skeleton">
       <div class="acc-header" style="pointer-events:none;">
         <div class="acc-header-left" style="gap:10px;">
-          <div style="width:16px;height:16px;background:#E8E2D6;border-radius:2px;flex-shrink:0;"></div>
+          <div style="width:16px;height:16px;background:#E8E2D6;flex-shrink:0;"></div>
           <div class="skel-line" style="width:180px;height:14px;margin:0;border-radius:2px;"></div>
           <div class="skel-line" style="width:70px;height:10px;margin:0;border-radius:2px;"></div>
         </div>
@@ -499,7 +494,7 @@ async function loadYouTubeVideos() {
 
 
 // ════════════════════════════════════════════════════════════
-// RENDER VIDEO CARDS — 16:9 thumbnails + video icon
+// RENDER VIDEO CARDS
 // ════════════════════════════════════════════════════════════
 function renderVideos() {
   if (!CACHE.videos.length) { clearVideoSkeletons(); return; }
@@ -512,7 +507,6 @@ function buildVideoCardHTML(item) {
   const title     = snippet.title;
   const thumb     = snippet.thumbnails?.medium?.url || '';
   const published = timeAgo(snippet.publishedAt);
-
   return `
     <div class="video-card" data-videoid="${videoId}" role="button" tabindex="0" aria-label="Play: ${title}">
       <div class="video-thumb-16x9">
