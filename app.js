@@ -68,13 +68,13 @@ function buildCoreCardHTML(resource) {
     const pdfUrl  = `${base}&mimeType=application/pdf`;
     buttons += btnDownload('↓ DOCX', docxUrl, `${resource.title}.docx`, 'primary');
     buttons += btnDownload('↓ PDF',  pdfUrl,  `${resource.title}.pdf`,  'secondary');
-    buttons += btnGhost('↗ Drive', driveUrl);
+    buttons += coreBtnGhost('↗ GDrive', driveUrl);
   } else if (resource.type === 'sheet') {
     const xlsxUrl = `${base}&mimeType=application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`;
     const pdfUrl  = `${base}&mimeType=application/pdf`;
     buttons += btnDownload('↓ XLSX', xlsxUrl, `${resource.title}.xlsx`, 'primary');
     buttons += btnDownload('↓ PDF',  pdfUrl,  `${resource.title}.pdf`,  'secondary');
-    buttons += btnGhost('↗ Drive', driveUrl);
+    buttons += coreBtnGhost('↗ GDrive', driveUrl);
   }
 
   return `
@@ -88,6 +88,10 @@ function buildCoreCardHTML(resource) {
       <div class="card-btns">${buttons}</div>
     </div>
   `;
+}
+
+function coreBtnGhost(label, url) {
+  return `<a href="${url}" class="btn btn-ghost sh cool" target="_blank" rel="noopener"><span>${label}</span></a>`;
 }
 
 // Large centered doc icon
@@ -410,31 +414,31 @@ function buildDocButtonsHTML(file) {
     const pdfUrl  = `${base}&mimeType=application/pdf`;
     html += btnDownload('↓ DOCX', docxUrl, `${baseName}.docx`, 'primary');
     html += btnDownload('↓ PDF',  pdfUrl,  `${baseName}.pdf`,  'secondary');
-    html += btnGhost('↗ Drive', driveUrl);
+    html += btnGhost('↗ GDrive', driveUrl);
   } else if (mime === 'application/vnd.google-apps.spreadsheet') {
     const xlsxUrl = `${base}&mimeType=application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`;
     const pdfUrl  = `${base}&mimeType=application/pdf`;
     html += btnDownload('↓ XLSX', xlsxUrl, `${baseName}.xlsx`, 'primary');
     html += btnDownload('↓ PDF',  pdfUrl,  `${baseName}.pdf`,  'secondary');
-    html += btnGhost('↗ Drive', driveUrl);
+    html += btnGhost('↗ GDrive', driveUrl);
   } else if (mime === 'application/pdf') {
     const pdfUrl = `https://www.googleapis.com/drive/v3/files/${id}?alt=media&key=${CONFIG.GOOGLE_API_KEY}`;
     html += btnDownload('↓ PDF', pdfUrl, `${baseName}.pdf`, 'secondary');
-    html += btnGhost('↗ Drive', driveUrl);
+    html += btnGhost('↗ GDrive', driveUrl);
   } else if (mime === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
     const dlUrl  = `https://www.googleapis.com/drive/v3/files/${id}?alt=media&key=${CONFIG.GOOGLE_API_KEY}`;
     const pdfUrl = `${base}&mimeType=application/pdf`;
     html += btnDownload('↓ DOCX', dlUrl,  `${baseName}.docx`, 'primary');
     html += btnDownload('↓ PDF',  pdfUrl, `${baseName}.pdf`,  'secondary');
-    html += btnGhost('↗ Drive', driveUrl);
+    html += btnGhost('↗ GDrive', driveUrl);
   } else if (mime === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
     const dlUrl  = `https://www.googleapis.com/drive/v3/files/${id}?alt=media&key=${CONFIG.GOOGLE_API_KEY}`;
     const pdfUrl = `${base}&mimeType=application/pdf`;
     html += btnDownload('↓ XLSX', dlUrl,  `${baseName}.xlsx`, 'primary');
     html += btnDownload('↓ PDF',  pdfUrl, `${baseName}.pdf`,  'secondary');
-    html += btnGhost('↗ Drive', driveUrl);
+    html += btnGhost('↗ GDrive', driveUrl);
   } else {
-    html += btnGhost('↗ Drive', driveUrl);
+    html += btnGhost('↗ GDrive', driveUrl);
   }
   return html;
 }
