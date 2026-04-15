@@ -56,20 +56,25 @@ downloadFile(btn.dataset.downloadUrl, btn.dataset.filename);
 }
 
 function buildCoreCardHTML(resource) {
-const base     = `https://www.googleapis.com/drive/v3/files/${resource.fileId}/export?key=${CONFIG.GOOGLE_API_KEY}`;
-const driveUrl = `https://drive.google.com/open?id=${resource.fileId}`;
-const icon     = resource.type === ‘doc’ ? coreIconDoc() : resource.type === ‘sheet’ ? coreIconSheet() : coreIconExternal();
-let buttons    = ‘’;
+const isExternal = resource.type === ‘external’;
+const icon = resource.type === ‘doc’ ? coreIconDoc()
+: resource.type === ‘sheet’ ? coreIconSheet()
+: coreIconExternal();
+let buttons = ‘’;
 
 if (resource.type === ‘doc’) {
-const docxUrl = `${base}&mimeType=application/vnd.openxmlformats-officedocument.wordprocessingml.document`;
-const pdfUrl  = `${base}&mimeType=application/pdf`;
+const base    = `https://www.googleapis.com/drive/v3/files/${resource.fileId}/export?key=${CONFIG.GOOGLE_API_KEY}`;
+const driveUrl = `https://drive.google.com/open?id=${resource.fileId}`;
+const docxUrl  = `${base}&mimeType=application/vnd.openxmlformats-officedocument.wordprocessingml.document`;
+const pdfUrl   = `${base}&mimeType=application/pdf`;
 buttons += btnDownload(‘↓ DOCX’, docxUrl, `${resource.title}.docx`, ‘primary’);
 buttons += btnDownload(‘↓ PDF’,  pdfUrl,  `${resource.title}.pdf`,  ‘secondary’);
 buttons += coreBtnGhost(‘↗ GDrive’, driveUrl);
 } else if (resource.type === ‘sheet’) {
-const xlsxUrl = `${base}&mimeType=application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`;
-const pdfUrl  = `${base}&mimeType=application/pdf`;
+const base    = `https://www.googleapis.com/drive/v3/files/${resource.fileId}/export?key=${CONFIG.GOOGLE_API_KEY}`;
+const driveUrl = `https://drive.google.com/open?id=${resource.fileId}`;
+const xlsxUrl  = `${base}&mimeType=application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`;
+const pdfUrl   = `${base}&mimeType=application/pdf`;
 buttons += btnDownload(‘↓ XLSX’, xlsxUrl, `${resource.title}.xlsx`, ‘primary’);
 buttons += btnDownload(‘↓ PDF’,  pdfUrl,  `${resource.title}.pdf`,  ‘secondary’);
 buttons += coreBtnGhost(‘↗ GDrive’, driveUrl);
@@ -77,7 +82,6 @@ buttons += coreBtnGhost(‘↗ GDrive’, driveUrl);
 buttons += `<a href="${resource.url}" target="_blank" rel="noopener" class="btn btn-teal sh cool-teal"><span>↗ Visit Site</span></a>`;
 }
 
-const isExternal = resource.type === ‘external’;
 return `<div class="card core-card${isExternal ? ' core-card-external' : ''}"> <div class="corner-tl${isExternal ? ' corner-tl-teal' : ''}"></div> <div class="corner-br"></div> <div class="${isExternal ? 'core-badge-external' : 'core-badge'}">${isExternal ? 'EXTERNAL RESOURCE' : 'CORE RESOURCE'}</div> <div class="core-icon-wrap">${icon}</div> <div class="card-title">${resource.title.toUpperCase()}</div> <div class="card-meta">${resource.subtitle}</div> <div class="card-btns">${buttons}</div> </div>`;
 }
 
@@ -99,6 +103,10 @@ return `<svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http:
 function coreIconExternal() {
 return `<svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg"> <rect x="4" y="4" width="44" height="44" stroke="#3A8A8A" stroke-width="1.5" fill="#F8F4EE"/> <rect x="4" y="4" width="44" height="12" fill="#3A8A8A" fill-opacity="0.15" stroke="#3A8A8A" stroke-width="1.5"/> <line x1="4" y1="16" x2="48" y2="16" stroke="#3A8A8A" stroke-width="1.2"/> <text x="26" y="38" text-anchor="middle" font-family="Big Shoulders Display, sans-serif" font-size="22" font-weight="900" fill="#3A8A8A" letter-spacing="-1">?</text> </svg>`;
 }
+
+// ════════════════════════════════════════════════════════════
+// FOLDER ICONS — open / closed states
+// ════════════════════════════════════════════════════════════
 function folderClosed() {
 return `<svg class="folder-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M1 4.5h4.5l1.5 2H15v7.5H1V4.5z" stroke="#D4A832" stroke-width="0.9" fill="#D4A832" fill-opacity="0.15"/> <path d="M1 4.5h4.5l1.5 2" stroke="#D4A832" stroke-width="0.9" stroke-linejoin="round"/> </svg>`;
 }
