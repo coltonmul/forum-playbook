@@ -83,6 +83,12 @@ body {
 .dp:hover   { box-shadow: 0 8px 28px rgba(58,138,138,0.5), 0 2px 8px rgba(58,138,138,0.25); transform: translateY(-2px); }
 .dp:hover > span { color: #fff; }
 
+/* Cool-teal: Gold → Teal (for external card primary button) */
+.cool-teal::before { background: var(--gold); }
+.cool-teal::after  { background: var(--teal); }
+.cool-teal:hover   { box-shadow: 0 8px 28px rgba(58,138,138,0.5), 0 2px 8px rgba(58,138,138,0.25); transform: translateY(-2px); }
+.cool-teal:hover > span { color: #fff; }
+
 
 /* ══════════════════════════════════════════════════════════
    NAV
@@ -628,6 +634,37 @@ body {
   text-align: center;
   padding: 6px 4px;
   font-size: 8px;
+}
+
+/* External resource card — teal accent */
+.core-card-external {
+  border-top: 2px solid var(--teal);
+}
+.core-card-external:hover {
+  border-color: var(--teal);
+  box-shadow: 0 10px 32px rgba(58,138,138,0.2), 0 2px 8px rgba(0,0,0,0.06);
+}
+.corner-tl-teal {
+  border-top-color: var(--teal);
+  border-left-color: var(--teal);
+}
+.core-badge-external {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--teal);
+  border: 0.5px solid var(--teal);
+  padding: 2px 6px;
+  display: inline-block;
+  margin-bottom: 16px;
+}
+.btn-teal {
+  background: var(--teal);
+  border-color: var(--teal);
+  color: var(--white);
+  flex: 1;
+  text-align: center;
 }
 
 
