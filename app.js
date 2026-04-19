@@ -10,27 +10,27 @@ videos: [],
 };
 
 // ── State ───────────────────────────────────────────────────
-let searchQuery = ‘’;
+let searchQuery = '';
 
 // ── DOM refs ─────────────────────────────────────────────────
-const accordionWrap = document.getElementById(‘accordion-wrap’);
-const searchInput   = document.getElementById(‘search-input’);
-const videoGrid     = document.getElementById(‘video-grid’);
-const resourceCount = document.getElementById(‘resource-count’);
-const statResources = document.getElementById(‘stat-resources’);
-const statCategories= document.getElementById(‘stat-categories’);
-const statVideos    = document.getElementById(‘stat-videos’);
-const lightbox      = document.getElementById(‘lightbox’);
-const lightboxEmbed = document.getElementById(‘lightbox-embed’);
-const lightboxClose = document.getElementById(‘lightbox-close’);
-const lightboxBg    = document.getElementById(‘lightbox-backdrop’);
-const coreGrid      = document.getElementById(‘core-grid’);
+const accordionWrap = document.getElementById('accordion-wrap');
+const searchInput   = document.getElementById('search-input');
+const videoGrid     = document.getElementById('video-grid');
+const resourceCount = document.getElementById('resource-count');
+const statResources = document.getElementById('stat-resources');
+const statCategories= document.getElementById('stat-categories');
+const statVideos    = document.getElementById('stat-videos');
+const lightbox      = document.getElementById('lightbox');
+const lightboxEmbed = document.getElementById('lightbox-embed');
+const lightboxClose = document.getElementById('lightbox-close');
+const lightboxBg    = document.getElementById('lightbox-backdrop');
+const coreGrid      = document.getElementById('core-grid');
 
 // ════════════════════════════════════════════════════════════
 // INIT
 // ════════════════════════════════════════════════════════════
 async function init() {
-if (!CONFIG.GOOGLE_API_KEY || CONFIG.GOOGLE_API_KEY === ‘YOUR_API_KEY_HERE’) {
+if (!CONFIG.GOOGLE_API_KEY || CONFIG.GOOGLE_API_KEY === 'YOUR_API_KEY_HERE') {
 showConfigError();
 return;
 }
@@ -46,9 +46,9 @@ loadYouTubeVideos(),
 // ════════════════════════════════════════════════════════════
 function renderCoreResources() {
 if (!coreGrid || !CONFIG.CORE_RESOURCES || !CONFIG.CORE_RESOURCES.length) return;
-coreGrid.innerHTML = CONFIG.CORE_RESOURCES.map(r => buildCoreCardHTML(r)).join(’’);
-coreGrid.querySelectorAll(’[data-download-url]’).forEach(btn => {
-btn.addEventListener(‘click’, e => {
+coreGrid.innerHTML = CONFIG.CORE_RESOURCES.map(r => buildCoreCardHTML(r)).join('');
+coreGrid.querySelectorAll('[data-download-url]').forEach(btn => {
+btn.addEventListener('click', e => {
 e.preventDefault();
 downloadFile(btn.dataset.downloadUrl, btn.dataset.filename);
 });
@@ -56,29 +56,29 @@ downloadFile(btn.dataset.downloadUrl, btn.dataset.filename);
 }
 
 function buildCoreCardHTML(resource) {
-const isExternal = resource.type === ‘external’;
-const icon = resource.type === ‘doc’ ? coreIconDoc()
-: resource.type === ‘sheet’ ? coreIconSheet()
+const isExternal = resource.type === 'external';
+const icon = resource.type === 'doc' ? coreIconDoc()
+: resource.type === 'sheet' ? coreIconSheet()
 : coreIconExternal();
-let buttons = ‘’;
+let buttons = '';
 
-if (resource.type === ‘doc’) {
+if (resource.type === 'doc') {
 const base    = `https://www.googleapis.com/drive/v3/files/${resource.fileId}/export?key=${CONFIG.GOOGLE_API_KEY}`;
 const driveUrl = `https://drive.google.com/open?id=${resource.fileId}`;
 const docxUrl  = `${base}&mimeType=application/vnd.openxmlformats-officedocument.wordprocessingml.document`;
 const pdfUrl   = `${base}&mimeType=application/pdf`;
-buttons += btnDownload(‘↓ DOCX’, docxUrl, `${resource.title}.docx`, ‘primary’);
-buttons += btnDownload(‘↓ PDF’,  pdfUrl,  `${resource.title}.pdf`,  ‘secondary’);
-buttons += coreBtnGhost(‘↗ GDrive’, driveUrl);
-} else if (resource.type === ‘sheet’) {
+buttons += btnDownload('↓ DOCX', docxUrl, `${resource.title}.docx`, 'primary');
+buttons += btnDownload('↓ PDF',  pdfUrl,  `${resource.title}.pdf`,  'secondary');
+buttons += coreBtnGhost('↗ GDrive', driveUrl);
+} else if (resource.type === 'sheet') {
 const base    = `https://www.googleapis.com/drive/v3/files/${resource.fileId}/export?key=${CONFIG.GOOGLE_API_KEY}`;
 const driveUrl = `https://drive.google.com/open?id=${resource.fileId}`;
 const xlsxUrl  = `${base}&mimeType=application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`;
 const pdfUrl   = `${base}&mimeType=application/pdf`;
-buttons += btnDownload(‘↓ XLSX’, xlsxUrl, `${resource.title}.xlsx`, ‘primary’);
-buttons += btnDownload(‘↓ PDF’,  pdfUrl,  `${resource.title}.pdf`,  ‘secondary’);
-buttons += coreBtnGhost(‘↗ GDrive’, driveUrl);
-} else if (resource.type === ‘external’) {
+buttons += btnDownload('↓ XLSX', xlsxUrl, `${resource.title}.xlsx`, 'primary');
+buttons += btnDownload('↓ PDF',  pdfUrl,  `${resource.title}.pdf`,  'secondary');
+buttons += coreBtnGhost('↗ GDrive', driveUrl);
+} else if (resource.type === 'external') {
 buttons += `<a href="${resource.url}" target="_blank" rel="noopener" class="btn btn-teal sh cool-teal"><span>↗ Visit Site</span></a>`;
 }
 
@@ -128,12 +128,12 @@ return `<svg class="video-type-icon" width="14" height="14" viewBox="0 0 16 16" 
 // DRIVE — fetch and recurse
 // ════════════════════════════════════════════════════════════
 async function fetchFolderContents(folderId) {
-const url = new URL(‘https://www.googleapis.com/drive/v3/files’);
-url.searchParams.set(‘q’, `'${folderId}' in parents and trashed = false`);
-url.searchParams.set(‘fields’, ‘files(id,name,mimeType,modifiedTime)’);
-url.searchParams.set(‘orderBy’, ‘name’);
-url.searchParams.set(‘pageSize’, ‘200’);
-url.searchParams.set(‘key’, CONFIG.GOOGLE_API_KEY);
+const url = new URL('https://www.googleapis.com/drive/v3/files');
+url.searchParams.set('q', `'${folderId}' in parents and trashed = false`);
+url.searchParams.set('fields', 'files(id,name,mimeType,modifiedTime)');
+url.searchParams.set('orderBy', 'name');
+url.searchParams.set('pageSize', '200');
+url.searchParams.set('key', CONFIG.GOOGLE_API_KEY);
 const res  = await fetch(url.toString());
 const data = await res.json();
 if (data.error) throw new Error(data.error.message);
@@ -144,8 +144,8 @@ async function buildFolderNode(folderId, folderName) {
 const restricted = isRestricted(folderName);
 if (restricted) return { id: folderId, name: folderName, files: [], subfolders: [], restricted: true };
 const contents   = await fetchFolderContents(folderId);
-const files      = contents.filter(f => f.mimeType !== ‘application/vnd.google-apps.folder’);
-const rawFolders = contents.filter(f => f.mimeType === ‘application/vnd.google-apps.folder’);
+const files      = contents.filter(f => f.mimeType !== 'application/vnd.google-apps.folder');
+const rawFolders = contents.filter(f => f.mimeType === 'application/vnd.google-apps.folder');
 const subfolders = await Promise.all(rawFolders.map(sf => buildFolderNode(sf.id, sf.name)));
 return { id: folderId, name: folderName, files, subfolders, restricted: false };
 }
@@ -159,11 +159,11 @@ async function loadResourceLibrary() {
 try {
 accordionWrap.innerHTML = buildSkeletonAccordion();
 const rootContents = await fetchFolderContents(CONFIG.DRIVE_ROOT_FOLDER_ID);
-const topFolders   = rootContents.filter(f => f.mimeType === ‘application/vnd.google-apps.folder’);
-const rootFiles    = rootContents.filter(f => f.mimeType !== ‘application/vnd.google-apps.folder’);
+const topFolders   = rootContents.filter(f => f.mimeType === 'application/vnd.google-apps.folder');
+const rootFiles    = rootContents.filter(f => f.mimeType !== 'application/vnd.google-apps.folder');
 const sections     = await Promise.all(topFolders.map(f => buildFolderNode(f.id, f.name)));
 if (rootFiles.length) {
-sections.unshift({ id: CONFIG.DRIVE_ROOT_FOLDER_ID, name: ‘General’, files: rootFiles, subfolders: [], restricted: false });
+sections.unshift({ id: CONFIG.DRIVE_ROOT_FOLDER_ID, name: 'General', files: rootFiles, subfolders: [], restricted: false });
 }
 CACHE.sections = sections;
 renderAccordion();
@@ -176,7 +176,7 @@ accordionWrap.innerHTML = `<div class="empty-state"><div class="empty-icon">◈<
 // ════════════════════════════════════════════════════════════
 // SEARCH
 // ════════════════════════════════════════════════════════════
-searchInput.addEventListener(‘input’, e => {
+searchInput.addEventListener('input', e => {
 searchQuery = e.target.value.toLowerCase().trim();
 renderAccordion();
 });
@@ -193,36 +193,36 @@ if (section.restricted) return buildRestrictedAccordionHTML(section.name);
 const { html: bodyHtml, count } = buildFolderBodyHTML(section, 0);
 totalMatching += count;
 return buildAccordionSectionHTML(section.name, count, bodyHtml);
-}).join(’’);
+}).join('');
 
 accordionWrap.innerHTML = html || `<div class="empty-state"><div class="empty-icon">◈</div><div class="empty-title">No resources found</div><div class="empty-msg">Try a different search term.</div></div>`;
 resourceCount.textContent = `${totalMatching} resource${totalMatching !== 1 ? 's' : ''}`;
 
-accordionWrap.querySelectorAll(’.acc-header’).forEach(header => {
-header.addEventListener(‘click’, () => {
-const isOpen = header.classList.toggle(‘open’);
-header.nextElementSibling.classList.toggle(‘open’);
-const closed = header.querySelector(’.fi-closed’);
-const open   = header.querySelector(’.fi-open’);
-if (closed) closed.style.display = isOpen ? ‘none’ : ‘inline’;
-if (open)   open.style.display   = isOpen ? ‘inline’ : ‘none’;
+accordionWrap.querySelectorAll('.acc-header').forEach(header => {
+header.addEventListener('click', () => {
+const isOpen = header.classList.toggle('open');
+header.nextElementSibling.classList.toggle('open');
+const closed = header.querySelector('.fi-closed');
+const open   = header.querySelector('.fi-open');
+if (closed) closed.style.display = isOpen ? 'none' : 'inline';
+if (open)   open.style.display   = isOpen ? 'inline' : 'none';
 });
 });
 
-accordionWrap.querySelectorAll(’.sub-header’).forEach(header => {
-header.addEventListener(‘click’, e => {
+accordionWrap.querySelectorAll('.sub-header').forEach(header => {
+header.addEventListener('click', e => {
 e.stopPropagation();
-const isOpen = header.classList.toggle(‘open’);
-header.nextElementSibling.classList.toggle(‘open’);
-const closed = header.querySelector(’.fi-closed’);
-const open   = header.querySelector(’.fi-open’);
-if (closed) closed.style.display = isOpen ? ‘none’ : ‘inline’;
-if (open)   open.style.display   = isOpen ? ‘inline’ : ‘none’;
+const isOpen = header.classList.toggle('open');
+header.nextElementSibling.classList.toggle('open');
+const closed = header.querySelector('.fi-closed');
+const open   = header.querySelector('.fi-open');
+if (closed) closed.style.display = isOpen ? 'none' : 'inline';
+if (open)   open.style.display   = isOpen ? 'inline' : 'none';
 });
 });
 
-accordionWrap.querySelectorAll(’[data-download-url]’).forEach(btn => {
-btn.addEventListener(‘click’, e => {
+accordionWrap.querySelectorAll('[data-download-url]').forEach(btn => {
+btn.addEventListener('click', e => {
 e.preventDefault();
 e.stopPropagation();
 downloadFile(btn.dataset.downloadUrl, btn.dataset.filename);
@@ -232,14 +232,14 @@ downloadFile(btn.dataset.downloadUrl, btn.dataset.filename);
 
 function buildFolderBodyHTML(folder, depth) {
 let count = 0;
-let html  = ‘’;
+let html  = '';
 const matchingFiles = folder.files.filter(f => {
 if (!searchQuery) return true;
 return cleanFileName(f.name).toLowerCase().includes(searchQuery) ||
 folder.name.toLowerCase().includes(searchQuery);
 });
 count += matchingFiles.length;
-html  += matchingFiles.map(f => buildDocRowHTML(f, depth)).join(’’);
+html  += matchingFiles.map(f => buildDocRowHTML(f, depth)).join('');
 folder.subfolders.forEach(sf => {
 const { html: subHtml, count: subCount } = buildFolderBodyHTML(sf, depth + 1);
 count += subCount;
@@ -275,15 +275,15 @@ return `<div class="acc-category acc-restricted"> <div class="acc-header"> <div 
 }
 
 function getDocIcon(mime) {
-if (mime === ‘application/vnd.google-apps.document’ ||
-mime === ‘application/vnd.openxmlformats-officedocument.wordprocessingml.document’) {
+if (mime === 'application/vnd.google-apps.document' ||
+mime === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
 return `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;"><rect x="2" y="1" width="9" height="13" stroke="#E8521A" stroke-width="0.8"/><line x1="4" y1="5" x2="9" y2="5" stroke="#C4B8A8" stroke-width="0.7"/><line x1="4" y1="7" x2="9" y2="7" stroke="#C4B8A8" stroke-width="0.7"/><line x1="4" y1="9" x2="7" y2="9" stroke="#C4B8A8" stroke-width="0.7"/></svg>`;
 }
-if (mime === ‘application/vnd.google-apps.spreadsheet’ ||
-mime === ‘application/vnd.openxmlformats-officedocument.spreadsheetml.sheet’) {
+if (mime === 'application/vnd.google-apps.spreadsheet' ||
+mime === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
 return `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;"><rect x="1" y="1" width="14" height="14" stroke="#3A8A8A" stroke-width="0.8"/><line x1="1" y1="5" x2="15" y2="5" stroke="#3A8A8A" stroke-width="0.7"/><line x1="6" y1="1" x2="6" y2="15" stroke="#C4B8A8" stroke-width="0.7"/></svg>`;
 }
-if (mime === ‘application/pdf’) {
+if (mime === 'application/pdf') {
 return `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;"><rect x="2" y="1" width="9" height="13" stroke="#B83A14" stroke-width="0.8"/><line x1="4" y1="5" x2="9" y2="5" stroke="#B83A14" stroke-width="0.7"/></svg>`;
 }
 return `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;"><rect x="2" y="1" width="9" height="13" stroke="#C4B8A8" stroke-width="0.8"/></svg>`;
@@ -295,10 +295,10 @@ return `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" style="flex-
 async function downloadFile(url, filename) {
 try {
 const res = await fetch(url);
-if (!res.ok) throw new Error(‘Download failed’);
+if (!res.ok) throw new Error('Download failed');
 const blob = await res.blob();
 const blobUrl = URL.createObjectURL(blob);
-const a = document.createElement(‘a’);
+const a = document.createElement('a');
 a.href = blobUrl;
 a.download = filename;
 document.body.appendChild(a);
@@ -306,8 +306,8 @@ a.click();
 document.body.removeChild(a);
 setTimeout(() => URL.revokeObjectURL(blobUrl), 10000);
 } catch (err) {
-console.error(‘Download error:’, err);
-window.open(url, ‘_blank’, ‘noopener’);
+console.error('Download error:', err);
+window.open(url, '_blank', 'noopener');
 }
 }
 
@@ -317,43 +317,43 @@ const mime     = file.mimeType;
 const base     = `https://www.googleapis.com/drive/v3/files/${id}/export?key=${CONFIG.GOOGLE_API_KEY}`;
 const baseName = cleanFileName(file.name);
 const driveUrl = `https://drive.google.com/open?id=${id}`;
-let html = ‘’;
-if (mime === ‘application/vnd.google-apps.document’) {
+let html = '';
+if (mime === 'application/vnd.google-apps.document') {
 const docxUrl = `${base}&mimeType=application/vnd.openxmlformats-officedocument.wordprocessingml.document`;
 const pdfUrl  = `${base}&mimeType=application/pdf`;
-html += btnDownload(‘↓ DOCX’, docxUrl, `${baseName}.docx`, ‘primary’);
-html += btnDownload(‘↓ PDF’,  pdfUrl,  `${baseName}.pdf`,  ‘secondary’);
-html += btnGhost(‘↗ GDrive’, driveUrl);
-} else if (mime === ‘application/vnd.google-apps.spreadsheet’) {
+html += btnDownload('↓ DOCX', docxUrl, `${baseName}.docx`, 'primary');
+html += btnDownload('↓ PDF',  pdfUrl,  `${baseName}.pdf`,  'secondary');
+html += btnGhost('↗ GDrive', driveUrl);
+} else if (mime === 'application/vnd.google-apps.spreadsheet') {
 const xlsxUrl = `${base}&mimeType=application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`;
 const pdfUrl  = `${base}&mimeType=application/pdf`;
-html += btnDownload(‘↓ XLSX’, xlsxUrl, `${baseName}.xlsx`, ‘primary’);
-html += btnDownload(‘↓ PDF’,  pdfUrl,  `${baseName}.pdf`,  ‘secondary’);
-html += btnGhost(‘↗ GDrive’, driveUrl);
-} else if (mime === ‘application/pdf’) {
+html += btnDownload('↓ XLSX', xlsxUrl, `${baseName}.xlsx`, 'primary');
+html += btnDownload('↓ PDF',  pdfUrl,  `${baseName}.pdf`,  'secondary');
+html += btnGhost('↗ GDrive', driveUrl);
+} else if (mime === 'application/pdf') {
 const pdfUrl = `https://www.googleapis.com/drive/v3/files/${id}?alt=media&key=${CONFIG.GOOGLE_API_KEY}`;
-html += btnDownload(‘↓ PDF’, pdfUrl, `${baseName}.pdf`, ‘secondary’);
-html += btnGhost(‘↗ GDrive’, driveUrl);
-} else if (mime === ‘application/vnd.openxmlformats-officedocument.wordprocessingml.document’) {
+html += btnDownload('↓ PDF', pdfUrl, `${baseName}.pdf`, 'secondary');
+html += btnGhost('↗ GDrive', driveUrl);
+} else if (mime === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
 const dlUrl  = `https://www.googleapis.com/drive/v3/files/${id}?alt=media&key=${CONFIG.GOOGLE_API_KEY}`;
 const pdfUrl = `${base}&mimeType=application/pdf`;
-html += btnDownload(‘↓ DOCX’, dlUrl,  `${baseName}.docx`, ‘primary’);
-html += btnDownload(‘↓ PDF’,  pdfUrl, `${baseName}.pdf`,  ‘secondary’);
-html += btnGhost(‘↗ GDrive’, driveUrl);
-} else if (mime === ‘application/vnd.openxmlformats-officedocument.spreadsheetml.sheet’) {
+html += btnDownload('↓ DOCX', dlUrl,  `${baseName}.docx`, 'primary');
+html += btnDownload('↓ PDF',  pdfUrl, `${baseName}.pdf`,  'secondary');
+html += btnGhost('↗ GDrive', driveUrl);
+} else if (mime === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
 const dlUrl  = `https://www.googleapis.com/drive/v3/files/${id}?alt=media&key=${CONFIG.GOOGLE_API_KEY}`;
 const pdfUrl = `${base}&mimeType=application/pdf`;
-html += btnDownload(‘↓ XLSX’, dlUrl,  `${baseName}.xlsx`, ‘primary’);
-html += btnDownload(‘↓ PDF’,  pdfUrl, `${baseName}.pdf`,  ‘secondary’);
-html += btnGhost(‘↗ GDrive’, driveUrl);
+html += btnDownload('↓ XLSX', dlUrl,  `${baseName}.xlsx`, 'primary');
+html += btnDownload('↓ PDF',  pdfUrl, `${baseName}.pdf`,  'secondary');
+html += btnGhost('↗ GDrive', driveUrl);
 } else {
-html += btnGhost(‘↗ GDrive’, driveUrl);
+html += btnGhost('↗ GDrive', driveUrl);
 }
 return html;
 }
 
 function btnDownload(label, url, filename, style) {
-const cls = style === ‘primary’ ? ‘btn btn-primary sh warm’ : ‘btn sh warm’;
+const cls = style === 'primary' ? 'btn btn-primary sh warm' : 'btn sh warm';
 return `<button class="${cls}" data-download-url="${url}" data-filename="${filename}"><span>${label}</span></button>`;
 }
 
@@ -365,7 +365,7 @@ return `<a href="${url}" class="btn btn-ghost sh cool" target="_blank" rel="noop
 // SKELETON
 // ════════════════════════════════════════════════════════════
 function buildSkeletonAccordion() {
-return [1,2,3,4].map(() => `<div class="acc-category skeleton"> <div class="acc-header" style="pointer-events:none;"> <div class="acc-header-left" style="gap:10px;"> <div style="width:16px;height:16px;background:#E8E2D6;flex-shrink:0;"></div> <div class="skel-line" style="width:180px;height:14px;margin:0;border-radius:2px;"></div> <div class="skel-line" style="width:70px;height:10px;margin:0;border-radius:2px;"></div> </div> </div> </div>`).join(’’);
+return [1,2,3,4].map(() => `<div class="acc-category skeleton"> <div class="acc-header" style="pointer-events:none;"> <div class="acc-header-left" style="gap:10px;"> <div style="width:16px;height:16px;background:#E8E2D6;flex-shrink:0;"></div> <div class="skel-line" style="width:180px;height:14px;margin:0;border-radius:2px;"></div> <div class="skel-line" style="width:70px;height:10px;margin:0;border-radius:2px;"></div> </div> </div> </div>`).join('');
 }
 
 // ════════════════════════════════════════════════════════════
@@ -373,15 +373,15 @@ return [1,2,3,4].map(() => `<div class="acc-category skeleton"> <div class="acc-
 // ════════════════════════════════════════════════════════════
 async function loadYouTubeVideos() {
 try {
-if (!CONFIG.YOUTUBE_PLAYLIST_ID || CONFIG.YOUTUBE_PLAYLIST_ID === ‘YOUR_PLAYLIST_ID_HERE’) {
+if (!CONFIG.YOUTUBE_PLAYLIST_ID || CONFIG.YOUTUBE_PLAYLIST_ID === 'YOUR_PLAYLIST_ID_HERE') {
 clearVideoSkeletons();
 return;
 }
-const url = new URL(‘https://www.googleapis.com/youtube/v3/playlistItems’);
-url.searchParams.set(‘part’, ‘snippet,contentDetails’);
-url.searchParams.set(‘playlistId’, CONFIG.YOUTUBE_PLAYLIST_ID);
-url.searchParams.set(‘maxResults’, ‘50’);
-url.searchParams.set(‘key’, CONFIG.GOOGLE_API_KEY);
+const url = new URL('https://www.googleapis.com/youtube/v3/playlistItems');
+url.searchParams.set('part', 'snippet,contentDetails');
+url.searchParams.set('playlistId', CONFIG.YOUTUBE_PLAYLIST_ID);
+url.searchParams.set('maxResults', '50');
+url.searchParams.set('key', CONFIG.GOOGLE_API_KEY);
 const res  = await fetch(url.toString());
 const data = await res.json();
 if (data.error) throw new Error(data.error.message);
@@ -398,14 +398,14 @@ showVideoError(err.message);
 // ════════════════════════════════════════════════════════════
 function renderVideos() {
 if (!CACHE.videos.length) { clearVideoSkeletons(); return; }
-videoGrid.innerHTML = CACHE.videos.map(v => buildVideoCardHTML(v)).join(’’);
+videoGrid.innerHTML = CACHE.videos.map(v => buildVideoCardHTML(v)).join('');
 }
 
 function buildVideoCardHTML(item) {
 const snippet   = item.snippet;
-const videoId   = snippet.resourceId?.videoId || ‘’;
+const videoId   = snippet.resourceId?.videoId || '';
 const title     = snippet.title;
-const thumb     = snippet.thumbnails?.medium?.url || ‘’;
+const thumb     = snippet.thumbnails?.medium?.url || '';
 const published = timeAgo(snippet.publishedAt);
 return `<div class="video-card" data-videoid="${videoId}" role="button" tabindex="0" aria-label="Play: ${title}"> <div class="video-thumb-16x9"> ${thumb ?`<img src="${thumb}" alt="${title}" loading="lazy" />`: '<div class="video-thumb-placeholder"></div>'} <div class="play-btn" aria-hidden="true"><div class="play-triangle"></div></div> <div class="yt-badge">YouTube</div> </div> <div class="video-info"> ${videoIcon()} <div class="video-text"> <div class="video-title">${title}</div> <div class="video-meta">${published}</div> </div> </div> </div>`;
 }
@@ -417,45 +417,45 @@ videoGrid.innerHTML = `<div class="empty-state" style="grid-column:1/-1;padding:
 // ════════════════════════════════════════════════════════════
 // LIGHTBOX
 // ════════════════════════════════════════════════════════════
-videoGrid.addEventListener(‘click’, e => {
-const card = e.target.closest(’[data-videoid]’);
+videoGrid.addEventListener('click', e => {
+const card = e.target.closest('[data-videoid]');
 if (!card) return;
 const videoId = card.dataset.videoid;
 if (!videoId) return;
 if (window.innerWidth < 680) {
-window.open(`https://www.youtube.com/watch?v=${videoId}`, ‘_blank’, ‘noopener’);
+window.open(`https://www.youtube.com/watch?v=${videoId}`, '_blank', 'noopener');
 return;
 }
 lightboxEmbed.innerHTML = `<iframe src="https://www.youtube.com/embed/${videoId}?autoplay=1&rel=0" allow="autoplay; fullscreen" allowfullscreen></iframe>`;
 lightbox.hidden = false;
-document.body.style.overflow = ‘hidden’;
+document.body.style.overflow = 'hidden';
 lightboxClose.focus();
 });
 
-videoGrid.addEventListener(‘keydown’, e => {
-if (e.key === ‘Enter’ || e.key === ’ ‘) {
-const card = e.target.closest(’[data-videoid]’);
+videoGrid.addEventListener('keydown', e => {
+if (e.key === 'Enter' || e.key === ' ') {
+const card = e.target.closest('[data-videoid]');
 if (card) card.click();
 }
 });
 
 function closeLightbox() {
 lightbox.hidden = true;
-lightboxEmbed.innerHTML = ‘’;
-document.body.style.overflow = ‘’;
+lightboxEmbed.innerHTML = '';
+document.body.style.overflow = '';
 }
-lightboxClose.addEventListener(‘click’, closeLightbox);
-lightboxBg.addEventListener(‘click’, closeLightbox);
-document.addEventListener(‘keydown’, e => { if (e.key === ‘Escape’) closeLightbox(); });
+lightboxClose.addEventListener('click', closeLightbox);
+lightboxBg.addEventListener('click', closeLightbox);
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
 // ════════════════════════════════════════════════════════════
 // STATS
 // ════════════════════════════════════════════════════════════
 function updateStats() {
 const totalFiles = countAllFiles(CACHE.sections);
-statResources.textContent  = totalFiles || ‘—’;
-statCategories.textContent = CACHE.sections.filter(s => !s.restricted).length || ‘—’;
-statVideos.textContent     = CACHE.videos.length || ‘—’;
+statResources.textContent  = totalFiles || '—';
+statCategories.textContent = CACHE.sections.filter(s => !s.restricted).length || '—';
+statVideos.textContent     = CACHE.videos.length || '—';
 }
 
 function countAllFiles(sections) {
@@ -477,7 +477,7 @@ clearVideoSkeletons();
 }
 
 function showVideoError(msg) {
-console.warn(‘YouTube API error:’, msg);
+console.warn('YouTube API error:', msg);
 clearVideoSkeletons();
 }
 
@@ -486,43 +486,43 @@ clearVideoSkeletons();
 // ════════════════════════════════════════════════════════════
 function getMimeLabel(mime) {
 const map = {
-‘application/vnd.google-apps.document’:     ‘GOOGLE DOC’,
-‘application/vnd.google-apps.spreadsheet’:  ‘GOOGLE SHEET’,
-‘application/pdf’:                          ‘PDF’,
-‘application/vnd.openxmlformats-officedocument.wordprocessingml.document’: ‘DOCX’,
-‘application/vnd.openxmlformats-officedocument.spreadsheetml.sheet’:       ‘XLSX’,
+'application/vnd.google-apps.document':     'GOOGLE DOC',
+'application/vnd.google-apps.spreadsheet':  'GOOGLE SHEET',
+'application/pdf':                          'PDF',
+'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'DOCX',
+'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':       'XLSX',
 };
-return map[mime] || ‘FILE’;
+return map[mime] || 'FILE';
 }
 
 function formatDate(iso) {
-if (!iso) return ‘’;
+if (!iso) return '';
 const d   = new Date(iso);
 const y   = d.getFullYear();
-const m   = String(d.getMonth() + 1).padStart(2, ‘0’);
-const day = String(d.getDate()).padStart(2, ‘0’);
+const m   = String(d.getMonth() + 1).padStart(2, '0');
+const day = String(d.getDate()).padStart(2, '0');
 return `${y}.${m}.${day}`;
 }
 
 function timeAgo(iso) {
-if (!iso) return ‘’;
+if (!iso) return '';
 const diff = Date.now() - new Date(iso).getTime();
 const days = Math.floor(diff / 86400000);
-if (days === 0) return ‘Today’;
-if (days === 1) return ‘Yesterday’;
+if (days === 0) return 'Today';
+if (days === 1) return 'Yesterday';
 if (days < 7)  return `${days} days ago`;
-if (days < 14) return ‘1 week ago’;
+if (days < 14) return '1 week ago';
 if (days < 30) return `${Math.floor(days / 7)} weeks ago`;
-if (days < 60) return ‘1 month ago’;
+if (days < 60) return '1 month ago';
 return `${Math.floor(days / 30)} months ago`;
 }
 
 function cleanFileName(name) {
-return name.replace(/^\d+[._-\s]+/, ‘’).replace(/.(docx?|xlsx?|pdf|gsheet|gdoc)$/i, ‘’).toUpperCase();
+return name.replace(/^\d+[._-\s]+/, '').replace(/.(docx?|xlsx?|pdf|gsheet|gdoc)$/i, '').toUpperCase();
 }
 
 function cleanFolderName(name) {
-return name.replace(/^\d+[._-\s]+/, ‘’);
+return name.replace(/^\d+[._-\s]+/, '');
 }
 
 // ════════════════════════════════════════════════════════════
