@@ -3,16 +3,9 @@
 // Phase 2: Recursive accordion, root-folder-driven taxonomy
 // ═══════════════════════════════════════════════════════════
 
-// ── Session cache (no localStorage) ────────────────────────
-const CACHE = {
-  sections: [],
-  videos: [],
-};
-
-// ── State ───────────────────────────────────────────────────
+const CACHE = { sections: [], videos: [] };
 let searchQuery = '';
 
-// ── DOM refs ─────────────────────────────────────────────────
 const accordionWrap = document.getElementById('accordion-wrap');
 const searchInput   = document.getElementById('search-input');
 const videoGrid     = document.getElementById('video-grid');
@@ -26,26 +19,16 @@ const lightboxClose = document.getElementById('lightbox-close');
 const lightboxBg    = document.getElementById('lightbox-backdrop');
 const coreGrid      = document.getElementById('core-grid');
 
-
-// ════════════════════════════════════════════════════════════
-// INIT
-// ════════════════════════════════════════════════════════════
 async function init() {
   if (!CONFIG.GOOGLE_API_KEY || CONFIG.GOOGLE_API_KEY === 'YOUR_API_KEY_HERE') {
     showConfigError();
     return;
   }
   renderCoreResources();
-  await Promise.all([
-    loadResourceLibrary(),
-    loadYouTubeVideos(),
-  ]);
+  await Promise.all([loadResourceLibrary(), loadYouTubeVideos()]);
 }
 
-
-// ════════════════════════════════════════════════════════════
-// CORE RESOURCES — centered icon, Option B style
-// ════════════════════════════════════════════════════════════
+// CORE RESOURCES
 function renderCoreResources() {
   if (!coreGrid || !CONFIG.CORE_RESOURCES || !CONFIG.CORE_RESOURCES.length) return;
   coreGrid.innerHTML = CONFIG.CORE_RESOURCES.map(r => buildCoreCardHTML(r)).join('');
@@ -66,15 +49,15 @@ function buildCoreCardHTML(resource) {
   if (resource.type === 'doc') {
     const docxUrl = `${base}&mimeType=application/vnd.openxmlformats-officedocument.wordprocessingml.document`;
     const pdfUrl  = `${base}&mimeType=application/pdf`;
-    buttons += btnDownload('↓ DOCX', docxUrl, `${resource.title}.docx`, 'primary');
-    buttons += btnDownload('↓ PDF',  pdfUrl,  `${resource.title}.pdf`,  'secondary');
-    buttons += coreBtnGhost('↗ GDrive', driveUrl);
+    buttons += coreBtnDownload('DOWN DOCX', docxUrl, `${resource.title}.docx`, 'primary');
+    buttons += coreBtnDownload('DOWN PDF',  pdfUrl,  `${resource.title}.pdf`,  'secondary');
+    buttons += coreBtnGhost('UP GDrive', driveUrl);
   } else if (resource.type === 'sheet') {
     const xlsxUrl = `${base}&mimeType=application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`;
     const pdfUrl  = `${base}&mimeType=application/pdf`;
-    buttons += btnDownload('↓ XLSX', xlsxUrl, `${resource.title}.xlsx`, 'primary');
-    buttons += btnDownload('↓ PDF',  pdfUrl,  `${resource.title}.pdf`,  'secondary');
-    buttons += coreBtnGhost('↗ GDrive', driveUrl);
+    buttons += coreBtnDownload('DOWN XLSX', xlsxUrl, `${resource.title}.xlsx`, 'primary');
+    buttons += coreBtnDownload('DOWN PDF',  pdfUrl,  `${resource.title}.pdf`,  'secondary');
+    buttons += coreBtnGhost('UP GDrive', driveUrl);
   }
 
   return `
@@ -90,11 +73,17 @@ function buildCoreCardHTML(resource) {
   `;
 }
 
-function coreBtnGhost(label, url) {
-  return `<a href="${url}" class="btn btn-ghost sh cool" target="_blank" rel="noopener"><span>${label}</span></a>`;
+function coreBtnDownload(label, url, filename, style) {
+  const cls = style === 'primary' ? 'btn btn-primary sh warm' : 'btn sh warm';
+  const display = label.replace('DOWN ', '\u2193 ');
+  return `<button class="${cls}" data-download-url="${url}" data-filename="${filename}"><span>${display}</span></button>`;
 }
 
-// Large centered doc icon
+function coreBtnGhost(label, url) {
+  const display = label.replace('UP ', '\u2197 ');
+  return `<a href="${url}" class="btn btn-ghost sh cool" target="_blank" rel="noopener"><span>${display}</span></a>`;
+}
+
 function coreIconDoc() {
   return `<svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect x="6" y="2" width="32" height="42" stroke="#E8521A" stroke-width="1.5"/>
@@ -109,7 +98,6 @@ function coreIconDoc() {
   </svg>`;
 }
 
-// Large centered sheet icon
 function coreIconSheet() {
   return `<svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
     <rect x="2" y="6" width="32" height="42" stroke="#C4B8A8" stroke-width="1" fill="#F8F4EE"/>
@@ -126,19 +114,16 @@ function coreIconSheet() {
   </svg>`;
 }
 
-
-// ════════════════════════════════════════════════════════════
-// FOLDER ICONS — open / closed states
-// ════════════════════════════════════════════════════════════
+// FOLDER ICONS
 function folderClosed() {
-  return `<svg class="folder-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  return `<svg class="folder-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
     <path d="M1 4.5h4.5l1.5 2H15v7.5H1V4.5z" stroke="#D4A832" stroke-width="0.9" fill="#D4A832" fill-opacity="0.15"/>
     <path d="M1 4.5h4.5l1.5 2" stroke="#D4A832" stroke-width="0.9" stroke-linejoin="round"/>
   </svg>`;
 }
 
 function folderOpen() {
-  return `<svg class="folder-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  return `<svg class="folder-icon" width="16" height="16" viewBox="0 0 16 16" fill="none">
     <path d="M1 4.5h4.5l1.5 2H15v7.5H1V4.5z" stroke="#D4A832" stroke-width="0.9" fill="#D4A832" fill-opacity="0.28"/>
     <path d="M1 4.5h4.5l1.5 2" stroke="#D4A832" stroke-width="0.9" stroke-linejoin="round"/>
     <line x1="1" y1="6.5" x2="15" y2="6.5" stroke="#D4A832" stroke-width="0.75"/>
@@ -150,22 +135,18 @@ function folderOpen() {
 function folderIconPair() {
   return `
     <span class="fi-closed" style="display:inline;line-height:0;">${folderClosed()}</span>
-    <span class="fi-open"   style="display:none; line-height:0;">${folderOpen()}</span>
+    <span class="fi-open"   style="display:none;line-height:0;">${folderOpen()}</span>
   `;
 }
 
-// Video camera icon
 function videoIcon() {
-  return `<svg class="video-type-icon" width="14" height="14" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
+  return `<svg class="video-type-icon" width="14" height="14" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;">
     <rect x="1" y="3" width="10" height="10" stroke="#E8521A" stroke-width="0.9"/>
     <path d="M11 6l4-2v8l-4-2V6z" stroke="#E8521A" stroke-width="0.9" fill="#E8521A" fill-opacity="0.15"/>
   </svg>`;
 }
 
-
-// ════════════════════════════════════════════════════════════
-// DRIVE — fetch and recurse
-// ════════════════════════════════════════════════════════════
+// DRIVE
 async function fetchFolderContents(folderId) {
   const url = new URL('https://www.googleapis.com/drive/v3/files');
   url.searchParams.set('q', `'${folderId}' in parents and trashed = false`);
@@ -212,30 +193,22 @@ async function loadResourceLibrary() {
   }
 }
 
-
-// ════════════════════════════════════════════════════════════
 // SEARCH
-// ════════════════════════════════════════════════════════════
 searchInput.addEventListener('input', e => {
   searchQuery = e.target.value.toLowerCase().trim();
   renderAccordion();
 });
 
-
-// ════════════════════════════════════════════════════════════
-// RENDER ACCORDION
-// ════════════════════════════════════════════════════════════
+// ACCORDION
 function renderAccordion() {
   if (!CACHE.sections.length) return;
   let totalMatching = 0;
-
   const html = CACHE.sections.map(section => {
     if (section.restricted) return buildRestrictedAccordionHTML(section.name);
     const { html: bodyHtml, count } = buildFolderBodyHTML(section, 0);
     totalMatching += count;
     return buildAccordionSectionHTML(section.name, count, bodyHtml);
   }).join('');
-
   accordionWrap.innerHTML = html || `<div class="empty-state"><div class="empty-icon">◈</div><div class="empty-title">No resources found</div><div class="empty-msg">Try a different search term.</div></div>`;
   resourceCount.textContent = `${totalMatching} resource${totalMatching !== 1 ? 's' : ''}`;
 
@@ -299,7 +272,7 @@ function buildAccordionSectionHTML(name, count, bodyHtml) {
           <div class="acc-cat-name">${label}</div>
           <div class="acc-count">${count} document${count !== 1 ? 's' : ''}</div>
         </div>
-        <span class="acc-caret">▼</span>
+        <span class="acc-caret">&#9660;</span>
       </div>
       <div class="acc-body">
         ${bodyHtml || '<div class="acc-empty">No documents in this category yet.</div>'}
@@ -317,7 +290,7 @@ function buildSubfolderHTML(name, count, bodyHtml, depth) {
         ${folderIconPair()}
         <div class="sub-folder-name">${label}</div>
         <div class="sub-folder-count">${count} doc${count !== 1 ? 's' : ''}</div>
-        <span class="sub-caret">▼</span>
+        <span class="sub-caret">&#9660;</span>
       </div>
       <div class="sub-body">
         ${bodyHtml || '<div class="acc-empty" style="padding-left:16px;">Empty folder.</div>'}
@@ -353,7 +326,7 @@ function buildRestrictedAccordionHTML(name) {
           <div class="acc-cat-name" style="color:#C4B8A8;">${label}</div>
           <div class="acc-count">Access restricted</div>
         </div>
-        <span class="acc-caret">▼</span>
+        <span class="acc-caret">&#9660;</span>
       </div>
       <div class="acc-body">
         <div class="doc-row" style="padding:16px;">
@@ -379,15 +352,12 @@ function getDocIcon(mime) {
   return `<svg width="14" height="14" viewBox="0 0 16 16" fill="none" style="flex-shrink:0;"><rect x="2" y="1" width="9" height="13" stroke="#C4B8A8" stroke-width="0.8"/></svg>`;
 }
 
-
-// ════════════════════════════════════════════════════════════
-// DOWNLOAD HELPER
-// ════════════════════════════════════════════════════════════
+// DOWNLOAD
 async function downloadFile(url, filename) {
   try {
     const res = await fetch(url);
     if (!res.ok) throw new Error('Download failed');
-    const blob = await res.blob();
+    const blob   = await res.blob();
     const blobUrl = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = blobUrl;
@@ -412,33 +382,33 @@ function buildDocButtonsHTML(file) {
   if (mime === 'application/vnd.google-apps.document') {
     const docxUrl = `${base}&mimeType=application/vnd.openxmlformats-officedocument.wordprocessingml.document`;
     const pdfUrl  = `${base}&mimeType=application/pdf`;
-    html += btnDownload('↓ DOCX', docxUrl, `${baseName}.docx`, 'primary');
-    html += btnDownload('↓ PDF',  pdfUrl,  `${baseName}.pdf`,  'secondary');
-    html += btnGhost('↗ GDrive', driveUrl);
+    html += btnDownload('\u2193 DOCX',   docxUrl, `${baseName}.docx`, 'primary');
+    html += btnDownload('\u2193 PDF',    pdfUrl,  `${baseName}.pdf`,  'secondary');
+    html += btnGhost('\u2197 GDrive', driveUrl);
   } else if (mime === 'application/vnd.google-apps.spreadsheet') {
     const xlsxUrl = `${base}&mimeType=application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`;
     const pdfUrl  = `${base}&mimeType=application/pdf`;
-    html += btnDownload('↓ XLSX', xlsxUrl, `${baseName}.xlsx`, 'primary');
-    html += btnDownload('↓ PDF',  pdfUrl,  `${baseName}.pdf`,  'secondary');
-    html += btnGhost('↗ GDrive', driveUrl);
+    html += btnDownload('\u2193 XLSX',   xlsxUrl, `${baseName}.xlsx`, 'primary');
+    html += btnDownload('\u2193 PDF',    pdfUrl,  `${baseName}.pdf`,  'secondary');
+    html += btnGhost('\u2197 GDrive', driveUrl);
   } else if (mime === 'application/pdf') {
     const pdfUrl = `https://www.googleapis.com/drive/v3/files/${id}?alt=media&key=${CONFIG.GOOGLE_API_KEY}`;
-    html += btnDownload('↓ PDF', pdfUrl, `${baseName}.pdf`, 'secondary');
-    html += btnGhost('↗ GDrive', driveUrl);
+    html += btnDownload('\u2193 PDF', pdfUrl, `${baseName}.pdf`, 'secondary');
+    html += btnGhost('\u2197 GDrive', driveUrl);
   } else if (mime === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document') {
     const dlUrl  = `https://www.googleapis.com/drive/v3/files/${id}?alt=media&key=${CONFIG.GOOGLE_API_KEY}`;
     const pdfUrl = `${base}&mimeType=application/pdf`;
-    html += btnDownload('↓ DOCX', dlUrl,  `${baseName}.docx`, 'primary');
-    html += btnDownload('↓ PDF',  pdfUrl, `${baseName}.pdf`,  'secondary');
-    html += btnGhost('↗ GDrive', driveUrl);
+    html += btnDownload('\u2193 DOCX',   dlUrl,  `${baseName}.docx`, 'primary');
+    html += btnDownload('\u2193 PDF',    pdfUrl, `${baseName}.pdf`,  'secondary');
+    html += btnGhost('\u2197 GDrive', driveUrl);
   } else if (mime === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
     const dlUrl  = `https://www.googleapis.com/drive/v3/files/${id}?alt=media&key=${CONFIG.GOOGLE_API_KEY}`;
     const pdfUrl = `${base}&mimeType=application/pdf`;
-    html += btnDownload('↓ XLSX', dlUrl,  `${baseName}.xlsx`, 'primary');
-    html += btnDownload('↓ PDF',  pdfUrl, `${baseName}.pdf`,  'secondary');
-    html += btnGhost('↗ GDrive', driveUrl);
+    html += btnDownload('\u2193 XLSX',   dlUrl,  `${baseName}.xlsx`, 'primary');
+    html += btnDownload('\u2193 PDF',    pdfUrl, `${baseName}.pdf`,  'secondary');
+    html += btnGhost('\u2197 GDrive', driveUrl);
   } else {
-    html += btnGhost('↗ GDrive', driveUrl);
+    html += btnGhost('\u2197 GDrive', driveUrl);
   }
   return html;
 }
@@ -452,10 +422,7 @@ function btnGhost(label, url) {
   return `<a href="${url}" class="btn btn-ghost sh cool" target="_blank" rel="noopener"><span>${label}</span></a>`;
 }
 
-
-// ════════════════════════════════════════════════════════════
 // SKELETON
-// ════════════════════════════════════════════════════════════
 function buildSkeletonAccordion() {
   return [1,2,3,4].map(() => `
     <div class="acc-category skeleton">
@@ -470,15 +437,11 @@ function buildSkeletonAccordion() {
   `).join('');
 }
 
-
-// ════════════════════════════════════════════════════════════
-// YOUTUBE — manual playlist order
-// ════════════════════════════════════════════════════════════
+// YOUTUBE
 async function loadYouTubeVideos() {
   try {
     if (!CONFIG.YOUTUBE_PLAYLIST_ID || CONFIG.YOUTUBE_PLAYLIST_ID === 'YOUR_PLAYLIST_ID_HERE') {
-      clearVideoSkeletons();
-      return;
+      clearVideoSkeletons(); return;
     }
     const url = new URL('https://www.googleapis.com/youtube/v3/playlistItems');
     url.searchParams.set('part', 'snippet,contentDetails');
@@ -496,10 +459,6 @@ async function loadYouTubeVideos() {
   }
 }
 
-
-// ════════════════════════════════════════════════════════════
-// RENDER VIDEO CARDS
-// ════════════════════════════════════════════════════════════
 function renderVideos() {
   if (!CACHE.videos.length) { clearVideoSkeletons(); return; }
   videoGrid.innerHTML = CACHE.videos.map(v => buildVideoCardHTML(v)).join('');
@@ -532,17 +491,14 @@ function buildVideoCardHTML(item) {
 function clearVideoSkeletons() {
   videoGrid.innerHTML = `
     <div class="empty-state" style="grid-column:1/-1;padding:40px 0;">
-      <div class="empty-icon">▷</div>
+      <div class="empty-icon">&#9655;</div>
       <div class="empty-title">No Videos Yet</div>
-      <div class="empty-msg">Add videos to your YouTube playlist and they'll appear here.</div>
+      <div class="empty-msg">Add videos to your YouTube playlist and they will appear here.</div>
     </div>
   `;
 }
 
-
-// ════════════════════════════════════════════════════════════
 // LIGHTBOX
-// ════════════════════════════════════════════════════════════
 videoGrid.addEventListener('click', e => {
   const card = e.target.closest('[data-videoid]');
   if (!card) return;
@@ -574,10 +530,7 @@ lightboxClose.addEventListener('click', closeLightbox);
 lightboxBg.addEventListener('click', closeLightbox);
 document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbox(); });
 
-
-// ════════════════════════════════════════════════════════════
 // STATS
-// ════════════════════════════════════════════════════════════
 function updateStats() {
   const totalFiles = countAllFiles(CACHE.sections);
   statResources.textContent  = totalFiles || '—';
@@ -595,12 +548,9 @@ function countAllFiles(sections) {
   return count;
 }
 
-
-// ════════════════════════════════════════════════════════════
 // ERROR STATES
-// ════════════════════════════════════════════════════════════
 function showConfigError() {
-  accordionWrap.innerHTML = `<div class="empty-state"><div class="empty-icon">◈</div><div class="empty-title">Config not set up</div><div class="empty-msg">Add your API key to config.js.</div></div>`;
+  accordionWrap.innerHTML = `<div class="empty-state"><div class="empty-icon">&#9672;</div><div class="empty-title">Config not set up</div><div class="empty-msg">Add your API key to config.js.</div></div>`;
   clearVideoSkeletons();
 }
 
@@ -609,15 +559,12 @@ function showVideoError(msg) {
   clearVideoSkeletons();
 }
 
-
-// ════════════════════════════════════════════════════════════
 // UTILITIES
-// ════════════════════════════════════════════════════════════
 function getMimeLabel(mime) {
   const map = {
-    'application/vnd.google-apps.document':     'GOOGLE DOC',
-    'application/vnd.google-apps.spreadsheet':  'GOOGLE SHEET',
-    'application/pdf':                          'PDF',
+    'application/vnd.google-apps.document':    'GOOGLE DOC',
+    'application/vnd.google-apps.spreadsheet': 'GOOGLE SHEET',
+    'application/pdf':                         'PDF',
     'application/vnd.openxmlformats-officedocument.wordprocessingml.document': 'DOCX',
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet':       'XLSX',
   };
@@ -647,15 +594,17 @@ function timeAgo(iso) {
 }
 
 function cleanFileName(name) {
-  return name.replace(/^\d+[\._\-\s]+/, '').replace(/\.(docx?|xlsx?|pdf|gsheet|gdoc)$/i, '').toUpperCase();
+  return name
+    .replace(/^\d+[\._\-\s]+/, '')
+    .replace(/\.(docx?|xlsx?|pdf|gsheet|gdoc)$/i, '')
+    .replace(/_+/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+    .toUpperCase();
 }
 
 function cleanFolderName(name) {
   return name.replace(/^\d+[\._\-\s]+/, '');
 }
 
-
-// ════════════════════════════════════════════════════════════
-// GO
-// ════════════════════════════════════════════════════════════
 init();
