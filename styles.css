@@ -219,8 +219,8 @@ body {
   margin-bottom: 4px;
   text-transform: uppercase;
 }
-.h1 .accent { color: var(--burn); }
-.h1 .accent-gold { color: #A07A00; }
+.h1 .accent { color: var(--teal); }
+.h1 .accent-gold { color: var(--burn); }
 
 .hero-bottom {
   display: flex;
