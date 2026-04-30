@@ -350,7 +350,7 @@ function buildRestrictedAccordionHTML(name) {
       <div class="acc-header">
         <div class="acc-header-left">
           ${folderIconPair()}
-          <div class="acc-cat-name" style="color:#C4B8A8;">${label}</div>
+          <div class="acc-cat-name" style="color:#6B6055;">${label}</div>
           <div class="acc-count">Access restricted</div>
         </div>
         <span class="acc-caret">▼</span>
