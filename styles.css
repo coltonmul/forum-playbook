@@ -130,7 +130,7 @@ body {
 .nav-link {
   font-family: var(--font-mono);
   font-size: 10px;
-  color: #8A8070;
+  color: #5E5244;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   position: relative;
@@ -191,7 +191,7 @@ body {
 .annot {
   font-family: var(--font-mono);
   font-size: 9px;
-  color: #A89880;
+  color: #5E5244;
   letter-spacing: 0.18em;
   margin-bottom: 20px;
   display: flex;
@@ -202,7 +202,7 @@ body {
   border: 0.5px solid var(--dust);
   padding: 2px 7px;
   font-size: 9px;
-  color: #A89880;
+  color: #5E5244;
   transition: border-color 0.2s, color 0.2s;
   cursor: default;
 }
@@ -219,8 +219,8 @@ body {
   margin-bottom: 4px;
   text-transform: uppercase;
 }
-.h1 .accent { color: var(--burn); }
-.h1 .accent-gold { color: var(--gold); }
+.h1 .accent { color: var(--gold); }
+.h1 .accent-gold { color: var(--burn); }
 
 .hero-bottom {
   display: flex;
@@ -233,7 +233,7 @@ body {
 
 .hero-sub {
   font-size: 13px;
-  color: #7A7060;
+  color: #5C4E40;
   max-width: 320px;
   line-height: 1.65;
   font-weight: 300;
@@ -253,7 +253,7 @@ body {
 .stat-label {
   font-family: var(--font-mono);
   font-size: 9px;
-  color: #A89880;
+  color: #5E5244;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   margin-top: 2px;
@@ -285,7 +285,7 @@ body {
   position: absolute;
   left: 12px;
   font-size: 16px;
-  color: #A89880;
+  color: #5E5244;
   pointer-events: none;
   line-height: 1;
 }
@@ -303,7 +303,7 @@ body {
   transition: border-color 0.2s;
   -webkit-appearance: none;
 }
-.search-input::placeholder { color: #A89880; }
+.search-input::placeholder { color: #5E5244; }
 .search-input:hover { border-color: #8A8070; }
 .search-input:focus { border-color: var(--teal); }
 
@@ -354,7 +354,7 @@ body {
 .section-count {
   font-family: var(--font-mono);
   font-size: 9px;
-  color: #A89880;
+  color: #5E5244;
   letter-spacing: 0.12em;
   text-transform: uppercase;
 }
@@ -460,7 +460,7 @@ body {
 .card-meta {
   font-family: var(--font-mono);
   font-size: 9px;
-  color: #A89880;
+  color: #5E5244;
   letter-spacing: 0.08em;
   margin-bottom: 16px;
   text-transform: uppercase;
@@ -537,7 +537,7 @@ body {
 .empty-msg {
   font-family: var(--font-mono);
   font-size: 11px;
-  color: #A89880;
+  color: #5E5244;
   letter-spacing: 0.08em;
 }
 
@@ -561,9 +561,9 @@ body {
   font-family: var(--font-mono);
   font-size: 8px;
   letter-spacing: 0.18em;
-  color: var(--burn);
+  color: var(--brick);
   text-transform: uppercase;
-  border: 0.5px solid var(--burn);
+  border: 0.5px solid var(--brick);
   padding: 2px 7px;
   flex-shrink: 0;
 }
@@ -733,7 +733,7 @@ body {
 .video-meta {
   font-family: var(--font-mono);
   font-size: 9px;
-  color: #8A8070;
+  color: #5E5244;
   letter-spacing: 0.06em;
 }
 
@@ -801,9 +801,9 @@ body {
   padding: 48px 40px;
 }
 .about-link {
-  color: var(--burn);
+  color: var(--brick);
   text-decoration: none;
-  border-bottom: 0.5px solid var(--burn);
+  border-bottom: 0.5px solid var(--brick);
   transition: color 0.2s, border-color 0.2s;
 }
 .about-link:hover {
@@ -825,7 +825,7 @@ body {
 
 .about-body {
   font-size: 15px;
-  color: #7A7060;
+  color: #5C4E40;
   max-width: 560px;
   line-height: 1.7;
   font-weight: 300;
@@ -835,7 +835,7 @@ body {
 .footer-link {
   font-family: var(--font-mono);
   font-size: 9px;
-  color: #4A4A38;
+  color: var(--dust);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   transition: color 0.2s;
@@ -874,7 +874,7 @@ body {
 .footer-copy {
   font-family: var(--font-mono);
   font-size: 9px;
-  color: #4A4A38;
+  color: var(--dust);
   letter-spacing: 0.1em;
 }
 
@@ -951,7 +951,7 @@ body {
 .acc-count {
   font-family: var(--font-mono);
   font-size: 8px;
-  color: #A89880;
+  color: #5E5244;
   letter-spacing: 0.1em;
   text-transform: uppercase;
 }
@@ -975,7 +975,7 @@ body {
 .acc-empty {
   font-family: var(--font-mono);
   font-size: 9px;
-  color: #A89880;
+  color: #5E5244;
   letter-spacing: 0.08em;
   padding: 14px 16px;
 }
@@ -1005,7 +1005,7 @@ body {
 .doc-meta {
   font-family: var(--font-mono);
   font-size: 8px;
-  color: #A89880;
+  color: #5E5244;
   letter-spacing: 0.06em;
   white-space: nowrap;
   flex-shrink: 0;
@@ -1047,7 +1047,7 @@ body {
 .sub-folder-count {
   font-family: var(--font-mono);
   font-size: 8px;
-  color: #A89880;
+  color: #5E5244;
   letter-spacing: 0.08em;
 }
 

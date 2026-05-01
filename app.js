@@ -350,14 +350,14 @@ function buildRestrictedAccordionHTML(name) {
       <div class="acc-header">
         <div class="acc-header-left">
           ${folderIconPair()}
-          <div class="acc-cat-name" style="color:#C4B8A8;">${label}</div>
+          <div class="acc-cat-name" style="color:#6B6055;">${label}</div>
           <div class="acc-count">Access restricted</div>
         </div>
         <span class="acc-caret">▼</span>
       </div>
       <div class="acc-body">
         <div class="doc-row" style="padding:16px;">
-          <div class="doc-name" style="color:#A89880;font-size:10px;text-transform:none;letter-spacing:0.03em;line-height:1.6;">EO Legal now prohibits anyone from linking to EO official materials. You gotta hit up a trainer or staff member to get those documents directly.</div>
+          <div class="doc-name" style="color:#5E5244;font-size:10px;text-transform:none;letter-spacing:0.03em;line-height:1.6;">EO Legal now prohibits anyone from linking to EO official materials. You gotta hit up a trainer or staff member to get those documents directly.</div>
         </div>
       </div>
     </div>
