@@ -901,6 +901,61 @@ body {
   .about-section { padding: 32px 20px; }
   .about-title { font-size: 44px; }
   .footer { padding: 16px 20px; }
+
+  /* ── Mobile readability bump ── */
+
+  /* Nav */
+  .nav-link { font-size: 12px; }
+  .nav-cta  { font-size: 11px; padding: 9px 16px; }
+
+  /* Hero stats */
+  .stat-num   { font-size: 38px; }
+  .stat-label { font-size: 11px; }
+  .hero-sub   { font-size: 14px; }
+
+  /* Section labels */
+  .section-title { font-size: 22px; }
+  .section-count { font-size: 11px; }
+  .section-tag   { font-size: 10px; }
+
+  /* Search */
+  .search-input { font-size: 14px; height: 44px; }
+
+  /* Resource cards */
+  .card-title { font-size: 18px; }
+  .card-meta  { font-size: 11px; }
+  .btn        { font-size: 11px; padding: 9px 12px; }
+
+  /* Accordion headers — taller tap target */
+  .acc-header { padding: 16px; min-height: 52px; }
+  .acc-cat-name { font-size: 15px; }
+  .acc-count    { font-size: 11px; }
+
+  /* Doc rows — stack name above buttons to prevent overlap */
+  .doc-row {
+    flex-wrap: wrap;
+    gap: 8px;
+    padding: 12px 16px;
+    min-height: 44px;
+  }
+  .doc-name {
+    width: 100%;
+    font-size: 12px;
+  }
+  .doc-meta { display: none; }
+  .doc-btns { width: 100%; }
+  .doc-btns .btn { font-size: 11px; padding: 8px 12px; }
+
+  /* Sub-folder headers */
+  .sub-header { padding: 12px 16px 12px 28px; min-height: 44px; }
+  .sub-folder-name { font-size: 12px; }
+
+  /* Video cards */
+  .video-title { font-size: 13px; }
+  .video-meta  { font-size: 11px; }
+
+  /* About */
+  .about-body { font-size: 15px; }
 }
 
 @media (max-width: 480px) {
@@ -1069,8 +1124,6 @@ body {
 /* Responsive */
 @media (max-width: 680px) {
   .accordion-wrap { padding: 12px 20px 24px; }
-  .doc-meta { display: none; }
-  .doc-row { gap: 8px; }
 }
 
 /* ── VIDEO THUMBNAIL — true 16:9 ratio ─────────────────── */
