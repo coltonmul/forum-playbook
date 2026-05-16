@@ -630,6 +630,19 @@ body {
   font-size: 8px;
 }
 
+/* Links-type core card: stack buttons vertically so longer labels fit */
+.core-card-links .core-links-btns {
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 6px;
+}
+.core-card-links .core-links-btns .btn {
+  width: 100%;
+  flex: none;
+  padding: 8px 6px;
+  font-size: 9px;
+}
+
 
 /* ══════════════════════════════════════════════════════════
    VIDEO HUB
