@@ -15,8 +15,9 @@ const CONFIG = {
   GOOGLE_API_KEY: 'AIzaSyD-DZWNK5YL8qgVzAVCv0qt87VHGnykh8Y',
   // ── Core Resources ──────────────────────────────────────
   // These cards appear in the "Core Resources" section above the Resource Library.
-  // type: 'doc' = Google Doc (downloads as DOCX + PDF)
+  // type: 'doc'   = Google Doc (downloads as DOCX + PDF)
   // type: 'sheet' = Google Sheet (downloads as XLSX + PDF)
+  // type: 'links' = External link card — supply `links: [{label, url}]` instead of fileId
   // Update fileId here if you ever replace these files in Drive.
   CORE_RESOURCES: [
     {
@@ -36,6 +37,22 @@ const CONFIG = {
       subtitle: 'GOOGLE DOC — FACILITATION TOOLS',
       fileId: '18GbUZDJoT__ETZ2b2hSVgOZXOrKp4Z9aM-jke5NLiUc',
       type: 'doc',
+    },
+    {
+      title: 'Official EO Docs & Resources',
+      subtitle: 'EONETWORK.ORG · LOGIN REQUIRED',
+      badge: 'OFFICIAL EO',
+      type: 'links',
+      links: [
+        {
+          label: '↗ Forum & Mod Docs',
+          url: 'https://member.eonetwork.org/member/forum/for-forum-moderators',
+        },
+        {
+          label: '↗ Forum Chair Docs',
+          url: 'https://member.eonetwork.org/member/forum/for-forum-chairs',
+        },
+      ],
     },
   ],
   // ── Root Drive Folder ───────────────────────────────────

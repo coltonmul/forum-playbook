@@ -58,34 +58,49 @@ function renderCoreResources() {
 }
 
 function buildCoreCardHTML(resource) {
-  const base     = `https://www.googleapis.com/drive/v3/files/${resource.fileId}/export?key=${CONFIG.GOOGLE_API_KEY}`;
-  const driveUrl = `https://drive.google.com/open?id=${resource.fileId}`;
-  const icon     = resource.type === 'doc' ? coreIconDoc() : coreIconSheet();
-  let buttons    = '';
+  const badge      = resource.badge || 'CORE RESOURCE';
+  let icon         = '';
+  let buttons      = '';
+  let extraClass   = '';
+  let btnsClass    = '';
 
-  if (resource.type === 'doc') {
-    const docxUrl = `${base}&mimeType=application/vnd.openxmlformats-officedocument.wordprocessingml.document`;
-    const pdfUrl  = `${base}&mimeType=application/pdf`;
-    buttons += btnDownload('↓ DOCX', docxUrl, `${resource.title}.docx`, 'primary');
-    buttons += btnDownload('↓ PDF',  pdfUrl,  `${resource.title}.pdf`,  'secondary');
-    buttons += coreBtnGhost('↗ GDrive', driveUrl);
-  } else if (resource.type === 'sheet') {
-    const xlsxUrl = `${base}&mimeType=application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`;
-    const pdfUrl  = `${base}&mimeType=application/pdf`;
-    buttons += btnDownload('↓ XLSX', xlsxUrl, `${resource.title}.xlsx`, 'primary');
-    buttons += btnDownload('↓ PDF',  pdfUrl,  `${resource.title}.pdf`,  'secondary');
-    buttons += coreBtnGhost('↗ GDrive', driveUrl);
+  if (resource.type === 'links') {
+    icon       = coreIconLinks();
+    extraClass = ' core-card-links';
+    btnsClass  = ' core-links-btns';
+    buttons    = (resource.links || []).map((l, i) => {
+      const style = i === 0 ? 'primary' : 'secondary';
+      const cls   = style === 'primary' ? 'btn btn-primary sh warm' : 'btn sh warm';
+      return `<a href="${l.url}" class="${cls}" target="_blank" rel="noopener"><span>${l.label}</span></a>`;
+    }).join('');
+  } else {
+    const base     = `https://www.googleapis.com/drive/v3/files/${resource.fileId}/export?key=${CONFIG.GOOGLE_API_KEY}`;
+    const driveUrl = `https://drive.google.com/open?id=${resource.fileId}`;
+    icon = resource.type === 'doc' ? coreIconDoc() : coreIconSheet();
+    if (resource.type === 'doc') {
+      const docxUrl = `${base}&mimeType=application/vnd.openxmlformats-officedocument.wordprocessingml.document`;
+      const pdfUrl  = `${base}&mimeType=application/pdf`;
+      buttons += btnDownload('↓ DOCX', docxUrl, `${resource.title}.docx`, 'primary');
+      buttons += btnDownload('↓ PDF',  pdfUrl,  `${resource.title}.pdf`,  'secondary');
+      buttons += coreBtnGhost('↗ GDrive', driveUrl);
+    } else if (resource.type === 'sheet') {
+      const xlsxUrl = `${base}&mimeType=application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`;
+      const pdfUrl  = `${base}&mimeType=application/pdf`;
+      buttons += btnDownload('↓ XLSX', xlsxUrl, `${resource.title}.xlsx`, 'primary');
+      buttons += btnDownload('↓ PDF',  pdfUrl,  `${resource.title}.pdf`,  'secondary');
+      buttons += coreBtnGhost('↗ GDrive', driveUrl);
+    }
   }
 
   return `
-    <div class="card core-card">
+    <div class="card core-card${extraClass}">
       <div class="corner-tl"></div>
       <div class="corner-br"></div>
-      <div class="core-badge">CORE RESOURCE</div>
+      <div class="core-badge">${badge}</div>
       <div class="core-icon-wrap">${icon}</div>
       <div class="card-title">${resource.title.toUpperCase()}</div>
       <div class="card-meta">${resource.subtitle}</div>
-      <div class="card-btns">${buttons}</div>
+      <div class="card-btns${btnsClass}">${buttons}</div>
     </div>
   `;
 }
@@ -106,6 +121,20 @@ function coreIconDoc() {
     <rect x="10" y="31" width="13" height="1.5" fill="#C4B8A8"/>
     <circle cx="38" cy="38" r="9" fill="#F0EBE0" stroke="#E8521A" stroke-width="1.2"/>
     <path d="M35 38l2.5 2.5L42 35" stroke="#E8521A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`;
+}
+
+// Large centered globe + external-link icon (for 'links' type cards)
+function coreIconLinks() {
+  return `<svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="22" cy="22" r="16" stroke="#E8521A" stroke-width="1.5" fill="#F8F4EE"/>
+    <ellipse cx="22" cy="22" rx="16" ry="6" stroke="#C4B8A8" stroke-width="0.9"/>
+    <ellipse cx="22" cy="22" rx="6" ry="16" stroke="#C4B8A8" stroke-width="0.9"/>
+    <line x1="6"  y1="22" x2="38" y2="22" stroke="#E8521A" stroke-width="1"/>
+    <line x1="22" y1="6"  x2="22" y2="38" stroke="#E8521A" stroke-width="1"/>
+    <rect x="32" y="32" width="16" height="16" fill="#F0EBE0" stroke="#E8521A" stroke-width="1.2"/>
+    <path d="M37 43l6-6" stroke="#E8521A" stroke-width="1.2" stroke-linecap="round"/>
+    <path d="M39 37h4v4" stroke="#E8521A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>`;
 }
 
