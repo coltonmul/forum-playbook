@@ -385,8 +385,14 @@ function buildRestrictedAccordionHTML(name) {
         <span class="acc-caret">▼</span>
       </div>
       <div class="acc-body">
-        <div class="doc-row" style="padding:16px;">
-          <div class="doc-name" style="color:#A89880;font-size:10px;text-transform:none;letter-spacing:0.03em;line-height:1.6;">EO Legal now prohibits anyone from linking to EO official materials. You gotta hit up a trainer or staff member to get those documents directly.</div>
+        <div class="restricted-body">
+          <p class="restricted-copy">EO Legal now prohibits redistribution or external hosting of official EO materials. The full library is still available to members — you just have to access it directly from the EO member portal (login required).</p>
+          <p class="restricted-copy">For the official, up-to-date documents, head to:</p>
+          <ul class="restricted-links">
+            <li><a href="https://member.eonetwork.org/member/forum/for-forum-moderators" target="_blank" rel="noopener">↗ Forum &amp; Moderator Docs</a> <span class="restricted-note">(login required)</span></li>
+            <li><a href="https://member.eonetwork.org/member/forum/for-forum-chairs" target="_blank" rel="noopener">↗ Forum Chair Docs</a> <span class="restricted-note">(login required)</span></li>
+          </ul>
+          <p class="restricted-copy restricted-fineprint">If you can't get in, ping a trainer or chapter staff member.</p>
         </div>
       </div>
     </div>
