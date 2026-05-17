@@ -1079,6 +1079,53 @@ body {
 .acc-restricted .acc-header { opacity: 0.6; }
 .acc-restricted .acc-header:hover { background: transparent; }
 
+.restricted-body {
+  padding: 16px 20px;
+  color: #8A8070;
+}
+.restricted-copy {
+  font-family: var(--font-body);
+  font-size: 12px;
+  line-height: 1.55;
+  letter-spacing: 0.01em;
+  color: #6E6458;
+  margin-bottom: 10px;
+}
+.restricted-links {
+  list-style: none;
+  margin: 8px 0 12px;
+  padding: 0;
+}
+.restricted-links li {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  padding: 4px 0;
+}
+.restricted-links a {
+  color: var(--burn);
+  border-bottom: 0.5px solid rgba(232, 82, 26, 0.35);
+  transition: border-color 0.15s, color 0.15s;
+}
+.restricted-links a:hover {
+  color: var(--brick);
+  border-bottom-color: var(--brick);
+}
+.restricted-note {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  color: #A89880;
+  margin-left: 6px;
+  text-transform: uppercase;
+}
+.restricted-fineprint {
+  font-size: 11px;
+  color: #A89880;
+  margin-bottom: 0;
+  font-style: italic;
+}
+
 /* Responsive */
 @media (max-width: 680px) {
   .accordion-wrap { padding: 12px 20px 24px; }
