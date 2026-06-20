@@ -617,9 +617,8 @@ function updateStats() {
   const totalFiles = countAllFiles(CACHE.sections);
   statResources.textContent  = totalFiles || '—';
   statCategories.textContent = CACHE.sections.filter(s => !s.restricted).length || '—';
-  statVideos.textContent     = CACHE.videos.length || '—';
+  statVideos.textContent     = (CACHE.videos.length + ((window.CONFIG && CONFIG.PODCASTS && CONFIG.PODCASTS.length) || 0)) || '—';
 }
-
 function countAllFiles(sections) {
   let count = 0;
   sections.forEach(s => {
