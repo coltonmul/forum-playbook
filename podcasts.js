@@ -13,7 +13,7 @@
 // ═══════════════════════════════════════════════════════════
 (function () {
   const grid = document.getElementById('podcast-grid');
-  if (!grid || !window.CONFIG || !Array.isArray(CONFIG.PODCASTS) || !CONFIG.PODCASTS.length) {
+  if (!grid || typeof CONFIG === 'undefined' || !Array.isArray(CONFIG.PODCASTS) || !CONFIG.PODCASTS.length) {
     return;
   }
 
