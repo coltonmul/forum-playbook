@@ -85,15 +85,49 @@ h1 .gold { color: var(--gold); } h1 .burn { color: var(--burn); }
 .btn-secondary { background: transparent; color: var(--deep-dust); }
 .btn-ghost { background: transparent; border-color: #8A8070; color: var(--deep-dust); }
 
-/* ── THE SHEEN (new, proposed): a soft light band sweeps left to right on hover,
-      pulling the eye toward the button cluster on the right edge ── */
-.sheen { position: relative; overflow: hidden; }
-.sheen::before { content: ''; position: absolute; top: 0; bottom: 0; left: 0; width: 42%;
-  background: linear-gradient(100deg, transparent 0%, rgba(232, 82, 26, 0.05) 30%,
-    rgba(255, 255, 255, 0.6) 50%, rgba(232, 82, 26, 0.05) 70%, transparent 100%);
+/* ── THE SHEEN v2 (per Colton 8/10): a SHADE, not a glaze, and slower.
+      A soft warm tint drifts left to right and the surface holds a light
+      shade while hovered. Used on video cards, chips, and dark bands. ── */
+.sheen { position: relative; overflow: hidden; transition: background-color 0.4s ease; }
+.sheen::before { content: ''; position: absolute; top: 0; bottom: 0; left: 0; width: 48%;
+  background: linear-gradient(100deg, transparent 0%, rgba(232, 82, 26, 0.07) 35%,
+    rgba(232, 82, 26, 0.11) 50%, rgba(232, 82, 26, 0.07) 65%, transparent 100%);
   transform: translateX(-130%); pointer-events: none; z-index: 1; }
-.sheen:hover::before { animation: sheenSweep 0.62s cubic-bezier(0.33, 0, 0.2, 1) forwards; }
-@keyframes sheenSweep { to { transform: translateX(330%); } }
+.sheen:hover { background-color: var(--linen-dk); }
+.sheen:hover::before { animation: sheenSweep 1.05s cubic-bezier(0.3, 0, 0.25, 1) forwards; }
+@keyframes sheenSweep { to { transform: translateX(340%); } }
+.rk-band.sheen:hover { background-color: #1A1A17; }
+.rk-band.sheen::before { background: linear-gradient(100deg, transparent 0%,
+  rgba(255, 255, 255, 0.05) 35%, rgba(255, 255, 255, 0.09) 50%, rgba(255, 255, 255, 0.05) 65%, transparent 100%); }
+
+/* ── THE FULL-BAR WAVE (per Colton 8/10, the winner): the button load-up
+      applied to the whole bar. Gold sweeps in, Teal lands, content flips
+      white, buttons stay obvious on top. Slightly slower than buttons. ── */
+.wv { position: relative; overflow: hidden; }
+.wv::before, .wv::after { content: ''; position: absolute; inset: 0; transform: translateX(-100%); pointer-events: none; }
+.wv::before { background: var(--gold); z-index: 0; }
+.wv::after { background: var(--teal); z-index: 0; }
+.wv:hover::before, .wv:active::before { animation: wave1 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0s forwards; }
+.wv:hover::after, .wv:active::after { animation: wave2 0.6s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards; }
+.wv > * { position: relative; z-index: 2; }
+.wv:hover { box-shadow: 0 8px 28px rgba(58, 138, 138, 0.45); transform: translateY(-2px); }
+.wv, .wv * { transition-property: color, background-color, border-color, transform, box-shadow; transition-duration: 0.25s; transition-delay: 0s; }
+.wv:hover, .wv:hover * { transition-delay: 0.4s; }
+.wv:hover .row-name, .wv:hover .row-meta, .wv:hover .row-meta span, .wv:hover .caret,
+.wv:hover .dcard-name, .wv:hover .dcard-chip, .wv:hover .task-label, .wv:hover .task-hint,
+.wv:hover .core-title, .wv:hover .core-sub { color: #fff; }
+.wv:hover .ic-wrap { background: rgba(255, 255, 255, 0.14); border-color: rgba(255, 255, 255, 0.45); color: #fff; }
+.wv:hover .btn-secondary, .wv:hover .btn-ghost { border-color: rgba(255, 255, 255, 0.75); color: #fff; }
+.wv:hover .btn-primary { background: #fff; border-color: #fff; color: var(--pitch); }
+.wv:hover .chip-new { background: #fff; color: var(--burn); }
+/* an OPEN row is a reading surface: no wave while expanded */
+.row.open::before, .row.open::after, .dcard.open::before, .dcard.open::after { display: none; }
+.row.open:hover, .dcard.open:hover { transform: none; box-shadow: 0 6px 22px rgba(14, 14, 12, 0.10); }
+.row.open:hover .row-name, .row.open:hover .row-meta, .row.open:hover .row-meta span, .row.open:hover .caret { color: inherit; transition-delay: 0s; }
+.row.open:hover .ic-wrap { background: var(--linen); border-color: var(--border); color: var(--burn); }
+.row.open:hover .btn-secondary, .row.open:hover .btn-ghost { border-color: var(--border); color: var(--deep-dust); }
+.row.open:hover .btn-primary { background: var(--burn); border-color: var(--burn); color: #fff; }
+.row.open:hover .chip-new { background: var(--burn); color: #fff; }
 
 /* ── rows (list items with the whole surface clickable) ── */
 .row { background: #fff; border: 0.5px solid #D4CCC0; position: relative; margin-bottom: 10px; }

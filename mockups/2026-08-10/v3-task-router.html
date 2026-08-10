@@ -7,7 +7,7 @@
 <title>Mockup V3: Task Router | Forum Playbook</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='16' fill='%23F0EBE0'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Roboto,sans-serif' font-weight='700' font-size='13' fill='%23E8521A' letter-spacing='0.5'>FP</text></svg>"/>
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="mock-shared.css">
+<link rel="stylesheet" href="mock-shared.css?v=0.2">
 <style>
 /* V3: "what do you need right now" router above the full library */
 .task-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
@@ -32,7 +32,7 @@
 </style>
 </head>
 <body>
-<div class="ribbon">MOCKUP V3 · TASK ROUTER · v0.1 · Mon / 2026-08-10 / 3:40 PM CT · not the live site <a href="index.html">← all mockups</a></div>
+<div class="ribbon">MOCKUP V3 · TASK ROUTER · v0.2 · Mon / 2026-08-10 / 4:16 PM CT · not the live site <a href="index.html">← all mockups</a></div>
 <div class="wrap">
 
 <nav class="nav">
@@ -78,12 +78,12 @@
 </div>
 <footer class="foot"><div class="foot-inner">
   <a class="logo" href="#"><span class="mark">⎇</span> FORUM PLAYBOOK</a>
-  <div class="foot-meta">MOCKUP V3 "TASK ROUTER" v0.1 · Updated Mon / 2026-08-10 / 3:40 PM CT<br>
-  Changelog: v0.1 first cut for direction approval · <a href="index.html">All mockups</a> · <a href="/brand">Brand guide</a></div>
+  <div class="foot-meta">MOCKUP V3 "TASK ROUTER" v0.2 · Updated Mon / 2026-08-10 / 4:16 PM CT<br>
+  Changelog: v0.2 full-bar wave rollover + slower shade sheen per Colton, V2 locked as the winner · v0.1 first cut · <a href="index.html">All mockups</a> · <a href="/brand">Brand guide</a></div>
 </div></footer>
 
-<script src="mock-data.js?v=0.1.1"></script>
-<script src="mock-shared.js?v=0.1.1"></script>
+<script src="mock-data.js?v=0.2"></script>
+<script src="mock-shared.js?v=0.2"></script>
 <script>
 (function () {
   var M = window.FP_MOCK, D = window.FP_DATA;
@@ -96,7 +96,7 @@
   var stack = document.getElementById('stack');
   D.tasks.forEach(function (t) {
     grid.insertAdjacentHTML('beforeend',
-      '<button class="task sheen" data-task="' + t.key + '"><div class="tick-tl"></div><div class="tick-br"></div>' +
+      '<button class="task wv" data-task="' + t.key + '"><div class="tick-tl"></div><div class="tick-br"></div>' +
       '<div class="ic-wrap">' + M.icon(t.icon) + '</div>' +
       '<div class="task-label">' + t.label + '</div>' +
       '<div class="task-hint">' + t.hint + '</div></button>');
@@ -111,7 +111,7 @@
       return v ? M.videoCard(v) : '';
     }).join('');
     var chips = t.roleKits ? '<div class="rk-chips">' + D.roleKits.map(function (r) {
-      return '<a class="role-chip sh cool sheen" href="#"><span>' + r + ' Kit</span></a>';
+      return '<a class="role-chip sh cool" href="#"><span>' + r + ' Kit</span></a>';
     }).join('') + '</div>' : '';
     stack.className = 'stack show';
     stack.innerHTML = '<div class="stack-head"><h3 class="stack-title">' + t.label + '</h3>' +

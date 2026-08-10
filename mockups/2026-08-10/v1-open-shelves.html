@@ -7,7 +7,7 @@
 <title>Mockup V1: Open Shelves | Forum Playbook</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='16' fill='%23F0EBE0'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Roboto,sans-serif' font-weight='700' font-size='13' fill='%23E8521A' letter-spacing='0.5'>FP</text></svg>"/>
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="mock-shared.css">
+<link rel="stylesheet" href="mock-shared.css?v=0.2">
 <style>
 /* V1: every shelf open on load, documents as cards, card expands in place */
 .role-strip { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 22px; }
@@ -36,7 +36,7 @@
 </style>
 </head>
 <body>
-<div class="ribbon">MOCKUP V1 · OPEN SHELVES · v0.1 · Mon / 2026-08-10 / 3:40 PM CT · not the live site <a href="index.html">← all mockups</a></div>
+<div class="ribbon">MOCKUP V1 · OPEN SHELVES · v0.2 · Mon / 2026-08-10 / 4:16 PM CT · not the live site <a href="index.html">← all mockups</a></div>
 <div class="wrap">
 
 <nav class="nav">
@@ -88,12 +88,12 @@
 </div>
 <footer class="foot"><div class="foot-inner">
   <a class="logo" href="#"><span class="mark">⎇</span> FORUM PLAYBOOK</a>
-  <div class="foot-meta">MOCKUP V1 "OPEN SHELVES" v0.1 · Updated Mon / 2026-08-10 / 3:40 PM CT<br>
-  Changelog: v0.1 first cut for direction approval · <a href="index.html">All mockups</a> · <a href="/brand">Brand guide</a></div>
+  <div class="foot-meta">MOCKUP V1 "OPEN SHELVES" v0.2 · Updated Mon / 2026-08-10 / 4:16 PM CT<br>
+  Changelog: v0.2 full-bar wave rollover + slower shade sheen per Colton, V2 locked as the winner · v0.1 first cut · <a href="index.html">All mockups</a> · <a href="/brand">Brand guide</a></div>
 </div></footer>
 
-<script src="mock-data.js?v=0.1.1"></script>
-<script src="mock-shared.js?v=0.1.1"></script>
+<script src="mock-data.js?v=0.2"></script>
+<script src="mock-shared.js?v=0.2"></script>
 <script>
 (function () {
   var M = window.FP_MOCK, D = window.FP_DATA;
@@ -105,7 +105,7 @@
   // role chips
   var strip = document.querySelector('.role-strip');
   D.roleKits.forEach(function (r) {
-    strip.insertAdjacentHTML('beforeend', '<a class="role-chip sh cool sheen" href="#library"><span>' + r + '</span></a>');
+    strip.insertAdjacentHTML('beforeend', '<a class="role-chip sh cool" href="#library"><span>' + r + '</span></a>');
   });
 
   // core cards
@@ -115,7 +115,7 @@
       return '<a class="btn sh warm btn-secondary" style="text-decoration:none;" href="' + l.href + '"><span>' + l.label + '</span></a>';
     }).join('') : M.buttons(D.fileById[c.fileRef]);
     cg.insertAdjacentHTML('beforeend',
-      '<div class="core-card sheen"><div class="tick-tl"></div><div class="tick-br"></div>' +
+      '<div class="core-card wv"><div class="tick-tl"></div><div class="tick-br"></div>' +
       '<div class="ic-wrap">' + M.icon(c.icon) + '</div>' +
       '<div class="core-title">' + c.title + '</div><div class="core-sub">' + c.sub + '</div>' +
       '<div class="core-links">' + links + '</div></div>');
@@ -136,11 +136,11 @@
       var hideCls = idx >= 6 ? ' data-extra="1" style="display:none"' : '';
       var newChip = f.isNew ? ' <span class="chip-new">NEW</span>' : '';
       if (f.type === 'folder') {
-        return '<div class="dcard sheen"' + hideCls + '><div class="dcard-main">' +
+        return '<div class="dcard wv"' + hideCls + '><div class="dcard-main">' +
           '<div class="ic-wrap">' + M.icon('folder') + '</div><div><div class="dcard-name">' + f.name + '</div>' +
           '<div class="dcard-chip">DRIVE FOLDER</div><div style="margin-top:10px;">' + M.buttons(f) + '</div></div></div></div>';
       }
-      return '<div class="dcard sheen" data-fid="' + f.id + '"' + hideCls + '>' +
+      return '<div class="dcard wv" data-fid="' + f.id + '"' + hideCls + '>' +
         '<div class="tick-tl"></div><div class="tick-br"></div>' +
         '<div class="dcard-main"><div class="ic-wrap">' + M.icon(M.typeIcon(f)) + '</div>' +
         '<div><div class="dcard-name">' + f.name + newChip + '</div><div class="dcard-chip">' + M.typeChip(f) + (f.ver ? ' · ' + f.ver : '') + '</div></div></div>' +

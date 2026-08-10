@@ -69,7 +69,7 @@
     var newChip = f.isNew ? ' <span class="chip-new">NEW · AUG 2026</span>' : '';
     var expandable = f.type !== 'folder';
     return '' +
-      '<div class="row sheen' + '" data-fid="' + f.id + '">' +
+      '<div class="row wv' + '" data-fid="' + f.id + '">' +
       '<div class="tick-tl"></div><div class="tick-br"></div>' +
       '<div class="row-main" ' + (expandable ? 'data-toggle="1"' : '') + '>' +
       '<div class="ic-wrap">' + icon(typeIcon(f)) + '</div>' +

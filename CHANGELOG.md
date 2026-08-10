@@ -2,6 +2,16 @@
 
 Code and housed-document changes only. Library resources and videos sync from Google Drive / YouTube (brand rule 03) and are not versioned here.
 
+## IN FLIGHT
+
+- (nothing; claim a shared-file rebuild here per CLAUDE.md rule 2 before starting it)
+
+## 2026-08-10, late afternoon
+
+- V2 SPLIT FINDER LOCKED as the homepage direction (Colton, 4:10 PM). Mockups bumped to v0.2: the sheen is now a slower shade (1.05s warm tint, no white glaze, holds a light shade while hovered) per his note that the glaze read as a glitch, and rows/cards/tiles now carry the FULL-BAR WAVE: the button load-up (gold sweep, teal landing, content flips white, buttons stay obvious) applied to the whole bar on hover or tap, slightly slower than the buttons. Open rows suppress the wave (reading surface). Chooser marks V2 LOCKED; V1/V3 kept as reference.
+- NEW CLAUDE.md: working rules for parallel Claude threads in this repo (pull-rebase always, shared-hot-file claims via IN FLIGHT, /beta is generated never hand-edited, changelog every push, em dash ban). Written after the design thread and the Forum Timer thread shipped to this repo the same day without collision, to keep it that way.
+- NEXT (single-owner job, unassigned): the real homepage rebuild on V2, absorbing the reel card, the Forum Timer card, live Drive sync, and build-beta.py anchor updates.
+
 ## 2026-08-10, afternoon
 
 - BETA EXPERIMENT: hero stats rework (build-beta.py 1.2.0). "4 Categories" is gone; the row becomes Resources / Published Videos / HOURS IN THE ROOM* / Library Synced (today's date; the library genuinely syncs from Drive on every load). The hours stat is Colton's career counter: base 2,002 hours as of 2026-08-10 plus a 7.25 hrs/week conservative accrual, computed client-side forever (zero upkeep). The asterisk opens THE HOURS LEDGER: the full math (own forum 10 yrs ~840, retreats facilitated ~480, forums seeded as chair ~216, FTP/MTP ~400, pipeline ~66) and the disclaimer ("what happens in forum stays in forum... if anything, the number is low"). Beta only, awaiting Colton's corrections to the assumptions before any graduation.
