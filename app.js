@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════════
-// FORUM PLAYBOOK — app.js
+// FORUM PLAYBOOK - app.js
 // Phase 2: Recursive accordion, root-folder-driven taxonomy
 // ═══════════════════════════════════════════════════════════
 
@@ -44,7 +44,7 @@ async function init() {
 
 
 // ════════════════════════════════════════════════════════════
-// CORE RESOURCES — centered icon, Option B style
+// CORE RESOURCES - centered icon, Option B style
 // ════════════════════════════════════════════════════════════
 function renderCoreResources() {
   if (!coreGrid || !CONFIG.CORE_RESOURCES || !CONFIG.CORE_RESOURCES.length) return;
@@ -157,7 +157,7 @@ function coreIconSheet() {
 
 
 // ════════════════════════════════════════════════════════════
-// FOLDER ICONS — open / closed states
+// FOLDER ICONS - open / closed states
 // ════════════════════════════════════════════════════════════
 function folderClosed() {
   return `<svg class="folder-icon" width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -193,7 +193,7 @@ function videoIcon() {
 
 
 // ════════════════════════════════════════════════════════════
-// DRIVE — fetch and recurse
+// DRIVE - fetch and recurse
 // ════════════════════════════════════════════════════════════
 async function fetchFolderContents(folderId) {
   const url = new URL('https://www.googleapis.com/drive/v3/files');
@@ -386,7 +386,7 @@ function buildRestrictedAccordionHTML(name) {
       </div>
       <div class="acc-body">
         <div class="restricted-body">
-          <p class="restricted-copy">EO Legal now prohibits redistribution or external hosting of official EO materials. The full library is still available to members — you just have to access it directly from the EO member portal (login required).</p>
+          <p class="restricted-copy">EO Legal now prohibits redistribution or external hosting of official EO materials. The full library is still available to members, you just have to access it directly from the EO member portal (login required).</p>
           <p class="restricted-copy">For the official, up-to-date documents, head to:</p>
           <ul class="restricted-links">
             <li><a href="https://member.eonetwork.org/member/forum/for-forum-moderators" target="_blank" rel="noopener">↗ Forum &amp; Moderator Docs</a> <span class="restricted-note">(login required)</span></li>
@@ -507,7 +507,7 @@ function buildSkeletonAccordion() {
 
 
 // ════════════════════════════════════════════════════════════
-// YOUTUBE — manual playlist order
+// YOUTUBE - manual playlist order
 // ════════════════════════════════════════════════════════════
 async function loadYouTubeVideos() {
   try {
@@ -615,9 +615,9 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLightbo
 // ════════════════════════════════════════════════════════════
 function updateStats() {
   const totalFiles = countAllFiles(CACHE.sections);
-  statResources.textContent  = totalFiles || '—';
-  statCategories.textContent = CACHE.sections.filter(s => !s.restricted).length || '—';
-  statVideos.textContent     = (CACHE.videos.length + ((window.CONFIG && CONFIG.PODCASTS && CONFIG.PODCASTS.length) || 0)) || '—';
+  statResources.textContent  = totalFiles || '-';
+  statCategories.textContent = CACHE.sections.filter(s => !s.restricted).length || '-';
+  statVideos.textContent     = (CACHE.videos.length + ((window.CONFIG && CONFIG.PODCASTS && CONFIG.PODCASTS.length) || 0)) || '-';
 }
 function countAllFiles(sections) {
   let count = 0;

@@ -1,5 +1,5 @@
 // ═══════════════════════════════════════════════════════════
-// FORUM PLAYBOOK — podcasts.js
+// FORUM PLAYBOOK - podcasts.js
 //
 // Renders the "Podcasts" section. These episodes live on OTHER
 // channels, so they can't come through the YouTube playlist that
@@ -7,7 +7,7 @@
 // (CONFIG.PODCASTS). This file just draws them.
 //
 // To change which podcasts show up, edit CONFIG.PODCASTS in
-// config.js — you do NOT need to touch this file.
+// config.js - you do NOT need to touch this file.
 //
 // Reuses the existing video-card styles, so there are no CSS changes.
 // ═══════════════════════════════════════════════════════════

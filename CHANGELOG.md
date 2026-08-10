@@ -1,0 +1,16 @@
+# Changelog: forum-playbook (forumplaybook.com)
+
+Code and housed-document changes only. Library resources and videos sync from Google Drive / YouTube (brand rule 03) and are not versioned here.
+
+## 2026-08-10
+
+- brand.html bumped to v2.1: new section 08, Templates & One-Pagers. The newest document templates are now housed on the brand page permanently: one-pager template v1.0, template contract v1.0, Word document template v1.1 (.docx), plus the four current one-pagers with view links and print-verified PDFs.
+- NEW: Open Coaching v2.0 one-pager. Carries the current opening language ("What types of experiences are you curious to hear from the group?" and the experience-share stem "A time when you felt...") plus the EQ vs IQ topic frame up front. Supersedes the 2022 ForumSherpa-era tips sheet and the FP Word doc v1.0a (April 2026). Source of record: Projects/ForumPlaybook.com/one-pager-system/ on the MacBook.
+- New directories: /one-pagers/ (4 HTML + 4 PDF, every PDF verified exactly one page) and /templates/ (3 files).
+- Em dashes removed from every text file in the repo per the global style law (visible copy, meta tags, stat placeholders, code comments).
+- brand.html gains the site favicon and Open Graph / Twitter card metadata.
+
+## Earlier, pre-changelog (from git history)
+
+- 2026-07: iOS apps privacy section added to /legal; podcasts section added; accessibility color-contrast PR #3 open and awaiting merge.
+- 2026-03 to 04: Brand Guidelines v2.0 locked (color system, typography, two-wave hover, document chrome).

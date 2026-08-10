@@ -1,4 +1,4 @@
-# Forum Playbook — Future State To-Do
+# Forum Playbook - Future State To-Do
 Last updated: March 2026
 
 ---
@@ -7,7 +7,7 @@ Last updated: March 2026
 
 ### Favicon
 - Current: generic globe icon in browser tab
-- Goal: small "FP" mark — dark Pitch background, Burn orange text
+- Goal: small "FP" mark - dark Pitch background, Burn orange text
 - Solution: inline SVG favicon already written, just needs to be added to <head> in index.html
 - Code ready, just needs to be committed
 
@@ -22,7 +22,7 @@ Last updated: March 2026
 - Fix: go to YouTube playlist → drag videos into correct order → site reflects on next load
 - No code change needed
 
-### Funny Hero Stat — Replace "Categories"
+### Funny Hero Stat - Replace "Categories"
 - Currently shows: Resources / Categories / Videos
 - Goal: Resources / Videos / [something funny with a slowly-changing number]
 - Ideas discussed:
@@ -39,8 +39,8 @@ Last updated: March 2026
 ### Sub-pages / Expandable Folders
 - The 4 numbered subfolders in Drive (Exercises, 5% Worksheets, Retreat Exercises, Official EO Tools) need to be accessible
 - Two options:
-  A) Expandable/collapsible cards — click a category to reveal files inside (no page load)
-  B) Sub-pages — each category gets its own URL (e.g. forumplaybook.com/retreat-exercises)
+  A) Expandable/collapsible cards - click a category to reveal files inside (no page load)
+  B) Sub-pages - each category gets its own URL (e.g. forumplaybook.com/retreat-exercises)
 - Option A is simpler to build and fits the single-page app model
 - Option B is better for sharing direct links to a category
 - Decision needed before building

@@ -1,5 +1,5 @@
 /* ═══════════════════════════════════════════════════════════
-   FORUM PLAYBOOK — styles.css
+   FORUM PLAYBOOK - styles.css
    Design: Schematic Light (locked)
    Fonts: Big Shoulders Display / DM Mono / DM Sans
    ═══════════════════════════════════════════════════════════ */
@@ -893,7 +893,7 @@ body {
 
 
 /* ══════════════════════════════════════════════════════════
-   RESPONSIVE — TABLET / MOBILE
+   RESPONSIVE - TABLET / MOBILE
 ══════════════════════════════════════════════════════════ */
 @media (max-width: 900px) {
   .video-grid { grid-template-columns: repeat(2, 1fr); }
@@ -939,12 +939,12 @@ body {
   .card-meta  { font-size: 11px; }
   .btn        { font-size: 11px; padding: 9px 12px; }
 
-  /* Accordion headers — taller tap target */
+  /* Accordion headers - taller tap target */
   .acc-header { padding: 16px; min-height: 52px; }
   .acc-cat-name { font-size: 15px; }
   .acc-count    { font-size: 11px; }
 
-  /* Doc rows — stack name above buttons to prevent overlap */
+  /* Doc rows - stack name above buttons to prevent overlap */
   .doc-row {
     flex-wrap: wrap;
     gap: 8px;
@@ -979,7 +979,7 @@ body {
 }
 
 /* ══════════════════════════════════════════════════════════
-   ACCORDION — RESOURCE LIBRARY
+   ACCORDION - RESOURCE LIBRARY
 ══════════════════════════════════════════════════════════ */
 .accordion-wrap {
   background: var(--linen);
@@ -1186,7 +1186,7 @@ body {
   .accordion-wrap { padding: 12px 20px 24px; }
 }
 
-/* ── VIDEO THUMBNAIL — true 16:9 ratio ─────────────────── */
+/* ── VIDEO THUMBNAIL - true 16:9 ratio ─────────────────── */
 .video-thumb-16x9 {
   position: relative;
   width: 100%;
@@ -1224,7 +1224,7 @@ body {
   z-index: 2;
 }
 
-/* ── VIDEO INFO ROW — icon + text ───────────────────────── */
+/* ── VIDEO INFO ROW - icon + text ───────────────────────── */
 .video-info {
   display: flex;
   align-items: flex-start;

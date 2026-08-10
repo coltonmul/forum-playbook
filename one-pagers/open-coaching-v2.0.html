@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ============================================================
+     FORUM PLAYBOOK ONE-PAGER TEMPLATE v1.0
+     Governed by TEMPLATE-CONTRACT.md in this folder. Read it first.
+     ONLY regions marked EDIT-SLOT may be changed. Everything else,
+     including every line of CSS below, is LOCKED.
+     ============================================================ -->
+<!-- EDIT-SLOT:TITLE (title tag) -->
+<title>Open Coaching v2.0 | Forum Playbook</title>
+<!-- /EDIT-SLOT:TITLE -->
+
+<!-- LOCKED: fonts. Big Shoulders Display 700/900 + Roboto 400/700/400i only. Never DM Sans/DM Mono in documents. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ==================== LOCKED CSS. DO NOT EDIT. ==================== */
+:root {
+  --pitch: #0E0E0C;      /* body text, H1 */
+  --burn: #E8521A;       /* mark, kicker, H2, ticks */
+  --brick: #B83A14;      /* small bold accents (ADA-safe burn) */
+  --teal: #3A8A8A;       /* DO card heads */
+  --linen: #F0EBE0;      /* callout background */
+  --dust: #C4B8A8;       /* chrome only, never body text */
+  --deep-dust: #4A4038;  /* intro, attributions, footnotes */
+  --card-border: #D4CCC0;
+  --chrome: Consolas, 'Menlo', 'Courier New', monospace;
+  --display: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
+  --body: 'Roboto', Arial, sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { background: #8B8880; }
+body { font-family: var(--body); color: var(--pitch); }
+
+/* Page geometry: 8.5x11in, body margins 0.875in L/R and 0.625in T/B,
+   chrome band at 0.492in, per FORUM PLAYBOOK Document Template v1_1.docx */
+@page { size: 8.5in 11in; margin: 0; }
+.page { width: 8.5in; height: 11in; background: #FFFFFF; margin: 24px auto;
+        padding: 0.492in 0.875in; box-shadow: 0 6px 28px rgba(0,0,0,0.35);
+        display: flex; flex-direction: column; overflow: hidden; }
+@media print {
+  html, body { background: #FFFFFF; }
+  .page { margin: 0; box-shadow: none; }
+  .print-btn { display: none; }
+}
+
+/* Header chrome (run-for-run from docx v1.1) */
+.doc-header { font-family: var(--chrome); white-space: nowrap; line-height: 1; flex: 0 0 auto; }
+.h-mark  { font-size: 8pt;   color: var(--burn); }
+.h-name  { font-size: 8pt;   font-weight: 700; color: var(--pitch); }
+.h-gap   { font-size: 5.5pt; color: var(--dust); }
+.h-cat   { font-size: 6pt;   font-weight: 700; color: var(--burn); }
+.h-sep   { font-size: 6pt;   color: var(--dust); }
+.h-doc   { font-size: 5.5pt; color: var(--dust); }
+.h-title { font-size: 6pt;   font-weight: 700; color: var(--pitch); }
+.h-ver   { font-size: 6pt;   font-weight: 700; color: var(--pitch); }
+.h-meta  { font-size: 6.5pt; color: var(--dust); }
+
+/* Body zone starts 0.625in from top edge (0.492 + 0.133) */
+.doc-body { flex: 1 1 auto; display: flex; flex-direction: column;
+            margin: 0.133in 0; overflow: hidden; }
+
+.kicker { font-family: var(--chrome); font-size: 7pt; font-weight: 700;
+          color: var(--burn); letter-spacing: 0.05em; margin-bottom: 2pt; }
+h1 { font-family: var(--display); font-weight: 900; text-transform: uppercase;
+     font-size: 26pt; line-height: 1.0; letter-spacing: -0.5px;
+     color: var(--pitch); margin-bottom: 5pt; }
+.intro { font-size: 11pt; line-height: 1.35; color: var(--deep-dust); margin-bottom: 5pt; }
+h2 { font-family: var(--display); font-weight: 700; text-transform: uppercase;
+     font-size: 14pt; letter-spacing: 0.02em; color: var(--burn);
+     margin: 14pt 0 5pt; }
+.h2-aside { font-family: var(--chrome); font-size: 7pt; font-weight: 400;
+            color: var(--dust); text-transform: none; letter-spacing: 0; }
+p, li { font-size: 10.5pt; line-height: 1.3; margin-bottom: 4pt; }
+
+/* Block: numbered steps */
+.steps { list-style: none; counter-reset: step; }
+.steps > li { counter-increment: step; padding-left: 18pt; position: relative; }
+.steps > li::before { content: counter(step) "."; position: absolute; left: 0;
+                      font-weight: 700; color: var(--brick); }
+.step-lead { font-weight: 700; color: var(--brick); }
+
+/* Block: cards (do/don't columns). Square corners, burn corner tick. */
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 10pt; margin: 5pt 0; }
+.card { background: #FFFFFF; border: 0.5px solid var(--card-border);
+        position: relative; padding: 8pt 10pt; }
+.tick-tl { position: absolute; top: -1px; left: -1px; width: 12px; height: 12px;
+           border-top: 1px solid var(--burn); border-left: 1px solid var(--burn); }
+.tick-br { position: absolute; bottom: -1px; right: -1px; width: 12px; height: 12px;
+           border-bottom: 1px solid var(--dust); border-right: 1px solid var(--dust); }
+.card-head { font-family: var(--display); font-weight: 700; text-transform: uppercase;
+             font-size: 14pt; margin-bottom: 3pt; color: var(--pitch); }
+.card.do .card-head { color: var(--teal); }
+.card.dont .card-head { color: var(--brick); }
+.card ul { list-style: none; }
+.card li { font-size: 9.5pt; line-height: 1.3; margin-bottom: 3pt;
+           padding-left: 11pt; position: relative; }
+.card.do li::before { content: "\2713"; position: absolute; left: 0;
+                      color: var(--teal); font-weight: 700; }
+.card.dont li::before { content: "\2715"; position: absolute; left: 0;
+                        color: var(--brick); font-weight: 700; }
+
+/* Block: callout quote */
+.callout { background: var(--linen); border: 0.5px solid var(--card-border);
+           position: relative; padding: 8pt 12pt; margin: 6pt 0; }
+.callout .q { font-size: 10.5pt; font-style: italic; line-height: 1.35; color: var(--pitch); }
+.callout .attr { font-family: var(--chrome); font-size: 7pt; color: var(--deep-dust);
+                 margin-top: 3pt; text-transform: uppercase; }
+
+/* Block: sources footnote, pinned above footer chrome */
+.sources { margin-top: auto; padding-top: 6pt; font-family: var(--chrome);
+           font-size: 7pt; line-height: 1.35; color: var(--deep-dust); }
+.sources b { color: var(--pitch); }
+
+/* Footer chrome (run-for-run from docx v1.1) */
+.doc-footer { font-family: var(--chrome); white-space: nowrap; line-height: 1;
+              flex: 0 0 auto; display: flex; align-items: baseline;
+              justify-content: space-between; }
+.f-mark { font-size: 7pt; color: var(--burn); }
+.f-name { font-size: 7pt; font-weight: 700; color: var(--pitch); }
+.f-tag  { font-size: 6pt; color: var(--dust); }
+.f-url  { font-size: 5.5pt; color: var(--dust); }
+
+/* Print button (screen only) */
+.print-btn { position: fixed; top: 16px; right: 16px; z-index: 10;
+             font-family: var(--chrome); font-size: 12px; font-weight: 700;
+             letter-spacing: 0.08em; background: var(--burn); color: #FFFFFF;
+             border: none; padding: 10px 18px; cursor: pointer; }
+.print-btn:hover { background: var(--brick); }
+/* ==================== END LOCKED CSS ==================== */
+</style>
+</head>
+<body>
+
+<button class="print-btn" onclick="window.print()">⎙ PRINT</button>
+
+<div class="page">
+
+  <!-- LOCKED: header chrome. Only the three EDIT-SLOT spans inside it change. -->
+  <header class="doc-header"><span class="h-mark">⎇ </span><span class="h-name">FORUM PLAYBOOK</span><span class="h-gap">&nbsp;&nbsp;&nbsp;</span><!-- EDIT-SLOT:CATEGORY --><span class="h-cat">[ FACILITATION TOOLS ]</span><!-- /EDIT-SLOT:CATEGORY --><span class="h-sep">&nbsp;&nbsp;│&nbsp;&nbsp;</span><span class="h-doc">DOCUMENT&nbsp;&nbsp;</span><!-- EDIT-SLOT:TITLE --><span class="h-title">OPEN COACHING</span><!-- /EDIT-SLOT:TITLE --><span class="h-sep">&nbsp;&nbsp;│&nbsp;</span><!-- EDIT-SLOT:VERSION --><span class="h-ver">v2.0&nbsp;</span><!-- /EDIT-SLOT:VERSION --><span class="h-sep">│&nbsp;</span><!-- EDIT-SLOT:UPDATED --><span class="h-meta">Updated: August 2026&nbsp;</span><!-- /EDIT-SLOT:UPDATED --><span class="h-sep">│&nbsp;</span><span class="h-meta">ForumPlaybook.com</span></header>
+
+  <main class="doc-body">
+
+    <!-- EDIT-SLOT:CATEGORY -->
+    <div class="kicker">[ FACILITATION TOOLS ]</div>
+    <!-- /EDIT-SLOT:CATEGORY -->
+
+    <!-- EDIT-SLOT:TITLE -->
+    <h1>Open Coaching</h1>
+    <!-- /EDIT-SLOT:TITLE -->
+
+    <!-- EDIT-SLOT:INTRO -->
+    <p class="intro">Open coaching unlocks the depth of an unplanned presentation
+    and sets up better experience shares. It is an EQ tool: a short run of curious
+    questions at the front of a deep dive, never a fact-finding interview.</p>
+    <!-- /EDIT-SLOT:INTRO -->
+
+    <!-- EDIT-SLOT:BLOCKS -->
+
+    <h2>First, Confirm It Is an EQ Topic <span class="h2-aside">[open coaching is wasted on IQ topics]</span></h2>
+    <div class="cols">
+      <div class="card do">
+        <div class="tick-tl"></div><div class="tick-br"></div>
+        <div class="card-head">EQ &middot; Coach It</div>
+        <ul>
+          <li>The whys. Significant, unresolved, emotionally complex: fears, dreams, doubts, the conversation they are nervous to have.</li>
+          <li>The things you cannot take to Claude or ChatGPT and get answers on.</li>
+          <li>Earns the 30-40 minute deep dive: coaching, two minutes of silence, then experience shares.</li>
+        </ul>
+      </div>
+      <div class="card dont">
+        <div class="tick-tl"></div><div class="tick-br"></div>
+        <div class="card-head">IQ &middot; Route It</div>
+        <ul>
+          <li>The what and the how. Process, details, facts and figures: comp plans, sales funnels, what everybody is doing with AI.</li>
+          <li>Gets 10-12 minutes as a lightning round, 60 seconds each around the room.</li>
+          <li>Not open coaching material, and never the deep dive slot.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2>The Process <span class="h2-aside">[7-8 minutes, questions only, no advice]</span></h2>
+    <ol class="steps">
+      <li><span class="step-lead">Orient the presenter.</span> Three questions set the frame: "What is a single headline for the topic and the tension?" "What are 3 emotions related to the topic?" "What types of experiences are you curious to hear from the group?"</li>
+      <li><span class="step-lead">Get the broad strokes.</span> Short, factual questions: who are the key players, is there a decision to be made or an action to be taken, has a situation like this happened before?</li>
+      <li><span class="step-lead">Go where the feelings are.</span> Ask how the topic relates to insecurities, identity, relationships, personal values, trust. Stay curious and ask the difficult question.</li>
+      <li><span class="step-lead">Guard the lane.</span> It is not the coach's job to console or to solve. Do not sweat transitions, and do not be afraid to interrupt a rabbit hole that is not pertinent.</li>
+    </ol>
+
+    <h2>Close: Define the Experience Share Request <span class="h2-aside">[every request starts "A time when you felt..."]</span></h2>
+    <ol class="steps">
+      <li><span class="step-lead">Near-exact.</span> Same situation, same feelings. "A time when you felt undermined by a business partner's lack of leadership."</li>
+      <li><span class="step-lead">Same emotions, different situation.</span> "A time when you felt that same tension confronting someone on an awkward topic."</li>
+      <li><span class="step-lead">The other side.</span> A different seat in the same situation. "A time when you felt exposed because someone confronted you about a weakness of yours."</li>
+    </ol>
+
+    <div class="callout">
+      <div class="tick-tl"></div><div class="tick-br"></div>
+      <p class="q">"Resonance, not relevance. An experience share is whatever resonated with you, not an identical situation."</p>
+      <div class="attr">Colton Mulligan, forum trainings, May-June 2026</div>
+    </div>
+
+    <!-- /EDIT-SLOT:BLOCKS -->
+
+    <!-- EDIT-SLOT:FOOTNOTE -->
+    <div class="sources"><b>Sources:</b> Created by Colton Mulligan for Forum Playbook. v2.0 updates his open coaching tips sheet (ForumSherpa era 2022; FP v1.0a April 2026) with the current opening language and the EQ vs IQ frame. Companion: EQ vs IQ Topics: Sizing the Conversation.</div>
+    <!-- /EDIT-SLOT:FOOTNOTE -->
+
+  </main>
+
+  <!-- LOCKED: footer chrome. Never changes. -->
+  <footer class="doc-footer"><span><span class="f-mark">⎇ </span><span class="f-name">FORUM PLAYBOOK&nbsp;&nbsp;</span><span class="f-tag">A Resource Hub for Forums, Moderators, &amp; Facilitators.</span></span><span class="f-url">ForumPlaybook.com</span></footer>
+
+</div>
+
+</body>
+</html>

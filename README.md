@@ -1,2 +1,2 @@
 # forum-playbook
-Forum Playbook — facilitation resource hub
+Forum Playbook - facilitation resource hub

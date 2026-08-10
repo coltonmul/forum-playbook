@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ============================================================
+     FORUM PLAYBOOK ONE-PAGER (built from onepager-template.html)
+     Governed by TEMPLATE-CONTRACT.md. Only EDIT-SLOT regions differ
+     from the template. Everything else is LOCKED.
+     ============================================================ -->
+<!-- EDIT-SLOT:TITLE (title tag) -->
+<title>The 4-Hour Forum Meeting Blueprint v1.0 | Forum Playbook</title>
+<!-- /EDIT-SLOT:TITLE -->
+
+<!-- LOCKED: fonts. Big Shoulders Display 700/900 + Roboto 400/700/400i only. Never DM Sans/DM Mono in documents. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ==================== LOCKED CSS. DO NOT EDIT. ==================== */
+:root {
+  --pitch: #0E0E0C;      /* body text, H1 */
+  --burn: #E8521A;       /* mark, kicker, H2, ticks */
+  --brick: #B83A14;      /* small bold accents (ADA-safe burn) */
+  --teal: #3A8A8A;       /* DO card heads */
+  --linen: #F0EBE0;      /* callout background */
+  --dust: #C4B8A8;       /* chrome only, never body text */
+  --deep-dust: #4A4038;  /* intro, attributions, footnotes */
+  --card-border: #D4CCC0;
+  --chrome: Consolas, 'Menlo', 'Courier New', monospace;
+  --display: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
+  --body: 'Roboto', Arial, sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { background: #8B8880; }
+body { font-family: var(--body); color: var(--pitch); }
+
+/* Page geometry: 8.5x11in, body margins 0.875in L/R and 0.625in T/B,
+   chrome band at 0.492in, per FORUM PLAYBOOK Document Template v1_1.docx */
+@page { size: 8.5in 11in; margin: 0; }
+.page { width: 8.5in; height: 11in; background: #FFFFFF; margin: 24px auto;
+        padding: 0.492in 0.875in; box-shadow: 0 6px 28px rgba(0,0,0,0.35);
+        display: flex; flex-direction: column; overflow: hidden; }
+@media print {
+  html, body { background: #FFFFFF; }
+  .page { margin: 0; box-shadow: none; }
+  .print-btn { display: none; }
+}
+
+/* Header chrome (run-for-run from docx v1.1) */
+.doc-header { font-family: var(--chrome); white-space: nowrap; line-height: 1; flex: 0 0 auto; }
+.h-mark  { font-size: 8pt;   color: var(--burn); }
+.h-name  { font-size: 8pt;   font-weight: 700; color: var(--pitch); }
+.h-gap   { font-size: 5.5pt; color: var(--dust); }
+.h-cat   { font-size: 6pt;   font-weight: 700; color: var(--burn); }
+.h-sep   { font-size: 6pt;   color: var(--dust); }
+.h-doc   { font-size: 5.5pt; color: var(--dust); }
+.h-title { font-size: 6pt;   font-weight: 700; color: var(--pitch); }
+.h-ver   { font-size: 6pt;   font-weight: 700; color: var(--pitch); }
+.h-meta  { font-size: 6.5pt; color: var(--dust); }
+
+/* Body zone starts 0.625in from top edge (0.492 + 0.133) */
+.doc-body { flex: 1 1 auto; display: flex; flex-direction: column;
+            margin: 0.133in 0; overflow: hidden; }
+
+.kicker { font-family: var(--chrome); font-size: 7pt; font-weight: 700;
+          color: var(--burn); letter-spacing: 0.05em; margin-bottom: 2pt; }
+h1 { font-family: var(--display); font-weight: 900; text-transform: uppercase;
+     font-size: 26pt; line-height: 1.0; letter-spacing: -0.5px;
+     color: var(--pitch); margin-bottom: 5pt; }
+.intro { font-size: 11pt; line-height: 1.35; color: var(--deep-dust); margin-bottom: 5pt; }
+h2 { font-family: var(--display); font-weight: 700; text-transform: uppercase;
+     font-size: 14pt; letter-spacing: 0.02em; color: var(--burn);
+     margin: 14pt 0 5pt; }
+.h2-aside { font-family: var(--chrome); font-size: 7pt; font-weight: 400;
+            color: var(--dust); text-transform: none; letter-spacing: 0; }
+p, li { font-size: 10.5pt; line-height: 1.3; margin-bottom: 4pt; }
+
+/* Block: numbered steps */
+.steps { list-style: none; counter-reset: step; }
+.steps > li { counter-increment: step; padding-left: 18pt; position: relative; }
+.steps > li::before { content: counter(step) "."; position: absolute; left: 0;
+                      font-weight: 700; color: var(--brick); }
+.step-lead { font-weight: 700; color: var(--brick); }
+
+/* Block: cards (do/don't columns). Square corners, burn corner tick. */
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 10pt; margin: 5pt 0; }
+.card { background: #FFFFFF; border: 0.5px solid var(--card-border);
+        position: relative; padding: 8pt 10pt; }
+.tick-tl { position: absolute; top: -1px; left: -1px; width: 12px; height: 12px;
+           border-top: 1px solid var(--burn); border-left: 1px solid var(--burn); }
+.tick-br { position: absolute; bottom: -1px; right: -1px; width: 12px; height: 12px;
+           border-bottom: 1px solid var(--dust); border-right: 1px solid var(--dust); }
+.card-head { font-family: var(--display); font-weight: 700; text-transform: uppercase;
+             font-size: 14pt; margin-bottom: 3pt; color: var(--pitch); }
+.card.do .card-head { color: var(--teal); }
+.card.dont .card-head { color: var(--brick); }
+.card ul { list-style: none; }
+.card li { font-size: 9.5pt; line-height: 1.3; margin-bottom: 3pt;
+           padding-left: 11pt; position: relative; }
+.card.do li::before { content: "\2713"; position: absolute; left: 0;
+                      color: var(--teal); font-weight: 700; }
+.card.dont li::before { content: "\2715"; position: absolute; left: 0;
+                        color: var(--brick); font-weight: 700; }
+
+/* Block: callout quote */
+.callout { background: var(--linen); border: 0.5px solid var(--card-border);
+           position: relative; padding: 8pt 12pt; margin: 6pt 0; }
+.callout .q { font-size: 10.5pt; font-style: italic; line-height: 1.35; color: var(--pitch); }
+.callout .attr { font-family: var(--chrome); font-size: 7pt; color: var(--deep-dust);
+                 margin-top: 3pt; text-transform: uppercase; }
+
+/* Block: sources footnote, pinned above footer chrome */
+.sources { margin-top: auto; padding-top: 6pt; font-family: var(--chrome);
+           font-size: 7pt; line-height: 1.35; color: var(--deep-dust); }
+.sources b { color: var(--pitch); }
+
+/* Footer chrome (run-for-run from docx v1.1) */
+.doc-footer { font-family: var(--chrome); white-space: nowrap; line-height: 1;
+              flex: 0 0 auto; display: flex; align-items: baseline;
+              justify-content: space-between; }
+.f-mark { font-size: 7pt; color: var(--burn); }
+.f-name { font-size: 7pt; font-weight: 700; color: var(--pitch); }
+.f-tag  { font-size: 6pt; color: var(--dust); }
+.f-url  { font-size: 5.5pt; color: var(--dust); }
+
+/* Print button (screen only) */
+.print-btn { position: fixed; top: 16px; right: 16px; z-index: 10;
+             font-family: var(--chrome); font-size: 12px; font-weight: 700;
+             letter-spacing: 0.08em; background: var(--burn); color: #FFFFFF;
+             border: none; padding: 10px 18px; cursor: pointer; }
+.print-btn:hover { background: var(--brick); }
+/* ==================== END LOCKED CSS ==================== */
+</style>
+</head>
+<body>
+
+<button class="print-btn" onclick="window.print()">⎙ PRINT</button>
+
+<div class="page">
+
+  <!-- LOCKED: header chrome. Only the three EDIT-SLOT spans inside it change. -->
+  <header class="doc-header"><span class="h-mark">⎇ </span><span class="h-name">FORUM PLAYBOOK</span><span class="h-gap">&nbsp;&nbsp;&nbsp;</span><!-- EDIT-SLOT:CATEGORY --><span class="h-cat">[ MEETING TOOLS ]</span><!-- /EDIT-SLOT:CATEGORY --><span class="h-sep">&nbsp;&nbsp;│&nbsp;&nbsp;</span><span class="h-doc">DOCUMENT&nbsp;&nbsp;</span><!-- EDIT-SLOT:TITLE --><span class="h-title">THE 4-HOUR FORUM MEETING BLUEPRINT</span><!-- /EDIT-SLOT:TITLE --><span class="h-sep">&nbsp;&nbsp;│&nbsp;</span><!-- EDIT-SLOT:VERSION --><span class="h-ver">v1.0&nbsp;</span><!-- /EDIT-SLOT:VERSION --><span class="h-sep">│&nbsp;</span><!-- EDIT-SLOT:UPDATED --><span class="h-meta">Updated: July 2026&nbsp;</span><!-- /EDIT-SLOT:UPDATED --><span class="h-sep">│&nbsp;</span><span class="h-meta">ForumPlaybook.com</span></header>
+
+  <main class="doc-body">
+
+    <!-- EDIT-SLOT:CATEGORY -->
+    <div class="kicker">[ MEETING TOOLS ]</div>
+    <!-- /EDIT-SLOT:CATEGORY -->
+
+    <!-- EDIT-SLOT:TITLE -->
+    <h1>The 4-Hour Forum Meeting Blueprint</h1>
+    <!-- /EDIT-SLOT:TITLE -->
+
+    <!-- EDIT-SLOT:INTRO -->
+    <p class="intro">When the forum is together, the question is always the same:
+    what is the highest and best use of that time? The front half of the meeting is
+    structured. The back half runs off the queue you built in hour one.</p>
+    <!-- /EDIT-SLOT:INTRO -->
+
+    <!-- EDIT-SLOT:BLOCKS -->
+
+    <h2>The Four Hours</h2>
+    <ol class="steps">
+      <li><span class="step-lead">Hour 1: Opening rituals + 5% reflections.</span> Phones off, confidentiality reminder, 60 seconds to enter forum mindset. Clearing round, every person, all three: am I clear with our people, our process, myself? Then 5% reflections. After each member: anything for the parking lot, and anything you want to nominate for today's impromptu queue?</li>
+      <li><span class="step-lead">Hour 2: The planned deep dive.</span> 45-60 minutes with a break. An EQ topic pulled from the presenter's parking lot, never "what is going on for me this month." Coaching happened a week ago: one hour, worksheets, and a 2 minute coach opener at the meeting. Do that and 90% of the heavy lifting is done.</li>
+      <li><span class="step-lead">Hours 3-4: The impromptu queue.</span> By the end of 5% reflections you should have 3-5 parking lot adds and a queue of topics. EQ topics first: 30-40 minutes with open coaching. Then knock out the IQ items as 10-12 minute lightning rounds.</li>
+      <li><span class="step-lead">Close: Confirm and clear out.</span> Confirm next month's presenter, coach, and host, then debrief in one question: how was this meeting different from what you expected? Updates (the kid won the soccer game, you hired the number two) go to the text thread and dinner after, not meeting time.</li>
+    </ol>
+
+    <div class="callout">
+      <div class="tick-tl"></div><div class="tick-br"></div>
+      <p class="q">"First hour is opening rituals and five percent reflections.
+      Second hour, the planned deep dive. Then the last two hours are pulled from
+      your five percent reflections: an impromptu deep dive or some IQ topics."</p>
+      <div class="attr">Colton Mulligan, Forum Chair Training, May 2026</div>
+    </div>
+
+    <h2>What Keeps It On the Rails</h2>
+    <div class="cols">
+      <div class="card do">
+        <div class="tick-tl"></div><div class="tick-br"></div>
+        <div class="card-head">Do</div>
+        <ul>
+          <li>Book presenters 6-12 months out. Last month's presenter coaches this month's.</li>
+          <li>Put the whole structure in the calendar invite: who hosts, who presents, who coaches.</li>
+          <li>Start on time. Rolling five minutes after, and lateness or an unfinished 5% costs real money.</li>
+          <li>Moderator keeps the queue: "I caught a couple things" at the end of reflections.</li>
+        </ul>
+      </div>
+      <div class="card dont">
+        <div class="tick-tl"></div><div class="tick-br"></div>
+        <div class="card-head">Don't</div>
+        <ul>
+          <li>No clarifying-question rounds. They have been out for five years; they are sneaky advice phrased as a question.</li>
+          <li>Don't burn meeting time on updates everyone already knows. If anybody outside the forum knows it, it is not 5%.</li>
+          <li>Don't let the moderator role feel administrative. Offload the calendar and the parking lot to other members.</li>
+          <li>Don't figure out next month's deep dive at the end of the meeting.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- /EDIT-SLOT:BLOCKS -->
+
+    <!-- EDIT-SLOT:FOOTNOTE -->
+    <div class="sources"><b>Sources:</b> Created by Colton Mulligan for Forum Playbook. Agenda structure from his forum chair trainings and EO Atlanta Advanced Training (May 2026); clearing formula adapted from Cesar Quintero. Pairs with the Forum Organizer Spreadsheet on ForumPlaybook.com.</div>
+    <!-- /EDIT-SLOT:FOOTNOTE -->
+
+  </main>
+
+  <!-- LOCKED: footer chrome. Never changes. -->
+  <footer class="doc-footer"><span><span class="f-mark">⎇ </span><span class="f-name">FORUM PLAYBOOK&nbsp;&nbsp;</span><span class="f-tag">A Resource Hub for Forums, Moderators, &amp; Facilitators.</span></span><span class="f-url">ForumPlaybook.com</span></footer>
+
+</div>
+
+</body>
+</html>

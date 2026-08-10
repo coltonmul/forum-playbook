@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ============================================================
+     FORUM PLAYBOOK ONE-PAGER TEMPLATE v1.0
+     Governed by TEMPLATE-CONTRACT.md in this folder. Read it first.
+     ONLY regions marked EDIT-SLOT may be changed. Everything else,
+     including every line of CSS below, is LOCKED.
+     ============================================================ -->
+<!-- EDIT-SLOT:TITLE (title tag) -->
+<title>DOCUMENT TITLE HERE v1.0 | Forum Playbook</title>
+<!-- /EDIT-SLOT:TITLE -->
+
+<!-- LOCKED: fonts. Big Shoulders Display 700/900 + Roboto 400/700/400i only. Never DM Sans/DM Mono in documents. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ==================== LOCKED CSS. DO NOT EDIT. ==================== */
+:root {
+  --pitch: #0E0E0C;      /* body text, H1 */
+  --burn: #E8521A;       /* mark, kicker, H2, ticks */
+  --brick: #B83A14;      /* small bold accents (ADA-safe burn) */
+  --teal: #3A8A8A;       /* DO card heads */
+  --linen: #F0EBE0;      /* callout background */
+  --dust: #C4B8A8;       /* chrome only, never body text */
+  --deep-dust: #4A4038;  /* intro, attributions, footnotes */
+  --card-border: #D4CCC0;
+  --chrome: Consolas, 'Menlo', 'Courier New', monospace;
+  --display: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
+  --body: 'Roboto', Arial, sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { background: #8B8880; }
+body { font-family: var(--body); color: var(--pitch); }
+
+/* Page geometry: 8.5x11in, body margins 0.875in L/R and 0.625in T/B,
+   chrome band at 0.492in, per FORUM PLAYBOOK Document Template v1_1.docx */
+@page { size: 8.5in 11in; margin: 0; }
+.page { width: 8.5in; height: 11in; background: #FFFFFF; margin: 24px auto;
+        padding: 0.492in 0.875in; box-shadow: 0 6px 28px rgba(0,0,0,0.35);
+        display: flex; flex-direction: column; overflow: hidden; }
+@media print {
+  html, body { background: #FFFFFF; }
+  .page { margin: 0; box-shadow: none; }
+  .print-btn { display: none; }
+}
+
+/* Header chrome (run-for-run from docx v1.1) */
+.doc-header { font-family: var(--chrome); white-space: nowrap; line-height: 1; flex: 0 0 auto; }
+.h-mark  { font-size: 8pt;   color: var(--burn); }
+.h-name  { font-size: 8pt;   font-weight: 700; color: var(--pitch); }
+.h-gap   { font-size: 5.5pt; color: var(--dust); }
+.h-cat   { font-size: 6pt;   font-weight: 700; color: var(--burn); }
+.h-sep   { font-size: 6pt;   color: var(--dust); }
+.h-doc   { font-size: 5.5pt; color: var(--dust); }
+.h-title { font-size: 6pt;   font-weight: 700; color: var(--pitch); }
+.h-ver   { font-size: 6pt;   font-weight: 700; color: var(--pitch); }
+.h-meta  { font-size: 6.5pt; color: var(--dust); }
+
+/* Body zone starts 0.625in from top edge (0.492 + 0.133) */
+.doc-body { flex: 1 1 auto; display: flex; flex-direction: column;
+            margin: 0.133in 0; overflow: hidden; }
+
+.kicker { font-family: var(--chrome); font-size: 7pt; font-weight: 700;
+          color: var(--burn); letter-spacing: 0.05em; margin-bottom: 2pt; }
+h1 { font-family: var(--display); font-weight: 900; text-transform: uppercase;
+     font-size: 26pt; line-height: 1.0; letter-spacing: -0.5px;
+     color: var(--pitch); margin-bottom: 5pt; }
+.intro { font-size: 11pt; line-height: 1.35; color: var(--deep-dust); margin-bottom: 5pt; }
+h2 { font-family: var(--display); font-weight: 700; text-transform: uppercase;
+     font-size: 14pt; letter-spacing: 0.02em; color: var(--burn);
+     margin: 14pt 0 5pt; }
+.h2-aside { font-family: var(--chrome); font-size: 7pt; font-weight: 400;
+            color: var(--dust); text-transform: none; letter-spacing: 0; }
+p, li { font-size: 10.5pt; line-height: 1.3; margin-bottom: 4pt; }
+
+/* Block: numbered steps */
+.steps { list-style: none; counter-reset: step; }
+.steps > li { counter-increment: step; padding-left: 18pt; position: relative; }
+.steps > li::before { content: counter(step) "."; position: absolute; left: 0;
+                      font-weight: 700; color: var(--brick); }
+.step-lead { font-weight: 700; color: var(--brick); }
+
+/* Block: cards (do/don't columns). Square corners, burn corner tick. */
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 10pt; margin: 5pt 0; }
+.card { background: #FFFFFF; border: 0.5px solid var(--card-border);
+        position: relative; padding: 8pt 10pt; }
+.tick-tl { position: absolute; top: -1px; left: -1px; width: 12px; height: 12px;
+           border-top: 1px solid var(--burn); border-left: 1px solid var(--burn); }
+.tick-br { position: absolute; bottom: -1px; right: -1px; width: 12px; height: 12px;
+           border-bottom: 1px solid var(--dust); border-right: 1px solid var(--dust); }
+.card-head { font-family: var(--display); font-weight: 700; text-transform: uppercase;
+             font-size: 14pt; margin-bottom: 3pt; color: var(--pitch); }
+.card.do .card-head { color: var(--teal); }
+.card.dont .card-head { color: var(--brick); }
+.card ul { list-style: none; }
+.card li { font-size: 9.5pt; line-height: 1.3; margin-bottom: 3pt;
+           padding-left: 11pt; position: relative; }
+.card.do li::before { content: "\2713"; position: absolute; left: 0;
+                      color: var(--teal); font-weight: 700; }
+.card.dont li::before { content: "\2715"; position: absolute; left: 0;
+                        color: var(--brick); font-weight: 700; }
+
+/* Block: callout quote */
+.callout { background: var(--linen); border: 0.5px solid var(--card-border);
+           position: relative; padding: 8pt 12pt; margin: 6pt 0; }
+.callout .q { font-size: 10.5pt; font-style: italic; line-height: 1.35; color: var(--pitch); }
+.callout .attr { font-family: var(--chrome); font-size: 7pt; color: var(--deep-dust);
+                 margin-top: 3pt; text-transform: uppercase; }
+
+/* Block: sources footnote, pinned above footer chrome */
+.sources { margin-top: auto; padding-top: 6pt; font-family: var(--chrome);
+           font-size: 7pt; line-height: 1.35; color: var(--deep-dust); }
+.sources b { color: var(--pitch); }
+
+/* Footer chrome (run-for-run from docx v1.1) */
+.doc-footer { font-family: var(--chrome); white-space: nowrap; line-height: 1;
+              flex: 0 0 auto; display: flex; align-items: baseline;
+              justify-content: space-between; }
+.f-mark { font-size: 7pt; color: var(--burn); }
+.f-name { font-size: 7pt; font-weight: 700; color: var(--pitch); }
+.f-tag  { font-size: 6pt; color: var(--dust); }
+.f-url  { font-size: 5.5pt; color: var(--dust); }
+
+/* Print button (screen only) */
+.print-btn { position: fixed; top: 16px; right: 16px; z-index: 10;
+             font-family: var(--chrome); font-size: 12px; font-weight: 700;
+             letter-spacing: 0.08em; background: var(--burn); color: #FFFFFF;
+             border: none; padding: 10px 18px; cursor: pointer; }
+.print-btn:hover { background: var(--brick); }
+/* ==================== END LOCKED CSS ==================== */
+</style>
+</head>
+<body>
+
+<button class="print-btn" onclick="window.print()">⎙ PRINT</button>
+
+<div class="page">
+
+  <!-- LOCKED: header chrome. Only the three EDIT-SLOT spans inside it change. -->
+  <header class="doc-header"><span class="h-mark">⎇ </span><span class="h-name">FORUM PLAYBOOK</span><span class="h-gap">&nbsp;&nbsp;&nbsp;</span><!-- EDIT-SLOT:CATEGORY (must match body kicker; whitelist in contract sec 10) --><span class="h-cat">[ FACILITATION TOOLS ]</span><!-- /EDIT-SLOT:CATEGORY --><span class="h-sep">&nbsp;&nbsp;│&nbsp;&nbsp;</span><span class="h-doc">DOCUMENT&nbsp;&nbsp;</span><!-- EDIT-SLOT:TITLE (caps, max 44 chars) --><span class="h-title">DOCUMENT TITLE HERE</span><!-- /EDIT-SLOT:TITLE --><span class="h-sep">&nbsp;&nbsp;│&nbsp;</span><!-- EDIT-SLOT:VERSION --><span class="h-ver">v1.0&nbsp;</span><!-- /EDIT-SLOT:VERSION --><span class="h-sep">│&nbsp;</span><!-- EDIT-SLOT:UPDATED --><span class="h-meta">Updated: July 2026&nbsp;</span><!-- /EDIT-SLOT:UPDATED --><span class="h-sep">│&nbsp;</span><span class="h-meta">ForumPlaybook.com</span></header>
+
+  <main class="doc-body">
+
+    <!-- EDIT-SLOT:CATEGORY (body kicker; must match header category) -->
+    <div class="kicker">[ FACILITATION TOOLS ]</div>
+    <!-- /EDIT-SLOT:CATEGORY -->
+
+    <!-- EDIT-SLOT:TITLE (H1) -->
+    <h1>Document Title Here</h1>
+    <!-- /EDIT-SLOT:TITLE -->
+
+    <!-- EDIT-SLOT:INTRO (1-3 sentences, Roboto 11pt, Deep Dust) -->
+    <p class="intro">One to three sentences that say what this tool is and why a
+    forum should care. Written in Colton's voice, tightened for print.</p>
+    <!-- /EDIT-SLOT:INTRO -->
+
+    <!-- ================================================================
+         EDIT-SLOT:BLOCKS
+         Use 3 to 5 blocks from the library below, in any order.
+         Delete the ones you do not use. No other block types allowed.
+         ================================================================ -->
+
+    <!-- BLOCK TYPE 1: NUMBERED STEPS -->
+    <h2>Section Heading <span class="h2-aside">[optional aside in brackets]</span></h2>
+    <ol class="steps">
+      <li><span class="step-lead">Bold lead phrase.</span> Body text explaining the step in one to three lines.</li>
+      <li><span class="step-lead">Bold lead phrase.</span> Body text explaining the step.</li>
+      <li><span class="step-lead">Bold lead phrase.</span> Body text explaining the step.</li>
+    </ol>
+
+    <!-- BLOCK TYPE 2: DO / DON'T COLUMNS -->
+    <h2>Do This, Not That</h2>
+    <div class="cols">
+      <div class="card do">
+        <div class="tick-tl"></div><div class="tick-br"></div>
+        <div class="card-head">Do</div>
+        <ul>
+          <li>A practice that works.</li>
+          <li>Another practice that works.</li>
+          <li>A third practice that works.</li>
+        </ul>
+      </div>
+      <div class="card dont">
+        <div class="tick-tl"></div><div class="tick-br"></div>
+        <div class="card-head">Don't</div>
+        <ul>
+          <li>A practice to avoid.</li>
+          <li>Another practice to avoid.</li>
+          <li>A third practice to avoid.</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- BLOCK TYPE 3: CALLOUT QUOTE -->
+    <div class="callout">
+      <div class="tick-tl"></div><div class="tick-br"></div>
+      <p class="q">"A verbatim or lightly tightened quote in Colton's voice that carries the core idea of the page."</p>
+      <div class="attr">Colton Mulligan, source and date</div>
+    </div>
+
+    <!-- BLOCK TYPE 4: PLAIN SECTION -->
+    <h2>Plain Section Heading</h2>
+    <p>Ordinary body paragraphs. Roboto 10.5pt, 4pt paragraph spacing, line-height 1.3.</p>
+
+    <!-- /EDIT-SLOT:BLOCKS -->
+
+    <!-- EDIT-SLOT:FOOTNOTE (BLOCK TYPE 5, required on every edition) -->
+    <div class="sources"><b>Sources:</b> Document created by Colton Mulligan for Forum Playbook; note any adapted concepts and their originators here.</div>
+    <!-- /EDIT-SLOT:FOOTNOTE -->
+
+  </main>
+
+  <!-- LOCKED: footer chrome. Never changes. -->
+  <footer class="doc-footer"><span><span class="f-mark">⎇ </span><span class="f-name">FORUM PLAYBOOK&nbsp;&nbsp;</span><span class="f-tag">A Resource Hub for Forums, Moderators, &amp; Facilitators.</span></span><span class="f-url">ForumPlaybook.com</span></footer>
+
+</div>
+
+</body>
+</html>

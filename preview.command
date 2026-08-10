@@ -5,7 +5,7 @@
 
 cd "$(dirname "$0")"
 echo ""
-echo "  Forum Playbook — local preview"
+echo "  Forum Playbook - local preview"
 echo "  http://localhost:3000"
 echo ""
 echo "  Press Ctrl+C to stop."

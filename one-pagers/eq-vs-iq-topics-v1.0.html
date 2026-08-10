@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- ============================================================
+     FORUM PLAYBOOK ONE-PAGER (built from onepager-template.html)
+     Governed by TEMPLATE-CONTRACT.md. Only EDIT-SLOT regions differ
+     from the template. Everything else is LOCKED.
+     ============================================================ -->
+<!-- EDIT-SLOT:TITLE (title tag) -->
+<title>EQ vs IQ Topics: Sizing the Conversation v1.0 | Forum Playbook</title>
+<!-- /EDIT-SLOT:TITLE -->
+
+<!-- LOCKED: fonts. Big Shoulders Display 700/900 + Roboto 400/700/400i only. Never DM Sans/DM Mono in documents. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ==================== LOCKED CSS. DO NOT EDIT. ==================== */
+:root {
+  --pitch: #0E0E0C;      /* body text, H1 */
+  --burn: #E8521A;       /* mark, kicker, H2, ticks */
+  --brick: #B83A14;      /* small bold accents (ADA-safe burn) */
+  --teal: #3A8A8A;       /* DO card heads */
+  --linen: #F0EBE0;      /* callout background */
+  --dust: #C4B8A8;       /* chrome only, never body text */
+  --deep-dust: #4A4038;  /* intro, attributions, footnotes */
+  --card-border: #D4CCC0;
+  --chrome: Consolas, 'Menlo', 'Courier New', monospace;
+  --display: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
+  --body: 'Roboto', Arial, sans-serif;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { background: #8B8880; }
+body { font-family: var(--body); color: var(--pitch); }
+
+/* Page geometry: 8.5x11in, body margins 0.875in L/R and 0.625in T/B,
+   chrome band at 0.492in, per FORUM PLAYBOOK Document Template v1_1.docx */
+@page { size: 8.5in 11in; margin: 0; }
+.page { width: 8.5in; height: 11in; background: #FFFFFF; margin: 24px auto;
+        padding: 0.492in 0.875in; box-shadow: 0 6px 28px rgba(0,0,0,0.35);
+        display: flex; flex-direction: column; overflow: hidden; }
+@media print {
+  html, body { background: #FFFFFF; }
+  .page { margin: 0; box-shadow: none; }
+  .print-btn { display: none; }
+}
+
+/* Header chrome (run-for-run from docx v1.1) */
+.doc-header { font-family: var(--chrome); white-space: nowrap; line-height: 1; flex: 0 0 auto; }
+.h-mark  { font-size: 8pt;   color: var(--burn); }
+.h-name  { font-size: 8pt;   font-weight: 700; color: var(--pitch); }
+.h-gap   { font-size: 5.5pt; color: var(--dust); }
+.h-cat   { font-size: 6pt;   font-weight: 700; color: var(--burn); }
+.h-sep   { font-size: 6pt;   color: var(--dust); }
+.h-doc   { font-size: 5.5pt; color: var(--dust); }
+.h-title { font-size: 6pt;   font-weight: 700; color: var(--pitch); }
+.h-ver   { font-size: 6pt;   font-weight: 700; color: var(--pitch); }
+.h-meta  { font-size: 6.5pt; color: var(--dust); }
+
+/* Body zone starts 0.625in from top edge (0.492 + 0.133) */
+.doc-body { flex: 1 1 auto; display: flex; flex-direction: column;
+            margin: 0.133in 0; overflow: hidden; }
+
+.kicker { font-family: var(--chrome); font-size: 7pt; font-weight: 700;
+          color: var(--burn); letter-spacing: 0.05em; margin-bottom: 2pt; }
+h1 { font-family: var(--display); font-weight: 900; text-transform: uppercase;
+     font-size: 26pt; line-height: 1.0; letter-spacing: -0.5px;
+     color: var(--pitch); margin-bottom: 5pt; }
+.intro { font-size: 11pt; line-height: 1.35; color: var(--deep-dust); margin-bottom: 5pt; }
+h2 { font-family: var(--display); font-weight: 700; text-transform: uppercase;
+     font-size: 14pt; letter-spacing: 0.02em; color: var(--burn);
+     margin: 14pt 0 5pt; }
+.h2-aside { font-family: var(--chrome); font-size: 7pt; font-weight: 400;
+            color: var(--dust); text-transform: none; letter-spacing: 0; }
+p, li { font-size: 10.5pt; line-height: 1.3; margin-bottom: 4pt; }
+
+/* Block: numbered steps */
+.steps { list-style: none; counter-reset: step; }
+.steps > li { counter-increment: step; padding-left: 18pt; position: relative; }
+.steps > li::before { content: counter(step) "."; position: absolute; left: 0;
+                      font-weight: 700; color: var(--brick); }
+.step-lead { font-weight: 700; color: var(--brick); }
+
+/* Block: cards (do/don't columns). Square corners, burn corner tick. */
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 10pt; margin: 5pt 0; }
+.card { background: #FFFFFF; border: 0.5px solid var(--card-border);
+        position: relative; padding: 8pt 10pt; }
+.tick-tl { position: absolute; top: -1px; left: -1px; width: 12px; height: 12px;
+           border-top: 1px solid var(--burn); border-left: 1px solid var(--burn); }
+.tick-br { position: absolute; bottom: -1px; right: -1px; width: 12px; height: 12px;
+           border-bottom: 1px solid var(--dust); border-right: 1px solid var(--dust); }
+.card-head { font-family: var(--display); font-weight: 700; text-transform: uppercase;
+             font-size: 14pt; margin-bottom: 3pt; color: var(--pitch); }
+.card.do .card-head { color: var(--teal); }
+.card.dont .card-head { color: var(--brick); }
+.card ul { list-style: none; }
+.card li { font-size: 9.5pt; line-height: 1.3; margin-bottom: 3pt;
+           padding-left: 11pt; position: relative; }
+.card.do li::before { content: "\2713"; position: absolute; left: 0;
+                      color: var(--teal); font-weight: 700; }
+.card.dont li::before { content: "\2715"; position: absolute; left: 0;
+                        color: var(--brick); font-weight: 700; }
+
+/* Block: callout quote */
+.callout { background: var(--linen); border: 0.5px solid var(--card-border);
+           position: relative; padding: 8pt 12pt; margin: 6pt 0; }
+.callout .q { font-size: 10.5pt; font-style: italic; line-height: 1.35; color: var(--pitch); }
+.callout .attr { font-family: var(--chrome); font-size: 7pt; color: var(--deep-dust);
+                 margin-top: 3pt; text-transform: uppercase; }
+
+/* Block: sources footnote, pinned above footer chrome */
+.sources { margin-top: auto; padding-top: 6pt; font-family: var(--chrome);
+           font-size: 7pt; line-height: 1.35; color: var(--deep-dust); }
+.sources b { color: var(--pitch); }
+
+/* Footer chrome (run-for-run from docx v1.1) */
+.doc-footer { font-family: var(--chrome); white-space: nowrap; line-height: 1;
+              flex: 0 0 auto; display: flex; align-items: baseline;
+              justify-content: space-between; }
+.f-mark { font-size: 7pt; color: var(--burn); }
+.f-name { font-size: 7pt; font-weight: 700; color: var(--pitch); }
+.f-tag  { font-size: 6pt; color: var(--dust); }
+.f-url  { font-size: 5.5pt; color: var(--dust); }
+
+/* Print button (screen only) */
+.print-btn { position: fixed; top: 16px; right: 16px; z-index: 10;
+             font-family: var(--chrome); font-size: 12px; font-weight: 700;
+             letter-spacing: 0.08em; background: var(--burn); color: #FFFFFF;
+             border: none; padding: 10px 18px; cursor: pointer; }
+.print-btn:hover { background: var(--brick); }
+/* ==================== END LOCKED CSS ==================== */
+</style>
+</head>
+<body>
+
+<button class="print-btn" onclick="window.print()">⎙ PRINT</button>
+
+<div class="page">
+
+  <!-- LOCKED: header chrome. Only the three EDIT-SLOT spans inside it change. -->
+  <header class="doc-header"><span class="h-mark">⎇ </span><span class="h-name">FORUM PLAYBOOK</span><span class="h-gap">&nbsp;&nbsp;&nbsp;</span><!-- EDIT-SLOT:CATEGORY --><span class="h-cat">[ FACILITATION TOOLS ]</span><!-- /EDIT-SLOT:CATEGORY --><span class="h-sep">&nbsp;&nbsp;│&nbsp;&nbsp;</span><span class="h-doc">DOCUMENT&nbsp;&nbsp;</span><!-- EDIT-SLOT:TITLE --><span class="h-title">EQ VS IQ: SIZING THE CONVERSATION</span><!-- /EDIT-SLOT:TITLE --><span class="h-sep">&nbsp;&nbsp;│&nbsp;</span><!-- EDIT-SLOT:VERSION --><span class="h-ver">v1.0&nbsp;</span><!-- /EDIT-SLOT:VERSION --><span class="h-sep">│&nbsp;</span><!-- EDIT-SLOT:UPDATED --><span class="h-meta">Updated: July 2026&nbsp;</span><!-- /EDIT-SLOT:UPDATED --><span class="h-sep">│&nbsp;</span><span class="h-meta">ForumPlaybook.com</span></header>
+
+  <main class="doc-body">
+
+    <!-- EDIT-SLOT:CATEGORY -->
+    <div class="kicker">[ FACILITATION TOOLS ]</div>
+    <!-- /EDIT-SLOT:CATEGORY -->
+
+    <!-- EDIT-SLOT:TITLE -->
+    <h1>EQ vs IQ Topics: Sizing the Conversation</h1>
+    <!-- /EDIT-SLOT:TITLE -->
+
+    <!-- EDIT-SLOT:INTRO -->
+    <p class="intro">The fastest way to raise the value of forum time is to match
+    the size of the conversation to the kind of topic. Some forums run a 10 or 12
+    minute IQ topic in a 40 minute EQ method, and that is not how you get the most
+    value out of forum.</p>
+    <!-- /EDIT-SLOT:INTRO -->
+
+    <!-- EDIT-SLOT:BLOCKS -->
+
+    <h2>Know Which One Is on the Table</h2>
+    <div class="cols">
+      <div class="card do">
+        <div class="tick-tl"></div><div class="tick-br"></div>
+        <div class="card-head">EQ &middot; 30-40 Minutes</div>
+        <ul>
+          <li>The whys. Significant, unresolved, emotionally complex: fears, dreams, doubts, the conversation you are nervous to have.</li>
+          <li>The things you cannot take to Claude or ChatGPT and get answers on.</li>
+          <li>Handled as a deep dive: 7-8 minutes of open coaching, 2 minutes of silent reflection, then experience shares.</li>
+          <li>This is what planned deep dives and your parking lot are for.</li>
+        </ul>
+      </div>
+      <div class="card dont">
+        <div class="tick-tl"></div><div class="tick-br"></div>
+        <div class="card-head">IQ &middot; 10-12 Minutes</div>
+        <ul>
+          <li>The what and the how. Sales funnel, job descriptions, comp plans, estate planning, what everybody is doing with AI.</li>
+          <li>Process, details, facts and figures. AI can already answer most of it.</li>
+          <li>Handled with lightning rounds, brainstorming, or a topical discussion. 60 seconds each around the room.</li>
+          <li>Never a 40 minute deep dive, and never the planned deep dive slot.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="callout">
+      <div class="tick-tl"></div><div class="tick-br"></div>
+      <p class="q">"A deep dive is EQ: my fears, my dreams, my hopes, the things I
+      am really nervous to talk about. How do I do something, what is the process
+      for something? Take it to your forum, but that is a 10 to 15 minute IQ
+      exercise. Don't spend 45 minutes on process, details, facts and figures."</p>
+      <div class="attr">Colton Mulligan, EO Atlanta Forum Advanced Training, May 2026</div>
+    </div>
+
+    <h2>Sizing It in the Meeting</h2>
+    <ol class="steps">
+      <li><span class="step-lead">Sort as topics surface.</span> At the end of each 5% reflection, ask what goes to the parking lot and what gets nominated for today's impromptu queue. Your parking lot should hold the EQ list.</li>
+      <li><span class="step-lead">Run EQ topics as deep dives.</span> Open coach for 7-8 minutes, then silence, then shares. No clarifying-question rounds; that is sneaky advice phrased as a question, and it is what stretches a 40 minute deep dive into an hour fifteen.</li>
+      <li><span class="step-lead">Run IQ topics as lightning rounds.</span> "Great, 60 seconds each: what are you actually doing with AI that is meaningful to your business?" In 15 minutes the whole forum walks away with options, and nobody told anybody what to do.</li>
+      <li><span class="step-lead">Listen for resonance, not relevance.</span> Experience shares are whatever resonated with you, not an identical situation. If a topic gets so specific that everybody becomes an expert with an opinion, the group is losing value: name it and resize it.</li>
+    </ol>
+
+    <!-- /EDIT-SLOT:BLOCKS -->
+
+    <!-- EDIT-SLOT:FOOTNOTE -->
+    <div class="sources"><b>Sources:</b> Created by Colton Mulligan for Forum Playbook. Language drawn from his EO Atlanta Forum Advanced Training (May 2026) and forum chair trainings (May-June 2026).</div>
+    <!-- /EDIT-SLOT:FOOTNOTE -->
+
+  </main>
+
+  <!-- LOCKED: footer chrome. Never changes. -->
+  <footer class="doc-footer"><span><span class="f-mark">⎇ </span><span class="f-name">FORUM PLAYBOOK&nbsp;&nbsp;</span><span class="f-tag">A Resource Hub for Forums, Moderators, &amp; Facilitators.</span></span><span class="f-url">ForumPlaybook.com</span></footer>
+
+</div>
+
+</body>
+</html>

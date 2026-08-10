@@ -1,9 +1,9 @@
 // ═══════════════════════════════════════════════════════════
-// FORUM PLAYBOOK — config.js
+// FORUM PLAYBOOK - config.js
 //
 // HOW TO UPDATE THIS FILE:
 // 1. Edit this file in your GitHub repo (github.com → forum-playbook → config.js → pencil icon)
-// 2. Commit the change — site auto-deploys within ~60 seconds
+// 2. Commit the change - site auto-deploys within ~60 seconds
 //
 // NEVER share this file publicly with a real API key in it.
 // The API key below is restricted to forumplaybook.com only via Google Cloud Console.
@@ -17,12 +17,12 @@ GOOGLE_API_KEY: 'AIzaSyD-DZWNK5YL8qgVzAVCv0qt87VHGnykh8Y',
 // These cards appear in the "Core Resources" section above the Resource Library.
 // type: 'doc' = Google Doc (downloads as DOCX + PDF)
 // type: 'sheet' = Google Sheet (downloads as XLSX + PDF)
-// type: 'links' = External link card — supply `links: [{label, url}]` instead of fileId
+// type: 'links' = External link card - supply `links: [{label, url}]` instead of fileId
 // Update fileId here if you ever replace these files in Drive.
 CORE_RESOURCES: [
 {
 title: 'Nashville Forum Constitution Template',
-subtitle: 'GOOGLE DOC — FORUM FOUNDATION',
+subtitle: 'GOOGLE DOC · FORUM FOUNDATION',
 fileId: '1h2AYwSQ0HcMY3EpF5L8kq1ZrZA63kwiT-J5w7BtcmWQ',
 type: 'doc',
 },
@@ -34,7 +34,7 @@ type: 'sheet',
 },
 {
 title: 'Clearing Round & Repair Process',
-subtitle: 'GOOGLE DOC — FACILITATION TOOLS',
+subtitle: 'GOOGLE DOC · FACILITATION TOOLS',
 fileId: '18GbUZDJoT__ETZ2b2hSVgOZXOrKp4Z9aM-jke5NLiUc',
 type: 'doc',
 },
@@ -58,7 +58,7 @@ url: 'https://member.eonetwork.org/member/forum/for-forum-chairs',
 // ── Root Drive Folder ───────────────────────────────────
 // The site reads the immediate subfolders of this folder
 // and turns each one into a top-level accordion section.
-// Add subfolders in Drive to add new sections — no code changes needed.
+// Add subfolders in Drive to add new sections - no code changes needed.
 DRIVE_ROOT_FOLDER_ID: '1WiseQewJb3yisikZ2xWXGWImo_hrANIR',
 // ── Restricted Folder Names ─────────────────────────────
 // Folders whose names match anything in this list will show
@@ -70,12 +70,12 @@ RESTRICTED_FOLDER_NAMES: [
 // ── YouTube Playlist ────────────────────────────────────
 // Get this from the playlist URL:
 // youtube.com/playlist?list=THIS_PART_HERE
-// Playlist order is controlled in YouTube Studio — drag videos to reorder.
+// Playlist order is controlled in YouTube Studio - drag videos to reorder.
 YOUTUBE_PLAYLIST_ID: 'PLtzLM6Y0VXALboL2zJFZq9i3QlWwFO3zG',
 // ── Podcasts ────────────────────────────────────────────
 // Episodes that live on OTHER people's YouTube channels (not the
 // Forum Playbook playlist), so they can't auto-sync. List them here
-// by hand. To add, remove, or reorder, just edit this array —
+// by hand. To add, remove, or reorder, just edit this array -
 // they render top to bottom in the order below.
 //
 //   videoId  = the part after "youtu.be/" or "watch?v=" in the URL
