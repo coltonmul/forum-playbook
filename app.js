@@ -11,6 +11,7 @@ const CACHE = {
 
 // ── State ───────────────────────────────────────────────────
 let searchQuery = '';
+let activeBucket = 'all';   // finder rail selection: 'all' or a section id
 
 // ── DOM refs ─────────────────────────────────────────────────
 const accordionWrap = document.getElementById('accordion-wrap');
@@ -271,43 +272,79 @@ searchInput.addEventListener('input', e => {
 // ════════════════════════════════════════════════════════════
 // RENDER ACCORDION
 // ════════════════════════════════════════════════════════════
+// V2 SPLIT FINDER (locked by Colton 2026-08-10): bucket rail + rows with
+// click-to-preview. Function keeps its old name; search and stats callers
+// are unchanged. The old accordion builders below are retired but left in
+// place until the next cleanup pass.
 function renderAccordion() {
   if (!CACHE.sections.length) return;
-  let totalMatching = 0;
+  renderRail();
+  const searching     = !!searchQuery;
+  const activeSection = CACHE.sections.find(s => s.id === activeBucket);
+  let html = '';
+  if (!searching && activeSection && activeSection.restricted) {
+    html = `<div class="fx-restricted">${restrictedBodyHTML()}</div>`;
+    resourceCount.textContent = 'Access restricted';
+  } else {
+    const rows = [];
+    CACHE.sections.forEach(section => {
+      if (section.restricted) return;
+      if (!searching && activeBucket !== 'all' && section.id !== activeBucket) return;
+      collectFinderRows(section, rows, cleanFolderName(section.name));
+    });
+    html = rows.map(r => buildDocRowHTML(r.file, r.crumb)).join('') ||
+      `<div class="empty-state"><div class="empty-icon">◈</div><div class="empty-title">No resources found</div><div class="empty-msg">Try a different search term.</div></div>`;
+    resourceCount.textContent = `${rows.length} resource${rows.length !== 1 ? 's' : ''}`;
+  }
+  accordionWrap.innerHTML = html;
+  wireFinderRows();
+}
 
-  const html = CACHE.sections.map(section => {
-    if (section.restricted) return buildRestrictedAccordionHTML(section.name);
-    const { html: bodyHtml, count } = buildFolderBodyHTML(section, 0);
-    totalMatching += count;
-    return buildAccordionSectionHTML(section.name, count, bodyHtml);
-  }).join('');
+function collectFinderRows(node, out, crumb) {
+  node.files.forEach(f => {
+    if (searchQuery &&
+        !cleanFileName(f.name).toLowerCase().includes(searchQuery) &&
+        !crumb.toLowerCase().includes(searchQuery)) return;
+    out.push({ file: f, crumb });
+  });
+  node.subfolders.forEach(sf =>
+    collectFinderRows(sf, out, crumb + ' · ' + cleanFolderName(sf.name)));
+}
 
-  accordionWrap.innerHTML = html || `<div class="empty-state"><div class="empty-icon">◈</div><div class="empty-title">No resources found</div><div class="empty-msg">Try a different search term.</div></div>`;
-  resourceCount.textContent = `${totalMatching} resource${totalMatching !== 1 ? 's' : ''}`;
+function countFinderFiles(section) {
+  const cnt = n => n.files.length + n.subfolders.reduce((a, sf) => a + cnt(sf), 0);
+  if (section) return section.restricted ? 0 : cnt(section);
+  return CACHE.sections.filter(s => !s.restricted).reduce((a, s) => a + cnt(s), 0);
+}
 
-  accordionWrap.querySelectorAll('.acc-header').forEach(header => {
-    header.addEventListener('click', () => {
-      const isOpen = header.classList.toggle('open');
-      header.nextElementSibling.classList.toggle('open');
-      const closed = header.querySelector('.fi-closed');
-      const open   = header.querySelector('.fi-open');
-      if (closed) closed.style.display = isOpen ? 'none' : 'inline';
-      if (open)   open.style.display   = isOpen ? 'inline' : 'none';
+function renderRail() {
+  const rail = document.getElementById('fx-rail');
+  if (!rail) return;
+  const item = (id, iconHtml, label, count, on, extra) =>
+    `<button class="fx-rail-item${on ? ' on' : ''}${extra || ''}" data-bucket="${id}">
+       <span class="fx-rail-ic">${iconHtml}</span>
+       <span class="fx-rail-label">${label}</span>
+       <span class="fx-rail-count">${count}</span>
+     </button>`;
+  let html = item('all', railIconAll(), 'Everything', countFinderFiles(null), activeBucket === 'all' && !searchQuery);
+  CACHE.sections.forEach(s => {
+    html += item(s.id, s.restricted ? railIconLock() : folderClosed(), cleanFolderName(s.name),
+      s.restricted ? '' : countFinderFiles(s), activeBucket === s.id && !searchQuery);
+  });
+  html += `<div class="fx-rail-split"></div>
+    <a class="fx-rail-item" href="#videos"><span class="fx-rail-ic">${videoIcon()}</span><span class="fx-rail-label">How-To Videos</span><span class="fx-rail-count"></span></a>
+    <a class="fx-rail-item" href="#podcasts"><span class="fx-rail-ic">${railIconMic()}</span><span class="fx-rail-label">Podcasts</span><span class="fx-rail-count"></span></a>`;
+  rail.innerHTML = html;
+  rail.querySelectorAll('[data-bucket]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      activeBucket = btn.dataset.bucket;
+      if (searchQuery) { searchQuery = ''; searchInput.value = ''; }
+      renderAccordion();
     });
   });
+}
 
-  accordionWrap.querySelectorAll('.sub-header').forEach(header => {
-    header.addEventListener('click', e => {
-      e.stopPropagation();
-      const isOpen = header.classList.toggle('open');
-      header.nextElementSibling.classList.toggle('open');
-      const closed = header.querySelector('.fi-closed');
-      const open   = header.querySelector('.fi-open');
-      if (closed) closed.style.display = isOpen ? 'none' : 'inline';
-      if (open)   open.style.display   = isOpen ? 'inline' : 'none';
-    });
-  });
-
+function wireFinderRows() {
   accordionWrap.querySelectorAll('[data-download-url]').forEach(btn => {
     btn.addEventListener('click', e => {
       e.preventDefault();
@@ -315,6 +352,47 @@ function renderAccordion() {
       downloadFile(btn.dataset.downloadUrl, btn.dataset.filename);
     });
   });
+  accordionWrap.querySelectorAll('.fx-row-main').forEach(main => {
+    main.addEventListener('click', e => {
+      if (e.target.closest('a') || e.target.closest('[data-download-url]')) return;
+      const row = main.parentElement;
+      const was = row.classList.contains('open');
+      accordionWrap.querySelectorAll('.fx-row.open').forEach(r => r.classList.remove('open'));
+      if (!was) { row.classList.add('open'); loadRowThumb(row); }
+    });
+  });
+}
+
+function loadRowThumb(row) {
+  const t = row.querySelector('.fx-thumb');
+  if (!t || t.dataset.done) return;
+  t.dataset.done = '1';
+  const img = new Image();
+  img.onload  = () => { t.innerHTML = ''; t.appendChild(img); };
+  img.onerror = () => { t.classList.add('noimg'); t.textContent = 'Preview unavailable'; };
+  img.alt = 'Document preview';
+  img.src = t.dataset.thumb;
+}
+
+function railIconAll() {
+  return `<svg width="15" height="15" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="1.5" width="5.5" height="5.5" stroke="#E8521A" stroke-width="0.9"/><rect x="9" y="1.5" width="5.5" height="5.5" stroke="#C4B8A8" stroke-width="0.9"/><rect x="1.5" y="9" width="5.5" height="5.5" stroke="#C4B8A8" stroke-width="0.9"/><rect x="9" y="9" width="5.5" height="5.5" stroke="#C4B8A8" stroke-width="0.9"/></svg>`;
+}
+function railIconLock() {
+  return `<svg width="15" height="15" viewBox="0 0 16 16" fill="none"><rect x="3" y="7" width="10" height="7" stroke="#C4B8A8" stroke-width="0.9"/><path d="M5 7V5a3 3 0 0 1 6 0v2" stroke="#C4B8A8" stroke-width="0.9"/></svg>`;
+}
+function railIconMic() {
+  return `<svg width="15" height="15" viewBox="0 0 16 16" fill="none"><rect x="6" y="1.5" width="4" height="8" rx="2" stroke="#E8521A" stroke-width="0.9"/><path d="M3.5 8a4.5 4.5 0 0 0 9 0M8 12.5v2" stroke="#C4B8A8" stroke-width="0.9"/></svg>`;
+}
+function restrictedBodyHTML() {
+  return `<div class="restricted-body">
+    <p class="restricted-copy">EO Legal now prohibits redistribution or external hosting of official EO materials. The full library is still available to members, you just have to access it directly from the EO member portal (login required).</p>
+    <p class="restricted-copy">For the official, up-to-date documents, head to:</p>
+    <ul class="restricted-links">
+      <li><a href="https://member.eonetwork.org/member/forum/for-forum-moderators" target="_blank" rel="noopener">↗ Forum &amp; Moderator Docs</a> <span class="restricted-note">(login required)</span></li>
+      <li><a href="https://member.eonetwork.org/member/forum/for-forum-chairs" target="_blank" rel="noopener">↗ Forum Chair Docs</a> <span class="restricted-note">(login required)</span></li>
+    </ul>
+    <p class="restricted-copy restricted-fineprint">If you can't get in, ping a trainer or chapter staff member.</p>
+  </div>`;
 }
 
 function buildFolderBodyHTML(folder, depth) {
@@ -372,19 +450,37 @@ function buildSubfolderHTML(name, count, bodyHtml, depth) {
   `;
 }
 
-function buildDocRowHTML(file, depth) {
+function buildDocRowHTML(file, crumb) {
   const title   = cleanFileName(file.name);
   const type    = getMimeLabel(file.mimeType);
   const date    = formatDate(file.modifiedTime);
   const buttons = buildDocButtonsHTML(file);
-  const indent  = depth * 12;
   const icon    = getDocIcon(file.mimeType);
   return `
-    <div class="doc-row" style="padding-left:${16 + indent}px;">
-      ${icon}
-      <div class="doc-name">${title}</div>
-      <div class="doc-meta">${type} · ${date}</div>
-      <div class="doc-btns">${buttons}</div>
+    <div class="fx-row wv" data-fid="${file.id}">
+      <div class="fx-tick-tl"></div>
+      <div class="fx-row-main">
+        <div class="fx-ic">${icon}</div>
+        <div class="fx-grow">
+          <div class="fx-name">${title}</div>
+          <div class="fx-meta">${type} · ${date}${crumb ? ' · ' + crumb : ''}</div>
+        </div>
+        <div class="fx-btns">${buttons}</div>
+        <span class="fx-caret">▾</span>
+      </div>
+      <div class="fx-expand">
+        <div class="fx-prev">
+          <div>
+            <div class="fx-thumb" data-thumb="https://drive.google.com/thumbnail?id=${file.id}&sz=w640"></div>
+            <div class="fx-thumb-cap">Preview: the document you are about to get</div>
+          </div>
+          <div class="fx-prev-right">
+            <div class="fx-prev-title">${title}</div>
+            <div class="fx-prev-desc">${type} from ${crumb || 'the library'}. Look it over, then take it in the format you want.</div>
+            <div class="fx-btns-big">${buttons}</div>
+          </div>
+        </div>
+      </div>
     </div>
   `;
 }

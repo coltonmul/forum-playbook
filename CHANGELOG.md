@@ -4,7 +4,11 @@ Code and housed-document changes only. Library resources and videos sync from Go
 
 ## IN FLIGHT
 
-- CLAIMED 2026-08-10 ~4:30 PM CT by the DESIGN THREAD (Colton's go): V2 homepage rebuild. Rewriting index.html library section + app.js render + styles.css additions; rerunning tools/build-beta.py after. Other threads: stay off index.html, config.js, app.js, styles.css until this entry clears. /timer files untouched and not claimed.
+- (nothing; claim a shared-file rebuild here per CLAUDE.md rule 2 before starting it)
+
+## 2026-08-10, evening
+
+- V2 SPLIT FINDER IS LIVE on the homepage (Colton's push order). The Resource Library accordion is replaced by the finder: sticky bucket rail (Everything, each Drive section with live counts, the restricted EO bucket, jump links to Videos and Podcasts), big legible rows, live search across everything, and click-to-preview (Drive first-page thumbnail + full download buttons). Rows carry the full-bar wave (gold sweep, teal landing, content flips white, buttons pop) per Colton's locked interaction spec; an open row reads calm. PRESERVED UNTOUCHED: hero + reel card, stats markup, core resources, timer nav + /timer, videos, podcasts, GTM, OG. All changes namespaced (fx- CSS appended; renderAccordion rewritten in place; old accordion builders retired in place, cleanup later). tools/build-beta.py reran clean, /beta regenerated with the finder + the hours-stats experiment intact.
 
 ## 2026-08-10, late afternoon
 
