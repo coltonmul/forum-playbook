@@ -124,14 +124,15 @@ NEW_STATS = '''      <div class="stats" aria-label="Site statistics">
         <div class="ledger-title">The Hours Ledger<sup>*</sup></div>
         <div class="ledger-sub">Directionally accurate. Recalculated weekly, because he is still in there.</div>
         <div class="ledger-rows">
-          <div class="ledger-row"><span>His own forum, 10 years: 4-hour monthlies plus the annual retreat</span><strong>~840</strong></div>
+          <div class="ledger-row"><span>His own forum, 10 years: 4-hour monthlies, the 48-hour mini retreat, and the annual retreat</span><strong>~1,320</strong></div>
           <div class="ledger-row"><span>Retreats facilitated for other forums, call it six a year for eight years</span><strong>~480</strong></div>
           <div class="ledger-row"><span>Forums seeded as chapter forum chair: a dozen launches, 3 to 6 four-hour sessions each</span><strong>~216</strong></div>
-          <div class="ledger-row"><span>Forum + Moderator Training Programs: 8-hour days, 15 FTP and 10 MTP a year</span><strong>~400</strong></div>
-          <div class="ledger-row"><span>Chapter pipeline work, the last two years</span><strong>~66</strong></div>
-          <div class="ledger-row ledger-total"><span>Running total, growing about 7 hours a week</span><strong id="ledgerTotal">-</strong></div>
+          <div class="ledger-row"><span>Forum + Moderator Training Programs: 8-hour days, 15 FTP and 10 MTP a year, three years running</span><strong>~600</strong></div>
+          <div class="ledger-row"><span>Pipeline Entrepreneurs, two years</span><strong>~66</strong></div>
+          <div class="ledger-row"><span>Chapters that flew him in (Oklahoma City, Tampa, Philly, Detroit) plus everything he is forgetting, a bucket that grows every year</span><strong>~240</strong></div>
+          <div class="ledger-row ledger-total"><span>Running total, growing about 9 hours a week</span><strong id="ledgerTotal">-</strong></div>
         </div>
-        <div class="ledger-foot">What this does not count: the phone calls, the prep, and every hour that cannot be logged, because what happens in forum stays in forum. Hundreds of forums. Thousands of EO and YPO members. If anything, the number is low.</div>
+        <div class="ledger-foot">What this does not count: the phone calls, the prep, and every hour that cannot be logged, because what happens in forum stays in forum. Everything on this site is informed by intimate working time with hundreds of forums and thousands of EO and YPO members. That is where the templates come from. If anything, the number is low.</div>
       </div>
       <style>
       .hero-bottom { flex-wrap: wrap; }
@@ -214,14 +215,17 @@ NEW_STATS = '''      <div class="stats" aria-label="Site statistics">
 t = must_replace(t, OLD_STATS, NEW_STATS, 'stats rework')
 
 STATS_SCRIPT = '''<script>
-// The hours counter: a conservative model, not a diary. BASE_HOURS is
-// the ledger total as of the EPOCH; PER_WEEK is the current run rate
-// (own forum 84 + retreats 60 + FTP/MTP 200 + pipeline 33 = ~377/yr).
-// Colton corrects the assumptions here; nothing else to maintain.
+// The hours counter: a directionally accurate model, not a diary.
+// BASE_HOURS is the ledger total as of the EPOCH (Colton-corrected
+// round 1, 2026-08-10: own forum 1320 + retreats 480 + seeded 216 +
+// FTP/MTP x3yrs 600 + Pipeline Entrepreneurs 66 + paid chapters and
+// the forgotten bucket 240 = 2,922). PER_WEEK is the current run rate
+// (forum 132 + retreats 60 + FTP/MTP 200 + pipeline 33 + chapters 50
+// = ~475/yr = 9.13/wk). Colton corrects here; nothing else to maintain.
 (function () {
-  var BASE_HOURS = 2002;
+  var BASE_HOURS = 2922;
   var EPOCH = new Date('2026-08-10T00:00:00-05:00');
-  var PER_WEEK = 7.25;
+  var PER_WEEK = 9.13;
   var weeks = Math.max(0, (Date.now() - EPOCH.getTime()) / (7 * 24 * 3600 * 1000));
   var hours = Math.floor(BASE_HOURS + weeks * PER_WEEK).toLocaleString('en-US');
   var el = document.getElementById('stat-hours');
