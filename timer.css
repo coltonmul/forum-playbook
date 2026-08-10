@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════════
    FORUM TIMER, web app styles
-   v1.0.0 · 2026-08-10
+   v1.1.0 · 2026-08-10
    The timer face: linen skin, pitch ink, color belongs to time
    alone. Layers on top of the site's styles.css (nav + footer
    + tokens come from there).
@@ -116,7 +116,7 @@ body.overtime .ft-chip {
 .ft-center {
   position: absolute;
   inset: 0;
-  padding: 58px 12px 14px;
+  padding: 58px 12px 40px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -217,25 +217,69 @@ body.overtime .ft-then { color: #fff; }
   cursor: pointer;
 }
 .ft-ghost:active { background: color-mix(in srgb, var(--ft-ink) 10%, transparent); }
-.ft-pause {
-  flex: 2;
+.ft-pause, .ft-stop {
+  flex: 1;
+  height: 58px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--ft-ink);
+  border: 1.4px solid color-mix(in srgb, var(--ft-ink) 50%, transparent);
+  border-radius: 999px;
+  background: none;
+  cursor: pointer;
+}
+.ft-pause em, .ft-stop em { font-style: normal; font-size: 15px; }
+.ft-pause:active, .ft-stop:active { background: color-mix(in srgb, var(--ft-ink) 10%, transparent); }
+.ft-dock-row.gap-top { margin-top: 10px; }
+.ft-drop {
+  flex: 1;
   height: 48px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
   font-family: var(--font-mono);
-  font-size: 15px;
+  font-size: 12.5px;
   font-weight: 500;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.08em;
   color: var(--ft-ink);
-  border: 1.2px solid color-mix(in srgb, var(--ft-ink) 45%, transparent);
+  opacity: 0.8;
+  border: 1px solid color-mix(in srgb, var(--ft-ink) 30%, transparent);
   border-radius: 999px;
   background: none;
   cursor: pointer;
+  min-width: 0;
 }
-.ft-pause em { font-style: normal; font-size: 14px; }
-.ft-pause:active { background: color-mix(in srgb, var(--ft-ink) 10%, transparent); }
+.ft-drop span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.ft-drop em { font-style: normal; }
+.ft-drop:active { background: color-mix(in srgb, var(--ft-ink) 10%, transparent); }
+.ft-custom em { font-style: normal; margin-right: 6px; }
+.ft-phonesetup {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  color: var(--ft-ink);
+  opacity: 0.42;
+  background: none;
+  border: none;
+  padding: 8px 12px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+.ft-phonesetup:hover { opacity: 0.85; }
+body.timing .ft-phonesetup { display: none; }
 .ft-circle {
   flex: 0 0 48px;
   width: 48px;
@@ -267,7 +311,7 @@ body.overtime .ft-then { color: #fff; }
   .ft-dock-row { flex-wrap: wrap; }
   .ft-dock-row.controls { flex-wrap: wrap; }
   .ft-ghost { flex: 1 1 100%; }
-  .ft-pause { flex: 1 1 100%; order: -1; }
+  .ft-pause, .ft-stop, .ft-drop { flex: 1 1 100%; }
 }
 
 /* ── floating menus (the ⋯ and cadence menus) ── */

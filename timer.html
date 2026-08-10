@@ -82,6 +82,8 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="ft-status idle" id="status">TAP A TIME TO START</div>
       <div class="ft-then" id="then" hidden></div>
     </div>
+
+    <button class="ft-phonesetup" data-open-panel="panel-phone">SET UP YOUR PHONE FOR THE TABLE →</button>
   </section>
 
   <section class="ft-dock" id="dock" aria-label="Timer controls"></section>
@@ -138,6 +140,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="ft-card">
         <div class="ft-row tappable" data-open-panel="panel-sound">
           <div class="ft-row-stack"><span>Alerts &amp; Sound</span></div>
+          <em class="row-go">›</em>
+        </div>
+        <div class="ft-row tappable" data-open-panel="panel-phone">
+          <div class="ft-row-stack"><span>Set up your phone for the table</span>
+          <small>Two minutes of phone settings (brightness, auto-lock, sound) so the timer behaves mid-meeting.</small></div>
           <em class="row-go">›</em>
         </div>
       </div>
@@ -210,7 +217,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="ft-card">
         <div class="ft-row tappable" id="versionRow">
           <div class="ft-row-stack"><span>Version</span></div>
-          <em class="row-go">Web 1.0.0</em>
+          <em class="row-go">Web 1.1.0</em>
         </div>
       </div>
       <div class="ft-section-foot">Tap for what's changed. The same timer is coming soon to the iOS App Store.</div>
@@ -258,10 +265,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       <div class="ft-card">
         <div class="ft-seg" id="segAlertStyle"></div>
         <div class="ft-row">
-          <button class="ft-teal-btn" id="previewAlertBtn">▶ Preview pre-ending alert</button>
+          <div class="ft-row-stack"><span>Screen flash</span>
+          <small>Pulse the display at the chime and when the color zone flips.</small></div>
+          <label class="ft-toggle"><input type="checkbox" id="flashToggle" /><span class="knob"></span></label>
+        </div>
+        <div class="ft-row">
+          <button class="ft-teal-btn" id="previewAlertBtn">▶ Preview pre-time chime</button>
         </div>
       </div>
-      <div class="ft-section-foot">The short heads-up beep BEFORE time runs out (not the overtime melody above). Also fires a brief screen flash. Vibration works where the browser supports it (most Android phones; iPhones ignore it).</div>
+      <div class="ft-section-foot">The short heads-up beep BEFORE time runs out (not the overtime melody above). Vibration works where the browser supports it (most Android phones; iPhones ignore it).</div>
     </div>
 
     <div class="ft-section">
@@ -286,9 +298,87 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <div class="ft-section">
       <div class="ft-section-title">About</div>
       <div class="ft-card">
-        <div class="ft-row"><div class="ft-row-stack"><span>Version</span></div><em class="row-go">Web 1.0.0</em></div>
+        <div class="ft-row"><div class="ft-row-stack"><span>Version</span></div><em class="row-go">Web 1.1.0</em></div>
         <div class="ft-row"><div class="ft-row-stack"><span>From</span></div><em class="row-go">ForumPlaybook.com</em></div>
         <div class="ft-row"><div class="ft-row-stack"><small>No accounts. Templates, roster, and settings save in this browser and nothing leaves your device.</small></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- PHONE SETUP PANEL -->
+<div class="ft-panel" id="panel-phone" hidden>
+  <div class="ft-panel-head">
+    <button class="ft-back" data-close-panel aria-label="Back">‹</button>
+    <div class="ft-panel-title">Phone Setup</div>
+  </div>
+  <div class="ft-panel-body">
+
+    <div class="ft-section">
+      <div class="ft-section-title">Why bother</div>
+      <div class="ft-section-foot" style="margin-top:0;">A phone in the middle of a table has one job: stay bright, stay awake, stay audible. Two minutes of settings, once, and it behaves for every meeting after.</div>
+    </div>
+
+    <div class="ft-section">
+      <div class="ft-section-title">iPhone, in order</div>
+      <div class="ft-card">
+        <div class="ft-row ft-note-row">
+          <span class="ft-note-ico act">1</span>
+          <div class="ft-row-stack"><span>Brightness all the way up</span>
+          <small>Swipe down from the top-right corner, drag the sun slider to the top. (Or Settings → Display &amp; Brightness.)</small></div>
+        </div>
+        <div class="ft-row ft-note-row">
+          <span class="ft-note-ico act">2</span>
+          <div class="ft-row-stack"><span>Auto-Lock to Never</span>
+          <small>Settings → Display &amp; Brightness → Auto-Lock → Never. The timer already holds the screen awake while it runs; this covers the idle minutes between segments. Put it back after forum if you care about battery.</small></div>
+        </div>
+        <div class="ft-row ft-note-row">
+          <span class="ft-note-ico act">3</span>
+          <div class="ft-row-stack"><span>Attention Aware off</span>
+          <small>Settings → Face ID &amp; Passcode → Attention Aware Features → OFF. Face ID iPhones dim the screen when nobody is looking straight at it, which is exactly what a phone in the middle of a table looks like.</small></div>
+        </div>
+        <div class="ft-row ft-note-row">
+          <span class="ft-note-ico act">4</span>
+          <div class="ft-row-stack"><span>Ring switch on, volume up</span>
+          <small>iPhones mute web-app sound when the side switch is on silent. Flip it to ring and turn the volume up. (The native iOS app will play through the silent switch; that is half the reason it exists.)</small></div>
+        </div>
+        <div class="ft-row ft-note-row">
+          <span class="ft-note-ico act">5</span>
+          <div class="ft-row-stack"><span>Do Not Disturb on</span>
+          <small>Swipe down from the top-right corner → Focus → Do Not Disturb, so calls and texts stay out of the meeting. Timer sound keeps playing while this tab is open.</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ft-section">
+      <div class="ft-section-title">Android, in order</div>
+      <div class="ft-card">
+        <div class="ft-row ft-note-row">
+          <span class="ft-note-ico act">1</span>
+          <div class="ft-row-stack"><span>Brightness all the way up</span>
+          <small>Swipe down, drag the brightness slider to the top, and turn adaptive brightness off for the meeting.</small></div>
+        </div>
+        <div class="ft-row ft-note-row">
+          <span class="ft-note-ico act">2</span>
+          <div class="ft-row-stack"><span>Screen timeout 10 minutes or more</span>
+          <small>Settings → Display → Screen timeout. Same story: the timer holds the screen awake while running; this covers the gaps.</small></div>
+        </div>
+        <div class="ft-row ft-note-row">
+          <span class="ft-note-ico act">3</span>
+          <div class="ft-row-stack"><span>Volume up, Do Not Disturb on</span>
+          <small>Media volume up for the chimes and the overtime melody. Vibration alerts work in most Android browsers.</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ft-section">
+      <div class="ft-section-title">Already handled by the app</div>
+      <div class="ft-card">
+        <div class="ft-row ft-note-row">
+          <span class="ft-note-ico good">✓</span>
+          <div class="ft-row-stack"><small>The screen stays awake while a timer runs, the clock never drifts, and your first tap unlocks sound. Nothing to configure in here.</small></div>
+        </div>
       </div>
     </div>
 
@@ -413,7 +503,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     </div>
     <h2>A timer the whole<br>room can read.</h2>
     <p class="lede">The Forum Timer is the meeting timer from Forum Playbook. Tap a time, set it in the middle of the table, and let the color do the talking: green means talk, gold means land the plane, brick means the music is coming.</p>
-    <div class="ft-stamp">WEB APP v1.0.0 · UPDATED MON / 2026-08-10 / 1:00 PM CT</div>
+    <div class="ft-stamp">WEB APP v1.1.0 · UPDATED MON / 2026-08-10 / 2:55 PM CT</div>
 
     <div class="ft-feature-grid">
       <div class="ft-feature">
@@ -453,6 +543,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <details class="ft-changelog" id="changelog">
       <summary>CHANGELOG</summary>
       <ul>
+        <li><strong>Web 1.1.0 (2026-08-10):</strong> Colton's first-look round. TYPE A TIME button on the idle dock (the keypad was hiding behind the SET chip up top; now both open it). Running controls grew up: full-width PAUSE and STOP with words on them, a gap above so they read as their own row, and a labeled PRE-TIME CHIME dropdown that also carries the room signals (screen flash on/off, sound / vibration / silent). "Set up your phone for the table": a subtle walkthrough button on the timer (and in Options) with the exact iPhone and Android steps for brightness, Auto-Lock, Attention Aware, ring switch, and Do Not Disturb. Chain-timer and cadence tools stay under ⋯.</li>
         <li><strong>Web 1.0.0 (2026-08-10):</strong> First web release, ported from the Forum Timer iOS app v1.1. Quick timer with bars and clock-face displays, chained timers and saved cadences, microwave keypad, light and dark themes, Agenda Based Timer with the Standard Forum and Express templates, editable rosters and custom templates, planned-vs-actual summary, seven synthesized public-domain overtime melodies in three instrument voices with the duet layer, three Time's Up intensities, pre-ending alerts, screen wake lock.</li>
       </ul>
     </details>

@@ -4,7 +4,7 @@
    browser: quick timer, agenda-based timer, synthesized
    overtime melodies, escalation curves, bars + clock face.
 
-   VERSION 1.0.0 · 2026-08-10
+   VERSION 1.1.0 · 2026-08-10
    Changelog lives on the page (timer.html #changelog) and in
    the repo CHANGELOG.md.
    ═══════════════════════════════════════════════════════════ */
@@ -77,7 +77,7 @@ const TIMES_UP_STYLES = {
     flashBases: [0.35, 0.45, 0.55, 0.62], flashSteps: [15, 30, 45], breatheAmp: 0.05, breatheHz: 0.25,
   },
   assertive: {
-    label: 'Assertive', overtimeLabel: 'Time, tap Reset when done',
+    label: 'Assertive', overtimeLabel: 'Time, tap Stop when done',
     entranceVolume: 0.55, dipVolume: 0.32, dipStart: 4, rampStart: 9, rampDuration: 18, maxVolume: 1.0,
     flashBases: [0.45, 0.62, 0.78, 0.92], flashSteps: [10, 20, 30], breatheAmp: 0.08, breatheHz: 0.35,
   },
@@ -172,7 +172,8 @@ const STORE_KEY = 'fp.forumtimer.v1';
 const S = {
   alertStyle: 'audio',
   warningSeconds: 60,       /* agenda timer pre-ending alert */
-  notifyPoint: 'm1',        /* quick timer pre-ending alert */
+  notifyPoint: 'm1',        /* quick timer pre-time chime */
+  screenFlash: true,        /* pulse the display at the chime + zone flips */
   overtimeSound: 'buffaloGals',
   timesUpStyle: 'assertive',
   soundVoice: 'guitar',
@@ -1270,12 +1271,14 @@ const App = {
 
   /* ── warning flash: three gentle pulses in the state color ── */
   warningFlashPulse() {
+    if (!S.screenFlash) return;
     this.clearFlashes();
     for (let i = 0; i < 3; i++) {
       this.flashTimeouts.push(setTimeout(() => this.flashPulse(0.5, 180, 300), i * 600));
     }
   },
   flashPulse(opacity, inMs, outMs) {
+    if (!S.screenFlash) return;
     const flash = $('flash');
     flash.style.background = this.engine.isOvertime ? ZONE_COLORS.brick : zoneColor(this.engine.fractionRemaining);
     flash.style.transition = `opacity ${inMs}ms ease-in`;
@@ -1293,7 +1296,8 @@ const App = {
   /* ── dock ── */
   renderDock(force) {
     const e = this.engine;
-    const key = [e.hasTime, e.isRunning, e.queue.length > 0, S.sequences.length > 0].join('|');
+    const key = [e.hasTime, e.isRunning, e.queue.length > 0, S.sequences.length > 0,
+                 e.notify, S.screenFlash, S.alertStyle].join('|');
     if (!force && key === this.dockKey) {
       const pauseBtn = $('pauseBtn');
       if (pauseBtn) {
@@ -1334,25 +1338,82 @@ const App = {
       [[30, '+0:30'], [60, '+1:00'], [120, '+2:00']].forEach(([s, l]) => r1.appendChild(ghost(l, () => e.addSeconds(s))));
       const r2 = row();
       [[180, '+3:00'], [240, '+4:00'], [300, '+5:00']].forEach(([s, l]) => r2.appendChild(ghost(l, () => e.addSeconds(s))));
+      const r3 = row();
+      const custom = document.createElement('button');
+      custom.className = 'ft-ghost ft-custom';
+      custom.innerHTML = '<em>⌨</em> TYPE A TIME';
+      custom.setAttribute('aria-label', 'Type a custom time on the keypad');
+      custom.addEventListener('click', () => this.openKeypad());
+      r3.appendChild(custom);
       if (S.sequences.length) {
         const bm = circle('☰', 'Saved cadences', (ev) => this.openCadenceMenu(ev.currentTarget));
         bm.classList.add('ft-bookmark');
-        r2.appendChild(bm);
+        r3.appendChild(bm);
       }
     } else {
       const r1 = row();
       [[30, '+0:30'], [60, '+1:00'], [120, '+2:00']].forEach(([s, l]) => r1.appendChild(ghost(l, () => e.addSeconds(s))));
-      const r2 = row('controls');
-      r2.appendChild(circle('■', 'Reset', () => e.reset()));
+
+      /* the gap, then the big verbs: PAUSE and STOP, full words */
+      const r2 = row('controls gap-top');
       const pause = document.createElement('button');
       pause.id = 'pauseBtn';
       pause.className = 'ft-pause';
       pause.innerHTML = `<em class="pp-ico">${e.isRunning ? '⏸' : '▶'}</em><span>${e.isRunning ? 'PAUSE' : 'RESUME'}</span>`;
       pause.addEventListener('click', () => e.pauseResume());
       r2.appendChild(pause);
-      if (e.queue.length) r2.appendChild(circle('⏭', 'Next timer', () => e.advanceNow()));
-      r2.appendChild(circle('⋯', 'More timer options', (ev) => this.openMoreMenu(ev.currentTarget)));
+      const stop = document.createElement('button');
+      stop.className = 'ft-stop';
+      stop.innerHTML = '<em>■</em><span>STOP</span>';
+      stop.setAttribute('aria-label', 'Stop and clear the timer');
+      stop.addEventListener('click', () => e.reset());
+      r2.appendChild(stop);
+
+      /* signals: the pre-time chime dropdown, plus next/chain */
+      const r3 = row('controls');
+      const chime = document.createElement('button');
+      chime.className = 'ft-drop';
+      const chimeLabel = notifyPoint(e.notify).label.toUpperCase();
+      chime.innerHTML = `<span>PRE-TIME CHIME · ${e.notify === 'off' ? 'OFF' : chimeLabel}</span><em>▾</em>`;
+      chime.setAttribute('aria-label', 'Pre-time chime and room signals');
+      chime.addEventListener('click', (ev) => this.openChimeMenu(ev.currentTarget));
+      r3.appendChild(chime);
+      if (e.queue.length) r3.appendChild(circle('⏭', 'Next timer', () => e.advanceNow()));
+      r3.appendChild(circle('⋯', 'Chain timers and cadences', (ev) => this.openMoreMenu(ev.currentTarget)));
     }
+  },
+
+  /* the pre-time chime dropdown: when the heads-up fires, plus the room
+     signals the web can honestly control (screen flash, sound style) */
+  openChimeMenu(anchor) {
+    const e = this.engine;
+    const menu = this.menuShell(anchor);
+    this.menuHeader(menu, 'Pre-time chime, fires at');
+    NOTIFY_POINTS.forEach(p => {
+      this.menuItem(menu, p.label, () => {
+        e.setNotify(p.id);
+        S.notifyPoint = p.id;
+        saveStore();
+        this.syncOptionPickers();
+        this.renderDock(true);
+      }, { checked: p.id === e.notify });
+    });
+    this.menuHeader(menu, 'Screen flash');
+    this.menuItem(menu, 'Flash the display at the chime', () => {
+      S.screenFlash = !S.screenFlash;
+      saveStore();
+      this.syncOptionPickers();
+      this.renderDock(true);
+    }, { checked: S.screenFlash });
+    this.menuHeader(menu, 'Sound');
+    ALERT_STYLES.forEach(st => {
+      this.menuItem(menu, st.label, () => {
+        S.alertStyle = st.id;
+        saveStore();
+        this.syncOptionPickers();
+        this.renderDock(true);
+      }, { checked: st.id === S.alertStyle });
+    });
   },
 
   /* ── popover menus ── */
@@ -1396,15 +1457,6 @@ const App = {
   openMoreMenu(anchor) {
     const e = this.engine;
     const menu = this.menuShell(anchor);
-    this.menuHeader(menu, `Pre-ending alert: ${notifyPoint(e.notify).label}`);
-    NOTIFY_POINTS.forEach(p => {
-      this.menuItem(menu, p.label, () => {
-        e.setNotify(p.id);
-        S.notifyPoint = p.id;
-        saveStore();
-        this.syncOptionPickers();
-      }, { checked: p.id === e.notify });
-    });
     this.menuHeader(menu, 'Add a timer after this one');
     [30, 60, 120, 180, 300, 600].forEach(n => {
       this.menuItem(menu, `Then ${Clock.mmss(n)}`, () => e.queueSeconds(n));
@@ -1559,6 +1611,11 @@ const App = {
       AudioKit.stopPreview();
       AudioKit.rebuildOvertimeIfPlaying();
     });
+    $('flashToggle').addEventListener('change', (ev) => {
+      S.screenFlash = ev.target.checked;
+      saveStore();
+      this.renderDock(true);
+    });
     $('previewAlertBtn').addEventListener('click', () => AudioKit.previewAlert());
 
     const notifySel = $('notifySelect');
@@ -1604,6 +1661,7 @@ const App = {
     setSeg('segIntensity', S.timesUpStyle);
     setSeg('segAlertStyle', S.alertStyle);
     $('duetToggle').checked = S.duetLayer;
+    $('flashToggle').checked = S.screenFlash;
     $('notifySelect').value = S.notifyPoint;
     const s = S.warningSeconds;
     $('warnValue').textContent = s < 60 ? `${s} sec left`
