@@ -4,7 +4,7 @@ Code and housed-document changes only. Library resources and videos sync from Go
 
 ## IN FLIGHT
 
-- (nothing; claim a shared-file rebuild here per CLAUDE.md rule 2 before starting it)
+- CLAIMED 2026-08-10 ~4:30 PM CT by the DESIGN THREAD (Colton's go): V2 homepage rebuild. Rewriting index.html library section + app.js render + styles.css additions; rerunning tools/build-beta.py after. Other threads: stay off index.html, config.js, app.js, styles.css until this entry clears. /timer files untouched and not claimed.
 
 ## 2026-08-10, late afternoon
 
