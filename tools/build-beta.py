@@ -7,8 +7,8 @@ rule; this site is on GitHub Pages, which has no branch deploys, so the
 lane lives at the /beta/ path instead of a beta host).
 
 Currently carried by the lane: the Forum 14 slow-motion reel card
-("Don't you want your forum to be this easy and fun?") pinned over the
-hero stripes. When a feature graduates, fold it into index.html and
+("Don't you want your forum to be this tight and awesome?") pinned over
+the hero stripes. When a feature graduates, fold it into index.html and
 remove its block below, then rerun:
 
     python3 tools/build-beta.py
@@ -122,7 +122,7 @@ STYLE_AND_CARD = '''
   }
 }
 </style>
-<aside class="reel-card" aria-label="A real forum having fun, in slow motion">
+<aside class="reel-card" aria-label="A real forum, tight and awesome, in slow motion">
   <div class="reel-frame">
     <div class="reel-video">
       <iframe src="__VIMEO__"
@@ -130,7 +130,7 @@ STYLE_AND_CARD = '''
         loading="lazy"
         title="Forum 14, April 2026, in slow motion"></iframe>
     </div>
-    <div class="reel-q">Don't you want your forum<br>to be <span class="accent">this easy and fun?</span></div>
+    <div class="reel-q">Don't you want your forum<br>to be <span class="accent">this tight and awesome?</span></div>
     <div class="reel-meta"><span>A REAL FORUM · APRIL 2026</span><span>V3 BETA · UPDATED __STAMP__</span></div>
   </div>
 </aside>

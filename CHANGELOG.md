@@ -4,6 +4,7 @@ Code and housed-document changes only. Library resources and videos sync from Go
 
 ## 2026-08-10, afternoon
 
+- V3 BETA reel card line changed per Colton: "Don't you want your forum to be this tight and awesome?" (was "this easy and fun?"). tools/build-beta.py updated + beta regenerated.
 - Open Coaching bumped to v3.0 per Colton's correction: IQ topics get LIGHT open coaching (2-3 minutes of facts and solutions being explored, then 1-2 minutes per member for process, resources, tools) with the "How did you...?" / "What did you do when...?" stems and his three concrete examples. v2.0 files removed from the site (git history keeps them); brand page row, stamp, and changelog updated (brand page now v2.2).
 - NEW /mockups/2026-08-10/: three homepage redesign direction mockups for Colton's approval (V1 Open Shelves, V2 Split Finder, V3 Task Router) plus a chooser page. All noindex. Shared DNA: audit type scale (17px body, 11px floor), icons, universal hover feedback, the proposed sheen sweep toward buttons, and click-to-preview using Drive's public thumbnail endpoint with real library data baked in. Live homepage untouched pending his pick.
 
