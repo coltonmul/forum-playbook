@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Mockup V1: Open Shelves | Forum Playbook</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='16' fill='%23F0EBE0'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Roboto,sans-serif' font-weight='700' font-size='13' fill='%23E8521A' letter-spacing='0.5'>FP</text></svg>"/>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="mock-shared.css">
+<style>
+/* V1: every shelf open on load, documents as cards, card expands in place */
+.role-strip { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-top: 22px; }
+.role-lead { font-family: var(--mono); font-size: var(--t-meta); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink2); margin-right: 4px; }
+.role-chip { font-family: var(--mono); font-size: var(--t-label); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--deep-dust); border: 0.5px solid var(--border); background: #fff; padding: 9px 14px; text-decoration: none; }
+.core-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.core-card { background: #fff; border: 0.5px solid #D4CCC0; position: relative; padding: 18px; display: flex; flex-direction: column; gap: 10px; }
+.core-card .ic-wrap { width: 44px; height: 44px; border: 0.5px solid var(--border); background: var(--linen); display: flex; align-items: center; justify-content: center; color: var(--burn); }
+.core-title { font-family: var(--disp); font-size: var(--t-h3); font-weight: 700; text-transform: uppercase; line-height: 1; }
+.core-sub { font-family: var(--mono); font-size: var(--t-meta); color: var(--ink2); letter-spacing: 0.1em; text-transform: uppercase; }
+.core-links { display: flex; gap: 8px; flex-wrap: wrap; margin-top: auto; }
+.shelf-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.dcard { background: #fff; border: 0.5px solid #D4CCC0; position: relative; cursor: pointer; }
+.dcard:hover { box-shadow: 0 6px 22px rgba(14,14,12,0.10); }
+.dcard-main { padding: 16px; display: flex; gap: 12px; align-items: flex-start; }
+.dcard .ic-wrap { flex: 0 0 auto; width: 38px; height: 38px; border: 0.5px solid var(--border); background: var(--linen); display: flex; align-items: center; justify-content: center; color: var(--burn); }
+.dcard-name { font-size: var(--t-ui); font-weight: 500; line-height: 1.35; }
+.dcard-chip { font-family: var(--mono); font-size: var(--t-meta); color: var(--ink2); letter-spacing: 0.1em; text-transform: uppercase; margin-top: 4px; }
+.dcard .dprev { display: none; }
+.dcard.open { grid-column: 1 / -1; }
+.dcard.open .dprev { display: grid; grid-template-columns: 300px 1fr; gap: 22px; padding: 4px 18px 20px; }
+.show-all { margin-top: 12px; }
+.restricted { background: var(--linen-dk); border: 0.5px solid var(--border); padding: 18px; font-family: var(--mono); font-size: var(--t-label); color: var(--ink2); letter-spacing: 0.08em; display: flex; gap: 12px; align-items: center; }
+@media (max-width: 940px) { .core-grid { grid-template-columns: 1fr 1fr; } .shelf-grid { grid-template-columns: 1fr; } .dcard.open .dprev { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="ribbon">MOCKUP V1 · OPEN SHELVES · v0.1 · Mon / 2026-08-10 / 3:40 PM CT · not the live site <a href="index.html">← all mockups</a></div>
+<div class="wrap">
+
+<nav class="nav">
+  <a class="logo" href="#"><span class="mark">⎇</span> FORUM PLAYBOOK</a>
+  <div class="nav-links">
+    <a href="#core">Core</a><a href="#library">Library</a><a href="#videos">Videos</a>
+    <a class="btn sh warm btn-primary" style="text-decoration:none; background:var(--pitch); border-color:var(--pitch); color:#fff;" href="#about"><span>Who Built This?</span></a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="annot"><span class="annot-box">FP</span><span class="annot-line"></span>A RESOURCE HUB FOR FORUMS, MODERATORS, &amp; FACILITATORS<span class="annot-line"></span><span class="annot-box">2026</span></div>
+      <h1 class="hero-h1">A <span class="gold">RESOURCE</span><br><span class="gold">HUB</span> FOR<br><span class="burn">FORUMS.</span></h1>
+      <p class="hero-sub">Templates, frameworks, and guides. Everything on this page is out on the shelf: no digging, click anything to see it before you download it.</p>
+      <div class="role-strip"><span class="role-lead">Start with your role:</span></div>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-num" id="st-r">-</div><div class="stat-label">Resources</div></div>
+      <div class="stat"><div class="stat-num" id="st-c">-</div><div class="stat-label">Categories</div></div>
+      <div class="stat"><div class="stat-num" id="st-v">-</div><div class="stat-label">Videos</div></div>
+    </div>
+  </div>
+</header>
+
+<section class="sec" id="core">
+  <div class="sec-head"><span class="sec-tag">Essential</span><h2 class="sec-title">Core Resources</h2><div class="sec-rule"></div></div>
+  <div class="core-grid" id="core-grid"></div>
+</section>
+
+<section class="sec" id="library"></section>
+
+<section class="sec" id="videos">
+  <div class="sec-head"><span class="sec-tag">Watch</span><h2 class="sec-title">How-To Videos</h2><div class="sec-rule"></div><span class="sec-note">Auto-synced from YouTube</span></div>
+  <div class="vstrip" id="vstrip"></div>
+</section>
+
+<section class="sec" id="podcasts">
+  <div class="sec-head"><span class="sec-tag">Listen</span><h2 class="sec-title">Podcasts</h2><div class="sec-rule"></div></div>
+  <div class="vstrip" id="pstrip"></div>
+</section>
+
+<section class="sec" id="about">
+  <div class="sec-head"><span class="sec-tag">Who</span><h2 class="sec-title">Who Built This?</h2><div class="sec-rule"></div></div>
+  <p style="max-width:62ch; font-weight:300; color:var(--deep-dust);">Colton Mulligan facilitates forum trainings and retreats for EO chapters. Everything here is what he actually uses in rooms, shared free.</p>
+</section>
+
+</div>
+<footer class="foot"><div class="foot-inner">
+  <a class="logo" href="#"><span class="mark">⎇</span> FORUM PLAYBOOK</a>
+  <div class="foot-meta">MOCKUP V1 "OPEN SHELVES" v0.1 · Updated Mon / 2026-08-10 / 3:40 PM CT<br>
+  Changelog: v0.1 first cut for direction approval · <a href="index.html">All mockups</a> · <a href="/brand">Brand guide</a></div>
+</div></footer>
+
+<script src="mock-data.js?v=0.1.1"></script>
+<script src="mock-shared.js?v=0.1.1"></script>
+<script>
+(function () {
+  var M = window.FP_MOCK, D = window.FP_DATA;
+  var st = M.stats();
+  document.getElementById('st-r').textContent = st.resources;
+  document.getElementById('st-c').textContent = st.categories;
+  document.getElementById('st-v').textContent = st.videos;
+
+  // role chips
+  var strip = document.querySelector('.role-strip');
+  D.roleKits.forEach(function (r) {
+    strip.insertAdjacentHTML('beforeend', '<a class="role-chip sh cool sheen" href="#library"><span>' + r + '</span></a>');
+  });
+
+  // core cards
+  var cg = document.getElementById('core-grid');
+  D.core.forEach(function (c) {
+    var links = c.links ? c.links.map(function (l) {
+      return '<a class="btn sh warm btn-secondary" style="text-decoration:none;" href="' + l.href + '"><span>' + l.label + '</span></a>';
+    }).join('') : M.buttons(D.fileById[c.fileRef]);
+    cg.insertAdjacentHTML('beforeend',
+      '<div class="core-card sheen"><div class="tick-tl"></div><div class="tick-br"></div>' +
+      '<div class="ic-wrap">' + M.icon(c.icon) + '</div>' +
+      '<div class="core-title">' + c.title + '</div><div class="core-sub">' + c.sub + '</div>' +
+      '<div class="core-links">' + links + '</div></div>');
+  });
+
+  // shelves: every section rendered open as a card grid; first 6 cards, then show-all
+  var lib = document.getElementById('library');
+  D.sections.forEach(function (s, i) {
+    var head = '<div class="sec-head"><span class="sec-tag">0' + (i + 1) + '</span>' +
+      '<h2 class="sec-title">' + s.name + '</h2><div class="sec-rule"></div>' +
+      '<span class="sec-note">' + (s.restricted ? 'RESTRICTED' : s.files.length + ' items · ' + s.blurb) + '</span></div>';
+    if (s.restricted) {
+      lib.insertAdjacentHTML('beforeend', '<div class="sec">' + head +
+        '<div class="restricted">' + M.icon('lock') + ' EO Legal prohibits redistribution of official EO materials. Access them from the EO member portal (login required).</div></div>');
+      return;
+    }
+    var cards = s.files.map(function (f, idx) {
+      var hideCls = idx >= 6 ? ' data-extra="1" style="display:none"' : '';
+      var newChip = f.isNew ? ' <span class="chip-new">NEW</span>' : '';
+      if (f.type === 'folder') {
+        return '<div class="dcard sheen"' + hideCls + '><div class="dcard-main">' +
+          '<div class="ic-wrap">' + M.icon('folder') + '</div><div><div class="dcard-name">' + f.name + '</div>' +
+          '<div class="dcard-chip">DRIVE FOLDER</div><div style="margin-top:10px;">' + M.buttons(f) + '</div></div></div></div>';
+      }
+      return '<div class="dcard sheen" data-fid="' + f.id + '"' + hideCls + '>' +
+        '<div class="tick-tl"></div><div class="tick-br"></div>' +
+        '<div class="dcard-main"><div class="ic-wrap">' + M.icon(M.typeIcon(f)) + '</div>' +
+        '<div><div class="dcard-name">' + f.name + newChip + '</div><div class="dcard-chip">' + M.typeChip(f) + (f.ver ? ' · ' + f.ver : '') + '</div></div></div>' +
+        '<div class="dprev"><div><div class="thumb" data-thumb="' + (f.type === 'local' ? f.thumb : 'https://drive.google.com/thumbnail?id=' + f.id + '&sz=w640') + '"></div>' +
+        '<div class="thumb-cap">Preview: the document you are about to get</div></div>' +
+        '<div class="prev-right"><div class="prev-title">' + f.name + '</div>' +
+        '<div class="prev-desc">' + M.typeChip(f) + ' from ' + s.name + '. Look it over, then take it in the format you want.</div>' +
+        '<div class="prev-btns">' + M.buttons(f, true) + '</div></div></div></div>';
+    }).join('');
+    var showAll = s.files.length > 6 ?
+      '<div class="show-all"><button class="btn sh warm btn-secondary" data-showall><span>Show all ' + s.files.length + '</span></button></div>' : '';
+    lib.insertAdjacentHTML('beforeend', '<div class="sec">' + head + '<div class="shelf-grid">' + cards + '</div>' + showAll + '</div>');
+  });
+
+  // card expand-in-place
+  lib.addEventListener('click', function (e) {
+    var showBtn = e.target.closest('[data-showall]');
+    if (showBtn) {
+      showBtn.closest('.sec').querySelectorAll('[data-extra]').forEach(function (el) { el.style.display = ''; });
+      showBtn.parentElement.remove();
+      return;
+    }
+    var card = e.target.closest('.dcard[data-fid]');
+    if (!card || e.target.closest('a')) return;
+    var was = card.classList.contains('open');
+    card.parentElement.querySelectorAll('.dcard.open').forEach(function (c) { c.classList.remove('open'); });
+    if (!was) { card.classList.add('open'); M.loadThumb(card); }
+  });
+
+  D.videos.forEach(function (v) { document.getElementById('vstrip').insertAdjacentHTML('beforeend', M.videoCard(v)); });
+  D.podcasts.forEach(function (v) { document.getElementById('pstrip').insertAdjacentHTML('beforeend', M.videoCard(v, 'pod')); });
+})();
+</script>
+</body>
+</html>

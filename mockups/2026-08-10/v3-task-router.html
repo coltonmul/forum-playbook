@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Mockup V3: Task Router | Forum Playbook</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='16' fill='%23F0EBE0'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Roboto,sans-serif' font-weight='700' font-size='13' fill='%23E8521A' letter-spacing='0.5'>FP</text></svg>"/>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="mock-shared.css">
+<style>
+/* V3: "what do you need right now" router above the full library */
+.task-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.task { background: #fff; border: 0.5px solid #D4CCC0; position: relative; padding: 20px;
+  cursor: pointer; display: flex; flex-direction: column; gap: 10px; min-height: 128px; text-align: left; font-family: inherit; }
+.task:hover { box-shadow: 0 6px 22px rgba(14,14,12,0.10); }
+.task .ic-wrap { width: 44px; height: 44px; border: 0.5px solid var(--border); background: var(--linen); display: flex; align-items: center; justify-content: center; color: var(--burn); }
+.task-label { font-family: var(--disp); font-size: var(--t-h3); font-weight: 700; text-transform: uppercase; line-height: 1.05; }
+.task-hint { font-family: var(--mono); font-size: var(--t-meta); color: var(--ink2); letter-spacing: 0.08em; text-transform: uppercase; }
+.task.on { border-color: var(--burn); box-shadow: inset 0 0 0 1px var(--burn); }
+.task.on .task-label { color: var(--burn); }
+.stack { margin-top: 18px; border: 0.5px solid var(--burn); background: #fff; padding: 20px; display: none; }
+.stack.show { display: block; }
+.stack-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 14px; flex-wrap: wrap; }
+.stack-title { font-family: var(--disp); font-size: var(--t-h2); font-weight: 900; text-transform: uppercase; }
+.stack-note { font-family: var(--mono); font-size: var(--t-meta); color: var(--ink2); letter-spacing: 0.08em; text-transform: uppercase; }
+.rk-chips { display: flex; gap: 10px; flex-wrap: wrap; margin: 6px 0 12px; }
+.role-chip { font-family: var(--mono); font-size: var(--t-label); letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--deep-dust); border: 0.5px solid var(--border); background: var(--linen); padding: 9px 14px; text-decoration: none; }
+@media (max-width: 940px) { .task-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 620px) { .task-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="ribbon">MOCKUP V3 · TASK ROUTER · v0.1 · Mon / 2026-08-10 / 3:40 PM CT · not the live site <a href="index.html">← all mockups</a></div>
+<div class="wrap">
+
+<nav class="nav">
+  <a class="logo" href="#"><span class="mark">⎇</span> FORUM PLAYBOOK</a>
+  <div class="nav-links">
+    <a href="#now">Right Now</a><a href="#library">Everything</a><a href="#about">Who Built This?</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="annot"><span class="annot-box">FP</span><span class="annot-line"></span>A RESOURCE HUB FOR FORUMS, MODERATORS, &amp; FACILITATORS<span class="annot-line"></span><span class="annot-box">2026</span></div>
+      <h1 class="hero-h1">A <span class="gold">RESOURCE</span><br><span class="gold">HUB</span> FOR<br><span class="burn">FORUMS.</span></h1>
+      <p class="hero-sub">Most people land here needing something for a meeting that is about to happen. Say what you need; the right tools surface with previews.</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-num" id="st-r">-</div><div class="stat-label">Resources</div></div>
+      <div class="stat"><div class="stat-num" id="st-c">-</div><div class="stat-label">Categories</div></div>
+      <div class="stat"><div class="stat-num" id="st-v">-</div><div class="stat-label">Videos</div></div>
+    </div>
+  </div>
+</header>
+
+<section class="sec" id="now">
+  <div class="sec-head"><span class="sec-tag">Start</span><h2 class="sec-title">What Do You Need Right Now?</h2><div class="sec-rule"></div></div>
+  <div class="task-grid" id="task-grid"></div>
+  <div class="stack" id="stack"></div>
+</section>
+
+<section class="sec" id="library"></section>
+
+<section class="sec" id="videos">
+  <div class="sec-head"><span class="sec-tag">Watch</span><h2 class="sec-title">How-To Videos &amp; Podcasts</h2><div class="sec-rule"></div><span class="sec-note">Auto-synced from YouTube</span></div>
+  <div class="vstrip" id="vstrip"></div>
+</section>
+
+<section class="sec" id="about">
+  <div class="sec-head"><span class="sec-tag">Who</span><h2 class="sec-title">Who Built This?</h2><div class="sec-rule"></div></div>
+  <p style="max-width:62ch; font-weight:300; color:var(--deep-dust);">Colton Mulligan facilitates forum trainings and retreats for EO chapters. Everything here is what he actually uses in rooms, shared free.</p>
+</section>
+
+</div>
+<footer class="foot"><div class="foot-inner">
+  <a class="logo" href="#"><span class="mark">⎇</span> FORUM PLAYBOOK</a>
+  <div class="foot-meta">MOCKUP V3 "TASK ROUTER" v0.1 · Updated Mon / 2026-08-10 / 3:40 PM CT<br>
+  Changelog: v0.1 first cut for direction approval · <a href="index.html">All mockups</a> · <a href="/brand">Brand guide</a></div>
+</div></footer>
+
+<script src="mock-data.js?v=0.1.1"></script>
+<script src="mock-shared.js?v=0.1.1"></script>
+<script>
+(function () {
+  var M = window.FP_MOCK, D = window.FP_DATA;
+  var st = M.stats();
+  document.getElementById('st-r').textContent = st.resources;
+  document.getElementById('st-c').textContent = st.categories;
+  document.getElementById('st-v').textContent = st.videos;
+
+  var grid = document.getElementById('task-grid');
+  var stack = document.getElementById('stack');
+  D.tasks.forEach(function (t) {
+    grid.insertAdjacentHTML('beforeend',
+      '<button class="task sheen" data-task="' + t.key + '"><div class="tick-tl"></div><div class="tick-br"></div>' +
+      '<div class="ic-wrap">' + M.icon(t.icon) + '</div>' +
+      '<div class="task-label">' + t.label + '</div>' +
+      '<div class="task-hint">' + t.hint + '</div></button>');
+  });
+  function openTask(key) {
+    var t = D.tasks.find(function (x) { return x.key === key; });
+    grid.querySelectorAll('.task').forEach(function (b) { b.classList.toggle('on', b.dataset.task === key); });
+    var rows = t.fileIds.map(function (id) { return D.fileById[id]; }).filter(Boolean)
+      .map(function (f) { return M.rowHtml(f, { showSection: true }); }).join('');
+    var vids = t.videoIds.map(function (id) {
+      var v = D.videos.concat(D.podcasts).find(function (x) { return x.id === id; });
+      return v ? M.videoCard(v) : '';
+    }).join('');
+    var chips = t.roleKits ? '<div class="rk-chips">' + D.roleKits.map(function (r) {
+      return '<a class="role-chip sh cool sheen" href="#"><span>' + r + ' Kit</span></a>';
+    }).join('') + '</div>' : '';
+    stack.className = 'stack show';
+    stack.innerHTML = '<div class="stack-head"><h3 class="stack-title">' + t.label + '</h3>' +
+      '<span class="stack-note">The short stack: click a row to preview before you download</span></div>' +
+      chips + rows +
+      (vids ? '<div class="vstrip" style="margin-top:14px;">' + vids + '</div>' : '');
+    M.loadThumbAll && M.loadThumbAll(stack);
+    stack.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+  grid.addEventListener('click', function (e) {
+    var b = e.target.closest('.task');
+    if (b) openTask(b.dataset.task);
+  });
+  M.wireExpand(stack);
+
+  // the full library below, every section visible as rows
+  var lib = document.getElementById('library');
+  lib.insertAdjacentHTML('beforeend',
+    '<div class="sec-head"><span class="sec-tag">All</span><h2 class="sec-title">Everything, Organized</h2><div class="sec-rule"></div></div>');
+  D.sections.forEach(function (s) {
+    if (s.restricted) {
+      lib.insertAdjacentHTML('beforeend',
+        '<div style="margin:18px 0;"><div class="sec-note" style="margin-bottom:8px;">' + s.name.toUpperCase() + '</div>' +
+        '<div class="row"><div class="row-main">' +
+        '<div class="ic-wrap">' + M.icon('lock') + '</div>' +
+        '<div class="row-grow"><div class="row-name">Official EO materials stay on the EO member portal</div>' +
+        '<div class="row-meta"><span>LOGIN REQUIRED</span></div></div>' +
+        '<div class="row-btns"><a class="btn sh cool btn-ghost" style="text-decoration:none;" target="_blank" rel="noopener" href="https://member.eonetwork.org/member/forum/for-forum-moderators"><span>&#8599; EO Portal</span></a></div>' +
+        '</div></div></div>');
+      return;
+    }
+    lib.insertAdjacentHTML('beforeend',
+      '<div style="margin:18px 0;"><div class="sec-note" style="margin-bottom:8px;">' + s.name.toUpperCase() + ' · ' + s.files.length + ' ITEMS</div>' +
+      s.files.map(function (f) { return M.rowHtml(f); }).join('') + '</div>');
+  });
+  M.wireExpand(lib);
+
+  var vs = document.getElementById('vstrip');
+  D.videos.forEach(function (v) { vs.insertAdjacentHTML('beforeend', M.videoCard(v)); });
+  D.podcasts.forEach(function (v) { vs.insertAdjacentHTML('beforeend', M.videoCard(v, 'pod')); });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,161 @@
+/* FORUM PLAYBOOK homepage mockups - shared baseline v0.1 (2026-08-10)
+   Brand tokens per brand.html v2.2. Type scale per the 2026-07-10 audit
+   (nothing under 11px, body 17px). Two-wave hover is the locked brand
+   pattern; the SHEEN sweep is the NEW proposed pattern under review. */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --pitch: #0E0E0C; --burn: #E8521A; --brick: #B83A14; --gold: #D4A832;
+  --teal: #3A8A8A; --blue: #2A6E9A; --linen: #F0EBE0; --linen-dk: #E8E2D6;
+  --dust: #C4B8A8; --deep-dust: #4A4038; --ink2: #5A5048; --border: #C8C0B4;
+  --t-display: clamp(56px, 9vw, 104px);
+  --t-h2: 34px; --t-h3: 24px; --t-lead: 20px; --t-body: 17px;
+  --t-ui: 14px; --t-label: 12px; --t-meta: 11px;
+  --disp: 'Big Shoulders Display', 'Arial Narrow', sans-serif;
+  --sans: 'DM Sans', sans-serif; --mono: 'DM Mono', monospace;
+}
+html { background: var(--linen); scroll-behavior: smooth; }
+body { font-family: var(--sans); font-size: var(--t-body); line-height: 1.6;
+       color: var(--pitch); background: var(--linen); -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 1160px; margin: 0 auto; padding: 0 32px; }
+
+/* ── mockup ribbon ── */
+.ribbon { position: sticky; top: 0; z-index: 60; background: var(--gold); color: var(--pitch);
+  font-family: var(--mono); font-size: var(--t-meta); letter-spacing: 0.08em;
+  display: flex; gap: 14px; align-items: center; justify-content: center;
+  padding: 7px 12px; text-transform: uppercase; flex-wrap: wrap; }
+.ribbon a { color: var(--pitch); font-weight: 500; }
+
+/* ── nav ── */
+.nav { display: flex; align-items: center; justify-content: space-between; gap: 18px;
+  padding: 18px 0; }
+.logo { display: flex; align-items: baseline; gap: 8px; font-family: 'Consolas', monospace;
+  font-weight: 700; letter-spacing: 0.1em; font-size: 17px; color: var(--pitch); text-decoration: none; }
+.logo .mark { color: var(--burn); }
+.nav-links { display: flex; gap: 22px; align-items: center; }
+.nav-links a { font-family: var(--mono); font-size: var(--t-label); letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--deep-dust); text-decoration: none; padding: 6px 2px; }
+.nav-links a:hover { color: var(--burn); }
+
+/* ── hero: keep-list = full-size headline + three large black numbers upper right ── */
+.hero { padding: 26px 0 34px; }
+.hero-grid { display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: start; }
+.annot { font-family: var(--mono); font-size: var(--t-meta); color: var(--ink2);
+  letter-spacing: 0.18em; text-transform: uppercase; display: flex; gap: 10px;
+  align-items: center; margin-bottom: 14px; }
+.annot-box { border: 0.5px solid var(--dust); padding: 2px 6px; color: var(--ink2); }
+.annot-line { width: 40px; height: 0.5px; background: var(--dust); }
+h1.hero-h1 { font-family: var(--disp); font-weight: 900; font-size: var(--t-display);
+  line-height: 0.88; letter-spacing: -1px; text-transform: uppercase; }
+h1 .gold { color: var(--gold); } h1 .burn { color: var(--burn); }
+.hero-sub { font-size: var(--t-lead); font-weight: 300; color: var(--deep-dust); margin-top: 16px; max-width: 44ch; }
+.stats { display: flex; gap: 34px; padding-top: 12px; }
+.stat-num { font-family: var(--disp); font-weight: 900; font-size: 64px; line-height: 1; color: var(--pitch); }
+.stat-label { font-family: var(--mono); font-size: var(--t-meta); letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--ink2); margin-top: 6px; }
+
+/* ── section headers ── */
+.sec { margin: 46px 0; }
+.sec-head { display: flex; align-items: center; gap: 14px; margin-bottom: 18px; }
+.sec-tag { font-family: var(--mono); font-size: var(--t-meta); letter-spacing: 0.16em;
+  color: var(--burn); border: 0.5px solid var(--burn); padding: 3px 8px; text-transform: uppercase; }
+.sec-title { font-family: var(--disp); font-size: var(--t-h2); font-weight: 900;
+  letter-spacing: 0.02em; text-transform: uppercase; }
+.sec-rule { flex: 1; height: 0.5px; background: var(--border); }
+.sec-note { font-family: var(--mono); font-size: var(--t-meta); color: var(--ink2); letter-spacing: 0.08em; }
+
+/* ── buttons: locked two-wave ── */
+@keyframes wave1 { 0% { transform: translateX(-100%); } 100% { transform: translateX(0); } }
+@keyframes wave2 { 0% { transform: translateX(-100%); } 100% { transform: translateX(0); } }
+.sh { position: relative; overflow: hidden; cursor: pointer; display: inline-flex; align-items: center;
+  justify-content: center; min-height: 44px; transition: box-shadow 0.5s ease, transform 0.3s ease; }
+.sh::before, .sh::after { content: ''; position: absolute; inset: 0; transform: translateX(-100%); }
+.sh::after { z-index: 1; }
+.sh:hover::before { animation: wave1 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0s forwards; }
+.sh:hover::after { animation: wave2 0.5s cubic-bezier(0.4, 0, 0.2, 1) 0.32s forwards; }
+.sh > span { position: relative; z-index: 2; transition: color 0.12s ease 0.32s; display: inline-flex; align-items: center; gap: 7px; }
+.warm::before { background: var(--gold); } .warm::after { background: var(--teal); }
+.warm:hover { box-shadow: 0 8px 28px rgba(58, 138, 138, 0.5); transform: translateY(-2px); }
+.warm:hover > span { color: #fff; }
+.cool::before { background: var(--teal); } .cool::after { background: var(--blue); }
+.cool:hover { box-shadow: 0 8px 28px rgba(42, 110, 154, 0.5); transform: translateY(-2px); }
+.cool:hover > span { color: #fff; }
+.btn { font-family: var(--mono); font-size: var(--t-label); letter-spacing: 0.1em;
+  text-transform: uppercase; padding: 10px 16px; text-decoration: none; border: 0.5px solid var(--border); }
+.btn-primary { background: var(--burn); border-color: var(--burn); color: #fff; }
+.btn-secondary { background: transparent; color: var(--deep-dust); }
+.btn-ghost { background: transparent; border-color: #8A8070; color: var(--deep-dust); }
+
+/* ── THE SHEEN (new, proposed): a soft light band sweeps left to right on hover,
+      pulling the eye toward the button cluster on the right edge ── */
+.sheen { position: relative; overflow: hidden; }
+.sheen::before { content: ''; position: absolute; top: 0; bottom: 0; left: 0; width: 42%;
+  background: linear-gradient(100deg, transparent 0%, rgba(232, 82, 26, 0.05) 30%,
+    rgba(255, 255, 255, 0.6) 50%, rgba(232, 82, 26, 0.05) 70%, transparent 100%);
+  transform: translateX(-130%); pointer-events: none; z-index: 1; }
+.sheen:hover::before { animation: sheenSweep 0.62s cubic-bezier(0.33, 0, 0.2, 1) forwards; }
+@keyframes sheenSweep { to { transform: translateX(330%); } }
+
+/* ── rows (list items with the whole surface clickable) ── */
+.row { background: #fff; border: 0.5px solid #D4CCC0; position: relative; margin-bottom: 10px; }
+.tick-tl { position: absolute; top: -1px; left: -1px; width: 12px; height: 12px;
+  border-top: 1px solid var(--burn); border-left: 1px solid var(--burn); z-index: 2; }
+.tick-br { position: absolute; bottom: -1px; right: -1px; width: 12px; height: 12px;
+  border-bottom: 1px solid var(--dust); border-right: 1px solid var(--dust); }
+.row-main { display: flex; align-items: center; gap: 16px; padding: 16px 18px; cursor: pointer; }
+.row:hover { box-shadow: 0 6px 22px rgba(14, 14, 12, 0.10); }
+.row .ic-wrap { flex: 0 0 auto; width: 40px; height: 40px; border: 0.5px solid var(--border);
+  display: flex; align-items: center; justify-content: center; color: var(--burn); background: var(--linen); }
+.row-name { font-size: var(--t-body); font-weight: 500; color: var(--pitch); line-height: 1.3; }
+.row-meta { font-family: var(--mono); font-size: var(--t-meta); color: var(--ink2);
+  letter-spacing: 0.08em; text-transform: uppercase; margin-top: 3px; display: flex; gap: 10px; flex-wrap: wrap; }
+.row-grow { flex: 1 1 auto; min-width: 0; }
+.row-btns { display: flex; gap: 8px; flex: 0 0 auto; position: relative; z-index: 2; }
+.chip-new { font-family: var(--mono); font-size: 10px; font-weight: 500; color: #fff;
+  background: var(--burn); padding: 2px 7px; letter-spacing: 0.12em; }
+.caret { flex: 0 0 auto; color: var(--ink2); transition: transform 0.3s; }
+.row.open .caret { transform: rotate(180deg); }
+
+/* ── expand-to-preview ── */
+.row-expand { max-height: 0; overflow: hidden; transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1); }
+.row.open .row-expand { max-height: 520px; }
+.prev { display: grid; grid-template-columns: 300px 1fr; gap: 22px;
+  padding: 6px 18px 20px 74px; align-items: start; }
+.thumb { border: 0.5px solid var(--border); background: #fff; height: 210px; overflow: hidden; position: relative; }
+.thumb img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.thumb.noimg { display: flex; align-items: center; justify-content: center; flex-direction: column;
+  gap: 10px; color: var(--ink2); font-family: var(--mono); font-size: var(--t-meta);
+  letter-spacing: 0.1em; text-transform: uppercase; background: var(--linen); }
+.thumb-cap { font-family: var(--mono); font-size: 10px; color: var(--ink2); letter-spacing: 0.1em;
+  text-transform: uppercase; margin-top: 6px; }
+.prev-right { padding-top: 2px; }
+.prev-title { font-family: var(--disp); font-size: var(--t-h3); font-weight: 700;
+  text-transform: uppercase; margin-bottom: 6px; }
+.prev-desc { font-size: var(--t-ui); font-weight: 300; color: var(--deep-dust); margin-bottom: 14px; max-width: 52ch; }
+.prev-btns { display: flex; gap: 10px; flex-wrap: wrap; }
+
+/* ── video strip (side-weighted, never full-bleed center) ── */
+.vstrip { display: grid; grid-auto-flow: column; grid-auto-columns: 300px; gap: 14px;
+  overflow-x: auto; padding-bottom: 10px; scrollbar-width: thin; }
+.vcard { background: #fff; border: 0.5px solid #D4CCC0; position: relative; text-decoration: none; color: var(--pitch); display: block; }
+.vthumb { aspect-ratio: 16 / 9; overflow: hidden; background: var(--pitch); }
+.vthumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.vtitle { font-size: var(--t-ui); font-weight: 500; padding: 12px 14px; line-height: 1.35; }
+.vmeta { font-family: var(--mono); font-size: var(--t-meta); color: var(--ink2);
+  padding: 0 14px 12px; letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* ── footer ── */
+.foot { margin-top: 70px; background: var(--pitch); color: var(--linen); }
+.foot-inner { max-width: 1160px; margin: 0 auto; padding: 34px 32px; display: flex;
+  justify-content: space-between; gap: 20px; flex-wrap: wrap; align-items: baseline; }
+.foot .logo { color: var(--linen); font-size: 15px; }
+.foot-meta { font-family: var(--mono); font-size: var(--t-meta); color: #A8A494; letter-spacing: 0.1em; line-height: 2; text-align: right; }
+.foot-meta a { color: #A8A494; }
+
+/* ── responsive ── */
+@media (max-width: 940px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .stats { gap: 26px; } .stat-num { font-size: 48px; }
+  .prev { grid-template-columns: 1fr; padding-left: 18px; }
+  .row-btns.hide-sm { display: none; }
+  .nav-links { display: none; }
+}

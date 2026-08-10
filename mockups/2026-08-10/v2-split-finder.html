@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Mockup V2: Split Finder | Forum Playbook</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='16' fill='%23F0EBE0'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Roboto,sans-serif' font-weight='700' font-size='13' fill='%23E8521A' letter-spacing='0.5'>FP</text></svg>"/>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="mock-shared.css">
+<style>
+/* V2: one hub, two panes. Rail picks the bucket, rows expand to previews. */
+.finder { display: grid; grid-template-columns: 264px 1fr; gap: 22px; align-items: start; }
+.rail { position: sticky; top: 46px; background: #fff; border: 0.5px solid #D4CCC0; padding: 14px; }
+.railsearch { display: flex; gap: 8px; align-items: center; border: 0.5px solid var(--border); padding: 10px 12px; margin-bottom: 12px; color: var(--ink2); }
+.railsearch input { border: 0; outline: 0; font-family: var(--sans); font-size: var(--t-ui); width: 100%; background: transparent; color: var(--pitch); }
+.rail-item { display: flex; gap: 10px; align-items: center; width: 100%; text-align: left; background: transparent;
+  border: 0; border-left: 3px solid transparent; padding: 11px 10px; cursor: pointer;
+  font-family: var(--mono); font-size: var(--t-label); letter-spacing: 0.06em; text-transform: uppercase; color: var(--deep-dust); min-height: 44px; }
+.rail-item .ct { margin-left: auto; color: var(--ink2); font-size: var(--t-meta); }
+.rail-item:hover { background: var(--linen); color: var(--burn); }
+.rail-item.on { border-left-color: var(--burn); background: var(--linen); color: var(--pitch); font-weight: 500; }
+.rail-item svg { color: var(--burn); flex: 0 0 auto; }
+.rail-split { height: 0.5px; background: var(--border); margin: 10px 0; }
+.pane-title { font-family: var(--disp); font-size: var(--t-h2); font-weight: 900; text-transform: uppercase; }
+.pane-head { display: flex; align-items: baseline; gap: 14px; margin-bottom: 16px; flex-wrap: wrap; }
+.pane-note { font-family: var(--mono); font-size: var(--t-meta); color: var(--ink2); letter-spacing: 0.08em; text-transform: uppercase; }
+.rk-band { background: var(--pitch); color: var(--linen); border: 0.5px solid var(--pitch); padding: 18px; display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-bottom: 10px; }
+.rk-band .lead { font-family: var(--disp); font-size: var(--t-h3); font-weight: 700; text-transform: uppercase; }
+@media (max-width: 940px) { .finder { grid-template-columns: 1fr; } .rail { position: static; display: grid; grid-template-columns: 1fr 1fr; } .rail .railsearch { grid-column: 1 / -1; } }
+</style>
+</head>
+<body>
+<div class="ribbon">MOCKUP V2 · SPLIT FINDER · v0.1 · Mon / 2026-08-10 / 3:40 PM CT · not the live site <a href="index.html">← all mockups</a></div>
+<div class="wrap">
+
+<nav class="nav">
+  <a class="logo" href="#"><span class="mark">⎇</span> FORUM PLAYBOOK</a>
+  <div class="nav-links">
+    <a href="#finder">Library</a><a href="#about">Who Built This?</a>
+    <a class="btn sh warm btn-primary" style="text-decoration:none; background:var(--pitch); border-color:var(--pitch); color:#fff;" href="#finder"><span>Find a Tool</span></a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-grid">
+    <div>
+      <div class="annot"><span class="annot-box">FP</span><span class="annot-line"></span>A RESOURCE HUB FOR FORUMS, MODERATORS, &amp; FACILITATORS<span class="annot-line"></span><span class="annot-box">2026</span></div>
+      <h1 class="hero-h1">A <span class="gold">RESOURCE</span><br><span class="gold">HUB</span> FOR<br><span class="burn">FORUMS.</span></h1>
+      <p class="hero-sub">Templates, frameworks, and guides. Pick a bucket on the left, click any row to see the document before you download it.</p>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="stat-num" id="st-r">-</div><div class="stat-label">Resources</div></div>
+      <div class="stat"><div class="stat-num" id="st-c">-</div><div class="stat-label">Categories</div></div>
+      <div class="stat"><div class="stat-num" id="st-v">-</div><div class="stat-label">Videos</div></div>
+    </div>
+  </div>
+</header>
+
+<section class="sec" id="finder">
+  <div class="finder">
+    <aside class="rail" id="rail">
+      <div class="railsearch">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        <input id="q" type="search" placeholder="Search everything..." aria-label="Search resources">
+      </div>
+    </aside>
+    <div>
+      <div class="pane-head"><h2 class="pane-title" id="pane-title">Everything</h2><span class="pane-note" id="pane-note"></span></div>
+      <div id="rk-slot"></div>
+      <div id="pane"></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="about">
+  <div class="sec-head"><span class="sec-tag">Who</span><h2 class="sec-title">Who Built This?</h2><div class="sec-rule"></div></div>
+  <p style="max-width:62ch; font-weight:300; color:var(--deep-dust);">Colton Mulligan facilitates forum trainings and retreats for EO chapters. Everything here is what he actually uses in rooms, shared free.</p>
+</section>
+
+</div>
+<footer class="foot"><div class="foot-inner">
+  <a class="logo" href="#"><span class="mark">⎇</span> FORUM PLAYBOOK</a>
+  <div class="foot-meta">MOCKUP V2 "SPLIT FINDER" v0.1 · Updated Mon / 2026-08-10 / 3:40 PM CT<br>
+  Changelog: v0.1 first cut for direction approval · <a href="index.html">All mockups</a> · <a href="/brand">Brand guide</a></div>
+</div></footer>
+
+<script src="mock-data.js?v=0.1.1"></script>
+<script src="mock-shared.js?v=0.1.1"></script>
+<script>
+(function () {
+  var M = window.FP_MOCK, D = window.FP_DATA;
+  var st = M.stats();
+  document.getElementById('st-r').textContent = st.resources;
+  document.getElementById('st-c').textContent = st.categories;
+  document.getElementById('st-v').textContent = st.videos;
+
+  var rail = document.getElementById('rail');
+  var pane = document.getElementById('pane');
+  var title = document.getElementById('pane-title');
+  var note = document.getElementById('pane-note');
+  var rkSlot = document.getElementById('rk-slot');
+
+  function railBtn(key, ic, label, count) {
+    return '<button class="rail-item" data-key="' + key + '">' + M.icon(ic) + ' ' + label +
+      (count != null ? '<span class="ct">' + count + '</span>' : '') + '</button>';
+  }
+  var allCount = 0;
+  D.sections.forEach(function (s) { allCount += s.files.length; });
+  rail.insertAdjacentHTML('beforeend', railBtn('all', 'search', 'Everything', allCount));
+  D.sections.forEach(function (s) { rail.insertAdjacentHTML('beforeend', railBtn(s.key, s.icon, s.name, s.restricted ? '' : s.files.length)); });
+  rail.insertAdjacentHTML('beforeend', '<div class="rail-split"></div>');
+  rail.insertAdjacentHTML('beforeend', railBtn('videos', 'video', 'How-To Videos', D.videos.length));
+  rail.insertAdjacentHTML('beforeend', railBtn('podcasts', 'mic', 'Podcasts', D.podcasts.length));
+  rail.insertAdjacentHTML('beforeend', '<div class="rail-split"></div>');
+  rail.insertAdjacentHTML('beforeend', railBtn('roles', 'users', 'Role Kits', D.roleKits.length));
+
+  function allFiles() {
+    var out = [];
+    D.sections.forEach(function (s) { s.files.forEach(function (f) { out.push(f); }); });
+    return out;
+  }
+  function renderFiles(files, showSection) {
+    pane.innerHTML = files.map(function (f) { return M.rowHtml(f, { showSection: showSection }); }).join('') ||
+      '<p style="font-weight:300; color:var(--ink2);">Nothing matches. Try fewer words.</p>';
+  }
+  function select(key) {
+    rail.querySelectorAll('.rail-item').forEach(function (b) { b.classList.toggle('on', b.dataset.key === key); });
+    rkSlot.innerHTML = '';
+    if (key === 'all') { title.textContent = 'Everything'; note.textContent = allCount + ' items, click any row to preview'; renderFiles(allFiles(), true); return; }
+    if (key === 'videos') { title.textContent = 'How-To Videos'; note.textContent = 'Auto-synced from YouTube'; pane.innerHTML = '<div class="vstrip">' + D.videos.map(function (v) { return M.videoCard(v); }).join('') + '</div>'; return; }
+    if (key === 'podcasts') { title.textContent = 'Podcasts'; note.textContent = 'The Decision, deep dive episodes'; pane.innerHTML = '<div class="vstrip">' + D.podcasts.map(function (v) { return M.videoCard(v, 'pod'); }).join('') + '</div>'; return; }
+    if (key === 'roles') {
+      title.textContent = 'Role Kits'; note.textContent = 'A planner, a video, a document, a checklist per role';
+      pane.innerHTML = D.roleKits.map(function (r) {
+        return '<div class="rk-band sheen"><div class="lead">' + r + ' Kit</div>' +
+          '<span class="pane-note" style="color:#A8A494;">PLANNER · VIDEO · DOCUMENT · CHECKLIST</span>' +
+          '<span style="margin-left:auto;"><a class="btn sh warm btn-primary" style="text-decoration:none;" href="#"><span>Open the Kit</span></a></span></div>';
+      }).join('');
+      return;
+    }
+    var s = D.sections.find(function (x) { return x.key === key; });
+    title.textContent = s.name; note.textContent = s.restricted ? 'Restricted' : s.files.length + ' items · ' + s.blurb;
+    if (s.restricted) {
+      pane.innerHTML = '<div class="rk-band">' + M.icon('lock') + ' EO Legal prohibits redistribution of official EO materials. Access them from the EO member portal (login required).</div>';
+      return;
+    }
+    renderFiles(s.files, false);
+  }
+  rail.addEventListener('click', function (e) {
+    var b = e.target.closest('.rail-item');
+    if (b) select(b.dataset.key);
+  });
+  document.getElementById('q').addEventListener('input', function () {
+    var q = this.value.trim().toLowerCase();
+    rail.querySelectorAll('.rail-item').forEach(function (b) { b.classList.remove('on'); });
+    title.textContent = q ? 'Search: ' + q : 'Everything';
+    var hits = allFiles().filter(function (f) { return f.name.toLowerCase().indexOf(q) !== -1; });
+    note.textContent = hits.length + ' match' + (hits.length === 1 ? '' : 'es');
+    renderFiles(hits, true);
+  });
+  M.wireExpand(pane);
+  select('all');
+})();
+</script>
+</body>
+</html>
