@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-N4HDSNSD');</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<meta name="description" content="Forum Timer: the meeting timer from Forum Playbook, free in the browser. One enormous number the whole room can read. Coming soon to the iOS App Store." />
+<meta name="theme-color" content="#F0EBE0" />
+
+<!-- Open Graph (iMessage, Slack, LinkedIn, Facebook, WhatsApp, Discord) -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Forum Playbook" />
+<meta property="og:url" content="https://forumplaybook.com/timer" />
+<meta property="og:title" content="Forum Timer: A Forum Playbook Web App" />
+<meta property="og:description" content="The meeting timer for forums: one enormous number, a color state the whole room can read, and overtime music with manners. Free in the browser. Coming soon to the iOS App Store." />
+<meta property="og:image" content="https://forumplaybook.com/og-timer.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Forum Timer, the meeting timer from Forum Playbook. Web app, coming soon to the iOS App Store." />
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Forum Timer: A Forum Playbook Web App" />
+<meta name="twitter:description" content="The meeting timer for forums. Free in the browser, coming soon to the iOS App Store." />
+<meta name="twitter:image" content="https://forumplaybook.com/og-timer.png" />
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='16' fill='%23F0EBE0'/><circle cx='16' cy='16' r='12.5' fill='%23E4DDCB'/><path d='M16 16 L16 3.5 A12.5 12.5 0 1 1 3.69 18.17 Z' fill='%233A8A5A'/><circle cx='16' cy='16' r='13.6' fill='none' stroke='%230E0E0C' stroke-width='1.8'/><line x1='16' y1='16' x2='16' y2='3.5' stroke='%230E0E0C' stroke-width='1.4'/></svg>"/>
+<title>Forum Timer: A Forum Playbook Web App</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="timer.css" />
+</head>
+<body class="ft-page" data-timer-theme="light">
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N4HDSNSD" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<!-- NAV -->
+<header class="nav" role="banner">
+  <a href="/" class="logo" aria-label="Forum Playbook home">
+    <span class="logo-mark" aria-hidden="true">⎇</span>
+    FORUM PLAYBOOK
+  </a>
+  <nav role="navigation" aria-label="Main navigation">
+    <a href="/#resources" class="nav-link">Resources</a>
+    <a href="/#videos" class="nav-link">How-To Videos</a>
+    <a href="/#podcasts" class="nav-link">Podcasts</a>
+  </nav>
+  <a href="#about" class="nav-cta sh warm"><span>Web App · iOS Coming Soon</span></a>
+</header>
+
+<!-- THE TIMER -->
+<main class="ft-shell" aria-label="Forum Timer">
+  <section class="ft-display" id="display" aria-label="Timer display. Tap to switch between bars and clock face.">
+    <div class="ft-fill" id="fill" aria-hidden="true"></div>
+    <div class="ft-overshade" id="overShade" aria-hidden="true"></div>
+    <div class="ft-flash" id="flash" aria-hidden="true"></div>
+
+    <div class="ft-chips-left">
+      <button class="ft-chip" id="modeChip" aria-label="Switch timer display">◷</button>
+      <button class="ft-chip" id="themeChip" aria-label="Flip light and dark theme">◐</button>
+      <button class="ft-chip" id="fsChip" aria-label="Toggle fullscreen">⛶</button>
+    </div>
+    <button class="ft-chip ft-set" id="setChip" aria-label="Timer set time. Tap to type a time.">
+      <span id="setChipLabel">SET 0:00</span>
+    </button>
+    <div class="ft-chips-right">
+      <button class="ft-chip" id="gearChip" aria-label="Options">⚙</button>
+    </div>
+
+    <div class="ft-center">
+      <div class="ft-dialwrap" id="dialWrap" hidden>
+        <svg class="ft-dial" id="dial" viewBox="0 0 200 200" aria-hidden="true"></svg>
+      </div>
+      <div class="ft-digitzone" id="digitZone">
+        <div class="ft-digits" id="digits" aria-live="off" aria-label="Time remaining"></div>
+      </div>
+      <div class="ft-status idle" id="status">TAP A TIME TO START</div>
+      <div class="ft-then" id="then" hidden></div>
+    </div>
+  </section>
+
+  <section class="ft-dock" id="dock" aria-label="Timer controls"></section>
+</main>
+
+<!-- KEYPAD SHEET -->
+<div class="ft-keypad" id="keypad" hidden>
+  <div class="kp-scrim" id="keypadScrim"></div>
+  <div class="kp-sheet" role="dialog" aria-modal="true" aria-label="Set timer">
+    <div class="kp-title">SET TIMER</div>
+    <div class="kp-display empty" id="keypadDisplay">00:00</div>
+    <div class="kp-grid" id="keypadGrid"></div>
+  </div>
+</div>
+
+<!-- SAVE CADENCE DIALOG -->
+<div class="ft-dialog" id="cadenceDialog" hidden>
+  <div class="ft-dialog-card" role="dialog" aria-modal="true" aria-label="Save this cadence">
+    <h3>Save this cadence</h3>
+    <p>Saves the current timer and everything queued after it.</p>
+    <input type="text" id="cadenceName" placeholder="Name (e.g. Presentation Q&amp;A)" />
+    <div class="ft-dialog-actions">
+      <button id="cadenceCancel">Cancel</button>
+      <button id="cadenceSave">Save</button>
+    </div>
+  </div>
+</div>
+
+<!-- OPTIONS PANEL (the dark world behind the gear) -->
+<div class="ft-panel" id="panel-options" hidden>
+  <div class="ft-panel-head">
+    <button class="ft-back" data-close-panel aria-label="Back to the timer">‹</button>
+    <div class="ft-panel-title">Options</div>
+  </div>
+  <div class="ft-panel-body">
+
+    <div class="ft-section">
+      <div class="ft-card">
+        <div class="ft-row tappable" id="bioToggle">
+          <div class="ft-row-stack"><span>Who built this?</span></div>
+          <em class="row-go">›</em>
+        </div>
+        <div class="ft-row" id="bioBody" hidden>
+          <div class="ft-row-stack">
+            <small>Colton Mulligan built this as part of Forum Playbook, a project he started years ago: how-to videos, guides, resources, and templates for the person running the room, all free to access and download.</small>
+            <small>It comes from years of facilitating with EO, YPO, and Harvard Business School (forums, chapters, and boards) and facilitating executive retreats for public and private companies.</small>
+            <small><a href="https://forumplaybook.com" style="color:#6FC0C0;">ForumPlaybook.com ↗</a></small>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ft-section">
+      <div class="ft-card">
+        <div class="ft-row tappable" data-open-panel="panel-sound">
+          <div class="ft-row-stack"><span>Alerts &amp; Sound</span></div>
+          <em class="row-go">›</em>
+        </div>
+      </div>
+    </div>
+
+    <div class="ft-section">
+      <div class="ft-section-title">Timer display</div>
+      <div class="ft-card">
+        <div class="ft-seg" id="segDisplay"></div>
+        <div class="ft-seg" id="segTheme"></div>
+      </div>
+      <div class="ft-section-foot">Bars is a full-screen fill that drains as time passes. Clock Face is an analog dial. Both flip color (green, gold, brick) as the thresholds pass. Tap the timer itself to switch displays, or the ◐ chip to flip the theme. System follows your device's appearance.</div>
+    </div>
+
+    <div class="ft-section">
+      <div class="ft-section-title">Built in, the web app handles these</div>
+      <div class="ft-card">
+        <div class="ft-row ft-note-row">
+          <span class="ft-note-ico good">✓</span>
+          <div class="ft-row-stack"><span>Screen stays awake</span>
+          <small>While a timer runs, the display never sleeps (where the browser supports wake lock; recent iPhones, iPads, Android, and desktop all do).</small></div>
+        </div>
+        <div class="ft-row ft-note-row">
+          <span class="ft-note-ico good">✓</span>
+          <div class="ft-row-stack"><span>Drift-free clock</span>
+          <small>Time is computed against the wall clock, so a busy or throttled tab never loses seconds.</small></div>
+        </div>
+        <div class="ft-row ft-note-row">
+          <span class="ft-note-ico good">✓</span>
+          <div class="ft-row-stack"><span>The tab shows the countdown</span>
+          <small>The remaining time lives in the browser tab title, visible even from another tab.</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ft-section">
+      <div class="ft-section-title">Do this once, 30 seconds</div>
+      <div class="ft-card">
+        <div class="ft-row ft-note-row">
+          <span class="ft-note-ico act">→</span>
+          <div class="ft-row-stack"><span>Tap any time chip to unlock sound</span>
+          <small>Browsers require one tap before a page may play audio. Your first tap on a time does it; nothing else to set up.</small></div>
+        </div>
+        <div class="ft-row ft-note-row">
+          <span class="ft-note-ico act">→</span>
+          <div class="ft-row-stack"><span>Keep this tab in the foreground during a meeting</span>
+          <small>Browsers slow hidden tabs. The clock stays exact either way, but alerts can lag until you come back.</small></div>
+        </div>
+        <div class="ft-row ft-note-row">
+          <span class="ft-note-ico act">→</span>
+          <div class="ft-row-stack"><span>Volume up before the room fills</span>
+          <small>The overtime melody is the whole act. Give it a speaker it deserves.</small></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="ft-section">
+      <div class="ft-section-title">Advanced features</div>
+      <div class="ft-card">
+        <div class="ft-row tappable" data-open-panel="panel-agenda">
+          <div class="ft-row-stack"><span>Agenda Based Timer</span>
+          <small>Run a full forum agenda: segments, member updates, presentation protocol.</small></div>
+          <em class="row-go">›</em>
+        </div>
+      </div>
+      <div class="ft-section-foot">Customize any agenda and save it as your own template.</div>
+    </div>
+
+    <div class="ft-section">
+      <div class="ft-card">
+        <div class="ft-row tappable" id="versionRow">
+          <div class="ft-row-stack"><span>Version</span></div>
+          <em class="row-go">Web 1.0.0</em>
+        </div>
+      </div>
+      <div class="ft-section-foot">Tap for what's changed. The same timer is coming soon to the iOS App Store.</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ALERTS & SOUND PANEL -->
+<div class="ft-panel" id="panel-sound" hidden>
+  <div class="ft-panel-head">
+    <button class="ft-back" data-close-panel aria-label="Back to options">‹</button>
+    <div class="ft-panel-title">Alerts &amp; Sound</div>
+  </div>
+  <div class="ft-panel-body">
+
+    <div class="ft-section">
+      <div class="ft-section-title">Overtime sound</div>
+      <div class="ft-card" id="soundList"></div>
+      <div class="ft-section-foot">Tap ▶ to listen, then tap a row to select. The melody loops when time runs out: it enters clearly, pulls back so the speaker can wrap up, then builds. All melodies are public-domain compositions synthesized on the spot.</div>
+    </div>
+
+    <div class="ft-section">
+      <div class="ft-section-title">Instrument</div>
+      <div class="ft-card">
+        <div class="ft-seg" id="segVoice"></div>
+        <div class="ft-row">
+          <div class="ft-row-stack"><span>Duet: add a low harmony</span></div>
+          <label class="ft-toggle"><input type="checkbox" id="duetToggle" /><span class="knob"></span></label>
+        </div>
+      </div>
+      <div class="ft-section-foot">The voice every melody plays in. Guitar is a plucked string, Piano is warm, Chime is a pure tone. Duet mixes a second instrument playing low notes underneath. Richer, but audition it with ▶ first.</div>
+    </div>
+
+    <div class="ft-section">
+      <div class="ft-section-title">Time's up intensity</div>
+      <div class="ft-card">
+        <div class="ft-seg" id="segIntensity"></div>
+      </div>
+      <div class="ft-section-foot">Shapes everything at zero: the on-screen wording, how bright and how fast the red steps up, and how quickly the music builds. Gentle eases in and tops out quieter; Aggressive hits hard and maxes out in about 12 seconds.</div>
+    </div>
+
+    <div class="ft-section">
+      <div class="ft-section-title">Pre-ending alert</div>
+      <div class="ft-card">
+        <div class="ft-seg" id="segAlertStyle"></div>
+        <div class="ft-row">
+          <button class="ft-teal-btn" id="previewAlertBtn">▶ Preview pre-ending alert</button>
+        </div>
+      </div>
+      <div class="ft-section-foot">The short heads-up beep BEFORE time runs out (not the overtime melody above). Also fires a brief screen flash. Vibration works where the browser supports it (most Android phones; iPhones ignore it).</div>
+    </div>
+
+    <div class="ft-section">
+      <div class="ft-section-title">Pre-ending alert timing</div>
+      <div class="ft-card">
+        <div class="ft-row">
+          <div class="ft-row-stack"><span>Quick timer fires at</span></div>
+          <select class="ft-select" id="notifySelect" aria-label="Quick timer pre-ending alert point"></select>
+        </div>
+        <div class="ft-row">
+          <div class="ft-row-stack"><span>Agenda timer fires at</span></div>
+          <div class="stepper-controls">
+            <button id="warnMinus" aria-label="Less warning time">−</button>
+            <strong id="warnValue">1 min left</strong>
+            <button id="warnPlus" aria-label="More warning time">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="ft-section-foot">The quick timer setting is the default for new timers; change it mid-run from the ⋯ menu in the timer controls.</div>
+    </div>
+
+    <div class="ft-section">
+      <div class="ft-section-title">About</div>
+      <div class="ft-card">
+        <div class="ft-row"><div class="ft-row-stack"><span>Version</span></div><em class="row-go">Web 1.0.0</em></div>
+        <div class="ft-row"><div class="ft-row-stack"><span>From</span></div><em class="row-go">ForumPlaybook.com</em></div>
+        <div class="ft-row"><div class="ft-row-stack"><small>No accounts. Templates, roster, and settings save in this browser and nothing leaves your device.</small></div></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- AGENDA PANEL -->
+<div class="ft-panel" id="panel-agenda" hidden>
+  <div class="ft-panel-head">
+    <button class="ft-back" data-close-panel aria-label="Back to options">‹</button>
+    <div class="ft-panel-title">Agenda Based Timer</div>
+  </div>
+  <div class="ft-panel-body">
+    <div class="ft-section">
+      <div class="ft-section-title">Templates</div>
+      <div class="ft-card" id="templateList"></div>
+      <div class="ft-section-foot">Pick a template, set your roster and durations, then start. Save customized versions as your own templates. Everything is saved in this browser.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SETUP PANEL -->
+<div class="ft-panel" id="panel-setup" hidden>
+  <div class="ft-panel-head">
+    <button class="ft-back" data-close-panel aria-label="Back to templates">‹</button>
+    <div class="ft-panel-title">Setup</div>
+  </div>
+  <div class="ft-panel-body">
+
+    <div class="ft-section">
+      <div class="ft-section-title">Name</div>
+      <div class="ft-card">
+        <div class="ft-row">
+          <input type="text" class="setup-name-input" id="setupName" placeholder="Template name" />
+        </div>
+      </div>
+    </div>
+
+    <div class="ft-section">
+      <div class="ft-section-title">Segments</div>
+      <div class="ft-card" id="setupSegments"></div>
+      <div class="setup-total" id="setupTotal"></div>
+    </div>
+
+    <div class="ft-section" id="setupRoster" hidden>
+      <div class="ft-section-title" id="rosterCount">Roster</div>
+      <div class="ft-card">
+        <div id="rosterList"></div>
+        <button class="ft-teal-btn roster-add" id="rosterAdd">＋ Add member</button>
+      </div>
+      <div class="ft-section-foot">Round-robin segments loop through this roster in order.</div>
+    </div>
+
+    <div class="setup-cta-bar">
+      <button class="save" id="setupSave">Save template</button>
+      <button class="start" id="setupStart">Start Meeting</button>
+    </div>
+
+  </div>
+</div>
+
+<!-- LIVE MEETING -->
+<div class="ft-meeting" id="meeting" hidden>
+  <div class="m-live" id="meetingLive">
+    <div class="m-header">
+      <div>
+        <h2 id="mTemplate">Standard Forum</h2>
+        <div class="m-sub" id="mStepCount">Step 1 of 1</div>
+      </div>
+      <div class="m-right" id="mPlanned">Planned 4h</div>
+    </div>
+    <div class="m-ringwrap">
+      <div class="m-ringbox">
+        <svg viewBox="0 0 200 200" aria-hidden="true">
+          <circle class="ring-bg" cx="100" cy="100" r="88" />
+          <circle class="ring-fg" id="mRingFg" cx="100" cy="100" r="88" />
+        </svg>
+        <div class="m-center">
+          <div class="m-segment" id="mSegment"></div>
+          <div class="m-clock" id="mClock">0:00</div>
+          <div class="m-detail" id="mDetail" hidden></div>
+          <div class="m-member" id="mMember" hidden></div>
+          <div class="m-flag" id="mFlag" hidden></div>
+        </div>
+      </div>
+    </div>
+    <div class="m-nextline" id="mNext"></div>
+    <div class="m-endsline" id="mEnds"></div>
+    <div class="m-controls">
+      <button id="mPrev"><em>⏮</em><span>Prev</span></button>
+      <button id="mPause" class="prominent"><em>⏸</em><span>Pause</span></button>
+      <button id="mPlusMin"><em>＋</em><span>1 min</span></button>
+      <button id="mNextBtn"><em>⏭</em><span>Next</span></button>
+      <button id="mEnd" class="danger"><em>■</em><span>End</span></button>
+    </div>
+    <div class="m-endconfirm" id="endConfirm" hidden>
+      <div class="m-endcard">
+        <h3>End this meeting?</h3>
+        <div class="row">
+          <button id="endNo">Keep going</button>
+          <button id="endYes">End meeting</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="m-summary" id="meetingSummary" hidden>
+    <h2>Meeting Complete</h2>
+    <div class="ft-section-title" style="text-align:center;">Actual / Planned</div>
+    <div class="summary-rows" id="summaryRows"></div>
+    <div class="summary-foot" id="summaryFoot"></div>
+    <button class="summary-done" id="summaryDone">Done</button>
+  </div>
+</div>
+
+<!-- BELOW THE FOLD: WHAT THIS IS -->
+<section id="about" class="ft-about" aria-label="About the Forum Timer">
+  <div class="ft-about-inner">
+    <div class="ft-badges">
+      <span class="ft-badge solid">WEB APP</span>
+      <span class="ft-badge outline">COMING SOON TO THE iOS APP STORE</span>
+    </div>
+    <h2>A timer the whole<br>room can read.</h2>
+    <p class="lede">The Forum Timer is the meeting timer from Forum Playbook. Tap a time, set it in the middle of the table, and let the color do the talking: green means talk, gold means land the plane, brick means the music is coming.</p>
+    <div class="ft-stamp">WEB APP v1.0.0 · UPDATED MON / 2026-08-10 / 1:00 PM CT</div>
+
+    <div class="ft-feature-grid">
+      <div class="ft-feature">
+        <h3>The Quick Timer</h3>
+        <p>Tap +2:00 and go. Add time mid-run, chain timers ("3 minutes, then 2"), and save the cadences you use every meeting. Type any duration on the microwave keypad, SET chip up top.</p>
+      </div>
+      <div class="ft-feature">
+        <h3>Bars or Clock Face</h3>
+        <p>A full-screen fill that drains as time passes, or an analog dial with the flip points notched on the rim. Tap the display to switch. Both turn green, gold, then brick at the same thresholds.</p>
+      </div>
+      <div class="ft-feature">
+        <h3>Agenda Mode</h3>
+        <p>Run a full forum agenda: one-word check-in, member updates around your roster, Deep Dive protocol phases. It holds at zero until the moderator moves on, then reports planned vs. actual.</p>
+      </div>
+      <div class="ft-feature">
+        <h3>Overtime With Manners</h3>
+        <p>At zero the music enters clearly, pulls back so the speaker can wrap up, then builds until the room surrenders. Seven public-domain melodies, synthesized live in piano, guitar, or chime.</p>
+      </div>
+      <div class="ft-feature">
+        <h3>Nothing Leaves Your Browser</h3>
+        <p>No accounts and no meeting data collected. Templates, roster, cadences, and settings save on this device, and that is the whole data story.</p>
+      </div>
+      <div class="ft-feature">
+        <h3>Built for the Table</h3>
+        <p>The screen stays awake while a timer runs, the tab title carries the countdown, and the clock is drift-free. Turn the volume up and tap once to unlock sound; the browser insists.</p>
+      </div>
+    </div>
+
+    <div class="ft-appstore">
+      <div class="as-copy">
+        <h3>Coming soon to the iOS App Store</h3>
+        <p>This web app is the full timer, free, right here. The native iOS app is in the works for the things a browser is not allowed to do: alerts that play through the silent switch and Do Not Disturb, automatic full brightness, and torch signals on the back of the phone for the people sitting behind it.</p>
+      </div>
+      <div class="as-chip">iOS APP · IN THE WORKS</div>
+    </div>
+
+    <details class="ft-changelog" id="changelog">
+      <summary>CHANGELOG</summary>
+      <ul>
+        <li><strong>Web 1.0.0 (2026-08-10):</strong> First web release, ported from the Forum Timer iOS app v1.1. Quick timer with bars and clock-face displays, chained timers and saved cadences, microwave keypad, light and dark themes, Agenda Based Timer with the Standard Forum and Express templates, editable rosters and custom templates, planned-vs-actual summary, seven synthesized public-domain overtime melodies in three instrument voices with the duet layer, three Time's Up intensities, pre-ending alerts, screen wake lock.</li>
+      </ul>
+    </details>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer" role="contentinfo">
+  <div class="footer-logo">
+    <span class="footer-logo-mark" aria-hidden="true">⎇</span>
+    FORUM PLAYBOOK
+  </div>
+  <div class="footer-links">
+    <a href="/" class="footer-link">Resources</a>
+    <a href="/brand" class="footer-link">Brand</a>
+    <a href="/legal" class="footer-link">Legal</a>
+  </div>
+  <div class="footer-copy">© 2026 Forum Playbook</div>
+</footer>
+
+<script src="timer.js"></script>
+</body>
+</html>

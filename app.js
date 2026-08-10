@@ -65,13 +65,15 @@ function buildCoreCardHTML(resource) {
   let btnsClass    = '';
 
   if (resource.type === 'links') {
-    icon       = coreIconLinks();
+    icon       = resource.icon === 'timer' ? coreIconTimer() : coreIconLinks();
     extraClass = ' core-card-links';
     btnsClass  = ' core-links-btns';
     buttons    = (resource.links || []).map((l, i) => {
       const style = i === 0 ? 'primary' : 'secondary';
       const cls   = style === 'primary' ? 'btn btn-primary sh warm' : 'btn sh warm';
-      return `<a href="${l.url}" class="${cls}" target="_blank" rel="noopener"><span>${l.label}</span></a>`;
+      // Same-site links (the Forum Timer web app) stay in this tab.
+      const external = /^https?:/i.test(l.url);
+      return `<a href="${l.url}" class="${cls}"${external ? ' target="_blank" rel="noopener"' : ''}><span>${l.label}</span></a>`;
     }).join('');
   } else {
     const base     = `https://www.googleapis.com/drive/v3/files/${resource.fileId}/export?key=${CONFIG.GOOGLE_API_KEY}`;
@@ -125,6 +127,21 @@ function coreIconDoc() {
 }
 
 // Large centered globe + external-link icon (for 'links' type cards)
+// Large centered timer dial (the Forum Timer web app card)
+function coreIconTimer() {
+  return `<svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="26" cy="27" r="19" stroke="#E8521A" stroke-width="1.5" fill="#F8F4EE"/>
+    <path d="M26 27 L26 11 A16 16 0 1 1 12.14 35 Z" fill="#3A8A5A"/>
+    <circle cx="26" cy="27" r="16" stroke="#0E0E0C" stroke-width="1" fill="none"/>
+    <line x1="26" y1="27" x2="26" y2="11" stroke="#0E0E0C" stroke-width="1.4" stroke-linecap="round"/>
+    <line x1="26" y1="8"  x2="26" y2="5"  stroke="#C4B8A8" stroke-width="1.2"/>
+    <line x1="45" y1="27" x2="48" y2="27" stroke="#C4B8A8" stroke-width="1.2"/>
+    <line x1="26" y1="46" x2="26" y2="49" stroke="#C4B8A8" stroke-width="1.2"/>
+    <line x1="7"  y1="27" x2="4"  y2="27" stroke="#C4B8A8" stroke-width="1.2"/>
+    <rect x="22" y="1" width="8" height="3" rx="1.5" fill="#E8521A"/>
+  </svg>`;
+}
+
 function coreIconLinks() {
   return `<svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="22" cy="22" r="16" stroke="#E8521A" stroke-width="1.5" fill="#F8F4EE"/>

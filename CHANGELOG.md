@@ -1,16 +1,35 @@
-# Changelog: forum-playbook (forumplaybook.com)
+# Forum Playbook site, Changelog
 
-Code and housed-document changes only. Library resources and videos sync from Google Drive / YouTube (brand rule 03) and are not versioned here.
+Source of truth for what changed on forumplaybook.com and when. Started
+2026-08-10; for earlier history see `git log`. Newest first. The Forum
+Timer web app carries its own version (shown on the page and in
+gear > Options > Version); site-level entries land here.
 
-## 2026-08-10
+---
 
-- brand.html bumped to v2.1: new section 08, Templates & One-Pagers. The newest document templates are now housed on the brand page permanently: one-pager template v1.0, template contract v1.0, Word document template v1.1 (.docx), plus the four current one-pagers with view links and print-verified PDFs.
-- NEW: Open Coaching v2.0 one-pager. Carries the current opening language ("What types of experiences are you curious to hear from the group?" and the experience-share stem "A time when you felt...") plus the EQ vs IQ topic frame up front. Supersedes the 2022 ForumSherpa-era tips sheet and the FP Word doc v1.0a (April 2026). Source of record: Projects/ForumPlaybook.com/one-pager-system/ on the MacBook.
-- New directories: /one-pagers/ (4 HTML + 4 PDF, every PDF verified exactly one page) and /templates/ (3 files).
-- Em dashes removed from every text file in the repo per the global style law (visible copy, meta tags, stat placeholders, code comments).
-- brand.html gains the site favicon and Open Graph / Twitter card metadata.
+## 1.1.0, 2026-08-10: The Forum Timer web app
 
-## Earlier, pre-changelog (from git history)
+- NEW PAGE `/timer` (timer.html + timer.css + timer.js): the Forum Timer,
+  a full web port of the Forum Timer iOS app v1.1, labeled as a web app
+  with "coming soon to the iOS App Store." Quick timer (giant digits,
+  bars or clock-face display, green/gold/brick thresholds at 40%/15%,
+  chained timers, saved cadences, microwave keypad, light/dark themes),
+  Agenda Based Timer (Standard Forum + Express templates, editable
+  durations and roster, custom templates, hold-at-zero, planned vs
+  actual summary), seven synthesized public-domain overtime melodies in
+  piano/guitar/chime with the optional duet layer, three Time's Up
+  intensities with escalation curves, pre-ending alerts, screen wake
+  lock, drift-free clock. No accounts; everything saves in the browser.
+- Homepage: "Timer" nav link; Forum Timer card added to Core Resources
+  (config.js, badge WEB APP) with a dial icon (app.js `coreIconTimer`).
+- app.js: same-site links in 'links' cards now open in the same tab;
+  external ones keep target="_blank".
+- og-timer.png: link-preview card for /timer (OG + Twitter meta on the
+  page per the link-preview standard).
+- This CHANGELOG.md started.
 
-- 2026-07: iOS apps privacy section added to /legal; podcasts section added; accessibility color-contrast PR #3 open and awaiting merge.
-- 2026-03 to 04: Brand Guidelines v2.0 locked (color system, typography, two-wave hover, document chrome).
+## Earlier
+
+- 2026-07-11 and before: main site (resource library synced from Google
+  Drive, YouTube how-to hub, podcasts, brand page, legal page). See
+  `git log` for the trail.

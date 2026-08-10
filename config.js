@@ -21,6 +21,23 @@ GOOGLE_API_KEY: 'AIzaSyD-DZWNK5YL8qgVzAVCv0qt87VHGnykh8Y',
 // Update fileId here if you ever replace these files in Drive.
 CORE_RESOURCES: [
 {
+title: 'Forum Timer',
+subtitle: 'MEETING TIMER · IOS APP COMING SOON',
+badge: 'WEB APP',
+type: 'links',
+icon: 'timer',
+links: [
+{
+label: '▶ Open the Timer',
+url: '/timer',
+},
+{
+label: '↗ About the iOS App',
+url: '/timer#about',
+},
+],
+},
+{
 title: 'Nashville Forum Constitution Template',
 subtitle: 'GOOGLE DOC · FORUM FOUNDATION',
 fileId: '1h2AYwSQ0HcMY3EpF5L8kq1ZrZA63kwiT-J5w7BtcmWQ',
