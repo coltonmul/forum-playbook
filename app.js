@@ -972,7 +972,15 @@ function timeAgo(iso) {
 }
 
 function cleanFileName(name) {
-  return name.replace(/^\d+[\._\-\s]+/, '').replace(/\.(docx?|xlsx?|pdf|gsheet|gdoc)$/i, '').toUpperCase();
+  let out = name
+    // a leading sort prefix ("01. ", "3_"), but only when a letter follows,
+    // so titles that genuinely start with a number ("5 - 5 Factors") survive
+    .replace(/^\d{1,2}[.)_\-\s]+(?=[A-Za-z])/, '')
+    .replace(/\.(docx?|xlsx?|pptx?|pdf|png|jpe?g|gif|gsheet|gdoc)$/i, '')
+    .replace(/_/g, ' ');
+  // a slug with no spaces at all gets its hyphens opened up; prose keeps them
+  if (!/\s/.test(out)) out = out.replace(/-/g, ' ');
+  return out.replace(/\s{2,}/g, ' ').trim().toUpperCase();
 }
 
 function cleanFolderName(name) {

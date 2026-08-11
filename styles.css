@@ -1505,3 +1505,6 @@ body {
   .fx-peek { display: none; }
   .fx-list.view-icons { grid-template-columns: repeat(auto-fill, minmax(108px, 1fr)); }
 }
+
+/* long unbroken filenames must not spill out of tiles or rows */
+.fx-tile-name, .fx-card .fx-name, .fx-row .fx-name, .fx-prev-title { overflow-wrap: anywhere; }
