@@ -4,7 +4,7 @@ Code and housed-document changes only. Library resources and videos sync from Go
 
 ## IN FLIGHT
 
-- (nothing; claim a shared-file rebuild here per CLAUDE.md rule 2 before starting it)
+- CLAIMED 2026-08-10 ~9:05 PM CT by the DESIGN THREAD (Colton's order, ship without approval): resource library UX round 2 (sticky rail fix, meta cleanup, hover-preview on the icon, list/cards/icons view switcher). index.html, app.js, styles.css.
 
 ## 2026-08-10, evening
 
