@@ -12,7 +12,18 @@ const CACHE = {
 // ── State ───────────────────────────────────────────────────
 let searchQuery = '';
 let activeBucket = 'all';   // finder rail selection: 'all' or a section id
-let viewMode = 'list';      // finder view: 'list' | 'cards' | 'icons'
+// finder view: 'list' | 'cards' | 'icons'. Honors ?view= in the URL so a
+// view is shareable, then remembers the last choice on this device.
+let viewMode = (function () {
+  const valid = ['list', 'cards', 'icons'];
+  const q = new URLSearchParams(location.search).get('view');
+  if (valid.includes(q)) return q;
+  try {
+    const saved = localStorage.getItem('fp-view');
+    if (valid.includes(saved)) return saved;
+  } catch (e) { /* private mode, fall through */ }
+  return 'list';
+})();
 
 // ── DOM refs ─────────────────────────────────────────────────
 const accordionWrap = document.getElementById('accordion-wrap');
@@ -320,7 +331,11 @@ function renderViewSwitch() {
     `<button class="fx-view${viewMode === id ? ' on' : ''}" data-view="${id}" title="${label} view" aria-pressed="${viewMode === id}">${ic}<span>${label}</span></button>`
   ).join('');
   host.querySelectorAll('[data-view]').forEach(b => {
-    b.addEventListener('click', () => { viewMode = b.dataset.view; renderAccordion(); });
+    b.addEventListener('click', () => {
+      viewMode = b.dataset.view;
+      try { localStorage.setItem('fp-view', viewMode); } catch (e) { /* private mode */ }
+      renderAccordion();
+    });
   });
 }
 
