@@ -4,7 +4,7 @@ Code and housed-document changes only. Library resources and videos sync from Go
 
 ## IN FLIGHT
 
-- (nothing; claim a shared-file rebuild here per CLAUDE.md rule 2 before starting it)
+- CLAIMED 2026-08-10 ~7:55 PM CT by the DESIGN THREAD (Colton's order): graduating the hours-stats experiment to production with his corrections (retreats 6-10/yr x 8 yrs; trainings merged to one row). Touching index.html stats block, styles.css, app.js, tools/build-beta.py. Off limits to other threads until cleared.
 
 ## 2026-08-10, evening
 
