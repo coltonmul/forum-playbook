@@ -217,14 +217,36 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <div class="stat-num" id="stat-resources">-</div>
           <div class="stat-label">Resources</div>
         </div>
-        <div class="stat">
+        <div class="stat" style="display:none" aria-hidden="true">
           <div class="stat-num" id="stat-categories">-</div>
           <div class="stat-label">Categories</div>
         </div>
         <div class="stat">
           <div class="stat-num" id="stat-videos">-</div>
-          <div class="stat-label">Videos</div>
+          <div class="stat-label">Published Videos</div>
         </div>
+        <button class="stat stat-hours" id="hoursStat" aria-expanded="false" aria-controls="hoursLedger">
+          <div class="stat-num"><span id="stat-hours">-</span><sup>*</sup></div>
+          <div class="stat-label">Hours in the Room</div>
+        </button>
+        <div class="stat">
+          <div class="stat-num" id="stat-updated">-</div>
+          <div class="stat-label">Library Synced</div>
+        </div>
+      </div>
+      <div class="hours-ledger" id="hoursLedger" hidden>
+        <button class="ledger-close" id="ledgerClose" aria-label="Close the ledger">✕</button>
+        <div class="ledger-title">The Hours Ledger<sup>*</sup></div>
+        <div class="ledger-sub">Directionally accurate. Recalculated weekly, because he is still in there.</div>
+        <div class="ledger-rows">
+          <div class="ledger-row"><span>His own forum, 10 years: 4-hour monthlies, the 48-hour mini retreat, and the annual retreat</span><strong>~1,320</strong></div>
+          <div class="ledger-row"><span>Retreats facilitated for other forums, 6 to 10 a year for eight years</span><strong>~640</strong></div>
+          <div class="ledger-row"><span>Forums seeded as chapter forum chair: a dozen launches, 3 to 6 four-hour sessions each</span><strong>~216</strong></div>
+          <div class="ledger-row"><span>Forum trainings + moderator trainings + chapter forum health events</span><strong>~840</strong></div>
+          <div class="ledger-row"><span>Pipeline Entrepreneurs, two years</span><strong>~66</strong></div>
+          <div class="ledger-row ledger-total"><span>Running total, growing about 9 hours a week</span><strong id="ledgerTotal">-</strong></div>
+        </div>
+        <div class="ledger-foot">What this does not count: the phone calls, the prep, and every hour that cannot be logged, because what happens in forum stays in forum. Everything on this site is informed by intimate working time with hundreds of forums and thousands of EO and YPO members. That is where the templates come from. If anything, the number is low.</div>
       </div>
     </div>
   </div>
@@ -332,6 +354,43 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <div class="footer-copy">© 2026 Forum Playbook</div>
 </footer>
 
+<script>
+// The hours counter: a directionally accurate model, not a diary.
+// BASE_HOURS is the ledger total as of the EPOCH (Colton-corrected
+// round 3, graduated to production 2026-08-10 evening: own forum 1320
+// + retreats for other forums 640 (6-10 a year for 8 years, midpoint
+// 8/yr at ~10 hrs) + forums seeded as chair 216 + forum trainings /
+// moderator trainings / chapter forum health events 840 + Pipeline
+// Entrepreneurs 66 = 3,082). PER_WEEK is the current run rate
+// (~495/yr = 9.52/wk). Colton corrects here; nothing else to maintain.
+(function () {
+  var BASE_HOURS = 3082;
+  var EPOCH = new Date('2026-08-10T00:00:00-05:00');
+  var PER_WEEK = 9.52;
+  var weeks = Math.max(0, (Date.now() - EPOCH.getTime()) / (7 * 24 * 3600 * 1000));
+  var hours = Math.floor(BASE_HOURS + weeks * PER_WEEK).toLocaleString('en-US');
+  var el = document.getElementById('stat-hours');
+  if (el) el.textContent = hours;
+  var total = document.getElementById('ledgerTotal');
+  if (total) total.textContent = hours + ' hrs';
+  var synced = document.getElementById('stat-updated');
+  if (synced) synced.textContent = new Date().toLocaleDateString('en-US',
+    { month: 'short', day: 'numeric' }).toUpperCase();
+  var ledger = document.getElementById('hoursLedger');
+  var statBtn = document.getElementById('hoursStat');
+  if (ledger && statBtn) {
+    statBtn.addEventListener('click', function () {
+      ledger.hidden = !ledger.hidden;
+      statBtn.setAttribute('aria-expanded', String(!ledger.hidden));
+    });
+    var close = document.getElementById('ledgerClose');
+    if (close) close.addEventListener('click', function () {
+      ledger.hidden = true;
+      statBtn.setAttribute('aria-expanded', 'false');
+    });
+  }
+})();
+</script>
 <script src="config.js"></script>
 <script src="app.js"></script>
 <script src="podcasts.js"></script>

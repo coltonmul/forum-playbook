@@ -4,9 +4,11 @@ Code and housed-document changes only. Library resources and videos sync from Go
 
 ## IN FLIGHT
 
-- CLAIMED 2026-08-10 ~7:55 PM CT by the DESIGN THREAD (Colton's order): graduating the hours-stats experiment to production with his corrections (retreats 6-10/yr x 8 yrs; trainings merged to one row). Touching index.html stats block, styles.css, app.js, tools/build-beta.py. Off limits to other threads until cleared.
+- (nothing; claim a shared-file rebuild here per CLAUDE.md rule 2 before starting it)
 
 ## 2026-08-10, evening
+
+- HOURS STATS GRADUATED TO PRODUCTION (Colton's order, with his corrections): the hero numbers are now Resources / Published Videos / Hours in the Room* / Library Synced, with the asterisk opening THE HOURS LEDGER. His edits: retreats row is now "6 to 10 a year for eight years" at ~640 hrs (midpoint), and the trainings are one plain row, "Forum trainings + moderator trainings + chapter forum health events," ~840 hrs, no per-day math shown. New base 3,082 hrs (own forum 1,320 + retreats 640 + seeded forums 216 + trainings 840 + Pipeline 66), accruing 9.52/wk client-side. Constants live in index.html's inline stats script. tools/build-beta.py is v1.3.0: the experiment block is removed, the lane is EMPTY and ready for the next resident; beta now inherits the graduated stats from index.html.
 
 - HERO RELAYOUT per Colton (the polaroid reel card was covering the stats numbers): grid on .hero, headline left, reel card in flow center-right (rotation + shadow kept), the three big numbers VERTICAL and right-justified at 1240px+, horizontal row under the card at 981-1239px, unchanged stacked layout below 981px. CSS only; stats markup and every build-beta.py anchor untouched; beta regenerated clean.
 
