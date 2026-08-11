@@ -12,6 +12,7 @@ const CACHE = {
 // ── State ───────────────────────────────────────────────────
 let searchQuery = '';
 let activeBucket = 'all';   // finder rail selection: 'all' or a section id
+let viewMode = 'list';      // finder view: 'list' | 'cards' | 'icons'
 
 // ── DOM refs ─────────────────────────────────────────────────
 const accordionWrap = document.getElementById('accordion-wrap');
@@ -292,12 +293,35 @@ function renderAccordion() {
       if (!searching && activeBucket !== 'all' && section.id !== activeBucket) return;
       collectFinderRows(section, rows, cleanFolderName(section.name));
     });
-    html = rows.map(r => buildDocRowHTML(r.file, r.crumb)).join('') ||
-      `<div class="empty-state"><div class="empty-icon">◈</div><div class="empty-title">No resources found</div><div class="empty-msg">Try a different search term.</div></div>`;
+    const build = viewMode === 'cards' ? buildDocCardHTML
+                : viewMode === 'icons' ? buildDocTileHTML
+                : buildDocRowHTML;
+    const inner = rows.map(r => build(r.file)).join('');
+    html = inner
+      ? `<div class="fx-list view-${viewMode}">${inner}</div>`
+      : `<div class="empty-state"><div class="empty-icon">◈</div><div class="empty-title">No resources found</div><div class="empty-msg">Try a different search term.</div></div>`;
     resourceCount.textContent = `${rows.length} resource${rows.length !== 1 ? 's' : ''}`;
   }
   accordionWrap.innerHTML = html;
+  renderViewSwitch();
   wireFinderRows();
+}
+
+// LIST / CARDS / ICONS, the file-picker switch (Colton 2026-08-10).
+function renderViewSwitch() {
+  const host = document.getElementById('fx-viewswitch');
+  if (!host) return;
+  const opts = [
+    ['list',  'List',  '<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.2"/></svg>'],
+    ['cards', 'Cards', '<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="2.5" width="13" height="4.5" stroke="currentColor" stroke-width="1.1"/><rect x="1.5" y="9" width="13" height="4.5" stroke="currentColor" stroke-width="1.1"/></svg>'],
+    ['icons', 'Icons', '<svg width="14" height="14" viewBox="0 0 16 16" fill="none"><rect x="1.5" y="1.5" width="5.5" height="5.5" stroke="currentColor" stroke-width="1.1"/><rect x="9" y="1.5" width="5.5" height="5.5" stroke="currentColor" stroke-width="1.1"/><rect x="1.5" y="9" width="5.5" height="5.5" stroke="currentColor" stroke-width="1.1"/><rect x="9" y="9" width="5.5" height="5.5" stroke="currentColor" stroke-width="1.1"/></svg>']
+  ];
+  host.innerHTML = opts.map(([id, label, ic]) =>
+    `<button class="fx-view${viewMode === id ? ' on' : ''}" data-view="${id}" title="${label} view" aria-pressed="${viewMode === id}">${ic}<span>${label}</span></button>`
+  ).join('');
+  host.querySelectorAll('[data-view]').forEach(b => {
+    b.addEventListener('click', () => { viewMode = b.dataset.view; renderAccordion(); });
+  });
 }
 
 function collectFinderRows(node, out, crumb) {
@@ -361,6 +385,113 @@ function wireFinderRows() {
       if (!was) { row.classList.add('open'); loadRowThumb(row); }
     });
   });
+  accordionWrap.querySelectorAll('[data-peek]').forEach(el => {
+    el.addEventListener('mouseenter', () => showPeek(el));
+    el.addEventListener('mouseleave', hidePeek);
+    el.addEventListener('focus', () => showPeek(el));
+    el.addEventListener('blur', hidePeek);
+  });
+  accordionWrap.querySelectorAll('.fx-tile').forEach(t => {
+    t.addEventListener('click', () => openSheet(t.dataset.fid));
+  });
+}
+
+// ── Hover peek: the document itself, floating next to the icon ──
+let peekTimer = null;
+function peekEl() {
+  let p = document.getElementById('fxPeek');
+  if (!p) {
+    p = document.createElement('div');
+    p.id = 'fxPeek';
+    p.className = 'fx-peek';
+    p.innerHTML = '<div class="fx-peek-shot"></div><div class="fx-peek-name"></div>';
+    document.body.appendChild(p);
+  }
+  return p;
+}
+function showPeek(el) {
+  clearTimeout(peekTimer);
+  peekTimer = setTimeout(() => {
+    const p = peekEl();
+    const shot = p.querySelector('.fx-peek-shot');
+    const src = el.dataset.peek;
+    if (shot.dataset.src !== src) {
+      shot.dataset.src = src;
+      shot.innerHTML = '<span class="fx-peek-load">Loading preview</span>';
+      const img = new Image();
+      img.onload = () => { if (shot.dataset.src === src) { shot.innerHTML = ''; shot.appendChild(img); } };
+      img.onerror = () => { if (shot.dataset.src === src) shot.innerHTML = '<span class="fx-peek-load">No preview available</span>'; };
+      img.alt = 'Document preview';
+      img.src = src;
+    }
+    p.querySelector('.fx-peek-name').textContent = el.dataset.peekname || '';
+    const r = el.getBoundingClientRect();
+    const w = 300, h = 380;
+    let left = r.right + 14;
+    if (left + w > window.innerWidth - 12) left = Math.max(12, r.left - w - 14);
+    let top = Math.min(Math.max(12, r.top + r.height / 2 - h / 2), window.innerHeight - h - 12);
+    p.style.left = left + 'px';
+    p.style.top = top + 'px';
+    p.classList.add('on');
+  }, 110);
+}
+function hidePeek() {
+  clearTimeout(peekTimer);
+  const p = document.getElementById('fxPeek');
+  if (p) p.classList.remove('on');
+}
+
+// ── Icons view: click a tile, get the full preview sheet ──
+function findFileById(id) {
+  let hit = null;
+  const walk = n => {
+    n.files.forEach(f => { if (f.id === id) hit = f; });
+    n.subfolders.forEach(walk);
+  };
+  CACHE.sections.forEach(s => { if (!s.restricted) walk(s); });
+  return hit;
+}
+function openSheet(id) {
+  const file = findFileById(id);
+  if (!file) return;
+  hidePeek();
+  const title = cleanFileName(file.name);
+  let sheet = document.getElementById('fxSheet');
+  if (!sheet) {
+    sheet = document.createElement('div');
+    sheet.id = 'fxSheet';
+    sheet.className = 'fx-sheet';
+    document.body.appendChild(sheet);
+    sheet.addEventListener('click', e => { if (e.target === sheet || e.target.closest('.fx-sheet-close')) closeSheet(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
+  }
+  sheet.innerHTML = `
+    <div class="fx-sheet-panel" role="dialog" aria-label="${title}">
+      <button class="fx-sheet-close" aria-label="Close preview">✕</button>
+      <div class="fx-prev">
+        <div>
+          <div class="fx-thumb" data-thumb="${thumbSrc(file, 640)}"></div>
+          <div class="fx-thumb-cap">Preview: the document you are about to get</div>
+        </div>
+        <div class="fx-prev-right">
+          <div class="fx-prev-title">${title}</div>
+          <div class="fx-prev-desc">${getMimeLabel(file.mimeType)}. Look it over, then take it in the format you want.</div>
+          <div class="fx-btns-big">${buildDocButtonsHTML(file)}</div>
+        </div>
+      </div>
+    </div>`;
+  sheet.querySelectorAll('[data-download-url]').forEach(btn => {
+    btn.addEventListener('click', e => {
+      e.preventDefault(); e.stopPropagation();
+      downloadFile(btn.dataset.downloadUrl, btn.dataset.filename);
+    });
+  });
+  loadRowThumb(sheet);
+  sheet.classList.add('on');
+}
+function closeSheet() {
+  const sheet = document.getElementById('fxSheet');
+  if (sheet) sheet.classList.remove('on');
 }
 
 function loadRowThumb(row) {
@@ -450,20 +581,23 @@ function buildSubfolderHTML(name, count, bodyHtml, depth) {
   `;
 }
 
-function buildDocRowHTML(file, crumb) {
+function thumbSrc(file, w) { return `https://drive.google.com/thumbnail?id=${file.id}&sz=w${w || 640}`; }
+
+// LIST: one line per document. Meta is the file type only (Colton cut the
+// date and the folder path as noise). Hovering the icon peeks the document.
+function buildDocRowHTML(file) {
   const title   = cleanFileName(file.name);
   const type    = getMimeLabel(file.mimeType);
-  const date    = formatDate(file.modifiedTime);
   const buttons = buildDocButtonsHTML(file);
   const icon    = getDocIcon(file.mimeType);
   return `
     <div class="fx-row wv" data-fid="${file.id}">
       <div class="fx-tick-tl"></div>
       <div class="fx-row-main">
-        <div class="fx-ic">${icon}</div>
+        <div class="fx-ic" data-peek="${thumbSrc(file, 400)}" data-peekname="${title}">${icon}<span class="fx-ic-hint">peek</span></div>
         <div class="fx-grow">
           <div class="fx-name">${title}</div>
-          <div class="fx-meta">${type} · ${date}${crumb ? ' · ' + crumb : ''}</div>
+          <div class="fx-meta">${type}</div>
         </div>
         <div class="fx-btns">${buttons}</div>
         <span class="fx-caret">▾</span>
@@ -471,17 +605,46 @@ function buildDocRowHTML(file, crumb) {
       <div class="fx-expand">
         <div class="fx-prev">
           <div>
-            <div class="fx-thumb" data-thumb="https://drive.google.com/thumbnail?id=${file.id}&sz=w640"></div>
+            <div class="fx-thumb" data-thumb="${thumbSrc(file, 640)}"></div>
             <div class="fx-thumb-cap">Preview: the document you are about to get</div>
           </div>
           <div class="fx-prev-right">
             <div class="fx-prev-title">${title}</div>
-            <div class="fx-prev-desc">${type} from ${crumb || 'the library'}. Look it over, then take it in the format you want.</div>
+            <div class="fx-prev-desc">${type}. Look it over, then take it in the format you want.</div>
             <div class="fx-btns-big">${buttons}</div>
           </div>
         </div>
       </div>
     </div>
+  `;
+}
+
+// CARDS: the preview IS the card. No click required to see the document.
+function buildDocCardHTML(file) {
+  const title = cleanFileName(file.name);
+  return `
+    <div class="fx-card wv" data-fid="${file.id}">
+      <div class="fx-tick-tl"></div>
+      <div class="fx-card-shot"><img loading="lazy" alt="First page of ${title}" src="${thumbSrc(file, 400)}"
+        onerror="this.parentElement.classList.add('noimg');this.remove()"></div>
+      <div class="fx-card-body">
+        <div class="fx-name">${title}</div>
+        <div class="fx-meta">${getMimeLabel(file.mimeType)}</div>
+        <div class="fx-btns-big">${buildDocButtonsHTML(file)}</div>
+      </div>
+    </div>
+  `;
+}
+
+// ICONS: dense wall of first pages. Hover peeks big, click opens the sheet.
+function buildDocTileHTML(file) {
+  const title = cleanFileName(file.name);
+  return `
+    <button class="fx-tile" data-fid="${file.id}" data-peek="${thumbSrc(file, 640)}" data-peekname="${title}">
+      <span class="fx-tile-shot"><img loading="lazy" alt="First page of ${title}" src="${thumbSrc(file, 260)}"
+        onerror="this.parentElement.classList.add('noimg');this.remove()"></span>
+      <span class="fx-tile-name">${title}</span>
+    </button>
   `;
 }
 

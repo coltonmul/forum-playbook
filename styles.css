@@ -1409,3 +1409,99 @@ body {
   .hero { grid-template-areas: "annot annot annot" "h1 reel stats" "sub reel stats" "ledger ledger ledger"; }
   .hero .stats { flex-wrap: nowrap; }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   RESOURCE LIBRARY UX ROUND 2 (Colton, 2026-08-10 night):
+   rail locks at the Resource Library header and stays fully visible
+   (scrolls inside itself when tall), row meta cut to the file type,
+   hover the icon to peek the real document, and a list/cards/icons
+   view switch like a file picker.
+   ═══════════════════════════════════════════════════════════ */
+.resources-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.fx-viewswitch { display: flex; gap: 0; border: 0.5px solid var(--border); background: var(--white); }
+.fx-view { display: inline-flex; align-items: center; gap: 6px; background: none; border: 0;
+  border-right: 0.5px solid var(--border); padding: 9px 13px; min-height: 40px; cursor: pointer;
+  font-family: var(--font-mono); font-size: 10.5px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--deep-dust); transition: background-color 0.2s, color 0.2s; }
+.fx-view:last-child { border-right: 0; }
+.fx-view:hover { background: var(--linen); color: var(--burn); }
+.fx-view.on { background: var(--pitch); color: #fff; }
+
+/* the rail: sticks below the sticky nav, never clipped */
+.fx-rail { top: 88px; max-height: calc(100vh - 108px); overflow-y: auto; overscroll-behavior: contain; }
+.fx-rail::-webkit-scrollbar { width: 6px; }
+.fx-rail::-webkit-scrollbar-thumb { background: var(--dust); }
+
+/* icon hint + peek popover */
+.fx-ic { position: relative; }
+.fx-ic-hint { position: absolute; bottom: -13px; left: 50%; transform: translateX(-50%);
+  font-family: var(--font-mono); font-size: 7.5px; letter-spacing: 0.1em; text-transform: uppercase;
+  color: var(--dust); opacity: 0; transition: opacity 0.2s; pointer-events: none; white-space: nowrap; }
+.fx-row:hover .fx-ic-hint { opacity: 1; color: rgba(255,255,255,0.85); }
+.fx-peek { position: fixed; z-index: 200; width: 300px; background: #fff; border: 0.5px solid var(--border);
+  box-shadow: 0 22px 60px rgba(14,14,12,0.28); padding: 10px; opacity: 0; visibility: hidden;
+  transform: translateY(6px); transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s; pointer-events: none; }
+.fx-peek.on { opacity: 1; visibility: visible; transform: translateY(0); }
+.fx-peek-shot { height: 330px; overflow: hidden; background: var(--linen); display: flex;
+  align-items: center; justify-content: center; }
+.fx-peek-shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.fx-peek-load { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--deep-dust); }
+.fx-peek-name { font-family: var(--font-mono); font-size: 9.5px; letter-spacing: 0.08em;
+  text-transform: uppercase; color: var(--deep-dust); margin-top: 8px; overflow: hidden;
+  text-overflow: ellipsis; white-space: nowrap; }
+
+/* CARDS view */
+.fx-list.view-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(232px, 1fr)); gap: 14px; }
+.fx-card { background: #fff; border: 0.5px solid #D4CCC0; position: relative; display: flex;
+  flex-direction: column; overflow: hidden; }
+.fx-card-shot { height: 190px; background: var(--linen); overflow: hidden; border-bottom: 0.5px solid var(--border); }
+.fx-card-shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.fx-card-shot.noimg::after { content: 'No preview'; font-family: var(--font-mono); font-size: 9.5px;
+  letter-spacing: 0.1em; text-transform: uppercase; color: var(--deep-dust); display: flex;
+  align-items: center; justify-content: center; height: 100%; }
+.fx-card-body { padding: 13px 14px 15px; display: flex; flex-direction: column; gap: 8px; position: relative; z-index: 2; }
+.fx-card .fx-name { font-size: 15px; }
+.fx-card .fx-btns-big { gap: 7px; }
+.fx-card.wv::before, .fx-card.wv::after { content: ''; position: absolute; inset: 0; transform: translateX(-100%); pointer-events: none; z-index: 1; }
+.fx-card.wv::before { background: var(--gold); }
+.fx-card.wv::after { background: var(--teal); }
+.fx-card.wv:hover::before { animation: wave1 0.6s cubic-bezier(0.4,0,0.2,1) 0s forwards; }
+.fx-card.wv:hover::after { animation: wave2 0.6s cubic-bezier(0.4,0,0.2,1) 0.4s forwards; }
+.fx-card.wv:hover { box-shadow: 0 10px 30px rgba(58,138,138,0.4); transform: translateY(-2px); }
+.fx-card.wv, .fx-card.wv .fx-name, .fx-card.wv .fx-meta, .fx-card.wv .btn { transition-property: color, background-color, border-color, transform, box-shadow; transition-duration: 0.25s; }
+.fx-card.wv:hover .fx-name, .fx-card.wv:hover .fx-meta { color: #fff; transition-delay: 0.4s; }
+.fx-card.wv:hover .btn { border-color: rgba(255,255,255,0.75); color: #fff; transition-delay: 0.4s; }
+.fx-card.wv:hover .btn-primary { background: #fff; border-color: #fff; color: var(--pitch); }
+
+/* ICONS view */
+.fx-list.view-icons { display: grid; grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); gap: 12px; }
+.fx-tile { background: none; border: 0; padding: 0; cursor: pointer; display: flex; flex-direction: column;
+  gap: 7px; text-align: left; font: inherit; }
+.fx-tile-shot { display: block; height: 150px; background: var(--linen); border: 0.5px solid #D4CCC0;
+  overflow: hidden; transition: border-color 0.2s, box-shadow 0.2s, transform 0.2s; }
+.fx-tile-shot img { width: 100%; height: 100%; object-fit: cover; object-position: top; display: block; }
+.fx-tile-shot.noimg::after { content: 'No preview'; font-family: var(--font-mono); font-size: 9px;
+  letter-spacing: 0.08em; text-transform: uppercase; color: var(--deep-dust); display: flex;
+  align-items: center; justify-content: center; height: 100%; }
+.fx-tile:hover .fx-tile-shot { border-color: var(--burn); box-shadow: 0 10px 26px rgba(14,14,12,0.16); transform: translateY(-2px); }
+.fx-tile-name { font-family: var(--font-body); font-size: 12.5px; line-height: 1.35; color: var(--pitch);
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.fx-tile:hover .fx-tile-name { color: var(--burn); }
+
+/* preview sheet for icons view */
+.fx-sheet { position: fixed; inset: 0; z-index: 210; background: rgba(14,14,12,0.55);
+  display: flex; align-items: center; justify-content: center; padding: 24px;
+  opacity: 0; visibility: hidden; transition: opacity 0.2s, visibility 0.2s; }
+.fx-sheet.on { opacity: 1; visibility: visible; }
+.fx-sheet-panel { background: #fff; border: 0.5px solid var(--border); box-shadow: 0 30px 80px rgba(0,0,0,0.4);
+  padding: 26px 26px 22px; max-width: 780px; width: 100%; position: relative; max-height: 90vh; overflow: auto; }
+.fx-sheet-close { position: absolute; top: 10px; right: 12px; background: none; border: 0;
+  font-size: 15px; color: var(--deep-dust); cursor: pointer; min-height: 32px; min-width: 32px; }
+.fx-sheet .fx-prev { padding: 0; }
+
+@media (max-width: 880px) {
+  .fx-rail { max-height: none; overflow: visible; top: 0; }
+  .fx-peek { display: none; }
+  .fx-list.view-icons { grid-template-columns: repeat(auto-fill, minmax(108px, 1fr)); }
+}

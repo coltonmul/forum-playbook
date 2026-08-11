@@ -4,7 +4,11 @@ Code and housed-document changes only. Library resources and videos sync from Go
 
 ## IN FLIGHT
 
-- CLAIMED 2026-08-10 ~9:05 PM CT by the DESIGN THREAD (Colton's order, ship without approval): resource library UX round 2 (sticky rail fix, meta cleanup, hover-preview on the icon, list/cards/icons view switcher). index.html, app.js, styles.css.
+- (nothing; claim a shared-file rebuild here per CLAUDE.md rule 2 before starting it)
+
+## 2026-08-10, night
+
+- RESOURCE LIBRARY UX ROUND 2, shipped straight to production on Colton's order (no approval round; he reviews live, changelog is the record). Four changes: (1) THE RAIL NO LONGER CUTS OFF: it locks below the sticky nav at the Resource Library header and scrolls inside itself when the bucket list runs tall, so every bucket stays reachable. (2) ROW NOISE CUT: each row's meta is now just the file type; the modified date and the folder breadcrumb ("Exercises", "Guides", "Alternative Presentation Formats") are gone, since the rail already says where you are. (3) PEEK ON HOVER: hovering a row's icon floats the real first page of that document next to it, no click; the icon carries a quiet PEEK hint. (4) VIEW SWITCH, file-picker style, top right of the section: LIST (dense lines), CARDS (the preview IS the card, ~190px first page plus buttons), ICONS (dense wall of first pages, click any tile for a full preview sheet with the download buttons). Every view keeps the full-bar wave and the real Drive download buttons. Previews come from Drive's public thumbnail endpoint, so they cost nothing and stay current with the file.
 
 ## 2026-08-10, evening
 
