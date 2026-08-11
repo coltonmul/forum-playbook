@@ -8,6 +8,8 @@ Code and housed-document changes only. Library resources and videos sync from Go
 
 ## 2026-08-10, evening
 
+- HERO RELAYOUT per Colton (the polaroid reel card was covering the stats numbers): grid on .hero, headline left, reel card in flow center-right (rotation + shadow kept), the three big numbers VERTICAL and right-justified at 1240px+, horizontal row under the card at 981-1239px, unchanged stacked layout below 981px. CSS only; stats markup and every build-beta.py anchor untouched; beta regenerated clean.
+
 - V2 SPLIT FINDER IS LIVE on the homepage (Colton's push order). The Resource Library accordion is replaced by the finder: sticky bucket rail (Everything, each Drive section with live counts, the restricted EO bucket, jump links to Videos and Podcasts), big legible rows, live search across everything, and click-to-preview (Drive first-page thumbnail + full download buttons). Rows carry the full-bar wave (gold sweep, teal landing, content flips white, buttons pop) per Colton's locked interaction spec; an open row reads calm. PRESERVED UNTOUCHED: hero + reel card, stats markup, core resources, timer nav + /timer, videos, podcasts, GTM, OG. All changes namespaced (fx- CSS appended; renderAccordion rewritten in place; old accordion builders retired in place, cleanup later). tools/build-beta.py reran clean, /beta regenerated with the finder + the hours-stats experiment intact.
 
 ## 2026-08-10, late afternoon
