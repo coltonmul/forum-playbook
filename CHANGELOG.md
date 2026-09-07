@@ -4,7 +4,11 @@ Code and housed-document changes only. Library resources and videos sync from Go
 
 ## IN FLIGHT
 
-- (nothing; claim a shared-file rebuild here per CLAUDE.md rule 2 before starting it)
+- **index.html + styles.css: mobile homepage repair.** Claimed 2026-09-07 by the interior-bar thread
+  on Colton's report from his phone. Scope: the reel card renders ABOVE the h1 on phones and is far
+  too large, the stats row overflows the viewport and lets the page pan sideways into blank space,
+  the hero stripes read as stray blocks at narrow widths, and the reel video never starts on mobile
+  so it sits as a still. Other lane: stay off index.html and styles.css until this entry clears.
 
 ## 2026-09-07, later
 
