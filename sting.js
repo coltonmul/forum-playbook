@@ -1,6 +1,6 @@
 /* Forum Playbook load sting, v1.0.0. The animation itself is CSS (sting.css);
    this only decides WHEN it may run and clears the node afterwards.
-   Once per browser session, skippable by any click, key or scroll. */
+   Once per calendar day per device, skippable by any click, key or scroll. */
 (function () {
   var el = document.getElementById('fpSting');
   if (!el) return;
