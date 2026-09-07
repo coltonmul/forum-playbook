@@ -1,0 +1,141 @@
+/* ═══════════════════════════════════════════════════════════════════
+   FORUM PLAYBOOK - load sting  v1.0.0
+   The homepage build of the 5s logo animation. Source of record for the
+   video version: Projects/ForumPlaybook.com/videos/forum-playbook-logo-sting/
+   on the MacBook. Same beats, same locked two-wave sweep, same easing.
+   Deliberately CSS only: no animation library on the homepage.
+   Timing note: the video's final 2s dead hold exists so an editor can
+   freeze the last frame. A web page does not need it, so the overlay
+   starts clearing at 3.35s. That number is --fp-sting-exit below.
+   ═══════════════════════════════════════════════════════════════════ */
+
+.fp-no-sting .fp-sting { display: none; }
+
+.fp-sting {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #F0EBE0;
+  overflow: hidden;
+  animation: fpStingOut 3.9s linear 0s forwards;
+}
+@keyframes fpStingOut {
+  0%, 85.9% { opacity: 1; visibility: visible; }
+  99.9%     { opacity: 0; visibility: visible; }
+  100%      { opacity: 0; visibility: hidden; }
+}
+/* Any click, key or scroll clears it early. */
+.fp-sting.is-skipping { animation: fpStingSkip 0.28s ease-out 0s forwards; }
+@keyframes fpStingSkip {
+  0%   { opacity: 1; visibility: visible; }
+  99%  { opacity: 0; visibility: visible; }
+  100% { opacity: 0; visibility: hidden; }
+}
+
+/* ── the six hero stripes ─────────────────────────────────────────
+   Widths are fractions of the frame, so the ladder holds at any
+   aspect ratio. All six leave at once and each decelerates to a stop
+   at its own width: blue first, the full-width Brick bar last.       */
+.fp-sting-stripes { position: absolute; inset: 0; display: flex; flex-direction: column; }
+.fp-hr { position: relative; width: 100%; height: 16.6667%; overflow: hidden; }
+.fp-hs {
+  position: absolute; top: 0; bottom: 0; right: 0; width: 100%;
+  transform-origin: right center;
+  animation-name: fpBar, fpTint;
+  animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1);
+  animation-delay: 0.12s;
+  animation-fill-mode: both;
+}
+@keyframes fpBar  { from { transform: scaleX(0); } to { transform: scaleX(var(--fp-w)); } }
+@keyframes fpTint { from { opacity: 0; }           to { opacity: var(--fp-o); } }
+
+.fp-hs1 { --fp-w: 0.333333; --fp-o: 0.18; background: #B83A14; animation-duration: 1.550s, 2.093s; }
+.fp-hs2 { --fp-w: 0.273333; --fp-o: 0.15; background: #D4611A; animation-duration: 1.271s, 1.716s; }
+.fp-hs3 { --fp-w: 0.213333; --fp-o: 0.12; background: #E8521A; animation-duration: 0.992s, 1.339s; }
+.fp-hs4 { --fp-w: 0.166667; --fp-o: 0.10; background: #D4A832; animation-duration: 0.775s, 1.046s; }
+.fp-hs5 { --fp-w: 0.120000; --fp-o: 0.08; background: #3A8A8A; animation-duration: 0.558s, 0.753s; }
+.fp-hs6 { --fp-w: 0.073333; --fp-o: 0.06; background: #2A6E9A; animation-duration: 0.341s, 0.460s; }
+
+/* ── the lockup ───────────────────────────────────────────────────
+   Everything sizes off one font-size so the whole lockup scales
+   fluidly from a phone to a 4K display without re-typesetting.       */
+.fp-sting-group {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 0.424em;
+  font-size: clamp(30px, 6.9vw, 132px);
+}
+.fp-lockup { position: relative; display: flex; align-items: center; gap: 0.25em; }
+
+.fp-markwrap { position: relative; display: flex; }
+.fp-mark { display: block; width: 1.05em; height: 0.4955em; }
+.fp-mark path {
+  fill: none; stroke: #E8521A; stroke-width: 11.8;
+  stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 8;
+}
+/* Path lengths are exact, measured off the geometry, not estimated. */
+.fp-mb { stroke-dasharray: 258.87; stroke-dashoffset: 258.87;
+         animation: fpDraw 0.42s cubic-bezier(0.165, 0.84, 0.44, 1) 0.10s both; }
+.fp-ma { stroke-dasharray: 125.60; stroke-dashoffset: 125.60;
+         animation: fpDraw 0.26s cubic-bezier(0.165, 0.84, 0.44, 1) 0.33s both; }
+@keyframes fpDraw { to { stroke-dashoffset: 0; } }
+
+.fp-stack { display: flex; flex-direction: column; align-items: flex-start; gap: 0.0758em; }
+.fp-wordbox { position: relative; overflow: hidden; }
+.fp-ink {
+  position: relative; z-index: 1; display: block;
+  font-family: 'Big Shoulders Display', sans-serif;
+  font-weight: 900; font-size: 1em; line-height: 1.02;
+  letter-spacing: -0.0121em; color: #0E0E0C; white-space: nowrap;
+  animation: fpInk 0.01s linear 1.17s both;
+}
+@keyframes fpInk { from { opacity: 0; } to { opacity: 1; } }
+
+.fp-wave { position: absolute; top: 0; bottom: 0; left: -6px; right: -6px; display: block; }
+/* THE LOCKED TWO-WAVE SWEEP: wave 1 at 0s, wave 2 at +0.32s, 0.50s each,
+   the warm pair landing Teal. Only wave 2's exit, the reveal, runs long. */
+.fp-wave1 { z-index: 2; background: #D4A832; animation: fpWave1 1.00s linear 0.35s both; }
+.fp-wave2 { z-index: 3; background: #3A8A8A; animation: fpWave2 1.60s linear 0.67s both; }
+@keyframes fpWave1 {
+  0%   { transform: translateX(-100%); animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); }
+  50%  { transform: translateX(0);     animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); }
+  100% { transform: translateX(100%); }
+}
+@keyframes fpWave2 {
+  0%      { transform: translateX(-100%); animation-timing-function: cubic-bezier(0.215, 0.61, 0.355, 1); }
+  31.25%  { transform: translateX(0);     animation-timing-function: cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+  100%    { transform: translateX(100%); }
+}
+
+.fp-sting .fp-url {
+  font-family: 'DM Mono', monospace; font-weight: 400; font-size: 0.1894em;
+  letter-spacing: 0.10em; line-height: 1; color: #4A4038;
+  animation: fpFade 0.34s cubic-bezier(0.215, 0.61, 0.355, 1) 2.15s both;
+}
+@keyframes fpFade { from { opacity: 0; } to { opacity: 1; } }
+
+.fp-tick-h, .fp-tick-v { position: absolute; top: -0.227em; left: -0.2576em; background: #E8521A; }
+.fp-tick-h { width: 0.1894em; height: 0.0227em; transform-origin: left center;
+             animation: fpTickH 0.28s cubic-bezier(0.165, 0.84, 0.44, 1) 2.38s both; }
+.fp-tick-v { width: 0.0227em; height: 0.1894em; transform-origin: center top;
+             animation: fpTickV 0.28s cubic-bezier(0.165, 0.84, 0.44, 1) 2.46s both; }
+@keyframes fpTickH { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+@keyframes fpTickV { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+
+.fp-sting .fp-tagline {
+  font-family: 'DM Mono', monospace; font-weight: 400; font-size: 0.1667em;
+  letter-spacing: 0.14em; line-height: 1.5; color: #4A4038; text-align: center;
+  max-width: 86vw;
+  animation: fpFade 0.44s cubic-bezier(0.215, 0.61, 0.355, 1) 2.58s both;
+}
+
+/* Phones: the lockup needs a bigger share of a narrow frame, and the mono
+   lines need to grow relative to it or they fall under a readable size. */
+@media (max-width: 700px) {
+  .fp-sting-group { font-size: clamp(34px, 10.8vw, 66px); gap: 0.55em; }
+  .fp-sting .fp-url { font-size: 0.30em; }
+  .fp-sting .fp-tagline { font-size: 0.28em; max-width: 78vw; }
+}
+
+/* Never animate for anyone who asked not to be animated. */
+@media (prefers-reduced-motion: reduce) { .fp-sting { display: none; } }

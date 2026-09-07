@@ -1,4 +1,4 @@
-# Forum Playbook OS — Product Brief
+# Forum Playbook OS: Product Brief
 Updated Wed / 2026-08-19 / 5:50 PM CT · v1.0.0
 
 Source: Colton's 2026-08-19 Plaud recording ("08-19 Meeting: Forum Play"), captured while driving, ~18 minutes, transcript in full below the fold of this brief's research trail. Action items in that recording were addressed directly to "Claude and Calvin" as development lead: write the phased brief, recommend the AI integration architecture, design the account/forum data model. This file is that response.
@@ -92,16 +92,16 @@ The synced-timer feature ("prop up as many phones as you want, they're all on th
 
 Entities (names are placeholders, not final schema, but the shape is the recommendation):
 
-- **Forum** — id, name, brand/roster code, subscription status, plan (free/paid), created date, calendar id, template id (default or custom).
-- **Member** — id, forum_id (a member can belong to more than one forum), name, email, role within that forum (moderator/timekeeper/member), notification preferences.
-- **Subscription** — forum_id, plan, price paid ($20 web / whatever the App Store math nets out to per Section 9), billing source (web vs App Store), status, renewal date. One subscription per forum, not per member, matching the "unit of sale is the forum" decision Colton was explicit about.
-- **Session** — a specific meeting instance: forum_id, date, agenda_template_id, current block/segment (live, owned by the Durable Object while active, snapshotted to D1 when the session ends), attendee list.
-- **ParkingLotItem** — forum_id, topic, type (IQ/EQ), source (submitted by / pulled from a reflection), status (open/used), used_in_session_id once pulled.
-- **Reflection** — forum_id, member_id, session_id, content (text or OCR'd image), visibility (forum-wide or private).
-- **Decision** — forum_id, session_id, text, category (logistics/retreat/membership/etc), auto-pushed to the debrief email and to the calendar if it implies a date.
-- **AgendaTemplate** — forum_id (null for the default global template), block structure (matches Section 3's table), segment timings, prompt strings per segment.
-- **CalendarSync** — forum_id, provider (Google/Apple), sync token, last pushed decision id.
-- **AIConnection** — member_id or forum_id (decide which, see Decision D2), provider (Claude/OpenAI), encrypted key reference, scopes, connected date. Never logged, never proxied through a store that retains payloads.
+- **Forum**: id, name, brand/roster code, subscription status, plan (free/paid), created date, calendar id, template id (default or custom).
+- **Member**: id, forum_id (a member can belong to more than one forum), name, email, role within that forum (moderator/timekeeper/member), notification preferences.
+- **Subscription**: forum_id, plan, price paid ($20 web / whatever the App Store math nets out to per Section 9), billing source (web vs App Store), status, renewal date. One subscription per forum, not per member, matching the "unit of sale is the forum" decision Colton was explicit about.
+- **Session**: a specific meeting instance: forum_id, date, agenda_template_id, current block/segment (live, owned by the Durable Object while active, snapshotted to D1 when the session ends), attendee list.
+- **ParkingLotItem**: forum_id, topic, type (IQ/EQ), source (submitted by / pulled from a reflection), status (open/used), used_in_session_id once pulled.
+- **Reflection**: forum_id, member_id, session_id, content (text or OCR'd image), visibility (forum-wide or private).
+- **Decision**: forum_id, session_id, text, category (logistics/retreat/membership/etc), auto-pushed to the debrief email and to the calendar if it implies a date.
+- **AgendaTemplate**: forum_id (null for the default global template), block structure (matches Section 3's table), segment timings, prompt strings per segment.
+- **CalendarSync**: forum_id, provider (Google/Apple), sync token, last pushed decision id.
+- **AIConnection**: member_id or forum_id (decide which, see Decision D2), provider (Claude/OpenAI), encrypted key reference, scopes, connected date. Never logged, never proxied through a store that retains payloads.
 
 ## 9. Payment model (this changes Colton's stated plan, in his favor)
 

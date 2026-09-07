@@ -21,7 +21,7 @@ for the reel card's block as a pattern), then rerun:
 
 Rerun after ANY homepage edit so the lane never drifts stale.
 The script fails loudly if an anchor it needs is missing.
-VERSION 1.3.0 (2026-08-10). Changelog: CHANGELOG.md at the repo root.
+VERSION 1.4.0 (2026-09-07). Changelog: CHANGELOG.md at the repo root.
 """
 import datetime
 import pathlib
@@ -56,7 +56,7 @@ t = must_replace(t, '<meta charset="UTF-8" />',
 t = must_replace(t, '<title>Forum Playbook', '<title>V3 BETA · Forum Playbook', 'title')
 
 # Root-absolute assets so the copy works from /beta/.
-for asset in ['styles.css', 'config.js', 'app.js', 'podcasts.js']:
+for asset in ['styles.css', 'sting.css', 'config.js', 'app.js', 'podcasts.js', 'sting.js']:
     t = must_replace(t, f'"{asset}"', f'"/{asset}"', asset)
 
 # The lane badge in the nav.
