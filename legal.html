@@ -15,6 +15,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="interior.css" />
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='16' fill='%23F0EBE0'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Roboto,sans-serif' font-weight='700' font-size='13' fill='%23E8521A' letter-spacing='0.5'>FP</text></svg>"/>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -44,94 +45,11 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-/* NAV */
-.nav {
-  background: var(--linen);
-  border-bottom: 0.5px solid var(--border);
-  padding: 0 40px;
-  height: 54px;
-  display: flex;
-  align-items: center;
-  gap: 32px;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-}
-.logo {
-  font-family: var(--font-display);
-  font-size: 18px;
-  font-weight: 900;
-  color: var(--pitch);
-  letter-spacing: 0.04em;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-.logo-mark {
-  font-family: 'Consolas', monospace;
-  font-size: 16px;
-  font-weight: 400;
-  color: var(--burn);
-  line-height: 1;
-}
-.nav-back {
-  font-family: var(--font-mono);
-  font-size: 10px;
-  color: #8A8070;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  margin-left: auto;
-  transition: color 0.2s;
-}
-.nav-back:hover { color: var(--pitch); }
-
 /* PAGE */
 .page {
   max-width: 720px;
   margin: 0 auto;
-  padding: 56px 40px 80px;
-}
-
-/* HEADER */
-.page-header {
-  margin-bottom: 48px;
-  padding-bottom: 24px;
-  border-bottom: 2px solid var(--burn);
-}
-.page-annot {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  color: #A89880;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  margin-bottom: 16px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.annot-box {
-  border: 0.5px solid var(--dust);
-  padding: 2px 6px;
-  font-size: 9px;
-}
-.annot-line { flex: 1; height: 0.5px; background: var(--dust); max-width: 40px; }
-.page-title {
-  font-family: var(--font-display);
-  font-size: 52px;
-  font-weight: 900;
-  color: var(--pitch);
-  line-height: 0.9;
-  letter-spacing: -0.5px;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-}
-.page-title .accent { color: var(--burn); }
-.page-meta {
-  font-family: var(--font-mono);
-  font-size: 9px;
-  color: #A89880;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  padding: 36px 40px 80px;
 }
 
 /* SECTIONS */
@@ -223,29 +141,34 @@ body {
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 
-<!-- NAV -->
-<header class="nav" role="banner">
-  <a href="/" class="logo">
-    <span class="logo-mark">⎇</span>
-    FORUM PLAYBOOK
+<!-- INTERIOR BAR: the slim menu bar every interior page wears instead of the
+     homepage's tall header (interior.css). It carries what the old nav plus the
+     old page banner carried: lockup home link, page name, page meta, nav. -->
+<header class="ibar" role="banner">
+  <a href="/" class="ibar-hit ibar-warm ibar-home" aria-label="Forum Playbook home">
+    <span>
+      <svg class="ibar-mark" viewBox="0 0 212 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path class="ibar-mb" d="M 0 5.9 L 42.06 5.9 L 101.6 94.1 L 212 94.1" />
+        <path class="ibar-ma" d="M 86.4 5.9 L 212 5.9" />
+      </svg>
+      <span class="ibar-word">FORUM PLAYBOOK</span>
+    </span>
   </a>
-  <a href="/" class="nav-back">Back to Site</a>
+  <span class="ibar-rule" aria-hidden="true"></span>
+  <span class="ibar-page">Privacy &amp; Terms</span>
+  <span class="ibar-meta">Updated July 2026</span>
+  <nav class="ibar-nav" aria-label="Main navigation">
+    <a href="/#resources" class="ibar-hit ibar-cool ibar-link"><span>Resources</span></a>
+    <a href="/timer" class="ibar-hit ibar-cool ibar-link"><span>Timer</span></a>
+    <a href="/brand" class="ibar-hit ibar-cool ibar-link"><span>Brand</span></a>
+    <a href="/" class="ibar-hit ibar-warm ibar-cta"><span>Back to Site</span></a>
+  </nav>
 </header>
 
 <!-- PAGE -->
 <main class="page">
 
-  <div class="page-header">
-    <div class="page-annot">
-      <div class="annot-box">FP</div>
-      <div class="annot-line"></div>
-      Legal
-      <div class="annot-line"></div>
-      <div class="annot-box">2026</div>
-    </div>
-    <div class="page-title">PRIVACY<br><span class="accent">& TERMS.</span></div>
-    <div class="page-meta">Last updated: July 2026</div>
-  </div>
+  <h1 class="ibar-h1">Forum Playbook privacy policy and terms of use</h1>
 
   <!-- PRIVACY POLICY -->
   <div class="legal-section">

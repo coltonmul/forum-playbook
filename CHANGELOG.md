@@ -6,6 +6,19 @@ Code and housed-document changes only. Library resources and videos sync from Go
 
 - (nothing; claim a shared-file rebuild here per CLAUDE.md rule 2 before starting it)
 
+## 2026-09-07, later
+
+- **INTERIOR PAGES GET A SLIM MENU BAR.** brand.html, legal.html and timer.html no longer wear the homepage's header. The homepage keeps its big header on purpose, it is the front door. Interior pages are content-heavy at the top, so their chrome collapses to one 46px line: the lockup home link, a hairline, the page name in Burn, the page meta, and the nav. Everything the old nav plus the old page banner carried, on one line.
+- **What that buys back at the top of the page.** brand.html loses the 135px document header and the three-line 72px cover title, so the color system now sits near the top of the first screen instead of below a scroll. legal.html loses the 276px PRIVACY & TERMS banner and opens on the privacy policy itself. timer.html keeps its full-height timer and gains 8px.
+- The model is the site's own one-pager header: identity, category, title, version, date, all in one chrome line. That pattern was already locked in `templates/TEMPLATE-CONTRACT.md`, so the interior bar is the web reading of a rule the documents have followed all along.
+- **`interior.css` is new and deliberately self-contained.** brand.html and legal.html each ship their own inline CSS and never load styles.css, so the bar defines its own tokens and its own copy of the locked two-wave. That makes it byte-identical on all three pages no matter what else the page loads, and nothing in it can collide with styles.css (`.sh` / `.warm` / `.cool` are untouched).
+- **The locked two-wave, on every interactive element in the bar, no exceptions:** wave 1 at 0s, wave 2 at +0.32s, 0.5s each, lift -2px, shadow the landing color at 50%. The lockup and the trailing button run warm and land Teal; the nav links run cool and land Blue. Keyboard focus fires the same wave as hover.
+- **The mark draws itself on.** The bar carries the real vector mark instead of the Consolas glyph, and it draws on once per page load using the exact beats and the exact path lengths from the load sting (`sting.css` `.fp-mb` 258.87 at 0.42s, `.fp-ma` 125.60 at 0.26s). Same animation, mark only, nothing re-derived. Skipped entirely under `prefers-reduced-motion`.
+- Contrast fixed while in there: the old nav grey `#8A8070` measures 3.2:1 on linen, under the brand's own 4.5:1 floor. The bar uses `#6E6558` at 4.9:1.
+- Each page keeps a real `<h1>` for assistive tech and search, visually hidden because the bar carries the page name on screen.
+- `timer.css` no longer hardcodes the old 54px nav height; it reads `--ibar-h`, so the bar's height changes in one place.
+- **NOT touched, on purpose:** index.html and styles.css (the homepage header is unchanged), and the one-pagers and templates. Those carry the print chrome band locked run-for-run against the Word template in `templates/TEMPLATE-CONTRACT.md` section 5; it is already a single 8pt line, it was never the homepage header, and editing it would break docx parity.
+
 ## 2026-09-07
 
 - **LOAD STING ON THE HOMEPAGE.** The Forum Playbook logo animation now plays over the homepage on first load: the mark draws on in Burn, the locked two-wave sweep sets the wordmark, the six hero stripes launch together and each decelerates to a stop at its own width, then the URL, the Burn corner tick and the tagline settle in. Same beats and same easing as the video build (source of record: `Projects/ForumPlaybook.com/videos/forum-playbook-logo-sting/` on the MacBook, v1.6.0).

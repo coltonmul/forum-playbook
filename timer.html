@@ -34,23 +34,33 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
+<link rel="stylesheet" href="interior.css" />
 <link rel="stylesheet" href="timer.css" />
 </head>
 <body class="ft-page" data-timer-theme="light">
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N4HDSNSD" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
-<!-- NAV -->
-<header class="nav" role="banner">
-  <a href="/" class="logo" aria-label="Forum Playbook home">
-    <span class="logo-mark" aria-hidden="true">⎇</span>
-    FORUM PLAYBOOK
+<!-- INTERIOR BAR: the slim menu bar every interior page wears instead of the
+     homepage's tall header (interior.css). -->
+<header class="ibar" role="banner">
+  <a href="/" class="ibar-hit ibar-warm ibar-home" aria-label="Forum Playbook home">
+    <span>
+      <svg class="ibar-mark" viewBox="0 0 212 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path class="ibar-mb" d="M 0 5.9 L 42.06 5.9 L 101.6 94.1 L 212 94.1" />
+        <path class="ibar-ma" d="M 86.4 5.9 L 212 5.9" />
+      </svg>
+      <span class="ibar-word">FORUM PLAYBOOK</span>
+    </span>
   </a>
-  <nav role="navigation" aria-label="Main navigation">
-    <a href="/#resources" class="nav-link">Resources</a>
-    <a href="/#videos" class="nav-link">How-To Videos</a>
-    <a href="/#podcasts" class="nav-link">Podcasts</a>
+  <span class="ibar-rule" aria-hidden="true"></span>
+  <span class="ibar-page">Forum Timer</span>
+  <span class="ibar-meta">Web App · iOS Coming Soon</span>
+  <nav class="ibar-nav" aria-label="Main navigation">
+    <a href="/#resources" class="ibar-hit ibar-cool ibar-link"><span>Resources</span></a>
+    <a href="/#videos" class="ibar-hit ibar-cool ibar-link"><span>How-To Videos</span></a>
+    <a href="/#podcasts" class="ibar-hit ibar-cool ibar-link"><span>Podcasts</span></a>
+    <a href="#about" class="ibar-hit ibar-warm ibar-cta"><span>About</span></a>
   </nav>
-  <a href="#about" class="nav-cta sh warm"><span>Web App · iOS Coming Soon</span></a>
 </header>
 
 <!-- THE TIMER -->

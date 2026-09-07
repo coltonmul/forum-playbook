@@ -1,0 +1,250 @@
+/* ═══════════════════════════════════════════════════════════════════
+   FORUM PLAYBOOK - interior.css  v1.0.0
+   THE INTERIOR BAR: the slim menu bar that interior pages wear instead
+   of the homepage's tall header. The homepage keeps its big header on
+   purpose (it is the front door). Interior pages are content-heavy at
+   the top, so their chrome collapses to one 46px line that still
+   carries everything the old nav + page banner carried: the lockup
+   home link, the page name, the page meta, and the nav.
+
+   DELIBERATELY SELF-CONTAINED. brand.html and legal.html each ship
+   their own inline CSS and never load styles.css, so this file defines
+   its own tokens (--ib-*) and its own copy of the locked two-wave.
+   That way the bar is byte-identical on all three interior pages no
+   matter what else the page loads, and nothing here can collide with
+   styles.css (.sh / .warm / .cool are untouched).
+
+   Locked two-wave, per brand rule 2: wave 1 at 0s, wave 2 at +0.32s,
+   0.5s each, warm lands Teal, cool lands Blue, lift -2px, shadow is
+   the landing color at 50%. Applied to every interactive element in
+   the bar, no exceptions.
+   ═══════════════════════════════════════════════════════════════════ */
+
+:root {
+  --ibar-h:    46px;   /* timer.css reads this; change it in one place */
+  --ib-pitch:  #0E0E0C;
+  --ib-burn:   #E8521A;
+  --ib-gold:   #D4A832;
+  --ib-teal:   #3A8A8A;
+  --ib-blue:   #2A6E9A;
+  --ib-linen:  #F0EBE0;
+  --ib-dust:   #C4B8A8;
+  --ib-quiet:  #6E6558;   /* 4.9:1 on linen; the old nav grey #8A8070 was 3.2:1 */
+  --ib-border: #C8C0B4;
+  --ib-display: 'Big Shoulders Display', sans-serif;
+  --ib-mono:    'DM Mono', monospace;
+}
+
+/* ── the bar ──────────────────────────────────────────────────── */
+.ibar {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--ibar-h);
+  background: var(--ib-linen);
+  border-bottom: 0.5px solid var(--ib-border);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px 0 22px;
+  font-size: 0;              /* kills inline-block whitespace gaps */
+  white-space: nowrap;
+}
+
+/* Every hit target in the bar: full two-wave, sized to leave the
+   -2px lift somewhere to go inside a 46px line. */
+@keyframes ibarWave { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+
+.ibar-hit {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  flex-shrink: 0;
+  height: 34px;
+  padding: 0 10px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: box-shadow 0.5s ease, transform 0.3s ease;
+}
+.ibar-hit::before,
+.ibar-hit::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  transform: translateX(-100%);
+}
+.ibar-hit::before { z-index: 0; }
+.ibar-hit::after  { z-index: 1; }
+.ibar-hit:hover::before,
+.ibar-hit:focus-visible::before { animation: ibarWave 0.5s cubic-bezier(0.4,0,0.2,1) 0s    forwards; }
+.ibar-hit:hover::after,
+.ibar-hit:focus-visible::after  { animation: ibarWave 0.5s cubic-bezier(0.4,0,0.2,1) 0.32s forwards; }
+.ibar-hit > span {
+  position: relative;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: color 0.12s ease 0.32s;
+}
+.ibar-hit:hover > span,
+.ibar-hit:focus-visible > span { color: #fff; }
+
+/* Warm family: Gold to Teal. */
+.ibar-warm::before { background: var(--ib-gold); }
+.ibar-warm::after  { background: var(--ib-teal); }
+.ibar-warm:hover, .ibar-warm:focus-visible {
+  box-shadow: 0 8px 28px rgba(58,138,138,0.5), 0 2px 8px rgba(58,138,138,0.25);
+  transform: translateY(-2px);
+}
+/* Cool family: Teal to Blue. */
+.ibar-cool::before { background: var(--ib-teal); }
+.ibar-cool::after  { background: var(--ib-blue); }
+.ibar-cool:hover, .ibar-cool:focus-visible {
+  box-shadow: 0 8px 28px rgba(42,110,154,0.5), 0 2px 8px rgba(42,110,154,0.25);
+  transform: translateY(-2px);
+}
+
+/* ── the lockup, left ─────────────────────────────────────────── */
+.ibar-home { margin-left: -10px; }
+.ibar-word {
+  font-family: var(--ib-display);
+  font-size: 15px;
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  color: var(--ib-pitch);
+  transition: color 0.12s ease 0.32s;
+}
+.ibar-home:hover .ibar-word,
+.ibar-home:focus-visible .ibar-word { color: #fff; }
+
+/* The real vector mark, not the Consolas glyph, so it can draw itself
+   on. Same geometry as the load sting (sting.css). */
+.ibar-mark { display: block; width: 22px; height: 10.4px; flex-shrink: 0; overflow: visible; }
+.ibar-mark path {
+  fill: none;
+  stroke: var(--ib-burn);
+  stroke-width: 11.8;
+  stroke-linecap: butt;
+  stroke-linejoin: miter;
+  stroke-miterlimit: 8;
+  transition: stroke 0.12s ease 0.32s;
+}
+.ibar-home:hover .ibar-mark path,
+.ibar-home:focus-visible .ibar-mark path { stroke: #fff; }
+
+/* MARK DRAW-ON, once per page load. Exact path lengths and the exact
+   beats from sting.css (.fp-mb / .fp-ma); this is the mark-only cut of
+   the same animation, nothing re-derived. */
+.ibar-mb { stroke-dasharray: 258.87; stroke-dashoffset: 258.87;
+           animation: ibarDraw 0.42s cubic-bezier(0.165, 0.84, 0.44, 1) 0.10s both; }
+.ibar-ma { stroke-dasharray: 125.60; stroke-dashoffset: 125.60;
+           animation: ibarDraw 0.26s cubic-bezier(0.165, 0.84, 0.44, 1) 0.33s both; }
+@keyframes ibarDraw { to { stroke-dashoffset: 0; } }
+
+/* ── page identity, the job the tall banner used to do ────────── */
+.ibar-rule {
+  width: 0.5px;
+  height: 18px;
+  background: var(--ib-border);
+  flex-shrink: 0;
+}
+.ibar-page {
+  flex-shrink: 0;
+  font-family: var(--ib-mono);
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ib-burn);
+}
+.ibar-meta {
+  flex-shrink: 0;
+  font-family: var(--ib-mono);
+  font-size: 9px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ib-quiet);
+}
+
+/* ── nav, right ───────────────────────────────────────────────── */
+.ibar-nav {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+.ibar-nav::-webkit-scrollbar { display: none; }
+.ibar-link {
+  font-family: var(--ib-mono);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ib-quiet);
+}
+.ibar-cta {
+  font-family: var(--ib-mono);
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ib-pitch);
+  border: 0.5px solid var(--ib-pitch);
+  margin-left: 8px;
+}
+.ibar-cta:hover, .ibar-cta:focus-visible { border-color: var(--ib-teal); }
+
+/* ── the compact page lead that replaced the banner ───────────── */
+.ibar-lead {
+  font-size: 14px;
+  line-height: 1.65;
+  color: #4A4038;
+  max-width: 62ch;
+  margin: 0 0 30px;
+}
+
+/* Screen-reader h1: the bar carries the page name visually, this keeps
+   the document's own heading intact for assistive tech and for search. */
+.ibar-h1 {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── narrow ───────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  .ibar-meta { display: none; }
+}
+@media (max-width: 680px) {
+  .ibar { padding: 0 12px 0 16px; gap: 8px; }
+  .ibar-word { font-size: 14px; }
+  .ibar-hit { height: 40px; padding: 0 8px; }
+  .ibar-link { font-size: 11px; }
+  .ibar-cta  { display: none; }
+  .ibar-nav  { gap: 0; }
+}
+@media (max-width: 460px) {
+  .ibar-word, .ibar-rule { display: none; }
+  .ibar-home { margin-right: 2px; }
+}
+
+/* Never animate for anyone who asked not to be animated. */
+@media (prefers-reduced-motion: reduce) {
+  .ibar-mb, .ibar-ma { animation: none; stroke-dashoffset: 0; }
+  .ibar-hit { transition: none; }
+  .ibar-hit:hover::before, .ibar-hit:hover::after,
+  .ibar-hit:focus-visible::before, .ibar-hit:focus-visible::after { animation-duration: 0.001s; }
+}

@@ -4,7 +4,7 @@ Created 2026-08-10 after two threads (the design/docs thread and the "Forum Time
 
 ## The two lanes (as of 2026-08-10)
 
-- **Design/docs lane:** mockups/, one-pagers/, templates/, brand.html, the one-pager system (source of record: `Projects/ForumPlaybook.com/one-pager-system/` on the MacBook).
+- **Design/docs lane:** mockups/, one-pagers/, templates/, brand.html, interior.css (the slim interior bar shared by brand/legal/timer; edit it there, never per page), the one-pager system (source of record: `Projects/ForumPlaybook.com/one-pager-system/` on the MacBook).
 - **App lane** (the "Forum Timer web app" thread): timer.html, timer.css, timer.js, og-timer.png, tools/build-beta.py, /beta experiments (current resident: the hours-in-the-room stats rework, awaiting Colton's corrections), reel-poster.jpg, preview.command.
 
 ## The rules

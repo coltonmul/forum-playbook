@@ -27,8 +27,9 @@ body.ft-page.timing .nav { display: none; }
 
 /* ── shell: display zone + control dock ── */
 .ft-shell {
-  height: calc(100vh - 54px);
-  height: calc(100dvh - 54px);
+  /* Clears the interior bar; --ibar-h is defined in interior.css. */
+  height: calc(100vh - var(--ibar-h, 46px));
+  height: calc(100dvh - var(--ibar-h, 46px));
   display: flex;
   flex-direction: column;
   background: var(--ft-face);

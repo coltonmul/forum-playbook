@@ -18,6 +18,7 @@
 <meta name="twitter:title" content="Forum Playbook: Brand Guide + Templates" />
 <meta name="twitter:image" content="https://forumplaybook.com/og-image.png" />
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="interior.css">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -54,106 +55,7 @@ body {
 .page {
   max-width: 1080px;
   margin: 0 auto;
-  padding: 48px 40px 80px;
-}
-
-/* ── HEADER ── */
-.doc-header {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  padding-bottom: 20px;
-  border-bottom: 2px solid var(--burn);
-  margin-bottom: 48px;
-}
-.doc-header-left {
-  display: flex;
-  align-items: flex-start;
-  gap: 8px;
-  font-family: 'Consolas', monospace;
-}
-.doc-header-sym {
-  font-size: 20px;
-  color: var(--burn);
-  line-height: 1.1;
-  padding-top: 2px;
-}
-.doc-header-stack { display: flex; flex-direction: column; gap: 3px; }
-.doc-header-name {
-  font-size: 16px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--pitch);
-  line-height: 1;
-}
-.doc-header-url {
-  font-size: 10px;
-  font-weight: 400;
-  letter-spacing: 0.04em;
-  color: var(--dust);
-  line-height: 1;
-}
-.doc-header-right {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px;
-  letter-spacing: 0.14em;
-  color: var(--dust);
-  text-align: right;
-  line-height: 1.8;
-  text-transform: uppercase;
-}
-
-/* ── HERO TITLE ── */
-.hero {
-  margin-bottom: 56px;
-  position: relative;
-}
-.hero-annot {
-  font-family: 'DM Mono', monospace;
-  font-size: 9px;
-  color: var(--dust);
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-.annot-box {
-  border: 0.5px solid var(--dust);
-  padding: 2px 6px;
-  font-size: 9px;
-  color: var(--dust);
-}
-.annot-line { flex: 1; height: 0.5px; background: var(--dust); max-width: 40px; }
-.hero-title {
-  font-family: 'Big Shoulders Display', sans-serif;
-  font-size: 72px;
-  font-weight: 900;
-  color: var(--pitch);
-  line-height: 0.88;
-  letter-spacing: -1px;
-  margin-bottom: 6px;
-}
-.hero-title .accent { color: var(--burn); }
-.hero-sub {
-  font-family: 'Big Shoulders Display', sans-serif;
-  font-size: 72px;
-  font-weight: 900;
-  color: var(--dust);
-  line-height: 0.88;
-  letter-spacing: -1px;
-  margin-bottom: 20px;
-}
-.hero-desc {
-  font-size: 13px;
-  color: var(--deep-dust);
-  max-width: 480px;
-  font-weight: 300;
-  line-height: 1.7;
-  margin-top: 16px;
-  padding-top: 16px;
-  border-top: 0.5px solid var(--border);
+  padding: 32px 40px 80px;
 }
 
 /* ── SECTION ── */
@@ -472,38 +374,37 @@ body {
 </style>
 </head>
 <body>
+<!-- INTERIOR BAR: the slim menu bar every interior page wears instead of the
+     homepage's tall header (interior.css). It carries what the old doc header
+     plus the old cover title carried: lockup home link, page name, version and
+     date, nav. -->
+<header class="ibar" role="banner">
+  <a href="/" class="ibar-hit ibar-warm ibar-home" aria-label="Forum Playbook home">
+    <span>
+      <svg class="ibar-mark" viewBox="0 0 212 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path class="ibar-mb" d="M 0 5.9 L 42.06 5.9 L 101.6 94.1 L 212 94.1" />
+        <path class="ibar-ma" d="M 86.4 5.9 L 212 5.9" />
+      </svg>
+      <span class="ibar-word">FORUM PLAYBOOK</span>
+    </span>
+  </a>
+  <span class="ibar-rule" aria-hidden="true"></span>
+  <span class="ibar-page">Brand Guide</span>
+  <span class="ibar-meta">v2.2 &middot; August 2026 &middot; Internal Use</span>
+  <nav class="ibar-nav" aria-label="Main navigation">
+    <a href="/#resources" class="ibar-hit ibar-cool ibar-link"><span>Resources</span></a>
+    <a href="/timer" class="ibar-hit ibar-cool ibar-link"><span>Timer</span></a>
+    <a href="/legal" class="ibar-hit ibar-cool ibar-link"><span>Legal</span></a>
+    <a href="/" class="ibar-hit ibar-warm ibar-cta"><span>Back to Site</span></a>
+  </nav>
+</header>
+
 <div class="page">
 
-  <!-- DOC HEADER -->
-  <div class="doc-header">
-    <div class="doc-header-left">
-      <span class="doc-header-sym">⎇</span>
-      <div class="doc-header-stack">
-        <div class="doc-header-name">FORUM PLAYBOOK</div>
-        <div class="doc-header-url">ForumPlaybook.com</div>
-      </div>
-    </div>
-    <div class="doc-header-right">
-      Brand Guidelines v2.2<br>
-      August 2026<br>
-      Internal Use
-    </div>
-  </div>
-
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-annot">
-      <div class="annot-box">FP</div>
-      <div class="annot-line"></div>
-      FP-000 / BRAND GUIDELINES
-      <div class="annot-line"></div>
-      <div class="annot-box">2026</div>
-    </div>
-    <div class="hero-title">FORUM<br>PLAYBOOK<br><span class="accent">BRAND GUIDE.</span></div>
-    <div class="hero-desc">
-      Forum Playbook is a Resource Hub for Forums, Moderators, &amp; Facilitators. This gets updated frequently so you don't have to make the same decisions twice. (Right now it's mostly just for me, you, and other AI. But still.)
-    </div>
-  </div>
+  <h1 class="ibar-h1">Forum Playbook brand guide, version 2.2</h1>
+  <p class="ibar-lead">
+    Forum Playbook is a Resource Hub for Forums, Moderators, &amp; Facilitators. This gets updated frequently so you don't have to make the same decisions twice. (Right now it's mostly just for me, you, and other AI. But still.)
+  </p>
 
   <!-- COLORS -->
   <div class="section">
