@@ -10,6 +10,14 @@ Code and housed-document changes only. Library resources and videos sync from Go
   the hero stripes read as stray blocks at narrow widths, and the reel video never starts on mobile
   so it sits as a still. Other lane: stay off index.html and styles.css until this entry clears.
 
+## 2026-09-18, later
+
+- **VISITOR COUNTER ON 7 PAGES (Colton approved it today).** One line immediately before `</body>`: the Cloudflare Web Analytics beacon for forumplaybook.com. No cookies, no consent banner needed, and it sits beside the existing Google tag (GTM-N4HDSNSD), which was not touched. Pages that got it: `brand.html`, `legal.html`, `timer.html`, and the four static mockups in `mockups/2026-08-10/`. The token in the line is public by design (Cloudflare prints it in page HTML).
+- **`legal.html` now says so.** The privacy policy named only Google as the site's analytics, so it gained one paragraph naming Cloudflare Web Analytics, what it records, and a link to Cloudflare's policy; the bar date moved from July 2026 to September 2026. The counter and its disclosure ship in the same push on purpose. Wording is plain and factual and is Colton's to refine.
+- **THE HOMEPAGE DOES NOT HAVE IT YET, so the forumplaybook.com count runs low until it does.** `index.html` is under the mobile homepage repair claim above, and `beta/index.html` is generated from it (rule 3), so both were left alone. Whoever lands that repair: add the same line as a new line right before `</body>` in `index.html` (copy it from the bottom of `timer.html`), then rerun `python3 tools/build-beta.py` so the beta lane inherits it.
+- **Also NOT touched, and why:** the four `one-pagers/` and `templates/onepager-template.html` (the template contract says nothing outside an EDIT-SLOT may change, and to ask rather than deviate, so this is Colton's call), and the seven files in `mockups/5-percent-reflection/` (written by `_build/build.py`, never hand-edited; if they should count, the line goes into the generator's page templates).
+- **No version numbers moved.** `timer.html`'s Web 1.1.0 is the Forum Timer product version (shown in the app's Settings, mirrored in `timer.js` and `timer.css`), brand.html's v2.3 is the Brand Guide's content version, and the 2026-08-10 mockups are a locked record. The counter changes none of those things, so, like the 2026-09-07 interior bar, this entry is the record.
+
 ## 2026-09-18
 
 - **5% REFLECTION SHEET MOCKUPS, the first worksheet.** New at `/mockups/5-percent-reflection/` (noindex): Colton's Forum 14 monthly 5% form rebuilt around the split in his Sept 2026 note to the EO trainer community. Same flow as the form he uses today (date, Career / Family / Self / Forum rated 1-10, three topics across Headline, Significance / Impact, Emotions / Feelings, What do I realize about myself?, then the wager), now with a big EQ zone on top for the 5% and a small IQ zone at the bottom to name 1-2 learning topics.
