@@ -10,6 +10,16 @@ Code and housed-document changes only. Library resources and videos sync from Go
   the hero stripes read as stray blocks at narrow widths, and the reel video never starts on mobile
   so it sits as a still. Other lane: stay off index.html and styles.css until this entry clears.
 
+## 2026-09-18
+
+- **5% REFLECTION SHEET MOCKUPS, the first worksheet.** New at `/mockups/5-percent-reflection/` (noindex): Colton's Forum 14 monthly 5% form rebuilt around the split in his Sept 2026 note to the EO trainer community. Same flow as the form he uses today (date, Career / Family / Self / Forum rated 1-10, three topics across Headline, Significance / Impact, Emotions / Feelings, What do I realize about myself?, then the wager), now with a big EQ zone on top for the 5% and a small IQ zone at the bottom to name 1-2 learning topics.
+- **Three iterations that differ only in how much context rides on the page:** A is labels only, B adds one sentence per zone (EQ is the whys, IQ is the what and the how), C adds the agenda itself (a time bar drawn to scale, a parking lot / today's queue check box on every topic, and his three example IQ topics). The gallery reports the trade honestly: writing height per EQ topic is 2.19 in, 2.18 in and 1.86 in, against about 2.6 in on the current form.
+- **Each iteration ships twice:** a Forum Playbook sheet with the locked chrome runs, and a neutral sheet with no mark, no name and no URL on the page, in the PDF title, or in the file name. Same layout and color in both. Six HTML files, six one-page PDFs with fonts embedded, six PNG previews.
+- **One generator, never hand-edit the outputs:** `mockups/5-percent-reflection/_build/build.py` (v0.1.0) writes all six sheets, renders the PDFs through headless Chrome, and fails the build if a PDF is not exactly one page, if Big Shoulders or Roboto did not embed, if a sheet overflows its page, or if an em dash appears. The underscore folder keeps it off the published site. Gotcha it handles: headless Chrome 153 on this Mac writes its output and then never exits, so the script watches Chrome's log for the "bytes written" line and stops the one process it started.
+- **A new document type, on purpose.** Write-in fields are not in the template contract's block library, and a write-on form wants the width, so the sheet keeps the contract's tokens, fonts and chrome runs but uses its own geometry (half-inch side margins). The contract gets its WORKSHEET amendment when Colton picks a winner, not before.
+- **brand.html to v2.3:** section 08 gains an "In Review, Not Final Yet" tier with one row pointing at the mockups, so they are findable from the place templates already live.
+- **NOT touched:** index.html, styles.css and beta/ (the mobile homepage repair claim above still stands, and that thread's uncommitted work in this checkout was left exactly as found).
+
 ## 2026-09-07, later
 
 - **INTERIOR PAGES GET A SLIM MENU BAR.** brand.html, legal.html and timer.html no longer wear the homepage's header. The homepage keeps its big header on purpose, it is the front door. Interior pages are content-heavy at the top, so their chrome collapses to one 46px line: the lockup home link, a hairline, the page name in Burn, the page meta, and the nav. Everything the old nav plus the old page banner carried, on one line.
