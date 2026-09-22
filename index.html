@@ -105,6 +105,91 @@ else{localStorage.setItem(fpK,fpT);}}catch(e){}</script>
     <div class="hs" style="background:#2A6E9A;opacity:0.06;width:22%"></div>
   </div>
   <style>
+  /* ── APP BETA BUTTON (Colton, 2026-09-22: "Forum Playbook App Coming Soon", Join the Beta;
+     small, on brand, above the fold). First thing in the hero at every width: above the reel
+     card on phones and tablets, its own top row of the hero grid on desktop. Pitch pill, cool
+     two-wave (lands Blue, the family whose white label passes 4.5:1), Burn corner tick from the
+     reel card. Opens a prefilled email to Colton until a public TestFlight link exists. ── */
+  .app-beta {
+    display: flex;
+    width: fit-content;
+    max-width: 100%;
+    z-index: 3;
+    margin: 0 0 20px;
+    background: var(--pitch);
+    border: 0.5px solid var(--pitch);
+    text-decoration: none;
+  }
+  .app-beta > span { display: flex; align-items: stretch; min-height: 46px; }
+  .ab-tick {
+    position: absolute;
+    top: 0; left: 0;
+    width: 10px; height: 10px;
+    border-top: 3px solid var(--burn);
+    border-left: 3px solid var(--burn);
+  }
+  .ab-tag, .ab-cta { display: flex; align-items: center; transition: color 0.12s ease 0.32s; }
+  .ab-tag {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding: 8px 14px 8px 18px;
+    border-right: 0.5px solid rgba(240, 235, 224, 0.3);
+  }
+  .ab-cta {
+    gap: 8px;
+    font-family: var(--font-display);
+    font-size: 18px;
+    font-weight: 900;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--linen);
+    padding: 8px 18px 8px 14px;
+  }
+  .ab-arrow { font-family: var(--font-body); font-weight: 500; }
+  .app-beta:hover .ab-tag, .app-beta:hover .ab-cta,
+  .app-beta:focus-visible .ab-tag, .app-beta:focus-visible .ab-cta { color: #fff; }
+  /* Keyboard focus fires the same wave as hover, plus a ring (the interior bar's rule). */
+  .app-beta:focus-visible::before { animation: wave1 0.5s cubic-bezier(0.4,0,0.2,1) 0s    forwards; }
+  .app-beta:focus-visible::after  { animation: wave2 0.5s cubic-bezier(0.4,0,0.2,1) 0.32s forwards; }
+  .app-beta:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 3px;
+    box-shadow: 0 8px 28px rgba(42,110,154,0.5), 0 2px 8px rgba(42,110,154,0.25);
+    transform: translateY(-2px);
+  }
+  /* Phones: the two halves stack so nothing runs off the screen. */
+  @media (max-width: 560px) {
+    .app-beta > span { flex-direction: column; }
+    .ab-tag { border-right: 0; border-bottom: 0.5px solid rgba(240, 235, 224, 0.3); padding: 10px 16px 7px 18px; }
+    .ab-cta { padding: 7px 16px 10px 18px; }
+  }
+  /* Desktop: extends the HERO RELAYOUT grid in styles.css with a top "beta" row.
+     If those grid-template-areas ever change, change these two lines with them. */
+  @media (min-width: 981px) {
+    .hero { grid-template-areas: "beta beta" "annot annot" "h1 reel" "sub stats"; }
+    .hero .app-beta { grid-area: beta; justify-self: start; }
+  }
+  @media (min-width: 1240px) {
+    .hero { grid-template-areas: "beta beta beta" "annot annot annot" "h1 reel stats" "sub reel stats"; }
+  }
+  /* Reduced motion: no sweep and no lift, the button simply turns Blue. */
+  @media (prefers-reduced-motion: reduce) {
+    .app-beta, .ab-tag, .ab-cta { transition: none; }
+    .app-beta:hover::before, .app-beta:focus-visible::before { animation: wave1 0.001s linear 0s forwards; }
+    .app-beta:hover::after,  .app-beta:focus-visible::after  { animation: wave2 0.001s linear 0s forwards; }
+    .app-beta:hover, .app-beta:focus-visible { transform: none; }
+  }
+  </style>
+  <a class="app-beta sh cool" href="mailto:colton@foxfuelcreative.com?subject=BETA%20%2F%20Forum%20Playbook%20app&amp;body=Count%20me%20in%20for%20the%20Forum%20Playbook%20app%20beta.%0D%0A%0D%0AName%3A%20%0D%0AEmail%20for%20the%20TestFlight%20invite%3A%20%0D%0AiPhone%2C%20iPad%2C%20or%20both%3A%20%0D%0A"><span>
+    <span class="ab-tick" aria-hidden="true"></span>
+    <span class="ab-tag"><span>Forum Playbook App · <span style="white-space:nowrap">Coming Soon</span></span></span>
+    <span class="ab-cta">Join the Beta <span class="ab-arrow" aria-hidden="true">→</span></span>
+  </span></a>
+  <style>
   /* ── The reel card, pinned over the hero stripes (graduated from the V3 beta 2026-08-10) ── */
   .reel-card {
     position: absolute;
