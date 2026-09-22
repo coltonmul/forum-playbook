@@ -41,6 +41,15 @@ body {
   min-height: 100vh;
 }
 
+/* NO SIDEWAYS PANNING, EVER (Colton, 2026-09-22: on his phone the page scrolled
+   sideways off the content). The real cause was the resource rail (fixed at the
+   rail rules below); this locks the page to the screen width so nothing can do
+   it again. clip on body, never hidden: hidden would make body a scroll box and
+   unstick the sticky nav and rail. html's value moves to the viewport; hidden is
+   listed first only for browsers too old to know clip. */
+html { overflow-x: hidden; overflow-x: clip; }
+body { overflow-x: clip; }
+
 /* ── STRIPE HOVER SYSTEM ────────────────────────────────── */
 @keyframes wave1 { 0% { transform: translateX(-100%); } 100% { transform: translateX(0%); } }
 @keyframes wave2 { 0% { transform: translateX(-100%); } 100% { transform: translateX(0%); } }
@@ -921,7 +930,8 @@ body {
   .nav-link { font-size: 12px; }
   .nav-cta  { font-size: 11px; padding: 9px 16px; }
 
-  /* Hero stats */
+  /* Hero stats: two by two, so the fourth never runs off the right edge */
+  .stats { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 24px; width: 100%; }
   .stat-num   { font-size: 38px; }
   .stat-label { font-size: 11px; }
   .hero-sub   { font-size: 14px; }
@@ -1312,9 +1322,11 @@ body {
 .fx-restricted { background: var(--white); border: 0.5px solid #D4CCC0; padding: 6px 4px; }
 
 @media (max-width: 880px) {
-  .finder { grid-template-columns: 1fr; }
+  /* minmax(0, 1fr), not 1fr: a plain 1fr track grows to fit its widest child,
+     which is how the rail once pushed the whole page to 8,545px wide. */
+  .finder { grid-template-columns: minmax(0, 1fr); }
   .fx-rail { position: static; display: flex; overflow-x: auto; gap: 4px; padding: 8px; }
-  .fx-rail-item { flex: 0 0 auto; border-left: 0; border-bottom: 3px solid transparent; min-height: 40px; }
+  .fx-rail-item { flex: 0 0 auto; width: auto; border-left: 0; border-bottom: 3px solid transparent; min-height: 40px; }
   .fx-rail-item.on { border-bottom-color: var(--burn); }
   .fx-rail-split { display: none; }
   .fx-btns { display: none; }
@@ -1501,7 +1513,10 @@ body {
 .fx-sheet .fx-prev { padding: 0; }
 
 @media (max-width: 880px) {
-  .fx-rail { max-height: none; overflow: visible; top: 0; }
+  /* Phones and tablets: the rail is a sideways strip that scrolls inside itself.
+     This line said overflow: visible from 2026-08-11 to 2026-09-22, which undid
+     the strip's own scrolling and let its buttons stretch the page sideways. */
+  .fx-rail { max-height: none; overflow-x: auto; overflow-y: hidden; top: 0; }
   .fx-peek { display: none; }
   .fx-list.view-icons { grid-template-columns: repeat(auto-fill, minmax(108px, 1fr)); }
 }
