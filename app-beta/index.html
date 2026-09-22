@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Join the Beta | Forum Playbook App</title>
+<meta name="description" content="The Forum Playbook app is coming to iPhone and iPad. Join the TestFlight beta: seven questions, about two minutes.">
+<link rel="canonical" href="https://forumplaybook.com/app-beta/">
+
+<!-- Open Graph (iMessage, Slack, LinkedIn, Facebook, WhatsApp, Discord) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Forum Playbook">
+<meta property="og:url" content="https://forumplaybook.com/app-beta/">
+<meta property="og:title" content="Join the Forum Playbook app beta">
+<meta property="og:description" content="The Forum Playbook app is coming to iPhone and iPad. Seven questions, about two minutes, and your TestFlight invite comes next.">
+<meta property="og:image" content="https://forumplaybook.com/app-beta/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Forum Playbook app, coming soon. Join the beta.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Join the Forum Playbook app beta">
+<meta name="twitter:description" content="Seven questions, about two minutes, and your TestFlight invite comes next.">
+<meta name="twitter:image" content="https://forumplaybook.com/app-beta/og.png">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><circle cx='16' cy='16' r='16' fill='%23F0EBE0'/><text x='50%25' y='54%25' dominant-baseline='middle' text-anchor='middle' font-family='Roboto,sans-serif' font-weight='700' font-size='13' fill='%23E8521A' letter-spacing='0.5'>FP</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=DM+Sans:wght@300;400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/interior.css">
+<style>
+/* APP BETA SIGNUP. VERSION 1.0.0 (2026-09-22). Modeled on the EO House member survey
+   (eo-house-survey.pages.dev): dark hero, the why rows, numbered question cards, a sticky
+   progress bar, ranked ticks that show their order, a thank-you panel. Forum Playbook brand.
+   Every text pair below was measured for the legibility law; the numbers are in CHANGELOG.md. */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --pitch: #0E0E0C; --burn: #E8521A; --brick: #B83A14; --gold: #D4A832;
+  --teal: #3A8A8A; --blue: #2A6E9A; --linen: #F0EBE0; --linen-dark: #E8E2D6;
+  --dust: #C4B8A8; --card-line: #D4CCC0; --white: #FFFFFF;
+  --ink-soft: #4A4038;   /* reading text: 8.5:1 on linen, 10.1:1 on white */
+  --hint: #6E6558;       /* placeholders: 5.7:1 on white */
+  --edge: #8A8070;       /* input and tick-box edges: 3.9:1 on white */
+  --link: #1A4866;       /* links in reading text: 7.5:1 on the signup band, 8.2:1 on linen */
+  --picked: #E6EEF4;     /* a picked row */
+  --font-display: 'Big Shoulders Display', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+  --font-body: 'DM Sans', sans-serif;
+}
+html { background: var(--linen); scroll-behavior: smooth; }
+body { background: var(--linen); color: var(--pitch); font: 400 17px/1.55 var(--font-body); -webkit-font-smoothing: antialiased; }
+a { color: var(--link); }
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+.kick { font: 500 12px/1.3 var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-soft); display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.kick::before { content: ''; width: 10px; height: 10px; background: var(--burn); flex: none; }
+h2 { font: 900 clamp(30px, 7vw, 44px)/1 var(--font-display); text-transform: uppercase; letter-spacing: 0.01em; margin-bottom: 14px; }
+.lead { font-size: 18px; color: var(--ink-soft); max-width: 36em; margin-bottom: 28px; }
+
+/* The locked two-wave, cool family: Teal, then lands Blue, where white text measures 5.5:1. */
+@keyframes fpWave { from { transform: translateX(-100%); } to { transform: translateX(0); } }
+.w { position: relative; overflow: hidden; isolation: isolate; transition: box-shadow 0.5s ease, transform 0.3s ease; }
+.w::before, .w::after { content: ''; position: absolute; inset: 0; transform: translateX(-100%); z-index: -1; }
+.w::before { background: var(--teal); }
+.w::after { background: var(--blue); }
+.w:hover::before, .w:focus-visible::before { animation: fpWave 0.5s cubic-bezier(0.4,0,0.2,1) 0s forwards; }
+.w:hover::after, .w:focus-visible::after { animation: fpWave 0.5s cubic-bezier(0.4,0,0.2,1) 0.32s forwards; }
+.w:hover, .w:focus-visible { color: #fff; box-shadow: 0 8px 28px rgba(42,110,154,0.5), 0 2px 8px rgba(42,110,154,0.25); transform: translateY(-2px); transition: box-shadow 0.5s ease, transform 0.3s ease, color 0.12s ease 0.32s; }
+:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+
+/* PROGRESS: rides under the interior bar */
+.progress { position: sticky; top: var(--ibar-h, 46px); z-index: 90; height: 5px; background: var(--card-line); }
+.progress i { display: block; height: 100%; width: 0; background: var(--burn); transition: width 0.25s; }
+
+/* HERO */
+.hero { background: var(--pitch); color: var(--linen); padding: 44px 0 50px; position: relative; overflow: hidden; }
+.hero-stripes { position: absolute; top: 0; right: 0; bottom: 0; width: 34%; display: flex; flex-direction: column; pointer-events: none; }
+.hero-stripes i { flex: 1; align-self: flex-end; }
+.hero .wrap { position: relative; }
+.hero-kick { font: 500 13px/1.3 var(--font-mono); letter-spacing: 0.14em; text-transform: uppercase; color: var(--gold); margin-bottom: 18px; }
+.hero h1 { font: 900 clamp(52px, 13vw, 96px)/0.9 var(--font-display); text-transform: uppercase; letter-spacing: -0.5px; margin-bottom: 20px; }
+.hero h1 span { color: var(--gold); }
+.hero-lead { font-size: 19px; line-height: 1.5; color: var(--linen-dark); max-width: 31em; margin-bottom: 28px; }
+.cta { display: inline-flex; align-items: center; gap: 10px; min-height: 52px; padding: 0 26px; background: var(--burn); color: var(--pitch); font: 900 20px/1 var(--font-display); letter-spacing: 0.06em; text-transform: uppercase; text-decoration: none; }
+.minutes { display: block; margin-top: 14px; font: 400 14px/1.4 var(--font-mono); letter-spacing: 0.04em; color: var(--dust); }
+
+/* HOW THE BETA WORKS */
+.how { padding: 48px 0 44px; }
+.rows { border-top: 0.5px solid var(--card-line); }
+.row { display: flex; gap: 16px; padding: 22px 0; border-bottom: 0.5px solid var(--card-line); }
+.ico { flex: none; width: 48px; height: 48px; background: var(--white); border: 0.5px solid var(--card-line); display: grid; place-items: center; position: relative; }
+.ico::before { content: ''; position: absolute; top: -1px; left: -1px; width: 9px; height: 9px; border-top: 2px solid var(--burn); border-left: 2px solid var(--burn); }
+.ico svg { width: 24px; height: 24px; stroke: var(--pitch); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.row h3 { font: 700 19px/1.25 var(--font-body); margin: 2px 0 6px; }
+.row p { font-size: 16px; color: var(--ink-soft); line-height: 1.5; }
+.btn-dark { display: inline-flex; align-items: center; gap: 8px; min-height: 46px; margin-top: 14px; padding: 0 18px; background: var(--pitch); color: var(--linen); font: 500 13px/1 var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; }
+
+/* THE SIGNUP */
+.survey { background: var(--linen-dark); border-top: 0.5px solid var(--card-line); border-bottom: 0.5px solid var(--card-line); padding: 48px 0 56px; }
+.sec { margin-top: 34px; }
+.q { position: relative; background: var(--white); border: 0.5px solid var(--card-line); padding: 22px 20px 22px; margin-bottom: 14px; }
+.q::before { content: ''; position: absolute; top: -1px; left: -1px; width: 12px; height: 12px; border-top: 3px solid var(--burn); border-left: 3px solid var(--burn); }
+.num { font: 500 12px/1.3 var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-soft); }
+.num b { font-weight: 500; color: var(--brick); }
+.num b.optl { color: var(--ink-soft); }
+.qt { display: block; font: 500 20px/1.3 var(--font-body); color: var(--pitch); margin-top: 7px; }
+.help { font-size: 16px; line-height: 1.5; color: var(--ink-soft); margin-top: 8px; }
+input[type=text], input[type=email], textarea { display: block; width: 100%; margin-top: 14px; font: 400 17px/1.4 var(--font-body); color: var(--pitch); background: var(--white); border: 1px solid var(--edge); border-radius: 0; padding: 13px 14px; min-height: 50px; -webkit-appearance: none; appearance: none; }
+textarea { resize: vertical; }
+::placeholder { color: var(--hint); opacity: 1; }
+input:focus, textarea:focus { outline: 2px solid var(--blue); outline-offset: 1px; border-color: var(--blue); }
+.q.missing { border-color: var(--brick); box-shadow: 0 0 0 1px var(--brick); }
+.tf { font-size: 15px; line-height: 1.5; color: var(--ink-soft); margin-top: 12px; padding: 10px 12px; background: var(--linen); border-left: 3px solid var(--gold); }
+.opts { display: grid; gap: 8px; margin-top: 16px; }
+.opt { display: flex; align-items: center; gap: 14px; width: 100%; min-height: 54px; padding: 10px 14px; text-align: left; background: var(--white); border: 1px solid var(--card-line); color: var(--pitch); font: 400 16.5px/1.35 var(--font-body); cursor: pointer; }
+.opt:hover { border-color: var(--edge); }
+.opt .box { flex: none; width: 28px; height: 28px; border: 2px solid var(--edge); display: grid; place-items: center; font: 700 14px/1 var(--font-mono); color: #fff; background: var(--white); }
+.opt[aria-pressed=true] { background: var(--picked); border-color: var(--blue); }
+.opt[aria-pressed=true] .box { background: var(--blue); border-color: var(--blue); }
+.opt[aria-pressed=true] .box::after { content: attr(data-rank); }
+.count { font: 400 14px/1.4 var(--font-mono); letter-spacing: 0.03em; color: var(--ink-soft); margin-top: 12px; }
+.hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+.err { display: none; background: #FBEAEA; border: 1px solid var(--brick); color: #7A1414; padding: 12px 14px; font-size: 16px; line-height: 1.45; margin: 6px 0 14px; }
+.err.on { display: block; }
+.send { display: block; width: 100%; min-height: 58px; margin-top: 8px; border: 0; background: var(--pitch); color: var(--linen); font: 900 22px/1 var(--font-display); letter-spacing: 0.06em; text-transform: uppercase; cursor: pointer; }
+.send:disabled { opacity: 0.7; cursor: default; transform: none; box-shadow: none; }
+.fine { font-size: 14px; line-height: 1.5; color: var(--ink-soft); margin-top: 12px; text-align: center; }
+.done { padding: 20px 0 10px; }
+.done[hidden] { display: none; }
+.done p { font-size: 18px; color: var(--ink-soft); max-width: 34em; margin-bottom: 12px; }
+.done p b { color: var(--pitch); font-weight: 500; overflow-wrap: anywhere; }
+
+/* FOOTER */
+.foot { background: var(--pitch); color: var(--linen); padding: 30px 0 40px; font-size: 14px; }
+.foot a { color: var(--linen); }
+.foot-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 20px; padding-bottom: 16px; border-bottom: 0.5px solid #3A3A34; }
+.foot-home { font: 900 18px/1 var(--font-display); letter-spacing: 0.04em; text-decoration: none; }
+.foot-home span { color: var(--burn); font-family: 'Consolas', monospace; font-weight: 400; margin-right: 6px; }
+.foot nav { display: flex; flex-wrap: wrap; gap: 6px 18px; font: 400 13px/1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; }
+.foot nav a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; }
+.stamp { display: flex; flex-wrap: wrap; gap: 6px 18px; justify-content: space-between; padding-top: 16px; color: var(--dust); font: 400 13px/1.5 var(--font-mono); }
+.log { margin-top: 12px; color: var(--dust); }
+.log summary { cursor: pointer; font: 500 13px/1.5 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--linen); min-height: 44px; display: flex; align-items: center; }
+.log ul { padding-left: 18px; font-size: 14px; line-height: 1.55; }
+
+@media (max-width: 560px) {
+  .hero { padding: 34px 0 40px; }
+  .hero-stripes { width: 22%; opacity: 0.55; }
+  .q { padding: 20px 16px; }
+  .qt { font-size: 19px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .w, .w:hover, .w:focus-visible { transition: none; transform: none; }
+  .w:hover::before, .w:focus-visible::before, .w:hover::after, .w:focus-visible::after { animation: fpWave 0.001s linear 0s forwards; }
+  .progress i { transition: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- INTERIOR BAR: the slim menu bar every interior page wears (interior.css). -->
+<header class="ibar" role="banner">
+  <a href="/" class="ibar-hit ibar-warm ibar-home" aria-label="Forum Playbook home">
+    <span>
+      <svg class="ibar-mark" viewBox="0 0 212 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path class="ibar-mb" d="M 0 5.9 L 42.06 5.9 L 101.6 94.1 L 212 94.1" />
+        <path class="ibar-ma" d="M 86.4 5.9 L 212 5.9" />
+      </svg>
+      <span class="ibar-word">FORUM PLAYBOOK</span>
+    </span>
+  </a>
+  <span class="ibar-rule" aria-hidden="true"></span>
+  <span class="ibar-page">App Beta</span>
+  <span class="ibar-meta">Updated Tue / 2026-09-22 / 7:39 AM CT</span>
+  <nav class="ibar-nav" aria-label="Main navigation">
+    <a href="/#resources" class="ibar-hit ibar-cool ibar-link"><span>Resources</span></a>
+    <a href="/timer" class="ibar-hit ibar-cool ibar-link"><span>Timer</span></a>
+    <a href="/brand" class="ibar-hit ibar-cool ibar-link"><span>Brand</span></a>
+    <a href="/" class="ibar-hit ibar-warm ibar-cta"><span>Back to Site</span></a>
+  </nav>
+</header>
+<div class="progress" aria-hidden="true"><i id="bar"></i></div>
+
+<main>
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="hero-stripes" aria-hidden="true">
+      <i style="background:#B83A14;opacity:0.35;width:100%"></i>
+      <i style="background:#D4611A;opacity:0.3;width:82%"></i>
+      <i style="background:#E8521A;opacity:0.26;width:64%"></i>
+      <i style="background:#D4A832;opacity:0.22;width:50%"></i>
+      <i style="background:#3A8A8A;opacity:0.2;width:36%"></i>
+      <i style="background:#2A6E9A;opacity:0.2;width:22%"></i>
+    </div>
+    <div class="wrap">
+      <p class="hero-kick">Forum Playbook App · Coming Soon</p>
+      <h1 id="hero-title">Join the <span>beta.</span></h1>
+      <p class="hero-lead">The Forum Playbook app is coming to iPhone and iPad, built for the way forums actually run. We are inviting forums in early. Tell us who you are and what you would use most, and your TestFlight invite comes next.</p>
+      <a class="cta w" href="#signup"><span>Start the signup</span> <span aria-hidden="true">↓</span></a>
+      <span class="minutes" id="minutes">Seven questions, about two minutes.</span>
+    </div>
+  </section>
+
+  <section class="how" aria-labelledby="how-title">
+    <div class="wrap">
+      <p class="kick">How the beta works</p>
+      <h2 id="how-title">Three things before you start</h2>
+      <div class="rows">
+        <div class="row">
+          <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 20h14"/></svg></div>
+          <div>
+            <h3>Get TestFlight first</h3>
+            <p>TestFlight is Apple's official app for trying new apps before they reach the App Store. It is free. Download it now so your invite opens with one tap.</p>
+            <a class="btn-dark w" href="https://apps.apple.com/us/app/testflight/id899247664" target="_blank" rel="noopener"><span>Get TestFlight on the App Store</span> <span aria-hidden="true">↗</span></a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="5.5" width="18" height="13" rx="1"/><path d="m3.5 6.5 8.5 7 8.5-7"/></svg></div>
+          <div>
+            <h3>Use the email tied to your Apple ID</h3>
+            <p>The one you use for iCloud and the App Store. That is the address your TestFlight invite will be sent to.</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M16 20v-1.5a3.5 3.5 0 0 0-3.5-3.5h-5A3.5 3.5 0 0 0 4 18.5V20"/><circle cx="10" cy="8" r="3.2"/><path d="M20 20v-1.5a3.5 3.5 0 0 0-2.6-3.4M15.5 5.2a3.2 3.2 0 0 1 0 6"/></svg></div>
+          <div>
+            <h3>Bring your forum</h3>
+            <p>Add your forum mates' email addresses if you want your whole forum in. Each person still accepts their own invite, and signing up with that address places them straight into your forum's profile.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="survey" id="signup" aria-labelledby="signup-title">
+    <div class="wrap">
+      <div id="form-wrap">
+        <p class="kick">The signup</p>
+        <h2 id="signup-title">Seven questions</h2>
+        <p class="lead" id="signup-lead">Required questions are marked. It takes about two minutes.</p>
+        <form id="f" novalidate>
+          <div id="qs"></div>
+          <div class="hp" aria-hidden="true"><label>Leave this empty <input type="text" name="website" id="website" tabindex="-1" autocomplete="off"></label></div>
+          <div class="err" id="err" role="alert"></div>
+          <button class="send w" id="send" type="submit"><span>Join the beta</span></button>
+          <p class="fine">We use your answers only to invite you, and anyone you list, to the beta and to decide what to build first. Never sold, never shared. <a href="/legal">Privacy &amp; Terms</a></p>
+        </form>
+      </div>
+      <div class="done" id="done" hidden tabindex="-1">
+        <p class="kick">You are in</p>
+        <h2>You are on the list.</h2>
+        <p>Your TestFlight invite will go to <b id="done-email"></b>. When it arrives, open the email on your iPhone and follow the link into TestFlight.</p>
+        <p>No TestFlight yet? Get it now so you are ready.</p>
+        <a class="btn-dark w" href="https://apps.apple.com/us/app/testflight/id899247664" target="_blank" rel="noopener"><span>Get TestFlight on the App Store</span> <span aria-hidden="true">↗</span></a>
+        <p style="margin-top:22px">Know a forum that should be in? Send them this page: <a href="/app-beta/">forumplaybook.com/app-beta</a></p>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot" role="contentinfo">
+  <div class="wrap">
+    <div class="foot-row">
+      <a href="/" class="foot-home"><span aria-hidden="true">⎇</span>FORUM PLAYBOOK</a>
+      <nav aria-label="Footer">
+        <a href="/">Resources</a>
+        <a href="/timer">Timer</a>
+        <a href="/legal">Privacy &amp; Terms</a>
+      </nav>
+    </div>
+    <div class="stamp">
+      <span>Updated Tue / 2026-09-22 / 7:39 AM CT · v1.0.0</span>
+      <span>Built by Colton with Claude</span>
+    </div>
+    <details class="log">
+      <summary>Changelog</summary>
+      <ul>
+        <li><b>v1.0.0</b> (2026-09-22): First build, replacing the homepage button's email. Modeled on the EO House member survey. Asks everything the email asked (name, the email to use, chapter, forum number or name, optional forum mates' emails with the whitelist note), now with the Apple ID email for the TestFlight invite, a prompt to get TestFlight first, and twelve features ranked in the order they are ticked.</li>
+      </ul>
+    </details>
+  </div>
+</footer>
+
+<script src="/app-beta/questions.js?v=1.0.0"></script>
+<script>
+(function () {
+  var API = 'https://forum-playbook-beta.pages.dev/api/signup';
+  var TESTFLIGHT = 'https://apps.apple.com/us/app/testflight/id899247664';
+  var WORDS = ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten', 'Eleven', 'Twelve'];
+  var startedAt = Date.now();
+  var answers = {};
+  var qs = document.getElementById('qs');
+
+  function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+  function isEmail(v) { return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(String(v || '').trim()); }
+
+  var n = QUESTIONS.length, req = QUESTIONS.filter(function (q) { return q.required; }).length;
+  var word = WORDS[n] || String(n);
+  document.getElementById('signup-title').textContent = word + ' questions';
+  document.getElementById('minutes').textContent = word + ' questions, about two minutes.';
+  document.getElementById('signup-lead').textContent = (WORDS[req] || req) + ' are required and marked. The rest are optional. It takes about two minutes.';
+
+  QUESTIONS.forEach(function (q, i) {
+    if (q.section) { var s = el('p', 'kick sec', q.section); if (!i) s.style.marginTop = '0'; qs.appendChild(s); }
+    var card = el('div', 'q'); card.dataset.qid = q.id;
+    var num = el('div', 'num', 'Question ' + (i + 1) + ' ');
+    num.appendChild(el('b', q.required ? null : 'optl', q.required ? '· Required' : '· Optional'));
+    card.appendChild(num);
+    var helpId = 'h-' + q.id, inputId = 'q-' + q.id;
+
+    if (q.type === 'rank') {
+      var title = el('h3', 'qt', q.q); title.id = 't-' + q.id; card.appendChild(title);
+      card.setAttribute('role', 'group'); card.setAttribute('aria-labelledby', title.id);
+      if (q.help) { var h = el('p', 'help', q.help); h.id = helpId; card.appendChild(h); card.setAttribute('aria-describedby', helpId); }
+      var box = el('div', 'opts');
+      var count = el('p', 'count', 'None picked yet.'); count.setAttribute('aria-live', 'polite');
+      answers[q.id] = [];
+      q.options.forEach(function (t) {
+        var b = el('button', 'opt'); b.type = 'button'; b.setAttribute('aria-pressed', 'false');
+        var bx = el('span', 'box'); bx.setAttribute('aria-hidden', 'true');
+        b.appendChild(bx); b.appendChild(el('span', null, t));
+        b.dataset.value = t;
+        b.addEventListener('click', function () {
+          var cur = answers[q.id], at = cur.indexOf(t);
+          if (at > -1) cur.splice(at, 1); else cur.push(t);
+          box.querySelectorAll('.opt').forEach(function (o) {
+            var r = cur.indexOf(o.dataset.value);
+            o.setAttribute('aria-pressed', r > -1 ? 'true' : 'false');
+            o.querySelector('.box').setAttribute('data-rank', r > -1 ? r + 1 : '');
+            o.setAttribute('aria-label', o.dataset.value + (r > -1 ? ', picked, number ' + (r + 1) : ''));
+          });
+          count.textContent = cur.length ? cur.length + ' picked, in the order you ticked them. Your number one: ' + cur[0] : 'None picked yet.';
+          card.classList.remove('missing'); tick();
+        });
+        box.appendChild(b);
+      });
+      card.appendChild(box); card.appendChild(count);
+    } else {
+      var label = el('label', 'qt', q.q); label.htmlFor = inputId; card.appendChild(label);
+      if (q.help) { var hp = el('p', 'help', q.help); hp.id = helpId; card.appendChild(hp); }
+      var input = q.type === 'block' ? el('textarea') : el('input');
+      if (q.type === 'block') input.rows = q.rows || 4;
+      else input.type = q.type === 'email' ? 'email' : 'text';
+      input.id = inputId; input.name = q.id;
+      if (q.placeholder) input.placeholder = q.placeholder;
+      if (q.autocomplete) input.autocomplete = q.autocomplete;
+      if (q.type === 'email') { input.setAttribute('inputmode', 'email'); input.setAttribute('autocapitalize', 'off'); input.setAttribute('spellcheck', 'false'); }
+      if (q.help) input.setAttribute('aria-describedby', helpId);
+      if (q.required) input.setAttribute('aria-required', 'true');
+      input.addEventListener('input', function () { answers[q.id] = input.value; card.classList.remove('missing'); tick(); });
+      card.appendChild(input);
+      if (q.testflight) {
+        var tf = el('p', 'tf', 'No TestFlight yet? ');
+        var a = el('a', null, 'Get it free from Apple'); a.href = TESTFLIGHT; a.target = '_blank'; a.rel = 'noopener';
+        tf.appendChild(a); tf.appendChild(document.createTextNode(' so your invite opens with one tap.'));
+        card.appendChild(tf);
+      }
+    }
+    qs.appendChild(card);
+  });
+
+  function filled(q) {
+    var v = answers[q.id];
+    if (q.type === 'rank') return (v || []).length > 0;
+    if (q.type === 'email') return isEmail(v);
+    return !!(v && String(v).trim());
+  }
+  function tick() {
+    var done = QUESTIONS.filter(function (q) { return q.required && filled(q); }).length;
+    document.getElementById('bar').style.width = Math.round(done / req * 100) + '%';
+  }
+
+  function payload() {
+    var out = { name: '', email: '', answers: {}, website: document.getElementById('website').value, started_at: startedAt };
+    QUESTIONS.forEach(function (q) {
+      var v = answers[q.id];
+      if (q.target) out[q.target] = String(v || '').trim();
+      else out.answers[q.id] = q.type === 'rank' ? (v || []).slice() : String(v || '').trim();
+    });
+    return out;
+  }
+
+  var err = document.getElementById('err'), send = document.getElementById('send');
+  function showError(msg) { err.textContent = msg; err.classList.add('on'); }
+
+  document.getElementById('f').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var missing = QUESTIONS.filter(function (q) { return q.required && !filled(q); });
+    qs.querySelectorAll('.q').forEach(function (c) { c.classList.remove('missing'); });
+    if (missing.length) {
+      missing.forEach(function (q) { var c = qs.querySelector('[data-qid="' + q.id + '"]'); if (c) c.classList.add('missing'); });
+      var first = missing[0];
+      if (first.type === 'email' && answers[first.id]) showError('That email address does not look right. Check the one tied to your Apple ID.');
+      else showError(missing.length === 1 ? 'One question still needs an answer: "' + first.q + '"' : missing.length + ' questions still need answers. The first one is "' + first.q + '"');
+      var card = qs.querySelector('[data-qid="' + first.id + '"]');
+      if (card) { card.scrollIntoView({ block: 'center' }); var f = card.querySelector('input, textarea, .opt'); if (f) f.focus({ preventScroll: true }); }
+      return;
+    }
+    err.classList.remove('on');
+    var body = payload();
+    send.disabled = true; send.firstElementChild.textContent = 'Sending...';
+    fetch(API, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) })
+      .then(function (r) { return r.json().catch(function () { return { ok: false, error: 'Something went wrong.' }; }); })
+      .then(function (d) {
+        if (!d.ok) throw new Error(d.error || 'Something went wrong.');
+        document.getElementById('form-wrap').hidden = true;
+        document.getElementById('done-email').textContent = body.email;
+        var done = document.getElementById('done'); done.hidden = false;
+        document.getElementById('bar').style.width = '100%';
+        done.scrollIntoView({ block: 'start' }); done.focus({ preventScroll: true });
+      })
+      .catch(function (x) {
+        showError(x.message + ' Try again in a moment, or email colton@foxfuelcreative.com.');
+        send.disabled = false; send.firstElementChild.textContent = 'Join the beta';
+      });
+  });
+})();
+</script>
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c20145f631df48ff8dc17a09c0c3fcdb"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>

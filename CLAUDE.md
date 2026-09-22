@@ -6,6 +6,7 @@ Created 2026-08-10 after two threads (the design/docs thread and the "Forum Time
 
 - **Design/docs lane:** mockups/, one-pagers/, templates/, brand.html, interior.css (the slim interior bar shared by brand/legal/timer; edit it there, never per page), the one-pager system (source of record: `Projects/ForumPlaybook.com/one-pager-system/` on the MacBook).
 - **App lane** (the "Forum Timer web app" thread): timer.html, timer.css, timer.js, og-timer.png, tools/build-beta.py, /beta experiments (current resident: the hours-in-the-room stats rework, awaiting Colton's corrections), reel-poster.jpg, preview.command.
+- **App beta signup** (added 2026-09-22): app-beta/ is the TestFlight beta signup survey, the homepage's Join the Beta button opens it. Questions live ONLY in app-beta/questions.js. Answers post to the separate backend repo coltonmul/forum-playbook-beta (Cloudflare Pages + D1, admin page at forum-playbook-beta.pages.dev/admin, admin code in D1 only, never in either repo). Not to be confused with /beta/, which is the homepage's V3 beta lane.
 
 ## The rules
 
