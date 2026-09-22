@@ -249,3 +249,13 @@
   .ibar-hit:hover::before, .ibar-hit:hover::after,
   .ibar-hit:focus-visible::before, .ibar-hit:focus-visible::after { animation-duration: 0.001s; }
 }
+
+/* ── PAGE WIDTH LOCK (Colton, 2026-09-22: no page may scroll sideways off its
+   content on a phone). Every page that loads this file is locked to the screen
+   width, the same lock styles.css gives the homepage. clip on body, never
+   hidden: hidden would make body a scroll box and unstick this sticky bar.
+   html's value moves to the viewport; hidden is listed first only for browsers
+   too old to know clip. This is a lock, not a layout: anything wider than a
+   phone still has to be fixed where it lives, or the lock just cuts it off. ── */
+html { overflow-x: hidden; overflow-x: clip; }
+body { overflow-x: clip; }
