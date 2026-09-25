@@ -1,4 +1,4 @@
-# FORUM PLAYBOOK One-Pager Template Contract v1.0
+# FORUM PLAYBOOK One-Pager Template Contract v1.1
 
 This file is the law. Any session producing a Forum Playbook one-pager must follow it exactly. If this contract and your instincts disagree, the contract wins. If this contract and a user request disagree, ask; do not silently deviate. Nothing outside an EDIT-SLOT may ever change.
 
@@ -131,6 +131,8 @@ Marked in the HTML with `<!-- EDIT-SLOT: ... -->` comments:
 
 Everything else, including all CSS, the chrome lines, the fonts link, and the print button, is read-only.
 
+**Fixed web line (added v1.1, read-only, NOT an EDIT-SLOT):** immediately before `</body>`, the template and every edition carry one LOCKED comment plus the forumplaybook.com visitor counter line (Cloudflare Web Analytics, cookie-free, the same line `timer.html` carries). It prints nothing and changes nothing on the page, so it never affects the one-page check. Exactly once per file; never edit it per edition. If forumplaybook.com ever moves behind a Cloudflare zone (the zone injects the counter itself), it comes out of the template and every edition in the same change, or pages double-count.
+
 ## 10. Category label whitelist (LOCKED)
 
 `FACILITATION TOOLS`, `MEETING TOOLS`, `RETREAT TOOLS`, `MODERATOR TOOLS`, `FORUM HEALTH`, `PLACEMENT TOOLS`. Adding a category requires amending this contract.
@@ -153,4 +155,4 @@ Everything else, including all CSS, the chrome lines, the fonts link, and the pr
 7. Print preview (or headless render) fits exactly one page at 100% scale with no clipped text.
 8. Sources line present.
 
-Changelog: v1.0 (2026-07-10) initial contract, built overnight from docx v1.1 measurements + Brand Guide v2.0.
+Changelog: v1.1 (2026-09-25) section 9 gains the fixed web line: the visitor counter, one locked line before `</body>` in the template and all four editions (queue row CWQ-166, Colton approved the counter 2026-09-18). No slot, token, geometry or block changed. v1.0 (2026-07-10) initial contract, built overnight from docx v1.1 measurements + Brand Guide v2.0.

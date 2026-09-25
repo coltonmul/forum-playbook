@@ -2,7 +2,7 @@
 """
 5% REFLECTION SHEET MOCKUPS: the generator.
 
-VERSION 0.1.0
+VERSION 0.1.1
 
 What this builds, into the folder above this one (mockups/5-percent-reflection/):
   - six one-page sheets as HTML: three content iterations (A, B, C), each in a
@@ -31,6 +31,10 @@ pdftoppm). Fails loudly if a PDF is not exactly one page, if the brand fonts did
 not embed, or if an em dash sneaks into any generated file.
 
 Changelog
+  0.1.1 (2026-09-25) every generated page (six sheets + the gallery) carries the
+        forumplaybook.com visitor counter, one line before </body> (CF_COUNTER
+        below). The og card is a build-time screenshot, never published, so it
+        does not get one. Queue row CWQ-166.
   0.1.0 (2026-09-18) first build: iterations A, B, C in two versions each.
 """
 
@@ -45,7 +49,7 @@ import time
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-VERSION = "0.1.0"
+VERSION = "0.1.1"
 SHEET_VERSION = "v0.1"
 
 HERE = Path(__file__).resolve().parent
@@ -53,6 +57,12 @@ OUT = HERE.parent
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 SITE = "https://forumplaybook.com/mockups/5-percent-reflection/"
 EM_DASH = chr(0x2014)
+
+# The forumplaybook.com visitor counter (Cloudflare Web Analytics, cookie-free). The token is a
+# public value, the same line brand.html, legal.html and timer.html carry. Exactly once per page.
+# If forumplaybook.com ever moves behind a Cloudflare zone, the zone injects it by itself: take
+# this line OUT in the same change or every page double-counts.
+CF_COUNTER = ("<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{\"token\": \"c20145f631df48ff8dc17a09c0c3fcdb\"}'></script><!-- End Cloudflare Web Analytics -->")
 
 NOW = datetime.datetime.now(ZoneInfo("America/Chicago"))
 STAMP = NOW.strftime("%a / %Y-%m-%d / ") + NOW.strftime("%I:%M %p CT").lstrip("0")
@@ -393,6 +403,7 @@ def sheet_html(it, skin):
   {footer}
 </div>
 
+{CF_COUNTER}
 </body>
 </html>
 """
@@ -774,6 +785,7 @@ def gallery_html(stats):
   }});
 }})();
 </script>
+{CF_COUNTER}
 </body>
 </html>
 """
