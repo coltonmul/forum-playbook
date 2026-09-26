@@ -34,6 +34,9 @@ img { display: block; max-width: 100%; }
 html { scroll-behavior: smooth; }
 
 body {
+  /* Nothing may pan the page sideways. `clip`, not `hidden`: hidden would make
+     body a scroll container and break the sticky nav. */
+  overflow-x: clip;
   background: var(--linen);
   font-family: var(--font-body);
   font-weight: 400;
@@ -239,7 +242,7 @@ body {
   font-weight: 300;
 }
 
-.stats { display: flex; gap: 36px; padding-bottom: 4px; }
+.stats { display: flex; flex-wrap: wrap; max-width: 100%; gap: 36px; padding-bottom: 4px; }
 .stat { cursor: default; }
 .stat-num {
   font-family: var(--font-display);
@@ -904,7 +907,7 @@ body {
   .nav { padding: 0 20px; gap: 16px; }
   .hero { padding: 28px 20px 0; }
   .h1 { font-size: 60px; }
-  .hero-stripe { width: 120px; }
+  .hero-stripe { width: 84px; opacity: 0.55; }
   .hero-bottom { flex-direction: column; gap: 20px; align-items: flex-start; }
   .search-row { padding: 14px 20px; }
   .section-header { padding: 16px 20px 0; }
@@ -921,8 +924,10 @@ body {
   .nav-link { font-size: 12px; }
   .nav-cta  { font-size: 11px; padding: 9px 16px; }
 
-  /* Hero stats */
-  .stat-num   { font-size: 38px; }
+  /* Hero stats: wrap two-by-two rather than running off the screen. */
+  .stats      { width: 100%; gap: 20px 24px; }
+  .stat       { flex: 0 1 auto; min-width: 0; }
+  .stat-num   { font-size: 32px; }
   .stat-label { font-size: 11px; }
   .hero-sub   { font-size: 14px; }
 
