@@ -2,11 +2,6 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-N4HDSNSD');</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta name="description" content="Forum Playbook: A Resource Hub for Forums, Moderators, &amp; Facilitators." />
 
@@ -42,7 +37,6 @@ if(localStorage.getItem(fpK)===fpT||matchMedia('(prefers-reduced-motion: reduce)
 else{localStorage.setItem(fpK,fpT);}}catch(e){}</script>
 </head>
 <body>
-<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N4HDSNSD" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
 <!-- LOAD STING: the 5s logo animation, CSS only. Beats and easing mirror the
      video build in Projects/ForumPlaybook.com/videos/forum-playbook-logo-sting/.
@@ -256,9 +250,9 @@ else{localStorage.setItem(fpK,fpT);}}catch(e){}</script>
   .reel-q .accent { color: var(--burn); }
   .reel-meta {
     font-family: var(--font-mono);
-    font-size: 9.5px;
+    font-size: 12px;
     font-weight: 500;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.08em;
     color: var(--deep-dust);
     margin: 0 2px 2px;
     display: flex;
@@ -267,14 +261,78 @@ else{localStorage.setItem(fpK,fpT);}}catch(e){}</script>
     flex-wrap: wrap;
   }
   @media (max-width: 1180px) { .reel-card { width: 330px; } }
+  /* TAP TO PLAY. Shown only when the reel has not started on its own, so the
+     still is never a dead end (phones in Low Power Mode or data saver refuse
+     muted autoplay). Measured: white label on Pitch 19.32 to 1, Burn arrow on
+     Pitch 5.20, white ring around the chip so it reads on any frame of video.
+     The whole card is the tap target. */
+  .reel-play {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: rgba(14, 14, 12, 0.18);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .reel-play[hidden] { display: none; }
+  .reel-play-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 44px;
+    padding: 0 18px 0 16px;
+    background: var(--pitch);
+    box-shadow: 0 0 0 2px #fff;
+    font-family: var(--font-mono);
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #fff;
+    transition: transform 0.2s ease;
+  }
+  .reel-play-dot {
+    width: 0;
+    height: 0;
+    border-left: 12px solid var(--burn);
+    border-top: 7px solid transparent;
+    border-bottom: 7px solid transparent;
+  }
+  .reel-play:hover .reel-play-chip { transform: translateY(-2px); }
+  .reel-play:focus-visible { outline: none; }
+  .reel-play:focus-visible .reel-play-chip { box-shadow: 0 0 0 2px #fff, 0 0 0 5px var(--pitch); }
+  @media (prefers-reduced-motion: reduce) {
+    .reel-play-chip { transition: none; }
+    .reel-play:hover .reel-play-chip { transform: none; }
+  }
   @media (max-width: 980px) {
+    /* Phones and tablets: the Join the Beta button stays first, then the
+       headline leads, and the reel card follows it as supporting material. */
+    .hero { display: flex; flex-direction: column; }
+    .hero .app-beta { order: 0; }
+    .hero .hero-inner { order: 1; }
+    .hero .reel-card { order: 2; }
     .reel-card {
       position: static;
       transform: none;
-      width: min(460px, 100%);
+      width: min(380px, 100%);
       max-width: 100%;
-      margin: 30px auto 34px;
+      margin: 26px 0 32px;
     }
+  }
+  @media (max-width: 680px) {
+    /* Phones: a supporting card, not a billboard. */
+    .reel-card { width: min(300px, 88%); margin: 22px 0 28px; }
+    .reel-frame { padding: 8px; }
+    .reel-q { font-size: 17px; margin: 8px 2px 5px; }
+    .reel-meta { letter-spacing: 0.04em; }
   }
   </style>
   <aside class="reel-card" aria-label="A real forum, tight and awesome, in slow motion">
@@ -285,6 +343,9 @@ else{localStorage.setItem(fpK,fpT);}}catch(e){}</script>
           loading="lazy"
           title="Colton's real forum in slow motion, April 2026"></iframe>
         <div class="reel-poster" id="reelPoster" aria-hidden="true"></div>
+        <button type="button" class="reel-play" id="reelPlay" hidden aria-label="Play the forum reel">
+          <span class="reel-play-chip"><span class="reel-play-dot" aria-hidden="true"></span>Play the reel</span>
+        </button>
       </div>
       <div class="reel-q">Don't you want your forum<br>to be <span class="accent">this tight and awesome?</span></div>
       <div class="reel-meta"><span>COLTON'S REAL FORUM (FORUM 14: EO NASHVILLE)</span><span>APRIL 2026 · SLOW MOTION</span></div>
@@ -303,6 +364,9 @@ else{localStorage.setItem(fpK,fpT);}}catch(e){}</script>
       if (revealed) return;
       revealed = true;
       poster.classList.add('gone');
+      // Playback started (maybe late, after the tap offer went up): take it down.
+      var b = document.getElementById('reelPlay');
+      if (b) b.hidden = true;
     }
     window.addEventListener('message', function (e) {
       if (String(e.origin).indexOf('vimeo.com') === -1) return;
@@ -322,6 +386,33 @@ else{localStorage.setItem(fpK,fpT);}}catch(e){}</script>
         reveal();
       }
     });
+
+    // TAP TO PLAY. If the reel has not started 2 seconds after the player
+    // loads, offer the tap. The tap asks the player to play; if the phone
+    // still refuses, the card swaps to Vimeo's own player with controls,
+    // whose play button counts as a real tap on every phone. Never a dead end.
+    var playBtn = document.getElementById('reelPlay');
+    if (playBtn) {
+      var armed = false;
+      var arm = function () {
+        if (armed) return;
+        armed = true;
+        setTimeout(function () { if (!revealed) playBtn.hidden = false; }, 2000);
+      };
+      frame.addEventListener('load', arm);
+      setTimeout(arm, 4000); // backstop in case the load event came and went
+      playBtn.addEventListener('click', function () {
+        playBtn.hidden = true;
+        try {
+          frame.contentWindow.postMessage(JSON.stringify({ method: 'play' }), '*');
+        } catch (err) { /* messaging unavailable; the swap below still runs */ }
+        setTimeout(function () {
+          if (revealed) return;
+          frame.src = frame.src.replace('background=1', 'background=0&controls=1&playsinline=1');
+          reveal();
+        }, 1500);
+      });
+    }
   })();
   </script>
   <div class="hero-inner">

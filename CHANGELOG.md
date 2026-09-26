@@ -6,14 +6,12 @@ Code and housed-document changes only. Library resources and videos sync from Go
 
 - **index.html + styles.css: mobile homepage repair.** Claimed 2026-09-07 by the interior-bar thread
   on Colton's report from his phone. NARROWED 2026-09-22: the sideways pan and the stats row running
-  off the screen are FIXED. NARROWED AGAIN 2026-09-26: the reel tap to play fallback, the headline
-  above the reel on phones and the smaller phone reel card are ON THE BETA LANE ONLY (/beta/),
-  waiting on Colton's side by side review; the ready-to-ship homepage commit sits on branch
-  `reel-fallback-ship`. Still open and not started: the hero stripes reading as stray blocks at
+  off the screen are FIXED. NARROWED AGAIN 2026-09-26: the reel tap to play, the headline above the reel and the smaller phone reel card GRADUATED to the live homepage (entry below). Still open and not started: the hero stripes reading as stray blocks at
   narrow widths. Other lane: stay off index.html and styles.css until this entry clears.
 
 ## 2026-09-26
 
+- **GRADUATED ON COLTON'S WORD: the beta lane's reel tap to play, phone order and Google Tag Manager removal are live.** index.html now carries exactly what /beta/ carried (the ship commit regenerates a /beta/ identical to the reviewed one, stamp aside), so the lane is empty again (tools/build-beta.py 1.6.0). Google Tag Manager is also gone from timer.html and legal.html, and legal.html's privacy text now says the site uses no Google Tag Manager, no Google Analytics and no advertising cookies. Details of what changed are in the beta entry below.
 - **ON THE BETA LANE ONLY, NOT LIVE: the reel never dead-ends on a phone, and the headline leads.** Rebuilt on current main (after the logo sting, the Join the Beta button and the visitor counter) from the 2026-09-07 draft, which is saved untouched on branch `sept7-reel-fallback`. The draft's own sideways-pan and stats fixes were dropped because the 2026-09-22 fixes on main are newer and already live.
 - **Tap to play.** Phones in Low Power Mode or data saver refuse the reel's muted autoplay, so the poster still just sat there. Now, if the reel has not started 2 seconds after the player loads, a "Play the reel" button appears over the still (the whole card is the tap target). The tap asks the player to play; if the phone still refuses, the card switches to Vimeo's own player with controls, whose play button always counts as a real tap. The poster-still behavior is unchanged: the still covers the player until Vimeo reports real playback.
 - **Measured, not eyeballed:** button label 13px, white on Pitch 19.32 to 1; Burn arrow on Pitch 5.20 to 1; a white ring around the chip so it reads on any frame of footage; 44px tall; keyboard focus shows a double ring; reduced motion drops the hover lift. The card caption goes from 9.5px to 12px (Deep Dust on white, 10.09 to 1).
