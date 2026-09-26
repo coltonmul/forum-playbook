@@ -1,0 +1,6 @@
+# forumplaybook.com, GitHub Pages (Jekyll) settings. VERSION 1.0.0 (2026-09-26)
+# Only job: keep the working notes for Claude sessions in the repo but off the website.
+# Jekyll already skips anything starting with a dot (.claude/ included).
+exclude:
+  - CLAUDE.md
+  - AGENTS.md
