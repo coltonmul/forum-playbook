@@ -6,12 +6,21 @@ Code and housed-document changes only. Library resources and videos sync from Go
 
 - **index.html + styles.css: mobile homepage repair.** Claimed 2026-09-07 by the interior-bar thread
   on Colton's report from his phone. NARROWED 2026-09-22: the sideways pan and the stats row running
-  off the screen are FIXED (see 2026-09-22, done at Colton's direct ask; the pan came from the
-  resource rail, not the stats). Still open: the reel card renders ABOVE the h1 on phones and is far
-  too large, the hero stripes read as stray blocks at narrow widths, and the reel video never starts
-  on mobile so it sits as a still. Other lane: stay off index.html and styles.css until this entry clears.
+  off the screen are FIXED. NARROWED AGAIN 2026-09-26: the reel tap to play fallback, the headline
+  above the reel on phones and the smaller phone reel card are ON THE BETA LANE ONLY (/beta/),
+  waiting on Colton's side by side review; the ready-to-ship homepage commit sits on branch
+  `reel-fallback-ship`. Still open and not started: the hero stripes reading as stray blocks at
+  narrow widths. Other lane: stay off index.html and styles.css until this entry clears.
 
 ## 2026-09-26
+
+- **ON THE BETA LANE ONLY, NOT LIVE: the reel never dead-ends on a phone, and the headline leads.** Rebuilt on current main (after the logo sting, the Join the Beta button and the visitor counter) from the 2026-09-07 draft, which is saved untouched on branch `sept7-reel-fallback`. The draft's own sideways-pan and stats fixes were dropped because the 2026-09-22 fixes on main are newer and already live.
+- **Tap to play.** Phones in Low Power Mode or data saver refuse the reel's muted autoplay, so the poster still just sat there. Now, if the reel has not started 2 seconds after the player loads, a "Play the reel" button appears over the still (the whole card is the tap target). The tap asks the player to play; if the phone still refuses, the card switches to Vimeo's own player with controls, whose play button always counts as a real tap. The poster-still behavior is unchanged: the still covers the player until Vimeo reports real playback.
+- **Measured, not eyeballed:** button label 13px, white on Pitch 19.32 to 1; Burn arrow on Pitch 5.20 to 1; a white ring around the chip so it reads on any frame of footage; 44px tall; keyboard focus shows a double ring; reduced motion drops the hover lift. The card caption goes from 9.5px to 12px (Deep Dust on white, 10.09 to 1).
+- **Phones and tablets (980px and under):** Join the Beta stays first, then the headline, sub-line and stats, then the reel card, now 380px wide on tablets and 300px on phones instead of 460px. Desktop layout is unchanged.
+- **No Google Tag Manager on the beta lane.** The GTM container was empty (no ads, no Google Analytics); Cloudflare Web Analytics already counts visits. Removed from /beta/ now; the same removal for index.html, timer.html and legal.html (whose privacy text is updated to match) waits on branch `reel-fallback-ship` and ships with the homepage change on Colton's word.
+- **tools/build-beta.py 1.5.0:** the two experiments above are its insertion blocks. The V3 BETA chip is retrofitted to the 12px floor and switches to Pitch on Burn (5.20 to 1) from white on Burn (3.71, which failed).
+- **Found, not fixed (site-wide brand call):** Burn as text measures 3.71 to 1 on white and 3.12 on linen, under the 4.5 floor. It is the accent in the h1 and the reel question across the whole site, so it needs a text-safe Burn sibling chosen once, not a one-card patch.
 
 - **The working notes are no longer on the website.** `CLAUDE.md` (the rules file Claude sessions read) was being served publicly at forumplaybook.com/CLAUDE.md, because GitHub Pages publishes every file in the repo. New `_config.yml` (v1.0.0) tells GitHub Pages' Jekyll build to leave out `CLAUDE.md` and `AGENTS.md`; the files stay in the repo so sessions still read them. Nothing else about the build changes: there was no `_config.yml` before, and the only setting in it is that exclude list. The IN FLIGHT homepage work in the MacBook checkout was not touched; this landed from a separate worktree.
 
