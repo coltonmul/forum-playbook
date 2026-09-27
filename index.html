@@ -34,12 +34,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 <link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="styles.css" />
 <link rel="stylesheet" href="sting.css" />
-<script>/* Load sting gate: once per calendar day on this device, never for reduced-motion.
-Runs before paint so a repeat visitor never sees a flash. Local date, not UTC, so it
-turns over at midnight where the visitor is, not at 7pm CT. */
-try{var fpK='fpStingDay',fpT=new Date().toDateString();
-if(localStorage.getItem(fpK)===fpT||matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' fp-no-sting';}
-else{localStorage.setItem(fpK,fpT);}}catch(e){}</script>
+<script>/* Load sting gate: plays on EVERY load of the homepage, reloads included (Colton,
+2026-09-26: a Command-R should show it every time). Never for reduced-motion.
+Runs before paint so a reduced-motion visitor never sees a flash. */
+try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.className+=' fp-no-sting';}}catch(e){}</script>
 </head>
 <body>
 <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-N4HDSNSD" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
