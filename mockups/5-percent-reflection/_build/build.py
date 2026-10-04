@@ -2,7 +2,7 @@
 """
 5% REFLECTION SHEET MOCKUPS: the generator.
 
-VERSION 0.1.1
+VERSION 0.1.2
 
 What this builds, into the folder above this one (mockups/5-percent-reflection/):
   - six one-page sheets as HTML: three content iterations (A, B, C), each in a
@@ -31,6 +31,10 @@ pdftoppm). Fails loudly if a PDF is not exactly one page, if the brand fonts did
 not embed, or if an em dash sneaks into any generated file.
 
 Changelog
+  0.1.2 (2026-10-03) Footer: Built by Colton now links builtbycolton.com; 'with Claude'
+        retired (global law 2.31.0). The printed sheets read "Built by Colton ·
+        builtbycolton.com"; the gallery footer links it. The gallery changelog keeps
+        the first round's real date instead of the build date.
   0.1.1 (2026-09-25) every generated page (six sheets + the gallery) carries the
         forumplaybook.com visitor counter, one line before </body> (CF_COUNTER
         below). The og card is a build-time screenshot, never published, so it
@@ -49,7 +53,7 @@ import time
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-VERSION = "0.1.1"
+VERSION = "0.1.2"
 SHEET_VERSION = "v0.1"
 
 HERE = Path(__file__).resolve().parent
@@ -294,7 +298,7 @@ def sheet_html(it, skin):
             '<footer class="doc-footer"><span><span class="f-mark">⎇ </span>'
             '<span class="f-name">FORUM PLAYBOOK&nbsp;&nbsp;</span>'
             '<span class="f-tag">A Resource Hub for Forums, Moderators, &amp; Facilitators.</span></span>'
-            '<span><span class="f-by">Built by Colton with Claude</span>'
+            '<span><span class="f-by">Built by Colton · builtbycolton.com</span>'
             '<span class="f-url">&nbsp;&nbsp;│&nbsp;&nbsp;ForumPlaybook.com</span></span></footer>'
         )
     else:
@@ -308,7 +312,7 @@ def sheet_html(it, skin):
         )
         footer = (
             '<footer class="doc-footer"><span class="f-by">From EO Nashville\'s Forum 14.</span>'
-            '<span class="f-by">Built by Colton with Claude</span></footer>'
+            '<span class="f-by">Built by Colton · builtbycolton.com</span></footer>'
         )
 
     eq_say = f'<span class="zone-say">{EQ_SAY}</span>' if rich else ""
@@ -754,7 +758,7 @@ def gallery_html(stats):
   <div class="dec">
     <div class="dec-id">D3</div>
     <h4>Does the neutral version keep its footer credit?</h4>
-    <p>What this is: the neutral footer reads "From EO Nashville's Forum 14." on the left and "Built by Colton with Claude" on the right. Your 2024 White Space form carried the Forum 14 line, and your built-by rule puts the credit on anything that reaches other people. If neutral should mean no names at all, it comes off.</p>
+    <p>What this is: the neutral footer reads "From EO Nashville's Forum 14." on the left and "Built by Colton · builtbycolton.com" on the right. Your 2024 White Space form carried the Forum 14 line, and your built-by rule puts the credit on anything that reaches other people. If neutral should mean no names at all, it comes off.</p>
     <div class="say">Say: <b>"keep the credit"</b> or <b>"strip the credit"</b></div>
   </div>
   <p style="font-size:15px; font-weight:300; color:var(--deep-dust); max-width:78ch; margin-top:16px;">After the pick: the winner becomes v1.0, moves in next to the one-pagers in section 08 of the brand page, and the template contract gains a WORKSHEET block (write-in fields are not in its block library today).</p>
@@ -764,8 +768,8 @@ def gallery_html(stats):
 <footer class="foot"><div class="foot-inner">
   <a class="logo" href="/"><span class="mark">⎇</span> FORUM PLAYBOOK</a>
   <div class="foot-meta">5% REFLECTION SHEET MOCKUPS {SHEET_VERSION} · Updated {STAMP}<br>
-  Built by Colton with Claude · <a href="/brand#templates">Brand guide, section 08</a>
-  <details><summary>Changelog</summary>{SHEET_VERSION} ({NOW.strftime('%Y-%m-%d')}): first round. Iterations A, B and C, each in a Forum Playbook and a neutral version, built from the Forum 14 monthly form and Colton's Sept 2026 note to the EO trainer community. Generator: mockups/5-percent-reflection/_build/build.py v{VERSION}.</details></div>
+  <a href="https://builtbycolton.com" target="_blank" rel="noopener">Built by Colton</a> · <a href="/brand#templates">Brand guide, section 08</a>
+  <details><summary>Changelog</summary>Generator 0.1.2 (2026-10-03): Footer: Built by Colton now links builtbycolton.com; 'with Claude' retired (global law 2.31.0). The sheets themselves are unchanged otherwise.<br>{SHEET_VERSION} (2026-09-18): first round. Iterations A, B and C, each in a Forum Playbook and a neutral version, built from the Forum 14 monthly form and Colton's Sept 2026 note to the EO trainer community. Generator: mockups/5-percent-reflection/_build/build.py v{VERSION}.</details></div>
 </div></footer>
 
 <script>

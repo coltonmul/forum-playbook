@@ -12,6 +12,12 @@ Code and housed-document changes only. Library resources and videos sync from Go
   `reel-fallback-ship`. Still open and not started: the hero stripes reading as stray blocks at
   narrow widths. Other lane: stay off index.html and styles.css until this entry clears.
 
+## 2026-10-03
+
+- **BRANCH `builtbycolton-footer`, NOT LIVE: Built by Colton now links builtbycolton.com; "with Claude" retired (global law 2.31.0).** `app-beta/` v1.0.1: the footer line is now a link to builtbycolton.com (44px target, linen on Pitch). The 5% Reflection Sheet mockup generator (`mockups/5-percent-reflection/_build/build.py` 0.1.2) prints "Built by Colton · builtbycolton.com" on all six sheets and links it on the gallery page; sheets, PDFs, PNGs and og.png rebuilt by the generator, every PDF still exactly one page. The gallery changelog now keeps the first round's real date (2026-09-18) instead of the build date.
+- **Not done, waiting on the IN FLIGHT homepage claim above:** index.html, /beta/, legal.html, timer.html and brand.html carry no built-by line at all. Their shared `.footer-copy` and `.footer-link` styles are 9px at about 2 to 1 on Pitch, so the line should land with a legibility fix to that footer in one pass, after the claim on index.html and styles.css clears.
+- **Branch `board-building` (another session, 2026-10-03):** `board/index.html` still says "Built by Colton with Claude." Fix it to the builtbycolton.com link before that branch merges.
+
 ## 2026-09-26
 
 - **LIVE: the logo sting now plays on every homepage load, reloads included.** Colton, 2026-09-26: a Command-R or Control-R should show it every time, for showing people. The once-per-calendar-day gate (localStorage key `fpStingDay`) is gone from index.html; reduced-motion visitors still never see it, and any click, key or scroll still skips it. sting.js comment updated to match. /beta regenerated with the same gate.

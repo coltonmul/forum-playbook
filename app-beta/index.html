@@ -137,6 +137,7 @@ input:focus, textarea:focus { outline: 2px solid var(--blue); outline-offset: 1p
 .foot nav { display: flex; flex-wrap: wrap; gap: 6px 18px; font: 400 13px/1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; }
 .foot nav a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: none; }
 .stamp { display: flex; flex-wrap: wrap; gap: 6px 18px; justify-content: space-between; padding-top: 16px; color: var(--dust); font: 400 13px/1.5 var(--font-mono); }
+.stamp a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: underline; text-underline-offset: 3px; }  /* built-by link: linen on pitch, a 44px target (2026-10-03) */
 .log { margin-top: 12px; color: var(--dust); }
 .log summary { cursor: pointer; font: 500 13px/1.5 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--linen); min-height: 44px; display: flex; align-items: center; }
 .log ul { padding-left: 18px; font-size: 14px; line-height: 1.55; }
@@ -170,7 +171,7 @@ input:focus, textarea:focus { outline: 2px solid var(--blue); outline-offset: 1p
   </a>
   <span class="ibar-rule" aria-hidden="true"></span>
   <span class="ibar-page">App Beta</span>
-  <span class="ibar-meta">Updated Tue / 2026-09-22 / 7:39 AM CT</span>
+  <span class="ibar-meta">Updated Sat / 2026-10-03 / 7:05 PM CT</span>
   <nav class="ibar-nav" aria-label="Main navigation">
     <a href="/#resources" class="ibar-hit ibar-cool ibar-link"><span>Resources</span></a>
     <a href="/timer" class="ibar-hit ibar-cool ibar-link"><span>Timer</span></a>
@@ -267,12 +268,13 @@ input:focus, textarea:focus { outline: 2px solid var(--blue); outline-offset: 1p
       </nav>
     </div>
     <div class="stamp">
-      <span>Updated Tue / 2026-09-22 / 7:39 AM CT · v1.0.0</span>
-      <span>Built by Colton with Claude</span>
+      <span>Updated Sat / 2026-10-03 / 7:05 PM CT · v1.0.1</span>
+      <a href="https://builtbycolton.com" target="_blank" rel="noopener">Built by Colton</a>
     </div>
     <details class="log">
       <summary>Changelog</summary>
       <ul>
+        <li><b>v1.0.1</b> (2026-10-03): Footer: Built by Colton now links builtbycolton.com; 'with Claude' retired (global law 2.31.0). The survey itself is unchanged.</li>
         <li><b>v1.0.0</b> (2026-09-22): First build, replacing the homepage button's email. Modeled on the EO House member survey. Asks everything the email asked (name, the email to use, chapter, forum number or name, optional forum mates' emails with the whitelist note), now with the Apple ID email for the TestFlight invite, a prompt to get TestFlight first, and twelve features ranked in the order they are ticked.</li>
       </ul>
     </details>
