@@ -12,6 +12,12 @@ Code and housed-document changes only. Library resources and videos sync from Go
   `reel-fallback-ship`. Still open and not started: the hero stripes reading as stray blocks at
   narrow widths. Other lane: stay off index.html and styles.css until this entry clears.
 
+## 2026-10-07
+
+- **NEW: /concepts/, the home for Colton's EO ideas, modeled.** A card page (noindex) linking Regional Training Days, the Catalyst Collective sandbox, the membership intake and vetting tool (eo-vetting.pages.dev), and the EO House survey, floor plan and mockups. Card preview images are local copies of each site's own og.png in concepts/img/. Shared styles in concepts/concepts.css (its own file, so no hot file was touched). The footer lists every page of the site, current page marked.
+- **NEW: /concepts/regionaltrainingdays/**, a pilot to test: new members from several US East chapters train together in one host city each quarter. Interactive-free page with the US East chapter map (21 chapters, from the FY25/26 US East Overview deck), how it runs, why it works, costs and budget, the 95% retention footnote, and the three printable one-pagers (EO theme, Forum Playbook theme light and dark) as PDFs. Own og.png, 1200x630. Ends with a two-wave rollover link to /concepts/ ("More concepts and half-baked ideas").
+- **NEW: 404.html.** GitHub Pages paths are case-sensitive, so a link typed as /Concepts/RegionalTrainingDays used to 404. The 404 page now sends any mixed-case path to its lowercase version first.
+
 ## 2026-09-26
 
 - **LIVE: the logo sting now plays on every homepage load, reloads included.** Colton, 2026-09-26: a Command-R or Control-R should show it every time, for showing people. The once-per-calendar-day gate (localStorage key `fpStingDay`) is gone from index.html; reduced-motion visitors still never see it, and any click, key or scroll still skips it. sting.js comment updated to match. /beta regenerated with the same gate.
