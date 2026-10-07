@@ -1,0 +1,135 @@
+      <p class="cc-kick">The financial model</p>
+      <h1>What the Collective costs, <span>and what it brings in.</span></h1>
+      <p class="cc-lede">A pro forma you can argue with, for the Catalyst Collective: an ongoing membership, by invitation. The defaults are Colton's starting assumptions from the September 17 council; every blank is meant to be corrected by someone who knows better. Change a number and the table and charts update. Copy the link to share your version, or send it straight to Colton.</p>
+      <div class="cc-meta">
+        <span>{{icon:currency-dollar}}Currency: <b>US dollars, per year</b></span>
+        <span>{{icon:calendar-check}}Horizon: <b>adjustable, five years by default</b></span>
+        <span>{{icon:users}}Rounding: <b>people are whole numbers</b></span>
+      </div>
+<!--BODY-->
+<section class="cc-sec">
+  {{sh:chart-line-up|Every number adjustable|The model}}
+<div class="model-layout">
+  <aside class="inputs" aria-label="Model inputs">
+    <p class="kicker">{{icon:sliders-horizontal}}Inputs</p>
+    <div class="presets" id="presets">
+      <button class="btn secondary small" type="button" data-preset="base">Colton's defaults</button>
+      <button class="btn secondary small" type="button" data-preset="slide">Colton's 9/17 slide (50%, $2,500)</button>
+      <button class="btn secondary small" type="button" data-preset="elevate">Jay's Feb draft, Elevate ($1,750)</button>
+      <button class="btn secondary small" type="button" data-preset="lean">Lean, volunteer-run</button>
+      <button class="btn secondary small" type="button" data-preset="ambitious">Ambitious</button>
+    </div>
+    <p class="small muted" style="margin:-6px 0 10px">Presets are starting points, not positions. The defaults are Colton's; the others are labeled with whose number they carry.</p>
+
+    <details open>
+      <summary>Pipeline from Catalyst</summary>
+      <div class="inp"><label for="i-intake">Catalyst members enrolled per year<span class="src">Colton's default. The 2026 class missed its target for the first time.</span></label><input id="i-intake" type="number" min="0" step="1" data-key="intake"></div>
+      <div class="inp"><label for="i-grads">Graduates per year<span class="src">Colton's default. His 9/17 slide said 35 to 50; graduation attendance runs about a third.</span></label><input id="i-grads" type="number" min="0" step="1" data-key="grads"></div>
+      <div class="inp"><label for="i-capture">Share of graduates who accept an invitation<span class="src">Colton's target: 75%. His 9/17 slide said keep 50%. Today Bridge keeps about 20 to 25% of a class.</span></label><div class="suf" data-suf="%"><input id="i-capture" type="number" min="0" max="100" step="1" data-key="capture"></div></div>
+      <div class="inp"><label for="i-recruited">Year-1 members recruited from past graduates<span class="src">Colton's default: invite alumni from earlier classes to apply and be accepted before the first new class arrives.</span></label><input id="i-recruited" type="number" min="0" step="1" data-key="recruited"></div>
+      <div class="inp"><label for="i-firstyear">First graduating class joins in year 1<span class="src">1 = yes, 0 = the first class joins in year 2 and year 1 is the recruited group alone.</span></label><input id="i-firstyear" type="number" min="0" max="1" step="1" data-key="firstYear"></div>
+    </details>
+
+    <details open>
+      <summary>Movement in and out</summary>
+      <div class="inp"><label for="i-fastEO">Members from each new class who join EO within their first year<span class="src">Colton's default: 5 on average. Historically 2 to 4 graduates a year go straight to EO; a big class did 5 or 6.</span></label><input id="i-fastEO" type="number" min="0" step="1" data-key="fastEO"></div>
+      <div class="inp"><label for="i-eorate">Share of continuing members who graduate into EO each year<span class="src">Colton's default: 10% year over year.</span></label><div class="suf" data-suf="%"><input id="i-eorate" type="number" min="0" max="100" step="1" data-key="eoRate"></div></div>
+      <div class="inp"><label for="i-retention">Retention of everyone else, year over year<span class="src">Colton's default: 80%.</span></label><div class="suf" data-suf="%"><input id="i-retention" type="number" min="0" max="100" step="1" data-key="retention"></div></div>
+      <div class="inp"><label for="i-years">Years to model</label><input id="i-years" type="number" min="2" max="10" step="1" data-key="years"></div>
+    </details>
+
+    <details open>
+      <summary>Revenue</summary>
+      <div class="inp"><label for="i-dues">Annual dues per member<span class="src">Colton's default: $3,000 for the whole program. $2,500 was also said. Bridge is $1,750 today.</span></label><div class="pre" data-pre="$"><input id="i-dues" type="number" min="0" step="50" data-key="dues"></div></div>
+      <div class="inp"><label for="i-other">Other annual revenue<span class="src">Sponsorships, partner support, chapter subsidy. Blank on purpose.</span></label><div class="pre" data-pre="$"><input id="i-other" type="number" min="0" step="500" data-key="otherRev"></div></div>
+    </details>
+
+    <details open>
+      <summary>People and fixed costs</summary>
+      <div class="inp"><label for="i-staff">Dedicated resource<span class="src">Colton's default: $75,000 for the person who works with the committee on logistics, operations, events, invites and registrations, activation, and volunteers.</span></label><div class="pre" data-pre="$"><input id="i-staff" type="number" min="0" step="1000" data-key="staff"></div></div>
+      <div class="inp"><label for="i-software">Software, registration and tools<span class="src">Guess, please correct: ChapterPro or equivalent entry, forms, email.</span></label><div class="pre" data-pre="$"><input id="i-software" type="number" min="0" step="100" data-key="software"></div></div>
+      <div class="inp"><label for="i-marketing">Marketing and recruiting<span class="src">Guess, please correct: the alumni recruiting push, info sessions, printed invitations.</span></label><div class="pre" data-pre="$"><input id="i-marketing" type="number" min="0" step="250" data-key="marketing"></div></div>
+      <div class="inp"><label for="i-training">Moderator and advisor training<span class="src">Guess, please correct: forum moderator training for the Collective's forums.</span></label><div class="pre" data-pre="$"><input id="i-training" type="number" min="0" step="250" data-key="training"></div></div>
+      <div class="inp"><label for="i-committee">Committee and volunteer budget<span class="src">Guess, please correct: thank-yous, a planning dinner, printing.</span></label><div class="pre" data-pre="$"><input id="i-committee" type="number" min="0" step="250" data-key="committee"></div></div>
+      <div class="inp"><label for="i-ec">EC membership bundle, per member per year<span class="src">Blank on purpose: Sam offered a discounted Entrepreneur Center rate if it is bundled. Nobody has the number yet.</span></label><div class="pre" data-pre="$"><input id="i-ec" type="number" min="0" step="10" data-key="ecCost"></div></div>
+    </details>
+
+    <details open>
+      <summary>Events: learning</summary>
+      <div class="inp"><label for="i-learn">Learning events per year<span class="src">Monthly access to learning events: 12. Panels, workshops, fireside chats, think tanks.</span></label><input id="i-learn" type="number" min="0" step="1" data-key="learn"></div>
+      <div class="inp"><label for="i-learnAtt">Average attendance, learning<span class="src">Guess: EO House fireside chats cap around 30; with EO members invited, 25 is conservative.</span></label><input id="i-learnAtt" type="number" min="0" step="1" data-key="learnAtt"></div>
+      <div class="inp"><label for="i-learnFB">Food and beverage per person, learning<span class="src">Guess: coffee, breakfast or boxed lunch at EO House.</span></label><div class="pre" data-pre="$"><input id="i-learnFB" type="number" min="0" step="1" data-key="learnFB"></div></div>
+      <div class="inp"><label for="i-speaker">Speaker honorarium per learning event<span class="src">$0 if member-led (the plan). Put a number in if outside speakers are paid.</span></label><div class="pre" data-pre="$"><input id="i-speaker" type="number" min="0" step="50" data-key="speaker"></div></div>
+    </details>
+
+    <details open>
+      <summary>Events: social</summary>
+      <div class="inp"><label for="i-social">Social events per year<span class="src">Guess: six, with the whole Collective invited, alongside the learning calendar.</span></label><input id="i-social" type="number" min="0" step="1" data-key="social"></div>
+      <div class="inp"><label for="i-socialAtt">Average attendance, social</label><input id="i-socialAtt" type="number" min="0" step="1" data-key="socialAtt"></div>
+      <div class="inp"><label for="i-socialFB">Food and beverage per person, social<span class="src">Guess: a hosted happy hour with heavy apps.</span></label><div class="pre" data-pre="$"><input id="i-socialFB" type="number" min="0" step="1" data-key="socialFB"></div></div>
+    </details>
+
+    <details open>
+      <summary>Venues and materials</summary>
+      <div class="inp"><label for="i-house">Share of events held at EO House<span class="src">The lounge for fireside chats and socials is free to the program. The rest rent a learning center or outside space.</span></label><div class="suf" data-suf="%"><input id="i-house" type="number" min="0" max="100" step="5" data-key="atHouse"></div></div>
+      <div class="inp"><label for="i-venue">Rental per event held elsewhere<span class="src">Guess: a learning center or coworking room for a workshop. Sameera's note: the chapter needs the learning center more than 18 times a year already.</span></label><div class="pre" data-pre="$"><input id="i-venue" type="number" min="0" step="50" data-key="venue"></div></div>
+      <div class="inp"><label for="i-av">AV, materials and printing per event</label><div class="pre" data-pre="$"><input id="i-av" type="number" min="0" step="25" data-key="av"></div></div>
+      <div class="inp"><label for="i-contingency">Contingency on all costs<span class="src">Guess: 10%.</span></label><div class="suf" data-suf="%"><input id="i-contingency" type="number" min="0" max="50" step="1" data-key="contingency"></div></div>
+    </details>
+
+    <div class="btn-row" style="padding:12px 0 10px">
+      <button class="btn primary small" type="button" id="copyLink">Copy link to this scenario</button>
+      <button class="btn secondary small" type="button" id="sendScenario">Send this scenario to Colton</button>
+    </div>
+  </aside>
+
+  <div class="outputs">
+    <h2>Five years at a glance</h2>
+    <div class="stats" id="stats"></div>
+
+    <h2>Members over time</h2>
+    <p class="muted small">Who is in the room at the end of each year, and how many graduated into EO along the way.</p>
+    <svg class="chart" id="chartMembers" viewBox="0 0 760 320" role="img" aria-label="Members by year"></svg>
+    <div class="legend"><span><i style="background:var(--chart-1)"></i>Carried over from last year</span><span><i style="background:var(--chart-2)"></i>New from the graduating class</span><span><i style="background:var(--chart-3)"></i>Recruited past graduates (year 1)</span><span><i style="background:var(--chart-4)"></i>Graduated into EO that year</span></div>
+
+    <h2>Money over time</h2>
+    <p class="muted small">Dues and other revenue against the dedicated resource, fixed costs, and events. The line is net.</p>
+    <svg class="chart" id="chartMoney" viewBox="0 0 760 320" role="img" aria-label="Revenue, cost and net by year"></svg>
+    <div class="legend"><span><i style="background:var(--chart-2)"></i>Revenue</span><span><i style="background:var(--chart-4)"></i>Total cost</span><span><i style="background:var(--chart-1)"></i>Net</span></div>
+
+    <h2>The pro forma</h2>
+    <div class="tablewrap"><table id="proforma"></table></div>
+
+    <h2>Today, for comparison: Bridge</h2>
+    <div class="stats">
+      <div class="stat"><div class="v">14 to 15</div><div class="l">Bridge members this year (17 last year)</div></div>
+      <div class="stat"><div class="v">$1,750</div><div class="l">Bridge dues, one year</div></div>
+      <div class="stat"><div class="v">~$26,000</div><div class="l">Bridge revenue at 15 members</div></div>
+      <div class="stat"><div class="v">$0</div><div class="l">Dedicated staff for Bridge</div></div>
+      <div class="stat neg"><div class="v">$10k to $12k</div><div class="l">Catalyst's expected loss this year, accepted as a recruiting cost</div></div>
+    </div>
+
+    <h2>How the model works, in plain words</h2>
+    <ul class="narrow">
+      <li>Each year a Catalyst class graduates. The share who accept an invitation join the Collective that year (year 1 also starts with the recruited past graduates).</li>
+      <li>Everyone who is a member during a year pays that year's dues. Movement happens at year end.</li>
+      <li>From each new class, a fixed number graduate into EO within their first year. Of the continuing members, a share graduates into EO each year, and of everyone left, the retention share stays. The rest leave.</li>
+      <li>Costs are the dedicated resource, the fixed lines, the EC bundle per member if any, and the events: attendance times food and beverage, plus speaker, AV and venue, with the EO House share of events costing no rent. Contingency sits on top of all of it.</li>
+      <li>Break-even members is the fixed cost divided by the margin per member (dues minus the per-member EC cost). It ignores events, which mostly scale with attendance, so treat it as a floor.</li>
+      <li>The EO impact line is informational: EO dues and initiation are not Collective revenue, but they show what the pipeline is worth to the chapter.</li>
+    </ul>
+    <div class="panel open" style="margin-top:16px"><span class="chip open">{{icon:question}}Still open</span>
+      <h3>Things the model cannot know yet</h3>
+      <ul>
+        <li>Whether Collective dues credit toward EO initiation (a chapter revenue question, not a Collective one).</li>
+        <li>What the EC bundle actually costs, and whether it is inside the dues or on top.</li>
+        <li>Whether repeat-Catalyst pricing changes Catalyst's own loss.</li>
+        <li>Belmont's workshop partnership: free, sponsored, or paid.</li>
+      </ul>
+    </div>
+  </div>
+</div>
+</section>
+
+{{FEEDBACK}}
+<!--SCRIPT model.js-->

@@ -1,0 +1,27 @@
+      <p class="cc-kick">The surveys</p>
+      <h1>Four surveys, <span>none of them sent yet.</span></h1>
+      <p class="cc-lede">Four draft surveys about the Catalyst Collective, an ongoing membership, by invitation. Sameera's call on September 9 stands: no survey goes out until the strategic council says so. These are working forms so the council can test the questions by answering them. Responses are stored privately (only the count is public) and are treated as test data until Colton flips a survey to live.</p>
+<!--BODY-->
+<section class="cc-sec">
+  {{sh:clipboard-text|Pick a survey|Answer one, or just read the questions}}
+  <div class="tiles" id="survey-tabs">
+    <button class="tile" type="button" data-survey="council"><span class="ic">{{icon:presentation-chart}}</span><span class="tag">Council, answer now</span><h3>Council review questions</h3><p>Nine questions for the strategic council on the concept itself. Answer here instead of in a reply-all.</p><span class="go">Open {{icon:arrow-right}}</span></button>
+    <button class="tile" type="button" data-survey="alumni"><span class="ic">{{icon:graduation-cap}}</span><span class="tag">Draft</span><h3>Catalyst alumni survey</h3><p>Every past graduate, plus current and lapsed Bridge members: where they are, what they would value, what they would pay.</p><span class="go">Open {{icon:arrow-right}}</span></button>
+    <button class="tile" type="button" data-survey="graduate"><span class="ic">{{icon:certificate}}</span><span class="tag">Draft</span><h3>Graduating class survey</h3><p>The class finishing Catalyst now: placement signal and whether they would apply to the Collective.</p><span class="go">Open {{icon:arrow-right}}</span></button>
+    <button class="tile" type="button" data-survey="prospect"><span class="ic">{{icon:magnifying-glass}}</span><span class="tag">Draft</span><h3>Prospect survey</h3><p>People considering Catalyst: fit, interest, and what is holding them back. Pairs with the fit finder.</p><span class="go">Open {{icon:arrow-right}}</span></button>
+  </div>
+  <div id="survey-host" aria-live="polite"></div>
+</section>
+
+<section class="cc-sec">
+  {{sh:note-pencil|Notes for the council|Before anything goes out}}
+  <ul class="ilist">
+    <li><span class="ic">{{icon:users-four}}</span><span><b>Who sends it, and to whom first,</b> is still the council's call. The alumni list lives with Sameera. Justin Plough is on the focus-group list by name.</span></li>
+    <li><span class="ic">{{icon:video-camera}}</span><span><b>The video pairs with the alumni survey.</b> The plan is a 60-second explainer from Matt, Sameera or Colton watched right before the survey, so the concept is fresh. The script is in the <a href="{{B}}/library/">library</a>.</span></li>
+    <li><span class="ic">{{icon:signpost}}</span><span><b>The fit finder is the prospect's version of a survey.</b> It stores nothing; it points people at their room. The prospect survey here adds a way to follow up.</span></li>
+    <li><span class="ic">{{icon:flask}}</span><span><b>Test freely.</b> Everything submitted before a survey goes live is marked test and ignored in any tally.</span></li>
+  </ul>
+</section>
+
+{{FEEDBACK}}
+<!--SCRIPT surveys.js-->
