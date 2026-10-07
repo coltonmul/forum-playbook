@@ -1,0 +1,16 @@
+<section class="fb" id="feedback" aria-labelledby="fb-title">
+  <header class="sh"><span class="sh-i">{{icon:chat-circle-text}}</span><div><p class="sh-k">Your turn</p><h2 id="fb-title">Share feedback with Colton</h2></div></header>
+  <p class="small muted">About this page, the concept, a number, the wording, anything. Every entry lands in the public <a href="{{B}}/feedback/">feedback log</a> with your name on it, so you can see it was received and what happened to it.</p>
+  <form id="fb-form" novalidate>
+    <div class="two">
+      <div class="field"><label for="fb-name">Your name</label><input id="fb-name" name="name" type="text" autocomplete="name" maxlength="80" required></div>
+      <div class="field"><label for="fb-email">Email <span class="hint">optional, so Colton can reply</span></label><input id="fb-email" name="email" type="email" autocomplete="email" maxlength="120"></div>
+    </div>
+    <div class="field"><label for="fb-msg">Your feedback</label><textarea id="fb-msg" name="message" maxlength="4000" required placeholder="What is right, what is wrong, what is missing."></textarea></div>
+    <label class="check"><input type="checkbox" name="change_request" value="1"> <span><b>This is a change request for these pages.</b> Adds the tag #Calvin. Calvin (Colton's assistant) drafts the change, Colton approves it, then it goes live and shows up in the changelog. You can also just type #Calvin anywhere in your message.</span></label>
+    <div class="vh" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>
+    <div class="btn-row"><button class="btn primary" type="submit">Send to Colton</button><a class="btn secondary" id="fb-mailto" href="mailto:colton@foxfuelcreative.com">Or email him instead</a></div>
+    <div id="fb-result" class="notice" role="status" aria-live="polite"></div>
+    <p class="fine">Nothing here is tracked beyond what you type. Your email is never shown publicly.</p>
+  </form>
+</section>

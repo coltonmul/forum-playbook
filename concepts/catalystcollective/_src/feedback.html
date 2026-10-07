@@ -1,0 +1,33 @@
+      <p class="cc-kick">Feedback log and changelog</p>
+      <h1>What people said, <span>and what happened to it.</span></h1>
+      <p class="cc-lede">Every entry from the box at the bottom of any page shows up here the moment it is sent, with the name on it. Change requests are flagged. When something ships because of a comment, the changelog credits the person who asked.</p>
+<!--BODY-->
+<section class="cc-sec">
+  {{sh:arrows-clockwise|How a comment becomes a change|Four steps, all on the record}}
+  <ol class="flow" style="--n:4">
+    <li><span class="ic">{{icon:chat-circle-text}}</span><b>Received</b><span class="n">1. You leave it</span>Any page, bottom box, your name, your words. It is public here immediately. Tick the change-request box or type <b>#Calvin</b> if you want the pages changed, not just heard. An email to Colton with #Calvin works the same way.</li>
+    <li><span class="ic">{{icon:pencil-simple}}</span><b>Proposed</b><span class="n">2. Calvin drafts it</span>Calvin (Colton's assistant) drafts the change on a copy and tells Colton. The live pages do not move.</li>
+    <li><span class="ic">{{icon:check-circle}}</span><b>Approved</b><span class="n">3. Colton decides</span>Colton looks at the proposed change. Yes means it ships. No means the entry says why, here, so the reasoning is on the record.</li>
+    <li><span class="ic">{{icon:rocket-launch}}</span><b>Live</b><span class="n">4. It ships</span>The version number ticks, the changelog names the change and who asked for it, and the entry below shows which version carried it.</li>
+  </ol>
+</section>
+
+<section class="cc-sec">
+  {{sh:list-bullets|The log|Everything anyone has said, newest first}}
+  <div class="btn-row" style="margin-bottom:12px">
+    <button class="btn secondary small" type="button" data-filter="all" aria-pressed="true">Everything</button>
+    <button class="btn secondary small" type="button" data-filter="change">Change requests</button>
+    <button class="btn secondary small" type="button" data-filter="open">Still open</button>
+    <span class="muted small" id="log-count"></span>
+  </div>
+  <div id="log" aria-live="polite"><p class="muted">Loading the log.</p></div>
+</section>
+
+<section class="cc-sec" id="changelog">
+  {{sh:clock-counter-clockwise|Changelog|Every version of these pages}}
+  <p class="small muted">Versions of the sandbox itself. The concept's own decisions live on the <a href="{{B}}/">overview page</a> and in the council's minutes.</p>
+  <ul class="changelog">{{CHANGELOG}}</ul>
+</section>
+
+{{FEEDBACK}}
+<!--SCRIPT feedback.js-->
