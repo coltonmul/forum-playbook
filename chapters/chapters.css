@@ -2,9 +2,6 @@
 .jump{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0;padding:0;list-style:none}
 .jump a{font-family:var(--mono);font-size:13px;letter-spacing:.04em;min-height:44px;display:inline-flex;align-items:center;padding:0 14px;border:.5px solid var(--border);background:var(--white);text-decoration:none;color:var(--pitch)}
 .jump a:hover,.jump a:focus-visible{background:var(--teal);color:#fff}
-.facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;margin-top:30px;border-top:2px solid var(--pitch)}
-.facts div{padding:14px 14px 4px 0;font-size:14px;color:var(--quiet);line-height:1.35}
-.facts b{display:block;font-family:var(--display);font-weight:900;font-size:44px;line-height:1;color:var(--pitch);margin-bottom:4px}
 .menu{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:18px}
 .menu .card{padding:18px 20px 20px;display:flex;flex-direction:column;gap:6px;min-width:0}
 .menu .tag{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--quiet)}
@@ -33,7 +30,6 @@
 .money tbody th{font-weight:700;width:24%}
 .money td.amt{font-family:var(--mono);font-size:15px;white-space:nowrap}
 @media (max-width:760px){
-  .facts{grid-template-columns:repeat(2,minmax(0,1fr))}
   .money thead{display:none}
   .money,.money tbody,.money tr,.money th,.money td{display:block;width:100%}
   .money tr{border-bottom:.5px solid var(--border);padding:12px 14px}
