@@ -1,6 +1,6 @@
       <p class="cc-kick">The financial model</p>
       <h1>What the Collective costs, <span>and what it brings in.</span></h1>
-      <p class="cc-lede">A pro forma you can argue with, for the Catalyst Collective: an ongoing membership, by invitation. The defaults are Colton's starting assumptions from the September 17 council; every blank is meant to be corrected by someone who knows better. Change a number and the table and charts update. Copy the link to share your version, or send it straight to Colton.</p>
+      <p class="cc-lede">A pro forma you can argue with, for the Catalyst Collective: an ongoing membership, by invitation. The defaults are Colton's starting assumptions from the September 17 council; every blank is meant to be corrected by someone who knows better. Change a number and the table and charts update. Copy the link to share your version, or send it straight to Colton. Below it sits a second set of numbers: <a href="#brittany">Brittany Lorenzi's preliminary budget</a> from September 18, with its own levers.</p>
       <div class="cc-meta">
         <span>{{icon:currency-dollar}}Currency: <b>US dollars, per year</b></span>
         <span>{{icon:calendar-check}}Horizon: <b>adjustable, five years by default</b></span>
@@ -131,5 +131,72 @@
 </div>
 </section>
 
+<section class="cc-sec" id="brittany">
+  {{sh:calculator|Perspective: Brittany Lorenzi|Brittany's preliminary budget}}
+  <div class="persp">
+    <div class="who"><span class="ic">{{icon:user-circle}}</span><span class="chip persp">Perspective: Brittany Lorenzi</span><span class="by">Blueprint Strategy Solutions &middot; built September 18, 2026 &middot; shared with the council October 8</span></div>
+    <p>Brittany built this two-year revenue and expense forecast with Sameera Lowe and David Frazier, before Colton's pages existed, and sent it to Colton on October 8. In her words: "a very very high level start of a Revenue forecast for Catalyst Collective without getting Colton's information. I think we could definitely spend more on this depending on what type of workshops we end up with. The learning &amp; social allocation piece is a big part of the expense. I did put in for Rainey to help with start up and then add $1k/month to her retainer to help oversee the program."</p>
+    <p>It is reproduced here exactly as she built it, with her numbers as the defaults and every fee and count turned into a lever. Where it touches the concept model above: she assumes $2,500 dues (the model above defaults to $3,000), 50% of graduates joining, 90% retention with half of the retained converting to EO in year 2, Rainey Cronin as the paid operator instead of a dedicated staff hire, and a per-member learning and social allocation instead of per-event costs. Neither table changes the other; they are two ways to see the same program.</p>
+  </div>
+
+<div class="model-layout" style="margin-top:18px">
+  <aside class="inputs" aria-label="Brittany's budget inputs">
+    <p class="kicker">{{icon:sliders-horizontal}}Her levers</p>
+    <div class="btn-row" style="padding:0 0 10px">
+      <button class="btn secondary small" type="button" id="b-reset">Brittany's numbers</button>
+    </div>
+
+    <details open>
+      <summary>Members and dues</summary>
+      <div class="inp"><label for="b-fee">Membership fee per member per year<span class="src">Her default: $2,500, paid by new and ongoing members alike.</span></label><div class="pre" data-pre="$"><input id="b-fee" type="number" min="0" step="50" data-bkey="fee"></div></div>
+      <div class="inp"><label for="b-grads1">Catalyst graduates, year 1<span class="src">Her sheet starts from 36.</span></label><input id="b-grads1" type="number" min="0" step="1" data-bkey="grads1"></div>
+      <div class="inp"><label for="b-grads2">Catalyst graduates, year 2<span class="src">Her sheet uses 40.</span></label><input id="b-grads2" type="number" min="0" step="1" data-bkey="grads2"></div>
+      <div class="inp"><label for="b-join">Share of graduates who join<span class="src">Her note: "Assumes 50% of Catalyst Graduates".</span></label><div class="suf" data-suf="%"><input id="b-join" type="number" min="0" max="100" step="1" data-bkey="join"></div></div>
+      <div class="inp"><label for="b-ret">Retention into year 2<span class="src">Her note: "Assumes 90% retention".</span></label><div class="suf" data-suf="%"><input id="b-ret" type="number" min="0" max="100" step="1" data-bkey="ret"></div></div>
+      <div class="inp"><label for="b-toeo">Share of the retained who convert to EO<span class="src">Her note: "50% conversion to EO". They leave the Collective's revenue.</span></label><div class="suf" data-suf="%"><input id="b-toeo" type="number" min="0" max="100" step="1" data-bkey="toeo"></div></div>
+    </details>
+
+    <details open>
+      <summary>People</summary>
+      <div class="inp"><label for="b-setup">Rainey Cronin, initial project set up<span class="src">Year 1 only.</span></label><div class="pre" data-pre="$"><input id="b-setup" type="number" min="0" step="100" data-bkey="setup"></div></div>
+      <div class="inp"><label for="b-rmonthly">Rainey Cronin, monthly retainer addition<span class="src">Her plan: add $1k/month to Rainey's retainer to oversee the program. 11 months in year 1, 12 in year 2.</span></label><div class="pre" data-pre="$"><input id="b-rmonthly" type="number" min="0" step="50" data-bkey="rmonthly"></div></div>
+      <div class="inp"><label for="b-facilfee">Facilitation fee per session<span class="src">Her note: "Assumes quarterly facilitated programming".</span></label><div class="pre" data-pre="$"><input id="b-facilfee" type="number" min="0" step="50" data-bkey="facilFee"></div></div>
+      <div class="inp"><label for="b-faciln">Facilitated sessions per year</label><input id="b-faciln" type="number" min="0" step="1" data-bkey="facilN"></div>
+    </details>
+
+    <details open>
+      <summary>Per member, per year</summary>
+      <div class="inp"><label for="b-ec">EC membership, CoWork+<span class="src">Her default: $99 per member.</span></label><div class="pre" data-pre="$"><input id="b-ec" type="number" min="0" step="1" data-bkey="ec"></div></div>
+      <div class="inp"><label for="b-alloc">Social and learning allocation<span class="src">From the "Learning &amp; Social Events" tab of her workbook, which was not attached; the cached value is $1,256.25 per member.</span></label><div class="pre" data-pre="$"><input id="b-alloc" type="number" min="0" step="25" data-bkey="alloc"></div></div>
+      <div class="inp"><label for="b-training">Training content and materials<span class="src">Her note: "Increased to include 15 EO Members".</span></label><div class="pre" data-pre="$"><input id="b-training" type="number" min="0" step="5" data-bkey="training"></div></div>
+    </details>
+
+    <details open>
+      <summary>Events</summary>
+      <div class="inp"><label for="b-socialpm">Socials, per member per month<span class="src">Her note: "Monthly Happy Hour &amp; Snacks at EO House". Her sheet prices both years off the year-1 member count.</span></label><div class="pre" data-pre="$"><input id="b-socialpm" type="number" min="0" step="5" data-bkey="socialPM"></div></div>
+      <div class="inp"><label for="b-holiday">Holiday party, per person<span class="src">Her note: "Assumes joining with Catalyst". Headcount is members times two.</span></label><div class="pre" data-pre="$"><input id="b-holiday" type="number" min="0" step="5" data-bkey="holiday"></div></div>
+      <div class="inp"><label for="b-food">Recruitment event, per year<span class="src">Her note: "Assumes event to invite past Catalyst Participants to learn about program".</span></label><div class="pre" data-pre="$"><input id="b-food" type="number" min="0" step="50" data-bkey="food"></div></div>
+      <div class="inp"><label for="b-video">Recruitment video<span class="src">Her note: "Every other year", so year 1 only here.</span></label><div class="pre" data-pre="$"><input id="b-video" type="number" min="0" step="100" data-bkey="video"></div></div>
+    </details>
+
+    <div class="btn-row" style="padding:12px 0 10px">
+      <button class="btn primary small" type="button" id="b-copyLink">Copy link to this version</button>
+      <button class="btn secondary small" type="button" id="b-send">Send this version to Colton</button>
+    </div>
+  </aside>
+
+  <div class="outputs">
+    <h2>Her two years at a glance</h2>
+    <div class="stats" id="b-stats"></div>
+
+    <h2>Her budget, line by line</h2>
+    <p class="muted small">The table mirrors her spreadsheet: fee times count equals amount, her chair notes on the right. People can be fractional here because her model carries expected values (8.1 ongoing members), shown as she built it.</p>
+    <div class="tablewrap"><table id="b-table"></table></div>
+    <p class="muted small">One transcription note: her sheet's year-2 cell for the recruitment event reads $1, with the fee and count columns transposed on that row. The default here assumes the same one $500 event as year 1.</p>
+  </div>
+</div>
+</section>
+
 {{FEEDBACK}}
 <!--SCRIPT model.js-->
+<!--SCRIPT model-brittany.js-->

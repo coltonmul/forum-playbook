@@ -34,7 +34,7 @@ import icon as _icon  # noqa: E402
 # the one visitor-counter line every forumplaybook.com page carries (copied from timer.html)
 COUNTER = "<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{\"token\": \"c20145f631df48ff8dc17a09c0c3fcdb\"}'></script><!-- End Cloudflare Web Analytics -->"
 
-VERSION = "2.0.3"
+VERSION = "2.1.0"
 B = "/concepts/catalystcollective"
 OLD = "https://catalystcollective.pages.dev"
 SITE = "https://forumplaybook.com"
@@ -47,7 +47,7 @@ PAGES = [
     ("journey/", "journey", "Journeys", "path", "The entrepreneur journeys | Catalyst Collective",
      "Three paths through Catalyst and the proposed Catalyst Collective: grow into EO, stay and run it well, or not invited yet. Side by side.", "og.png"),
     ("model/", "model", "Financial model", "chart-line-up", "The financial model | Catalyst Collective",
-     "A five-year financial model for the proposed Catalyst Collective. Every number is adjustable and shareable by link.", "og.png"),
+     "A five-year financial model for the proposed Catalyst Collective, plus Brittany Lorenzi's preliminary budget. Every number is adjustable and shareable by link.", "og.png"),
     ("surveys/", "surveys", "Surveys", "clipboard-text", "The surveys | Catalyst Collective",
      "Four draft surveys about the proposed Catalyst Collective, as working forms the council can test.", "og.png"),
     ("library/", "library", "Already built", "books", "Already built | Catalyst Collective",
@@ -65,6 +65,7 @@ SITE_PAGES = [
 ]
 
 CHANGELOG = [
+    ("2.1.0", "Thu / 2026-10-08", "Brittany Lorenzi's preliminary budget joins the model page as its own adjustable table, at Colton's direction: her September 18 numbers are the defaults, every fee and count is a lever, and a version can be shared by link alongside the main model's. One transcription note, stated on the page: her sheet's year-2 recruitment event cell reads $1 with the fee and count columns transposed, so the page assumes the same one $500 event as year 1."),
     ("2.0.3", "Thu / 2026-10-08", "the feedback log calls a drafted change \"Proposed, waiting for approval\" instead of \"Proposed on beta\": there is no beta lane since the move. Drafts now wait on a branch until Colton approves them."),
     ("2.0.2", "Thu / 2026-10-08", "the footer lists the new app page, and every page carries the site's visitor counter like the rest of forumplaybook.com."),
     ("2.0.1", "Wed / 2026-10-07", "wording fix from Colton: \"deep dive\" is a specific part of an EO forum meeting, so the alumni survey option now reads \"Quarterly themed sessions led by EO members who solved my exact problem\"."),

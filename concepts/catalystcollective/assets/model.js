@@ -1,4 +1,5 @@
-/* Catalyst Collective sandbox: the financial model. VERSION 2.0.0 (2026-10-07; moved to forumplaybook.com, unchanged math, EO pill label 12px for the legibility floor)
+/* Catalyst Collective sandbox: the financial model. VERSION 2.1.0 (2026-10-08; writeUrl now preserves the b_ parameters of Brittany's budget lower on the page)
+   2.0.0 (2026-10-07; moved to forumplaybook.com, unchanged math, EO pill label 12px for the legibility floor)
    Pure browser JavaScript, no libraries. Inputs live in the URL so a scenario can be
    shared by link. Defaults are Colton's September 17 assumptions; "guess" lines are
    Calvin's placeholders and are labeled that way in the page. */
@@ -46,10 +47,10 @@
     return p;
   }
   function writeUrl(p) {
-    var q = new URLSearchParams();
-    Object.keys(DEFAULTS).forEach(function (k) { if (p[k] !== DEFAULTS[k]) q.set(k, String(p[k])); });
+    var q = new URLSearchParams(location.search);
+    Object.keys(DEFAULTS).forEach(function (k) { if (p[k] !== DEFAULTS[k]) q.set(k, String(p[k])); else q.delete(k); });
     var s = q.toString();
-    history.replaceState(null, '', location.pathname + (s ? '?' + s : ''));
+    history.replaceState(null, '', location.pathname + (s ? '?' + s : '') + location.hash);
   }
 
   function run(p) {
