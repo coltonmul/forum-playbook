@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Forum Playbook app | Forum Playbook</title>
+<meta name="description" content="Run better forum meetings. The Forum Playbook app for iPhone and iPad: your forum, the parking lot, the meeting block by block, and the debrief. Free on the App Store.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='12 12 232 232'%3E%3Cstyle%3E:root%7Bcolor:%231A1D23%7D%40media (prefers-color-scheme:dark)%7B:root%7Bcolor:%23E8EAED%7D%7D%3C/style%3E%3Cpath fill='currentColor' d='M176 18H80a22 22 0 0 0-22 22v176a22 22 0 0 0 22 22h96a22 22 0 0 0 22-22V40a22 22 0 0 0-22-22M70 62h116v132H70Zm10-32h96a10 10 0 0 1 10 10v10H70V40a10 10 0 0 1 10-10m96 196H80a10 10 0 0 1-10-10v-10h116v10a10 10 0 0 1-10 10'/%3E%3C/svg%3E">
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Forum Playbook" />
+<meta property="og:url" content="https://forumplaybook.com/app/" />
+<meta property="og:title" content="The Forum Playbook app, now on the App Store" />
+<meta property="og:description" content="Run better forum meetings: your forum, the parking lot, the meeting block by block, and the debrief. Free for iPhone and iPad." />
+<meta property="og:image" content="https://forumplaybook.com/app/og.png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="The Forum Playbook app icon beside an iPhone running a forum meeting" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="The Forum Playbook app, now on the App Store" />
+<meta name="twitter:description" content="Run better forum meetings. Free for iPhone and iPad." />
+<meta name="twitter:image" content="https://forumplaybook.com/app/og.png" />
+<meta name="apple-itunes-app" content="app-id=6789998894">
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/interior.css">
+<link rel="stylesheet" href="/concepts/concepts.css">
+<style>
+/* /app/ v1.0.0 (2026-10-08). Forum Playbook tokens from concepts.css. Measured: Pitch on Linen 17:1, #5C5348 on Linen 6.4:1,
+   Brick on white 5.7:1. The badge is Apple's own artwork, served by Apple's marketing tools, unaltered (Apple's badge rules). */
+.app-hero{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:40px;align-items:center;margin-top:8px}
+.app-id{display:flex;align-items:center;gap:18px;margin:0 0 18px}
+.app-id img{width:96px;height:96px;border-radius:22%;box-shadow:0 1px 2px rgba(14,14,12,.12),0 10px 26px rgba(14,14,12,.18);transition:transform .45s cubic-bezier(.34,1.56,.64,1)}
+.app-id:hover img{transform:rotate(-6deg) scale(1.05)}
+.app-id .nm{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:30px;line-height:1}
+.app-id .meta{font-family:var(--mono);font-size:13px;color:var(--quiet);letter-spacing:.04em;margin-top:4px}
+.badge-row{display:flex;flex-wrap:wrap;align-items:center;gap:14px 20px;margin-top:22px}
+.badge{display:inline-block;line-height:0;border-radius:9px;transition:transform .25s,box-shadow .25s}
+.badge img{height:56px;width:auto}
+.badge:hover,.badge:focus-visible{transform:translateY(-2px);box-shadow:0 10px 22px rgba(14,14,12,.25)}
+.badge-note{font-family:var(--mono);font-size:13px;color:var(--quiet);letter-spacing:.04em;line-height:1.5}
+/* phones: CSS frames around the real store screenshots */
+.phone{position:relative;width:min(100%,300px);aspect-ratio:1320/2868;margin:0 auto;border-radius:46px;background:#0E0E0C;padding:11px;
+  box-shadow:0 2px 4px rgba(14,14,12,.15),0 30px 60px rgba(14,14,12,.28);transition:transform .5s cubic-bezier(.34,1.56,.64,1)}
+.phone img{width:100%;height:100%;object-fit:cover;border-radius:36px;display:block}
+.phone::after{content:"";position:absolute;top:21px;left:50%;transform:translateX(-50%);width:30%;height:22px;border-radius:12px;background:#0E0E0C}
+.app-hero .phone{transform:rotate(3deg)}
+.app-hero .phone:hover{transform:rotate(0) translateY(-6px)}
+.shots{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:6px}
+.shot{text-align:center}
+.shot .phone{width:min(100%,240px);border-radius:38px;padding:9px}
+.shot .phone img{border-radius:30px}
+.shot .phone::after{top:17px;height:18px}
+.shot:hover .phone{transform:translateY(-8px) rotate(-2deg)}
+.shot h3{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:24px;margin:18px 0 4px;line-height:1}
+.shot p{font-size:15px;margin:0;color:#2B2722;line-height:1.5}
+.feat{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.feat li{background:var(--white);border:.5px solid var(--border);padding:16px 18px;display:grid;grid-template-columns:40px minmax(0,1fr);gap:14px;align-items:start;transition:transform .3s,box-shadow .3s}
+.feat li:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(58,138,138,.35)}
+.feat .i{width:40px;height:40px;border-radius:50%;background:var(--linen);color:var(--brick);display:grid;place-items:center;transition:background .3s,color .3s,transform .45s cubic-bezier(.34,1.56,.64,1)}
+.feat .i svg{width:22px;height:22px}
+.feat li:hover .i{background:var(--teal);color:#fff;transform:rotate(-12deg) scale(1.1)}
+.feat b{display:block;font-size:17px;margin-bottom:2px}
+.feat span{font-size:15px;line-height:1.5}
+.trust{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.trust span{display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:13px;letter-spacing:.04em;background:var(--white);border:.5px solid var(--border);padding:8px 12px}
+.trust svg{width:18px;height:18px;color:var(--teal)}
+@media (max-width:820px){
+  .app-hero{grid-template-columns:minmax(0,1fr);gap:30px}
+  .app-hero .phone{width:min(78%,280px)}
+  .shots{grid-template-columns:minmax(0,1fr);gap:36px}
+  .feat{grid-template-columns:minmax(0,1fr)}
+}
+@media (prefers-reduced-motion:reduce){.phone,.badge,.app-id img,.feat li,.feat .i{transition:none!important;transform:none!important}}
+</style>
+</head><body><header class="ibar" role="banner">
+  <a href="/" class="ibar-hit ibar-warm ibar-home" aria-label="Forum Playbook home">
+    <span>
+      <svg class="ibar-mark" viewBox="0 0 212 100" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path class="ibar-mb" d="M 0 5.9 L 42.06 5.9 L 101.6 94.1 L 212 94.1" />
+        <path class="ibar-ma" d="M 86.4 5.9 L 212 5.9" />
+      </svg>
+      <span class="ibar-word">FORUM PLAYBOOK</span>
+    </span>
+  </a>
+  <span class="ibar-rule" aria-hidden="true"></span>
+  <span class="ibar-page">The App</span>
+  <span class="ibar-meta">Updated Thu / 2026-10-08 / 2:57 AM CT</span>
+  <nav class="ibar-nav" aria-label="Main navigation">
+    <a href="/#resources" class="ibar-hit ibar-cool ibar-link"><span>Resources</span></a>
+    <a href="/timer" class="ibar-hit ibar-cool ibar-link"><span>Timer</span></a>
+    <a href="/concepts/" class="ibar-hit ibar-cool ibar-link"><span>Concepts</span></a>
+    <a href="/brand" class="ibar-hit ibar-cool ibar-link"><span>Brand</span></a>
+  </nav>
+</header>
+<main class="wrap">
+  <section class="app-hero">
+    <div>
+      <p class="kicker">[ Now on the App Store ]</p>
+      <a class="app-id" href="https://apps.apple.com/us/app/forum-playbook/id6789998894" target="_blank" rel="noopener" style="text-decoration:none;color:inherit">
+        <img src="/app/img/icon-512.png" width="96" height="96" alt="Forum Playbook app icon">
+        <span><span class="nm">Forum Playbook</span><span class="meta" style="display:block">Free &middot; iPhone and iPad &middot; iOS 26 or later</span></span>
+      </a>
+      <h1 class="big">Run better forum meetings.</h1>
+      <p class="lede">Your forum in one place: the roster and rotation, the parking lot, the meeting that runs block by block, and the decisions you would otherwise try to remember later.</p>
+      <div class="badge-row">
+        <a class="badge" href="https://apps.apple.com/us/app/forum-playbook/id6789998894" target="_blank" rel="noopener"><img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us" alt="Download on the App Store" width="168" height="56"></a>
+        <span class="badge-note">Built by a forum moderator and trainer.<br>Works with no signal. No account.</span>
+      </div>
+      <div class="trust"><span><svg class="icon icon-wifi-slash" width="24" height="24" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="currentColor" d="M138 204a10 10 0 1 1-10-10a10 10 0 0 1 10 10M52.44 36a6 6 0 0 0-8.88 8l17.77 19.58a169.4 169.4 0 0 0-41.14 25a6 6 0 1 0 7.62 9.27A157.6 157.6 0 0 1 69.91 73l26.48 29.13a122.2 122.2 0 0 0-44.12 22.19a6 6 0 0 0 7.46 9.41a110 110 0 0 1 45.87-21.47l31.13 34.25A74 74 0 0 0 128 146a73.44 73.44 0 0 0-43.53 14.15A6 6 0 0 0 88 171a5.93 5.93 0 0 0 3.53-1.15a62 62 0 0 1 59.76-7.31L203.56 220a6 6 0 0 0 8.88-8.08Zm183.37 52.55A170.32 170.32 0 0 0 128 50a174 174 0 0 0-21.76 1.38a6 6 0 1 0 1.52 11.9A161 161 0 0 1 128 62a158.26 158.26 0 0 1 100.19 35.82a6 6 0 1 0 7.62-9.27m-39.54 45.2A6 6 0 0 0 200 135a6 6 0 0 0 3.73-10.7a122.26 122.26 0 0 0-50.9-23.81a6 6 0 1 0-2.43 11.75a110 110 0 0 1 45.87 21.51"/></svg>Works offline</span><span><svg class="icon icon-lock-key" width="24" height="24" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="currentColor" d="M208 82h-34V56a46 46 0 0 0-92 0v26H48a14 14 0 0 0-14 14v112a14 14 0 0 0 14 14h160a14 14 0 0 0 14-14V96a14 14 0 0 0-14-14M94 56a34 34 0 0 1 68 0v26H94Zm116 152a2 2 0 0 1-2 2H48a2 2 0 0 1-2-2V96a2 2 0 0 1 2-2h160a2 2 0 0 1 2 2Zm-82-94a26 26 0 0 0-6 51.29V184a6 6 0 0 0 12 0v-18.71a26 26 0 0 0-6-51.29m0 40a14 14 0 1 1 14-14a14 14 0 0 1-14 14"/></svg>Nothing leaves your device</span><span><svg class="icon icon-bell-ringing" width="24" height="24" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="currentColor" d="M223.05 69.33a6 6 0 0 1-8.05-2.57a96 96 0 0 0-34.2-37.68a6 6 0 0 1 6.4-10.15a109.26 109.26 0 0 1 38.41 42.31a6 6 0 0 1-2.56 8.09M41 66.76a96 96 0 0 1 34.2-37.68a6 6 0 0 0-6.4-10.15a109.26 109.26 0 0 0-38.41 42.31A6 6 0 1 0 41 66.76m179 110.18A14 14 0 0 1 208 198h-42.5a38 38 0 0 1-75 0H48a14 14 0 0 1-12.06-21.06C45.13 161.09 50 138.63 50 112a78 78 0 0 1 156 0c0 27 4.74 48.86 14.08 64.94ZM153.29 198h-50.58a26 26 0 0 0 50.58 0m56.42-15C199.29 165 194 141.15 194 112a66 66 0 0 0-132 0c0 29.16-5.29 53-15.71 71a2 2 0 0 0 0 2a1.9 1.9 0 0 0 1.7 1H208a1.9 1.9 0 0 0 1.7-1a2 2 0 0 0 .01-2"/></svg>Alerts through silent mode</span></div>
+    </div>
+    <div class="phone"><img src="/app/img/3-meeting.jpg" width="600" height="1304" alt="The meeting runner on an iPhone: Jordan's turn in Block 1, 2:53 left, Pause and Next below"></div>
+  </section>
+
+  <h2 class="sec">Inside the app</h2>
+  <div class="shots">
+    <div class="shot"><div class="phone"><img src="/app/img/1-forum.jpg" width="600" height="1304" alt="Your Forum screen: the next meeting with its presenter and coach, the roster below" loading="lazy"></div><h3>Your forum</h3><p>Members, who moderates, who presents next, and when you meet. The next meeting sits on the home screen.</p></div>
+    <div class="shot"><div class="phone"><img src="/app/img/2-parking.jpg" width="600" height="1304" alt="The parking lot: EQ and IQ topics with who parked them and how long ago" loading="lazy"></div><h3>The parking lot</h3><p>Every parked topic, EQ and IQ, longest waiting first. Pull one at random when the room needs it.</p></div>
+    <div class="shot"><div class="phone"><img src="/app/img/4-sizer.jpg" width="600" height="1304" alt="Size a topic: the verdict reads EQ deep dive, 30 to 40 minutes, with the steps to run it" loading="lazy"></div><h3>Size a topic</h3><p>Four questions, then the format, the protocol in named steps, and a button that starts exactly that segment.</p></div>
+  </div>
+
+  <h2 class="sec">What it does</h2>
+  <ul class="feat">
+    <li><span class="i"><svg class="icon icon-timer" width="24" height="24" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="currentColor" d="M128 42a94 94 0 1 0 94 94a94.11 94.11 0 0 0-94-94m0 176a82 82 0 1 1 82-82a82.1 82.1 0 0 1-82 82m44.24-126.24a6 6 0 0 1 0 8.48l-40 40a6 6 0 1 1-8.48-8.48l40-40a6 6 0 0 1 8.48 0M98 16a6 6 0 0 1 6-6h48a6 6 0 0 1 0 12h-48a6 6 0 0 1-6-6"/></svg></span><span><b>The meeting, block by block</b>The Standard Forum as a real four-block meeting: whose turn it is in type you can read across the table, and the rest rebalances when you add a minute.</span></li>
+    <li><span class="i"><svg class="icon icon-users-three" width="24" height="24" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="currentColor" d="M243.6 148.8a6 6 0 0 1-8.4-1.2A53.58 53.58 0 0 0 192 126a6 6 0 0 1 0-12a26 26 0 1 0-25.18-32.5a6 6 0 0 1-11.62-3a38 38 0 1 1 59.91 39.63a65.7 65.7 0 0 1 29.69 22.27a6 6 0 0 1-1.2 8.4M189.19 213a6 6 0 0 1-2.19 8.2a5.9 5.9 0 0 1-3 .81a6 6 0 0 1-5.2-3a59 59 0 0 0-101.62 0a6 6 0 1 1-10.38-6a70.1 70.1 0 0 1 36.2-30.46a46 46 0 1 1 50.1 0A70.1 70.1 0 0 1 189.19 213M128 178a34 34 0 1 0-34-34a34 34 0 0 0 34 34m-58-58a6 6 0 0 0-6-6a26 26 0 1 1 25.18-32.51a6 6 0 1 0 11.62-3a38 38 0 1 0-59.91 39.63A65.7 65.7 0 0 0 11.2 140.4a6 6 0 1 0 9.6 7.2A53.58 53.58 0 0 1 64 126a6 6 0 0 0 6-6"/></svg></span><span><b>Your forum</b>The roster, the rotation, the next meeting, and reminders that count back from it.</span></li>
+    <li><span class="i"><svg class="icon icon-list-checks" width="24" height="24" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="currentColor" d="M222 128a6 6 0 0 1-6 6h-88a6 6 0 0 1 0-12h88a6 6 0 0 1 6 6m-94-58h88a6 6 0 0 0 0-12h-88a6 6 0 0 0 0 12m88 116h-88a6 6 0 0 0 0 12h88a6 6 0 0 0 0-12M83.76 43.76L56 71.51L44.24 59.76a6 6 0 0 0-8.48 8.48l16 16a6 6 0 0 0 8.48 0l32-32a6 6 0 0 0-8.48-8.48m0 64L56 135.51l-11.76-11.75a6 6 0 1 0-8.48 8.48l16 16a6 6 0 0 0 8.48 0l32-32a6 6 0 0 0-8.48-8.48m0 64L56 199.51l-11.76-11.75a6 6 0 0 0-8.48 8.48l16 16a6 6 0 0 0 8.48 0l32-32a6 6 0 0 0-8.48-8.48"/></svg></span><span><b>Decisions and the debrief</b>Housekeeping captured while everyone is still in the room, then the recap email in one tap.</span></li>
+    <li><span class="i"><svg class="icon icon-notepad" width="24" height="24" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="currentColor" d="M166 128a6 6 0 0 1-6 6H96a6 6 0 0 1 0-12h64a6 6 0 0 1 6 6m-6 26H96a6 6 0 0 0 0 12h64a6 6 0 0 0 0-12m54-114v160a30 30 0 0 1-30 30H72a30 30 0 0 1-30-30V40a6 6 0 0 1 6-6h26V24a6 6 0 0 1 12 0v10h36V24a6 6 0 0 1 12 0v10h36V24a6 6 0 0 1 12 0v10h26a6 6 0 0 1 6 6m-12 6h-20v10a6 6 0 0 1-12 0V46h-36v10a6 6 0 0 1-12 0V46H86v10a6 6 0 0 1-12 0V46H54v154a18 18 0 0 0 18 18h112a18 18 0 0 0 18-18Z"/></svg></span><span><b>Your 5% reflections</b>Write them, or photograph the sheet you filled in by hand. Private, on your phone.</span></li>
+    <li><span class="i"><svg class="icon icon-book-open" width="24" height="24" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="currentColor" d="M232 50h-72a38 38 0 0 0-32 17.55A38 38 0 0 0 96 50H24a6 6 0 0 0-6 6v144a6 6 0 0 0 6 6h72a26 26 0 0 1 26 26a6 6 0 0 0 12 0a26 26 0 0 1 26-26h72a6 6 0 0 0 6-6V56a6 6 0 0 0-6-6M96 194H30V62h66a26 26 0 0 1 26 26v116.31A37.86 37.86 0 0 0 96 194m130 0h-66a37.87 37.87 0 0 0-26 10.32V88a26 26 0 0 1 26-26h66Z"/></svg></span><span><b>The field guide</b>Foundations, facilitation moves, open coaching, retreats and cheat sheets, searchable offline.</span></li>
+    <li><span class="i"><svg class="icon icon-chart-bar" width="24" height="24" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path fill="currentColor" d="M224 202h-10V40a6 6 0 0 0-6-6h-56a6 6 0 0 0-6 6v42H96a6 6 0 0 0-6 6v42H48a6 6 0 0 0-6 6v66H32a6 6 0 0 0 0 12h192a6 6 0 0 0 0-12M158 46h44v156h-44Zm-56 48h44v108h-44Zm-48 48h36v60H54Z"/></svg></span><span><b>History</b>What every meeting actually took, block by block, and where your forum keeps losing time.</span></li>
+  </ul>
+
+  <a class="more" href="https://apps.apple.com/us/app/forum-playbook/id6789998894" target="_blank" rel="noopener"><strong>Get it on the App Store</strong><span>Free for iPhone and iPad &rarr;</span></a>
+</main>
+<footer class="cfoot">
+  <nav class="cfoot-nav" aria-label="Site pages"><a href="/">Home</a> <a href="/timer">Forum Timer</a> <a href="/brand">Brand</a> <a href="/legal">Privacy &amp; Terms</a> <a href="/app/" aria-current="page">The app</a> <a href="/chapters/">Chapters + Forums</a> <a href="/concepts/">Concepts</a> <a href="/concepts/regionaltrainingdays/">Regional Training Days</a> <a href="/concepts/catalystcollective/">Catalyst Collective</a> <a href="/concepts/catalystcollective/journey/">Catalyst journeys</a> <a href="/concepts/catalystcollective/model/">Catalyst model</a> <a href="/concepts/catalystcollective/surveys/">Catalyst surveys</a> <a href="/concepts/catalystcollective/library/">Catalyst library</a> <a href="/concepts/catalystcollective/feedback/">Catalyst feedback</a></nav>
+  <p class="cfoot-line">Forum Playbook &middot; Built by Colton &middot; <a href="https://builtbycolton.com" target="_blank" rel="noopener">builtbycolton.com</a></p>
+  <details class="cfoot-ver"><summary>v1.0.0 &middot; changelog</summary><ul><li>1.0.0 (Thu / 2026-10-08 / 2:57 AM CT): first version, the day after the app went live on the App Store: the icon, Apple's badge, the app on a phone, and what it does.</li></ul></details>
+</footer>
+
+<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c20145f631df48ff8dc17a09c0c3fcdb"}'></script><!-- End Cloudflare Web Analytics -->
+</body></html>

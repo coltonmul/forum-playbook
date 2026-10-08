@@ -31,7 +31,10 @@ ICON_PY = os.path.expanduser("~/Sites/brand-assets/icons")
 sys.path.insert(0, ICON_PY)
 import icon as _icon  # noqa: E402
 
-VERSION = "2.0.1"
+# the one visitor-counter line every forumplaybook.com page carries (copied from timer.html)
+COUNTER = "<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{\"token\": \"c20145f631df48ff8dc17a09c0c3fcdb\"}'></script><!-- End Cloudflare Web Analytics -->"
+
+VERSION = "2.0.2"
 B = "/concepts/catalystcollective"
 OLD = "https://catalystcollective.pages.dev"
 SITE = "https://forumplaybook.com"
@@ -56,12 +59,13 @@ PAGES = [
 # The one canonical footer list for the /concepts/ pages (full footer nav law). Path, label.
 SITE_PAGES = [
     ("/", "Home"), ("/timer", "Forum Timer"), ("/brand", "Brand"), ("/legal", "Privacy &amp; Terms"),
-    ("/chapters/", "Chapters + Forums"), ("/concepts/", "Concepts"), ("/concepts/regionaltrainingdays/", "Regional Training Days"),
+    ("/app/", "The app"), ("/chapters/", "Chapters + Forums"), ("/concepts/", "Concepts"), ("/concepts/regionaltrainingdays/", "Regional Training Days"),
     (B + "/", "Catalyst Collective"), (B + "/journey/", "Catalyst journeys"), (B + "/model/", "Catalyst model"),
     (B + "/surveys/", "Catalyst surveys"), (B + "/library/", "Catalyst library"), (B + "/feedback/", "Catalyst feedback"),
 ]
 
 CHANGELOG = [
+    ("2.0.2", "Thu / 2026-10-08", "the footer lists the new app page, and every page carries the site's visitor counter like the rest of forumplaybook.com."),
     ("2.0.1", "Wed / 2026-10-07", "wording fix from Colton: \"deep dive\" is a specific part of an EO forum meeting, so the alumni survey option now reads \"Quarterly themed sessions led by EO members who solved my exact problem\"."),
     ("2.0.0", "Wed / 2026-10-07", "moved to forumplaybook.com/concepts/catalystcollective, at Colton's direction, and redesigned to match the Regional Training Days concept: the logo appears once, every section has an icon and its own timestamp, the three rooms and the prices are charts, the history is a timeline you can hover, the journeys branch from one trunk, and everything lifts or tilts on hover. Also from Colton: getting in is now an application. Catalyst graduates apply to the Collective, past alumni can apply at any time, and the committee invites applicants on the same kinds of factors EO weighs on an application, with Catalyst's revenue thresholds tiered by industry. The old address forwards here; the feedback box, the surveys and the #Calvin flow keep working, and everything already in the feedback log is still there."),
     ("1.2.1", "Fri / 2026-09-18", "naming rule from Colton, matched to the Three Tracks Kit and the long-form draft. The name now carries its tagline at first reference on every page (\"An ongoing membership, by invitation.\"), the overview opens with the one-sentence definition, and the older parenthetical that tied the name back to Bridge is gone. The framing is the evolution of Bridge, not a rename."),
@@ -208,6 +212,7 @@ def page(slug, src, label, ic, title, desc, og):
   <p class="cfoot-line"><b>Concept only.</b> Not adopted, not approved, not solicitation. &middot; Built by Colton &middot; <a href="https://builtbycolton.com" target="_blank" rel="noopener">builtbycolton.com</a></p>
   <details class="cfoot-ver"><summary>v{VERSION} &middot; changelog</summary><ul>{changelog_html()}</ul></details>
 </footer>
+{COUNTER}
 </body></html>
 """
 
@@ -215,6 +220,8 @@ def page(slug, src, label, ic, title, desc, og):
 def patch_footer(path, current):
     s = open(path).read()
     new = re.sub(r'<nav class="cfoot-nav".*?</nav>', footer_nav(current), s, count=1, flags=re.S)
+    if "cloudflareinsights" not in new:
+        new = new.replace("</body>", COUNTER + "\n</body>", 1)
     if new != s:
         open(path, "w").write(new)
         print("  footer list updated:", os.path.relpath(path, ROOT))
@@ -241,7 +248,7 @@ def main():
         if "\u2014" in s:
             print("  FAIL em dash in", f); bad += 1
         if f.endswith(".html"):
-            for need in (STAMP, 'class="cfoot-nav"', 'id="fb-form"', 'og:image', 'builtbycolton.com'):
+            for need in (STAMP, "cloudflareinsights", 'class="cfoot-nav"', 'id="fb-form"', 'og:image', 'builtbycolton.com'):
                 if need not in s:
                     print("  FAIL", os.path.relpath(f, ROOT), "is missing", need); bad += 1
             left = re.findall(r"\{\{[^}]*\}\}", s)
