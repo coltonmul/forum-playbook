@@ -1,4 +1,4 @@
-/* chapters.css v1.1.0 (2026-10-08; 1.0.0 2026-10-07): /chapters/ only. Loads after concepts.css and reuses its tokens. Measured: Pitch on White 19.3:1, Quiet #5C5348 on Linen 6.6:1, Brick on White 5.7:1, Teal #2F7373 on White 5.6:1 (display sizes only), Linen on Pitch 16.3:1, Gold #D4A832 on Pitch 8.7:1. */
+/* chapters.css v1.1.1 (2026-10-08, hover fills only on hover-capable devices; 1.1.0 2026-10-08; 1.0.0 2026-10-07): /chapters/ only. Loads after concepts.css and reuses its tokens. Measured: Pitch on White 19.3:1, Quiet #5C5348 on Linen 6.6:1, Brick on White 5.7:1, Teal #2F7373 on White 5.6:1 (display sizes only), Linen on Pitch 16.3:1, Gold #D4A832 on Pitch 8.7:1. */
 .jump{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0;padding:0;list-style:none}
 .jump a{font-family:var(--mono);font-size:13px;letter-spacing:.04em;min-height:44px;display:inline-flex;align-items:center;padding:0 14px;border:.5px solid var(--border);background:var(--white);text-decoration:none;color:var(--pitch)}
 .jump a:focus-visible{background:var(--teal);color:#fff}@media (hover:hover){.jump a:hover{background:var(--teal);color:#fff}}
