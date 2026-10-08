@@ -16,7 +16,7 @@ and the body. Tokens:
   {{STAMP}}                            "Updated Wed / 2026-10-07 / 6:58 PM CT", from the clock at build time
 
 The footer page list for the WHOLE /concepts/ section is SITE_PAGES below: the one canonical list. This
-script writes it into every Catalyst page and patches it into /concepts/ and /concepts/regionaltrainingdays/.
+script writes it into every Catalyst page and patches it into /concepts/, /concepts/regionaltrainingdays/ and /chapters/.
 
 Changelog
   2.0.0  First version: the sandbox moves from catalystcollective.pages.dev to forumplaybook.com and gets
@@ -56,7 +56,7 @@ PAGES = [
 # The one canonical footer list for the /concepts/ pages (full footer nav law). Path, label.
 SITE_PAGES = [
     ("/", "Home"), ("/timer", "Forum Timer"), ("/brand", "Brand"), ("/legal", "Privacy &amp; Terms"),
-    ("/concepts/", "Concepts"), ("/concepts/regionaltrainingdays/", "Regional Training Days"),
+    ("/chapters/", "Chapters + Forums"), ("/concepts/", "Concepts"), ("/concepts/regionaltrainingdays/", "Regional Training Days"),
     (B + "/", "Catalyst Collective"), (B + "/journey/", "Catalyst journeys"), (B + "/model/", "Catalyst model"),
     (B + "/surveys/", "Catalyst surveys"), (B + "/library/", "Catalyst library"), (B + "/feedback/", "Catalyst feedback"),
 ]
@@ -233,6 +233,7 @@ def main():
         print("  built", os.path.relpath(out, ROOT))
     patch_footer(os.path.join(ROOT, "concepts", "index.html"), "/concepts/")
     patch_footer(os.path.join(ROOT, "concepts", "regionaltrainingdays", "index.html"), "/concepts/regionaltrainingdays/")
+    patch_footer(os.path.join(ROOT, "chapters", "index.html"), "/chapters/")
     # guards: no em dashes, no leftover tokens, every page has its stamp, footer list, feedback box and og image
     bad = 0
     for f in built + [os.path.join(CC, "assets", x) for x in os.listdir(os.path.join(CC, "assets")) if x.endswith((".js", ".css"))]:
