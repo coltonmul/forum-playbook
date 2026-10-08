@@ -34,7 +34,7 @@ import icon as _icon  # noqa: E402
 # the one visitor-counter line every forumplaybook.com page carries (copied from timer.html)
 COUNTER = "<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{\"token\": \"c20145f631df48ff8dc17a09c0c3fcdb\"}'></script><!-- End Cloudflare Web Analytics -->"
 
-VERSION = "2.0.2"
+VERSION = "2.0.3"
 B = "/concepts/catalystcollective"
 OLD = "https://catalystcollective.pages.dev"
 SITE = "https://forumplaybook.com"
@@ -65,6 +65,7 @@ SITE_PAGES = [
 ]
 
 CHANGELOG = [
+    ("2.0.3", "Thu / 2026-10-08", "the feedback log calls a drafted change \"Proposed, waiting for approval\" instead of \"Proposed on beta\": there is no beta lane since the move. Drafts now wait on a branch until Colton approves them."),
     ("2.0.2", "Thu / 2026-10-08", "the footer lists the new app page, and every page carries the site's visitor counter like the rest of forumplaybook.com."),
     ("2.0.1", "Wed / 2026-10-07", "wording fix from Colton: \"deep dive\" is a specific part of an EO forum meeting, so the alumni survey option now reads \"Quarterly themed sessions led by EO members who solved my exact problem\"."),
     ("2.0.0", "Wed / 2026-10-07", "moved to forumplaybook.com/concepts/catalystcollective, at Colton's direction, and redesigned to match the Regional Training Days concept: the logo appears once, every section has an icon and its own timestamp, the three rooms and the prices are charts, the history is a timeline you can hover, the journeys branch from one trunk, and everything lifts or tilts on hover. Also from Colton: getting in is now an application. Catalyst graduates apply to the Collective, past alumni can apply at any time, and the committee invites applicants on the same kinds of factors EO weighs on an application, with Catalyst's revenue thresholds tiered by industry. The old address forwards here; the feedback box, the surveys and the #Calvin flow keep working, and everything already in the feedback log is still there."),
