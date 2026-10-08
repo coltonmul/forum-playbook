@@ -31,7 +31,7 @@ ICON_PY = os.path.expanduser("~/Sites/brand-assets/icons")
 sys.path.insert(0, ICON_PY)
 import icon as _icon  # noqa: E402
 
-VERSION = "2.0.0"
+VERSION = "2.0.1"
 B = "/concepts/catalystcollective"
 OLD = "https://catalystcollective.pages.dev"
 SITE = "https://forumplaybook.com"
@@ -62,6 +62,7 @@ SITE_PAGES = [
 ]
 
 CHANGELOG = [
+    ("2.0.1", "Wed / 2026-10-07", "wording fix from Colton: \"deep dive\" is a specific part of an EO forum meeting, so the alumni survey option now reads \"Quarterly themed sessions led by EO members who solved my exact problem\"."),
     ("2.0.0", "Wed / 2026-10-07", "moved to forumplaybook.com/concepts/catalystcollective, at Colton's direction, and redesigned to match the Regional Training Days concept: the logo appears once, every section has an icon and its own timestamp, the three rooms and the prices are charts, the history is a timeline you can hover, the journeys branch from one trunk, and everything lifts or tilts on hover. Also from Colton: getting in is now an application. Catalyst graduates apply to the Collective, past alumni can apply at any time, and the committee invites applicants on the same kinds of factors EO weighs on an application, with Catalyst's revenue thresholds tiered by industry. The old address forwards here; the feedback box, the surveys and the #Calvin flow keep working, and everything already in the feedback log is still there."),
     ("1.2.1", "Fri / 2026-09-18", "naming rule from Colton, matched to the Three Tracks Kit and the long-form draft. The name now carries its tagline at first reference on every page (\"An ongoing membership, by invitation.\"), the overview opens with the one-sentence definition, and the older parenthetical that tied the name back to Bridge is gone. The framing is the evolution of Bridge, not a rename."),
     ("1.2.0", "Fri / 2026-09-18", "identity pass, at Colton's direction. The lockup is always stacked and traced to vector; the salmon from the Catalyst invitation is gone everywhere; the identity is EO's base navy with EO Blue as the one highlight. Jay Graves's Project Elevate draft gets its own full page."),

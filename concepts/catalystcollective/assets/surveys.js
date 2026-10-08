@@ -1,4 +1,4 @@
-/* Catalyst Collective sandbox: renders the four draft surveys as working forms. VERSION 2.0.0 (2026-10-07; moved to forumplaybook.com, posts to the sandbox API on catalystcollective.pages.dev, invitation question updated for the application)
+/* Catalyst Collective sandbox: renders the four draft surveys as working forms. VERSION 2.0.1 (2026-10-07; "deep dive" wording replaced; moved to forumplaybook.com, posts to the sandbox API on catalystcollective.pages.dev, invitation question updated for the application)
    Question specs live here so the council can see exactly what would be asked. Responses post to
    /api/survey and are stored privately; only counts are public. */
 (function () {
@@ -8,7 +8,7 @@
   var WEEK = ['Finding customers and making the business real', 'Delivering everything without dropping balls', 'Building systems and a team so it runs without me', 'Leading leaders and setting direction'];
   var REVENUE = ['Under $250K', '$250K to $500K', '$500K to $1M', '$1M to $2M', 'Over $2M'];
   var TRACKS = ['Growth & Scaling', 'Stabilizing & Optimizing', 'Still firefighting, honestly', 'Not sure'];
-  var USE = ['A moderated forum in my track', 'Rotating advisors by function (finance, sales, people)', 'The ability to audit past Catalyst classes', 'Monthly learning events on my track', 'Social hours with the whole Collective', 'Quarterly deep-dives from EO members who solved my exact problem', 'Subsidized software to help run the business', 'Discounted or subsidized consulting engagements', 'An operating system with accountability (EOS, Petra or similar)', 'A financial dashboard or decision tool', 'An Entrepreneur Center membership bundle', '90-day execution cycles with accountability'];
+  var USE = ['A moderated forum in my track', 'Rotating advisors by function (finance, sales, people)', 'The ability to audit past Catalyst classes', 'Monthly learning events on my track', 'Social hours with the whole Collective', 'Quarterly themed sessions led by EO members who solved my exact problem', 'Subsidized software to help run the business', 'Discounted or subsidized consulting engagements', 'An operating system with accountability (EOS, Petra or similar)', 'A financial dashboard or decision tool', 'An Entrepreneur Center membership bundle', '90-day execution cycles with accountability'];
   var PRICE = ['$1,000', '$1,750 (what Bridge costs today)', '$2,500', '$3,000', 'More than $3,000'];
 
   var SURVEYS = {
