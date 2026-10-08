@@ -14,6 +14,7 @@ Code and housed-document changes only. Library resources and videos sync from Go
 
 ## 2026-10-08
 
+- **/chapters/ 1.2.2:** the stylesheet link carries its version (`/chapters/chapters.css?v=1.1.1`), so browsers and the GitHub Pages cache (10 minutes) stop serving the old file after a CSS change. Bump the query string whenever chapters.css changes.
 - **/chapters/ 1.2.1 (chapters.css 1.1.1):** the icon circles filled orange and stayed that way after a tap or scroll on an iPhone (hover styles stick on touch). Every hover fill on the page now sits inside `@media (hover:hover)`, so phones never get it; keyboard focus styles are unchanged. From Colton's phone screenshot.
 - **/chapters/ 1.2.0 (4:27 AM CT):** a plain definition of a Forum Next Level (a half-day event with set content and a set curriculum, built by EO for a chapter) and what Colton adds on top of it, so the moderator half day and the Forum Next Level stop blurring together; the moderator formats are marked as add-ons; the retreat's second part is a retreat theme, not a deep dive (a deep dive is a specific part of an EO forum meeting). Both from Colton.
 - **Catalyst Collective 2.0.3: the feedback log's "Proposed on beta" status now reads "Proposed, waiting for approval"** (Colton: fix the proposed label). The beta lane went away with the move to /concepts/catalystcollective/; Calvin's #Calvin watcher (poller 1.2.0) now drafts change requests on a branch of this repo and Colton's approval merges them to main. Only assets/feedback.js and the version stamp changed.
