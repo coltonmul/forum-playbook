@@ -171,9 +171,7 @@ a.ccard:hover,a.ccard:focus-visible{transform:translateY(-2px);box-shadow:0 8px 
 .eo .pkg li span{display:block;font-size:13px;color:#C9CBEF}
 .eo .pkg li .nm{display:flex;align-items:center;gap:8px;font-size:18px;font-weight:700;color:#fff}
 .eo .pkg li .nm svg{color:#fff}
-.eo .mchip{flex:0 0 auto;width:26px;height:26px;border-radius:50%;background:#fff;display:inline-grid;place-items:center;transition:transform .45s cubic-bezier(.34,1.56,.64,1)}
-.eo .mchip svg{width:16px;height:16px}
-.eo .pkg li:hover .mchip{transform:rotate(72deg) scale(1.15)}
+.eo .pkg li .nm .mstar{width:20px;height:20px;display:block;flex:0 0 auto}
 .eo .bgrid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
 .eo .bgrid4 div{font-size:14px;line-height:1.45;background:none;border:0;padding:0;transition:transform .3s}
 .eo .bgrid4 div:hover{transform:translateY(-3px)}

@@ -12,6 +12,10 @@ Code and housed-document changes only. Library resources and videos sync from Go
   `reel-fallback-ship`. Still open and not started: the hero stripes reading as stray blocks at
   narrow widths. Other lane: stay off index.html and styles.css until this entry clears.
 
+## 2026-10-09
+
+- **Regional Training Experience 2.0.1:** the MICHELIN star now shows plain next to Locust, Catbird Seat and Bastion (the white chip and the spin animation are gone; they misaligned the star). Same fix in the two-page PDF (v2.1).
+
 ## 2026-10-08
 
 - **/chapters/ 1.2.2:** the stylesheet link carries its version (`/chapters/chapters.css?v=1.1.1`), so browsers and the GitHub Pages cache (10 minutes) stop serving the old file after a CSS change. Bump the query string whenever chapters.css changes.
