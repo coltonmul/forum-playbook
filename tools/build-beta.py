@@ -168,7 +168,7 @@ t = must_replace(t, """  @media (max-width: 980px) {
     /* Phones and tablets: the Join the Beta button stays first, then the
        headline leads, and the reel card follows it as supporting material. */
     .hero { display: flex; flex-direction: column; }
-    .hero .app-beta { order: 0; }
+    .hero .app-row { order: 0; }
     .hero .hero-inner { order: 1; }
     .hero .reel-card { order: 2; }
     .reel-card {

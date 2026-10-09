@@ -103,77 +103,68 @@ try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.document
     <div class="hs" style="background:#2A6E9A;opacity:0.06;width:22%"></div>
   </div>
   <style>
-  /* ── APP BETA BUTTON (Colton, 2026-09-22: "Forum Playbook App Coming Soon", Join the Beta;
-     small, on brand, above the fold). First thing in the hero at every width: above the reel
-     card on phones and tablets, its own top row of the hero grid on desktop. Pitch pill, cool
-     two-wave (lands Blue, the family whose white label passes 4.5:1), Burn corner tick from the
-     reel card. 2026-10-08, the app is live: the pill shows the app icon and opens /app/, and Apple's own
-     "Download on the App Store" badge (Apple's artwork, unaltered, served by Apple) sits beside it and opens the listing.
-     The old beta survey at /app-beta/ stays up but is no longer linked here. ── */
-  .app-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 14px; margin: 0 0 20px; position: relative; z-index: 3; }
-  .ab-icon { display: flex; align-items: center; padding: 6px 0 6px 16px; }
-  .ab-icon img { width: 34px; height: 34px; border-radius: 22%; display: block; }
-  .ab-badge { display: inline-block; line-height: 0; border-radius: 8px; transition: transform .25s, box-shadow .25s; }
+  /* ── APP SHOWCASE (2026-10-09, replaces the black pill). Colton, from his phone: "don't put black
+     behind it, it needs to have the App logo thing next to a mockup of a phone with the timer on its face."
+     Sits on the page linen, no box: [ Now on the App Store ], the app icon with the name, See the app,
+     and Apple's own badge (Apple's artwork, unaltered, served by Apple, opens the listing in a new tab)
+     beside an iPhone showing the timer's green clock face (/app/img/0-timer.jpg, the store screenshot).
+     Same composition as /app/og.png. Icon, name and phone open /app/. First thing in the hero at every
+     width: above the headline on phones and tablets, its own top row of the hero grid on desktop.
+     Contrast computed on linen: pitch 16.3:1, brick 4.8:1; the copy never sits over the hero stripes. ── */
+  .app-row {
+    display: grid;
+    grid-template-columns: max-content auto;
+    grid-template-areas: "copy phone" "badge phone";
+    justify-content: start;
+    align-items: center;
+    column-gap: 22px;
+    row-gap: 14px;
+    margin: 0 0 22px;
+    position: relative;
+    z-index: 3;
+  }
+  .as-copy { grid-area: copy; align-self: end; display: flex; flex-direction: column; gap: 10px; text-decoration: none; color: var(--pitch); border-radius: 6px; }
+  .as-tag { font-family: var(--font-mono); font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brick); }
+  .as-id { display: flex; align-items: center; gap: 12px; }
+  .as-icon { width: 52px; height: 52px; border-radius: 23%; display: block; box-shadow: 0 1px 2px rgba(14,14,12,.12), 0 8px 18px rgba(14,14,12,.16); }
+  .as-name { font-family: var(--font-display); font-size: 26px; font-weight: 900; line-height: 0.95; letter-spacing: 0.01em; text-transform: uppercase; color: var(--pitch); }
+  .as-cta { display: inline-flex; align-items: center; gap: 8px; min-height: 24px; font-family: var(--font-display); font-size: 19px; font-weight: 900; letter-spacing: 0.05em; text-transform: uppercase; color: var(--pitch); transition: color .2s ease; }
+  .as-arrow { font-family: var(--font-body); font-weight: 500; transition: transform .25s ease; }
+  .as-copy:hover .as-cta, .as-copy:focus-visible .as-cta { color: var(--brick); }
+  .as-copy:hover .as-arrow, .as-copy:focus-visible .as-arrow { transform: translateX(4px); }
+  .as-copy:focus-visible { outline: 2px solid var(--blue); outline-offset: 6px; }
+  .ab-badge { grid-area: badge; align-self: start; justify-self: start; display: inline-block; line-height: 0; border-radius: 8px; transition: transform .25s, box-shadow .25s; }
   .ab-badge img { height: 46px; width: auto; }
   .ab-badge:hover, .ab-badge:focus-visible { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(14,14,12,.3); }
   .ab-badge:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
-  .app-beta {
-    display: flex;
-    width: fit-content;
-    max-width: 100%;
-    z-index: 3;
-    margin: 0;
+  /* The phone: a CSS iPhone frame around the real store screenshot, tilted like /app/'s hero. */
+  .as-phone {
+    grid-area: phone;
+    display: block;
+    width: 104px;
+    aspect-ratio: 552 / 1200;
+    padding: 4px;
+    border-radius: 19px;
     background: var(--pitch);
-    border: 0.5px solid var(--pitch);
-    text-decoration: none;
+    box-shadow: 0 2px 4px rgba(14,14,12,.15), 0 18px 36px rgba(14,14,12,.26);
+    transform: rotate(4deg);
+    transition: transform .5s cubic-bezier(.34,1.56,.64,1);
   }
-  .app-beta > span { display: flex; align-items: stretch; min-height: 46px; }
-  .ab-tick {
-    position: absolute;
-    top: 0; left: 0;
-    width: 10px; height: 10px;
-    border-top: 3px solid var(--burn);
-    border-left: 3px solid var(--burn);
-  }
-  .ab-tag, .ab-cta { display: flex; align-items: center; transition: color 0.12s ease 0.32s; }
-  .ab-tag {
-    font-family: var(--font-mono);
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: var(--gold);
-    padding: 8px 14px 8px 18px;
-    border-right: 0.5px solid rgba(240, 235, 224, 0.3);
-  }
-  .ab-cta {
-    gap: 8px;
-    font-family: var(--font-display);
-    font-size: 18px;
-    font-weight: 900;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    color: var(--linen);
-    padding: 8px 18px 8px 14px;
-  }
-  .ab-arrow { font-family: var(--font-body); font-weight: 500; }
-  .app-beta:hover .ab-tag, .app-beta:hover .ab-cta,
-  .app-beta:focus-visible .ab-tag, .app-beta:focus-visible .ab-cta { color: #fff; }
-  /* Keyboard focus fires the same wave as hover, plus a ring (the interior bar's rule). */
-  .app-beta:focus-visible::before { animation: wave1 0.5s cubic-bezier(0.4,0,0.2,1) 0s    forwards; }
-  .app-beta:focus-visible::after  { animation: wave2 0.5s cubic-bezier(0.4,0,0.2,1) 0.32s forwards; }
-  .app-beta:focus-visible {
-    outline: 2px solid var(--blue);
-    outline-offset: 3px;
-    box-shadow: 0 8px 28px rgba(42,110,154,0.5), 0 2px 8px rgba(42,110,154,0.25);
-    transform: translateY(-2px);
-  }
-  /* Phones: the two halves stack so nothing runs off the screen. */
+  .as-phone img { width: 100%; height: 100%; object-fit: cover; border-radius: 15px; display: block; }
+  .as-phone:hover, .app-row:has(.as-copy:hover) .as-phone { transform: rotate(0) translateY(-6px); }
+  /* Phones: a touch smaller so the row fits a 320px screen without running off. */
   @media (max-width: 560px) {
-    .app-beta > span { flex-direction: column; }
-    .ab-icon { padding: 10px 0 0 18px; }
-    .ab-tag { border-right: 0; border-bottom: 0.5px solid rgba(240, 235, 224, 0.3); padding: 10px 16px 7px 18px; }
-    .ab-cta { padding: 7px 16px 10px 18px; }
+    .app-row { column-gap: 16px; }
+    .as-icon { width: 46px; height: 46px; }
+    .as-name { font-size: 23px; }
+    .as-cta { font-size: 18px; }
+    .as-phone { width: clamp(80px, 27vw, 112px); border-radius: 17px; }
+    .as-phone img { border-radius: 13px; }
+  }
+  @media (max-width: 359px) {
+    .app-row { column-gap: 12px; }
+    .as-tag { letter-spacing: 0.05em; }
+    .as-phone { width: 78px; }
   }
   /* Desktop: extends the HERO RELAYOUT grid in styles.css with a top "beta" row.
      If those grid-template-areas ever change, change these two lines with them. */
@@ -184,23 +175,21 @@ try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.document
   @media (min-width: 1240px) {
     .hero { grid-template-areas: "beta beta beta" "annot annot annot" "h1 reel stats" "sub reel stats"; }
   }
-  /* Reduced motion: no sweep and no lift, the button simply turns Blue. */
+  /* Reduced motion: nothing tilts back, lifts or slides. */
   @media (prefers-reduced-motion: reduce) {
-    .app-beta, .ab-tag, .ab-cta, .ab-badge { transition: none; }
-    .ab-badge:hover, .ab-badge:focus-visible { transform: none; }
-    .app-beta:hover::before, .app-beta:focus-visible::before { animation: wave1 0.001s linear 0s forwards; }
-    .app-beta:hover::after,  .app-beta:focus-visible::after  { animation: wave2 0.001s linear 0s forwards; }
-    .app-beta:hover, .app-beta:focus-visible { transform: none; }
+    .as-phone, .as-cta, .as-arrow, .ab-badge { transition: none; }
+    .as-phone:hover, .app-row:has(.as-copy:hover) .as-phone { transform: rotate(4deg); }
+    .as-copy:hover .as-arrow, .as-copy:focus-visible .as-arrow, .ab-badge:hover, .ab-badge:focus-visible { transform: none; }
   }
   </style>
   <div class="app-row">
-  <a class="app-beta sh cool" href="/app/"><span>
-    <span class="ab-tick" aria-hidden="true"></span>
-    <span class="ab-icon"><img src="/app/img/icon-512.png" width="34" height="34" alt=""></span>
-    <span class="ab-tag"><span>Forum Playbook App · <span style="white-space:nowrap">Now on the App Store</span></span></span>
-    <span class="ab-cta">See the app <span class="ab-arrow" aria-hidden="true">→</span></span>
-  </span></a>
-  <a class="ab-badge" href="https://apps.apple.com/us/app/forum-playbook/id6789998894" target="_blank" rel="noopener"><img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us" width="138" height="46" alt="Download on the App Store"></a>
+    <a class="as-copy" href="/app/">
+      <span class="as-tag">[ Now on the App Store ]</span>
+      <span class="as-id"><img class="as-icon" src="/app/img/icon-512.png" width="52" height="52" alt=""><span class="as-name">Forum<br>Playbook</span></span>
+      <span class="as-cta">See the app <span class="as-arrow" aria-hidden="true">→</span></span>
+    </a>
+    <a class="ab-badge" href="https://apps.apple.com/us/app/forum-playbook/id6789998894" target="_blank" rel="noopener"><img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us" width="138" height="46" alt="Download on the App Store"></a>
+    <a class="as-phone" href="/app/" tabindex="-1" aria-hidden="true"><img src="/app/img/0-timer.jpg" width="552" height="1200" alt=""></a>
   </div>
   <style>
   /* ── The reel card, pinned over the hero stripes (graduated from the V3 beta 2026-08-10) ── */
