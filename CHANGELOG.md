@@ -14,6 +14,7 @@ Code and housed-document changes only. Library resources and videos sync from Go
 
 ## 2026-10-09
 
+- **FIX 2.1.1:** the 2.0.1 push above landed on top of Calvin's 2.1.0 with git conflict markers in the page. Restored Calvin's 2.1.0 page and CSS exactly, then applied only the plain MICHELIN star (no white chip) in both the EO and Forum Playbook themes.
 - **Regional Training Experience 2.0.1:** the MICHELIN star now shows plain next to Locust, Catbird Seat and Bastion (the white chip and the spin animation are gone; they misaligned the star). Same fix in the two-page PDF (v2.1).
 
 ## 2026-10-08
