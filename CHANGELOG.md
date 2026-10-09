@@ -14,6 +14,7 @@ Code and housed-document changes only. Library resources and videos sync from Go
 
 ## 2026-10-09
 
+- **FIX 2.1.2 (Forum Playbook PDFs):** the plain-star fix in 2.1.1 covered the EO PDF and both web themes but missed the Forum Playbook light/dark PDFs, which still wrapped the star in the white `.mchip` circle. `_build/build_fp.py` now emits the same plain `svg.mstar` as `fp_web.py`/`eo_web.py`; both FP PDFs rebuilt and redeployed, nothing else in the page or CSS touched.
 - **FIX 2.1.1:** the 2.0.1 push above landed on top of Calvin's 2.1.0 with git conflict markers in the page. Restored Calvin's 2.1.0 page and CSS exactly, then applied only the plain MICHELIN star (no white chip) in both the EO and Forum Playbook themes.
 - **Regional Training Experience 2.0.1:** the MICHELIN star now shows plain next to Locust, Catbird Seat and Bastion (the white chip and the spin animation are gone; they misaligned the star). Same fix in the two-page PDF (v2.1).
 
