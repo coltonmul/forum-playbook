@@ -4,13 +4,16 @@
    Colors are EO's only: base navy #0C0C31, EO Blue #3D46F2, lavender #A3A7E4. The Catalyst salmon stays retired.
    Measured (legibility law): reading text #24264A on white 14.9:1; labels #4F5270 on white 7.6:1, on tint 6.8:1;
    EO Blue on white 5.9:1 (labels and headings only); #DDE0FF on navy 14.2:1; lavender on navy 8.3:1;
-   white on EO Blue 5.9:1; green ink #146B5C on white 6.4:1; amber ink #7A4B00 on #FFF4DA 7.4:1. */
+   white on EO Blue 5.9:1; green ink #146B5C on white 6.4:1; amber ink #7A4B00 on #FFF4DA 7.4:1.
+   v2.1.1 (2026-10-11): the article clips with overflow:clip instead of hidden, so a table's frozen header row can stick to
+   the page as it scrolls (hidden makes the article the sticky container and the row never freezes). Brittany's budget
+   block (.b-wide) puts the levers above the table and the table across the full page column. */
 .cc{--eo:#3D46F2;--eo-d:#2A31C9;--base:#0C0C31;--navy2:#15173F;--tint:#EDEDF6;--tint2:#DDE0FF;--lav:#A3A7E4;
   --ink:#24264A;--label:#4F5270;--rule:#DDE0EE;--green:#146B5C;--green-t:#E3F4EF;--amber:#7A4B00;--amber-t:#FFF4DA;--red:#B42318;
   --chart-1:#3D46F2;--chart-2:#1EA691;--chart-3:#EFB82E;--chart-4:#5E617D;--chart-4-ink:#FFFFFF;--muted:#4F5270;--bg:#FFFFFF;
   --spring:cubic-bezier(.34,1.56,.64,1);
   max-width:1000px;margin:0 auto;background:#fff;color:var(--ink);font-family:Roboto,system-ui,-apple-system,'Segoe UI',Arial,sans-serif;
-  font-size:16px;line-height:1.6;border-radius:6px;overflow:hidden;box-shadow:0 1px 2px rgba(12,12,49,.08),0 22px 54px rgba(12,12,49,.20)}
+  font-size:16px;line-height:1.6;border-radius:6px;overflow:clip;box-shadow:0 1px 2px rgba(12,12,49,.08),0 22px 54px rgba(12,12,49,.20)}
 .cc *{box-sizing:border-box}
 .cc a{color:var(--eo-d)}
 .cc a:focus-visible,.cc button:focus-visible,.cc input:focus-visible,.cc textarea:focus-visible,.cc summary:focus-visible{outline:2px solid var(--eo);outline-offset:2px}
@@ -401,3 +404,23 @@ button.tile[aria-pressed="true"]{border-color:var(--eo);box-shadow:0 0 0 1px var
 /* control edges at 3:1 or better (legibility law): #8589AE on white 3.39:1; #7A7EA3 on white 3.93:1, on tint 3.38:1 */
 .tile,.logo .dl a,.log-item{border-color:#8589AE}
 .cc .field input[type=text],.cc .field input[type=email],.cc textarea{border-color:#7A7EA3}
+
+/* ---------- Brittany's budget at full width (2.1.1, Colton 2026-10-11): levers on top, the table across the whole page column, header row frozen ---------- */
+.b-wide{grid-template-columns:minmax(0,1fr)}
+.b-wide .inputs{position:static;max-height:none;overflow:visible;display:grid;grid-template-columns:repeat(auto-fit,minmax(390px,1fr));gap:0 28px;align-items:start;padding:16px 18px 8px}
+.b-wide .inputs>.kicker,.b-wide .inputs>.btn-row{grid-column:1/-1}
+.b-wide .inputs details{min-width:0}
+.b-wide .outputs h2:first-of-type{margin-top:22px}
+.tablewrap.frozen{overflow:visible}
+.tablewrap.frozen thead th{top:var(--ibar-h,46px);z-index:3}
+.tablewrap.frozen th:last-child,.tablewrap.frozen td:last-child{white-space:normal;text-align:left;min-width:200px}
+@media (max-width:999px){
+  /* narrower than the table wants (it needs about 872px): it becomes its own scroll box with the header row frozen at its top and the line names frozen at its left */
+  .tablewrap.frozen{overflow:auto;max-height:min(76vh,720px);overscroll-behavior:contain}
+  .tablewrap.frozen thead th{top:0}
+  .tablewrap.frozen td:first-child{position:sticky;left:0;z-index:2;background:#fff;box-shadow:1px 0 0 var(--rule)}
+  .tablewrap.frozen thead th:first-child{position:sticky;left:0;z-index:4}
+  .tablewrap.frozen tbody th{position:sticky;left:0;z-index:2}  /* the Revenue, Expense and Result labels stay put too */
+  .tablewrap.frozen tbody tr:hover td:first-child{background:var(--tint)}
+  .tablewrap.frozen td:last-child{min-width:260px}
+}

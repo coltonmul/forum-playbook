@@ -16,7 +16,8 @@ and the body. Tokens:
   {{STAMP}}                            "Updated Wed / 2026-10-07 / 6:58 PM CT", from the clock at build time
 
 The footer page list for the WHOLE /concepts/ section is SITE_PAGES below: the one canonical list. This
-script writes it into every Catalyst page and patches it into /concepts/, /concepts/regionaltrainingdays/ and /chapters/.
+script writes it into every Catalyst page and patches it into /concepts/, /concepts/regionaltrainingexperience/ and /chapters/.
+(2.1.1: Regional Training Days became the Regional Training Experience at that address; the old path is a redirect stub and is left alone.)
 
 Changelog
   2.0.0  First version: the sandbox moves from catalystcollective.pages.dev to forumplaybook.com and gets
@@ -34,7 +35,7 @@ import icon as _icon  # noqa: E402
 # the one visitor-counter line every forumplaybook.com page carries (copied from timer.html)
 COUNTER = "<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{\"token\": \"c20145f631df48ff8dc17a09c0c3fcdb\"}'></script><!-- End Cloudflare Web Analytics -->"
 
-VERSION = "2.1.0"
+VERSION = "2.1.1"
 B = "/concepts/catalystcollective"
 OLD = "https://catalystcollective.pages.dev"
 SITE = "https://forumplaybook.com"
@@ -59,12 +60,13 @@ PAGES = [
 # The one canonical footer list for the /concepts/ pages (full footer nav law). Path, label.
 SITE_PAGES = [
     ("/", "Home"), ("/timer", "Forum Timer"), ("/brand", "Brand"), ("/legal", "Privacy &amp; Terms"),
-    ("/app/", "The app"), ("/chapters/", "Chapters + Forums"), ("/concepts/", "Concepts"), ("/concepts/regionaltrainingdays/", "Regional Training Days"),
+    ("/app/", "The app"), ("/chapters/", "Chapters + Forums"), ("/concepts/", "Concepts"), ("/concepts/regionaltrainingexperience/", "Regional Training Experience"),
     (B + "/", "Catalyst Collective"), (B + "/journey/", "Catalyst journeys"), (B + "/model/", "Catalyst model"),
     (B + "/surveys/", "Catalyst surveys"), (B + "/library/", "Catalyst library"), (B + "/feedback/", "Catalyst feedback"),
 ]
 
 CHANGELOG = [
+    ("2.1.1", "Sun / 2026-10-11", "Brittany's budget table runs the full width of the page, with her levers in a panel above it instead of a column beside it, and its heading row (Line, Fee, the year counts and amounts, her note) stays frozen at the top of the screen while you scroll, like a frozen row in a spreadsheet. On a phone, where the table is wider than the screen, the line names also stay frozen at the left while you swipe sideways. Her notes column now wraps instead of forcing a sideways scroll. From Colton's October 11 email."),
     ("2.1.0", "Thu / 2026-10-08", "Brittany Lorenzi's preliminary budget joins the model page as its own adjustable table, at Colton's direction: her September 18 numbers are the defaults, every fee and count is a lever, and a version can be shared by link alongside the main model's. One transcription note, stated on the page: her sheet's year-2 recruitment event cell reads $1 with the fee and count columns transposed, so the page assumes the same one $500 event as year 1."),
     ("2.0.3", "Thu / 2026-10-08", "the feedback log calls a drafted change \"Proposed, waiting for approval\" instead of \"Proposed on beta\": there is no beta lane since the move. Drafts now wait on a branch until Colton approves them."),
     ("2.0.2", "Thu / 2026-10-08", "the footer lists the new app page, and every page carries the site's visitor counter like the rest of forumplaybook.com."),
@@ -241,7 +243,7 @@ def main():
         built.append(out)
         print("  built", os.path.relpath(out, ROOT))
     patch_footer(os.path.join(ROOT, "concepts", "index.html"), "/concepts/")
-    patch_footer(os.path.join(ROOT, "concepts", "regionaltrainingdays", "index.html"), "/concepts/regionaltrainingdays/")
+    patch_footer(os.path.join(ROOT, "concepts", "regionaltrainingexperience", "index.html"), "/concepts/regionaltrainingexperience/")
     patch_footer(os.path.join(ROOT, "chapters", "index.html"), "/chapters/")
     # guards: no em dashes, no leftover tokens, every page has its stamp, footer list, feedback box and og image
     bad = 0
