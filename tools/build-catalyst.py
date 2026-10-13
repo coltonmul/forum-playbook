@@ -35,7 +35,7 @@ import icon as _icon  # noqa: E402
 # the one visitor-counter line every forumplaybook.com page carries (copied from timer.html)
 COUNTER = "<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{\"token\": \"c20145f631df48ff8dc17a09c0c3fcdb\"}'></script><!-- End Cloudflare Web Analytics -->"
 
-VERSION = "2.1.1"
+VERSION = "2.1.2"
 B = "/concepts/catalystcollective"
 OLD = "https://catalystcollective.pages.dev"
 SITE = "https://forumplaybook.com"
@@ -66,6 +66,7 @@ SITE_PAGES = [
 ]
 
 CHANGELOG = [
+    ("2.1.2", "Mon / 2026-10-12", "On a phone, the Revenue, Expense and Result labels in Brittany's table (and the People, Revenue, Costs and Result labels in the main model) now stay in view while you swipe sideways, instead of sliding off the left edge. The rest of the October 11 freeze was already live; this closes it. From Colton's October 12 email."),
     ("2.1.1", "Sun / 2026-10-11", "Brittany's budget table runs the full width of the page, with her levers in a panel above it instead of a column beside it, and its heading row (Line, Fee, the year counts and amounts, her note) stays frozen at the top of the screen while you scroll, like a frozen row in a spreadsheet. On a phone, where the table is wider than the screen, the line names also stay frozen at the left while you swipe sideways. Her notes column now wraps instead of forcing a sideways scroll. From Colton's October 11 email."),
     ("2.1.0", "Thu / 2026-10-08", "Brittany Lorenzi's preliminary budget joins the model page as its own adjustable table, at Colton's direction: her September 18 numbers are the defaults, every fee and count is a lever, and a version can be shared by link alongside the main model's. One transcription note, stated on the page: her sheet's year-2 recruitment event cell reads $1 with the fee and count columns transposed, so the page assumes the same one $500 event as year 1."),
     ("2.0.3", "Thu / 2026-10-08", "the feedback log calls a drafted change \"Proposed, waiting for approval\" instead of \"Proposed on beta\": there is no beta lane since the move. Drafts now wait on a branch until Colton approves them."),

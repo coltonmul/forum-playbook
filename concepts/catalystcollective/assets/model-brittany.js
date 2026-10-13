@@ -113,20 +113,20 @@
   function renderTable(r) {
     var head = '<thead><tr><th>Line</th><th class="n">Fee</th><th class="n">Yr 1 count</th><th class="n">Yr 1 amount</th><th class="n">Yr 2 count</th><th class="n">Yr 2 amount</th><th>Her note</th></tr></thead>';
     var body = '<tbody>';
-    body += '<tr><th colspan="7">Revenue</th></tr>';
+    body += '<tr><th colspan="7"><span>Revenue</span></th></tr>';
     r.rev.forEach(function (x) {
       body += '<tr class="sub"><td>' + x.l + '</td><td class="n">' + money(x.f) + '</td><td class="n">' + people(x.n1) + '</td><td class="n">' + money(x.f * x.n1) +
         '</td><td class="n">' + people(x.n2) + '</td><td class="n">' + money(x.f * x.n2) + '</td><td>' + x.note + '</td></tr>';
     });
     body += '<tr class="total"><td>Total revenue</td><td class="n"></td><td class="n"></td><td class="n">' + money(r.rev1) + '</td><td class="n"></td><td class="n">' + money(r.rev2) + '</td><td></td></tr>';
-    body += '<tr><th colspan="7">Expense</th></tr>';
+    body += '<tr><th colspan="7"><span>Expense</span></th></tr>';
     r.e1.forEach(function (x, i) {
       var y2 = r.e2[i];
       body += '<tr class="sub"><td>' + x.l + '</td><td class="n">' + money(x.f) + '</td><td class="n">' + people(x.n) + '</td><td class="n">' + money(x.f * x.n) +
         '</td><td class="n">' + people(y2.n) + '</td><td class="n">' + money(y2.f * y2.n) + '</td><td>' + x.note + '</td></tr>';
     });
     body += '<tr class="total"><td>Total expense</td><td class="n"></td><td class="n"></td><td class="n">' + money(r.exp1) + '</td><td class="n"></td><td class="n">' + money(r.exp2) + '</td><td></td></tr>';
-    body += '<tr><th colspan="7">Result</th></tr>';
+    body += '<tr><th colspan="7"><span>Result</span></th></tr>';
     body += '<tr class="total"><td>Net</td><td class="n"></td><td class="n"></td><td class="n ' + (r.net1 < 0 ? 'neg' : 'pos') + '">' + money(r.net1) +
       '</td><td class="n"></td><td class="n ' + (r.net2 < 0 ? 'neg' : 'pos') + '">' + money(r.net2) + '</td><td></td></tr>';
     body += '<tr class="sub"><td>Estimated profit margin</td><td class="n"></td><td class="n"></td><td class="n">' + pct(r.margin1) + '</td><td class="n"></td><td class="n">' + pct(r.margin2) + '</td><td></td></tr>';

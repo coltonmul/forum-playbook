@@ -421,6 +421,7 @@ button.tile[aria-pressed="true"]{border-color:var(--eo);box-shadow:0 0 0 1px var
   .tablewrap.frozen td:first-child{position:sticky;left:0;z-index:2;background:#fff;box-shadow:1px 0 0 var(--rule)}
   .tablewrap.frozen thead th:first-child{position:sticky;left:0;z-index:4}
   .tablewrap.frozen tbody th{position:sticky;left:0;z-index:2}  /* the Revenue, Expense and Result labels stay put too */
+  .tablewrap.frozen tbody th[colspan] span{position:sticky;left:10px;display:inline-block}  /* a full-width label cell cannot stick, its text can */
   .tablewrap.frozen tbody tr:hover td:first-child{background:var(--tint)}
   .tablewrap.frozen td:last-child{min-width:260px}
 }

@@ -133,7 +133,7 @@
     }
     var num = function (v) { return String(v); };
     var body = '<tbody>';
-    body += '<tr><th colspan="' + (r.length + 1) + '">People</th></tr>';
+    body += '<tr><th colspan="' + (r.length + 1) + '"><span>People</span></th></tr>';
     body += row('Carried over from last year', 'carried', num, 'sub');
     body += row('Recruited past graduates', 'recruited', num, 'sub');
     body += row('New from the graduating class', 'newCohort', num, 'sub');
@@ -141,18 +141,18 @@
     body += row('Graduated into EO', 'toEO', num, 'sub');
     body += row('Left the Collective', 'attrition', num, 'sub');
     body += row('Members at year end', 'end', num, 'total');
-    body += '<tr><th colspan="' + (r.length + 1) + '">Revenue</th></tr>';
+    body += '<tr><th colspan="' + (r.length + 1) + '"><span>Revenue</span></th></tr>';
     body += row('Dues', 'dues', money, 'sub');
     body += row('Other revenue', 'otherRev', money, 'sub');
     body += row('Total revenue', 'revenue', money, 'total');
-    body += '<tr><th colspan="' + (r.length + 1) + '">Costs</th></tr>';
+    body += '<tr><th colspan="' + (r.length + 1) + '"><span>Costs</span></th></tr>';
     body += row('Dedicated resource', 'staff', money, 'sub');
     body += row('Software, marketing, training, committee', 'fixed', money, 'sub');
     body += row('EC bundle (per member)', 'perMember', money, 'sub');
     body += row('Events (food, beverage, speakers, AV, venues)', 'events', money, 'sub');
     body += row('Contingency', 'contingency', money, 'sub');
     body += row('Total cost', 'cost', money, 'total');
-    body += '<tr><th colspan="' + (r.length + 1) + '">Result</th></tr>';
+    body += '<tr><th colspan="' + (r.length + 1) + '"><span>Result</span></th></tr>';
     body += row('Net for the year', 'net', money, 'total');
     body += row('Cumulative net', 'cumNet', money, 'sub');
     body += row('Cumulative graduates into EO', 'cumEO', num, 'sub');
