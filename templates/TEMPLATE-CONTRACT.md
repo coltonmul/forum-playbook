@@ -1,4 +1,4 @@
-# FORUM PLAYBOOK One-Pager Template Contract v1.1
+# FORUM PLAYBOOK One-Pager Template Contract v1.2
 
 This file is the law. Any session producing a Forum Playbook one-pager must follow it exactly. If this contract and your instincts disagree, the contract wins. If this contract and a user request disagree, ask; do not silently deviate. Nothing outside an EDIT-SLOT may ever change.
 
@@ -155,4 +155,18 @@ Everything else, including all CSS, the chrome lines, the fonts link, and the pr
 7. Print preview (or headless render) fits exactly one page at 100% scale with no clipped text.
 8. Sources line present.
 
-Changelog: v1.1 (2026-09-25) section 9 gains the fixed web line: the visitor counter, one locked line before `</body>` in the template and all four editions (queue row CWQ-166, Colton approved the counter 2026-09-18). No slot, token, geometry or block changed. v1.0 (2026-07-10) initial contract, built overnight from docx v1.1 measurements + Brand Guide v2.0.
+## 13. Documents: the multi-page class (added v1.2, 2026-10-20)
+
+A document (an agenda, a workbook, a worksheet, a handout, a facilitator's copy) shares the one-pager's chrome, tokens, type and spacing, and differs in these ways. Each is Colton's call of 2026-10-20, made on the Uncharted retreat set ("all of this should be in the forum playbook template with the letterhead styling"; "I need to see some more icons").
+
+1. **Pages.** As many as the content needs. Every page carries the header chrome (section 5) and the footer chrome (section 6). The one-page lock in section 1 applies to one-pagers only.
+2. **No body kicker.** The header chrome already names the category, so the `[ CATEGORY ]` line under it is dropped on documents (it collided with the chrome). The header's category run still comes from the section 10 whitelist.
+3. **Concept icons** (DESIGN-STANDARD.md Law 12, inside this brand's palette). Every section head and every numbered prompt or agenda block carries one Phosphor icon in the light weight, inside a Teal #3A8A8A tinted circle (#E7F0F0 on white), the icon drawn in Teal, before the words: a 19pt circle on an H2 and a 17pt circle on a prompt, with 12pt and 11pt icons inside. One icon per item, one family per document, from `~/Sites/brand-assets/icons/icon.py` (never hand-drawn, never a CDN). Burn and Brick are never the tint.
+4. **Write-in boxes.** 0.5px dashed Deep Dust, nothing written inside: a box says write here on its own. Labels, placeholders and "open space" are banned.
+5. **Page balance.** The boxes a reader writes in grow to fill the page they sit on. Short-answer prompts (a blank or two) sit at the bottom of their page, just above the footer chrome, so the journaling boxes above them get the room. A page is never left half empty with a box pushed onto the next one.
+6. **Sources.** Only on a facilitator-facing document (an agenda, notes for Colton), as the last line of the last page, pinned just above the footer chrome. A client-facing document (a worksheet, a handout, anything a member holds) carries no sources line and no Built by Colton line; the brand's footer chrome is its signature.
+7. **Tables** are allowed on documents (an agenda grid, a numbers handout, a three-column moves grid): 0.5px #D4CCC0 hairlines, a Linen Dark #E8E2D6 head row in Consolas 7pt caps, Roboto 9.5pt cells, numbers right-aligned.
+
+Tools. HTML documents follow `onepager-template.html` with the `.page` block repeated per page; the Uncharted pre-work PDF (`forums/uncharted/pages/prework-pdf.html` in coltonmul/forum-playbook-forums) is the model. Word documents come from `Projects/ForumPlaybook.com/one-pager-system/docx-builder/make_fpdoc.py`, which builds on the master .docx run for run and embeds the icons as PNGs rendered by icon.py; its `specs/` folder holds the Uncharted set of 2026-10-20 (the Friday agenda, What Drives You, the survey handout) as the exemplars.
+
+Changelog: v1.2 (2026-10-20) section 13, the multi-page document class: every page carries the chrome, no body kicker, Phosphor light concept icons in Teal tinted circles on section heads and prompts, unlabeled write-in boxes that fill their page, short-answer prompts at the bottom, sources only on facilitator-facing documents, tables allowed; tools named (the HTML page pattern and the Word builder). No one-pager slot, token, geometry or block changed. v1.1 (2026-09-25) section 9 gains the fixed web line: the visitor counter, one locked line before `</body>` in the template and all four editions (queue row CWQ-166, Colton approved the counter 2026-09-18). No slot, token, geometry or block changed. v1.0 (2026-07-10) initial contract, built overnight from docx v1.1 measurements + Brand Guide v2.0.
