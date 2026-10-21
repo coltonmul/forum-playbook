@@ -14,7 +14,7 @@ Code and housed-document changes only. Library resources and videos sync from Go
 
 ## 2026-10-20
 
-- **templates/TEMPLATE-CONTRACT.md v1.2 + brand.html v2.5 (section 08).** Section 13, the multi-page document class, from Colton's corrections on the Uncharted retreat set (Tue / 2026-10-20 / 3:00 PM CT): every page carries the chrome, no body kicker (it collided with the chrome), Phosphor thin concept icons as dark-gray lines on every section head and numbered prompt (a Teal tinted version was tried and cut the same hour), unlabeled write-in boxes that fill their page with short-answer prompts at the bottom, sources only on facilitator-facing documents, tables allowed. Word documents build from the master .docx through `Projects/ForumPlaybook.com/one-pager-system/docx-builder/`. No one-pager slot, token or geometry changed; brand-assets carries the same contract text.
+- **templates/TEMPLATE-CONTRACT.md v1.2 + brand.html v2.5 (section 08).** Section 13, the multi-page document class, from Colton's corrections on the Uncharted retreat set (Tue / 2026-10-20 / 3:00 PM CT): every page carries the chrome, no body kicker (it collided with the chrome), Phosphor thin concept icons as dark-gray lines on every section head and numbered prompt (a Teal tinted version was tried and cut the same hour), open writing space (boxes were tried and cut) that fills the page at a fixed page count, air under the chrome, short-answer prompts at the bottom, sources only on facilitator-facing documents, tables allowed. Word documents build from the master .docx through `Projects/ForumPlaybook.com/one-pager-system/docx-builder/`. No one-pager slot, token or geometry changed; brand-assets carries the same contract text.
 
 ## 2026-10-11
 
