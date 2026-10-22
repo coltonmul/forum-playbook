@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════════
    FORUM TIMER, web app styles
-   v1.1.0 · 2026-08-10
+   v1.1.1 · 2026-10-22
    The timer face: linen skin, pitch ink, color belongs to time
    alone. Layers on top of the site's styles.css (nav + footer
    + tokens come from there).
@@ -111,7 +111,13 @@ body.overtime .ft-chip {
   transform: translateX(-50%);
   z-index: 5;
   font-weight: 500;
+  /* The total the timer is set for: always legible, never dimmed, so the
+     room can see what it was set to even mid-run. */
+  opacity: 1;
+  border: 1px solid color-mix(in srgb, var(--ft-ink) 22%, transparent);
 }
+.ft-set:hover { opacity: 1; }
+body.overtime .ft-set { border-color: rgba(255, 255, 255, 0.4); }
 
 /* ── center: dial + digits + status ── */
 .ft-center {
