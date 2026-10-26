@@ -37,7 +37,7 @@ def tile_photo(p):
     if p.get("video"):
         return (f'<figure class="tile video"><video src="{esc(p["video"])}" poster="{esc(p.get("src",""))}" muted loop playsinline autoplay preload="metadata" aria-label="{cap}"></video>'
                 f'<figcaption>{cap}</figcaption></figure>')
-    return f'<figure class="tile photo"><img src="{esc(p["src"])}" alt="{esc(p.get("alt", cap))}" loading="lazy" width="{p.get("w", 800)}" height="{p.get("h", 1000)}"><figcaption>{cap}</figcaption></figure>'
+    return f'<figure class="tile photo{" wide" if p.get("wide") else ""}"><img src="{esc(p["src"])}" alt="{esc(p.get("alt", cap))}" loading="lazy" width="{p.get("w", 800)}" height="{p.get("h", 1000)}"><figcaption>{cap}</figcaption></figure>'
 
 def tile_quote(q):
     who = esc(q.get("who", ""))
