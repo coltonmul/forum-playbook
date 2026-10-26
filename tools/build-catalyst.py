@@ -62,6 +62,7 @@ SITE_PAGES = [
     ("/", "Home"), ("/timer", "Forum Timer"), ("/brand", "Brand"), ("/legal", "Privacy &amp; Terms"),
     ("/app/", "The app"), ("/chapters/", "Chapters + Forums"), ("/concepts/", "Concepts"), ("/concepts/regionaltrainingexperience/", "Regional Training Experience"),
     ("/concepts/regionaltrainingexperience/charlotte/", "Charlotte, Nov 16 and 17"),
+    ("/facilitate/", "Have Colton facilitate your retreat"),
     (B + "/", "Catalyst Collective"), (B + "/journey/", "Catalyst journeys"), (B + "/model/", "Catalyst model"),
     (B + "/surveys/", "Catalyst surveys"), (B + "/library/", "Catalyst library"), (B + "/feedback/", "Catalyst feedback"),
 ]
