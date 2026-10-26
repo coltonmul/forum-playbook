@@ -2,7 +2,7 @@
 
 ## 2026-10-26 (Mon)
 
-- **/facilitate/ v1.0.0, "Have Colton facilitate your retreat"** (Colton's brief of 2026-10-26). The forum-site opening animation, fifteen quotes from the surveys and the emails in their words, the $1,000-per-person package with two app screenshots, the Nashville note and the $100-back survey, a twelve-month strip of possible and blackout dates read from his calendar (hard dates only, trainings left possible, with the "an AI read this" line), and a dates form that opens an email. Built by tools/build-facilitate.py from facilitate/_src/ and facilitate/data/ (quotes.json, photos.json, availability.json). The footer page list gains the page on every page; the homepage About section links it; /beta rebuilt.
+- **/facilitate/ v1.0.0, "Have Colton facilitate your retreat"** Quotes carry the forum and chapter only, no names (Colton, 2026-10-26). (Colton's brief of 2026-10-26). The forum-site opening animation, fifteen quotes from the surveys and the emails in their words, the $1,000-per-person package with two app screenshots, the Nashville note and the $100-back survey, a twelve-month strip of possible and blackout dates read from his calendar (hard dates only, trainings left possible, with the "an AI read this" line), and a dates form that opens an email. Built by tools/build-facilitate.py from facilitate/_src/ and facilitate/data/ (quotes.json, photos.json, availability.json). The footer page list gains the page on every page; the homepage About section links it; /beta rebuilt.
 
 Code and housed-document changes only. Library resources and videos sync from Google Drive / YouTube (brand rule 03) and are not versioned here.
 
