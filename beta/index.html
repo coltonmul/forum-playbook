@@ -223,25 +223,15 @@ try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.document
     background: #0E0E0C;
     overflow: hidden;
   }
-  .reel-video iframe {
+  .reel-video video {
     position: absolute;
     inset: 0;
+    display: block;
     width: 100%;
     height: 100%;
+    object-fit: cover;
     border: 0;
   }
-  /* Poster still covers the player until the reel is actually playing,
-     so the card never sits as a dark box while Vimeo wakes up. */
-  .reel-poster {
-    position: absolute;
-    inset: 0;
-    background: url('/reel-poster.jpg') center / cover no-repeat;
-    opacity: 1;
-    transition: opacity 0.45s ease;
-    pointer-events: none;
-    z-index: 2;
-  }
-  .reel-poster.gone { opacity: 0; }
   .reel-q {
     font-family: var(--font-display);
     font-weight: 900;
@@ -343,11 +333,10 @@ try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.document
   <aside class="reel-card" aria-label="A real forum, tight and awesome, in slow motion">
     <div class="reel-frame">
       <div class="reel-video">
-        <iframe id="reelFrame" src="https://player.vimeo.com/video/1214458982?h=1ff3885544&amp;background=1&amp;autoplay=1&amp;loop=1&amp;muted=1&amp;autopause=0&amp;badge=0&amp;player_id=0&amp;app_id=58479&amp;dnt=1"
-          allow="autoplay; fullscreen; picture-in-picture"
-          loading="lazy"
-          title="Colton's real forum in slow motion, April 2026"></iframe>
-        <div class="reel-poster" id="reelPoster" aria-hidden="true"></div>
+        <video id="reelVideo" autoplay muted loop playsinline preload="metadata"
+          poster="/video/forum-mini-retreat-2026-04-poster.jpg" aria-hidden="true">
+          <source src="/video/forum-mini-retreat-2026-04-loop.mp4" type="video/mp4">
+        </video>
         <button type="button" class="reel-play" id="reelPlay" hidden aria-label="Play the forum reel">
           <span class="reel-play-chip"><span class="reel-play-dot" aria-hidden="true"></span>Play the reel</span>
         </button>
@@ -357,65 +346,50 @@ try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.document
     </div>
   </aside>
   <script>
-  // Fade the poster the moment the reel is genuinely playing. Uses the
-  // Vimeo player's postMessage events; if playback never starts (autoplay
-  // blocked), the still simply stays, which is the right look anyway.
+  // The reel loop is served from this site (no Vimeo). Its poster is the
+  // loop's own first frame, so the card never sits as a dark box. With
+  // reduced motion turned on it never autoplays and the poster stays.
+  // TAP TO PLAY: if the reel is not playing 2 seconds after it can play
+  // (phones in Low Power Mode or data saver refuse muted autoplay, and
+  // reduced motion holds it), the tap offer goes up. If a phone still
+  // refuses the tap, the video shows its own controls. Never a dead end.
   (function () {
-    var poster = document.getElementById('reelPoster');
-    var frame = document.getElementById('reelFrame');
-    if (!poster || !frame) return;
-    var revealed = false;
-    function reveal() {
-      if (revealed) return;
-      revealed = true;
-      poster.classList.add('gone');
-      // Playback started (maybe late, after the tap offer went up): take it down.
-      var b = document.getElementById('reelPlay');
-      if (b) b.hidden = true;
-    }
-    window.addEventListener('message', function (e) {
-      if (String(e.origin).indexOf('vimeo.com') === -1) return;
-      var d = e.data;
-      if (typeof d === 'string') {
-        try { d = JSON.parse(d); } catch (err) { return; }
-      }
-      if (!d || !d.event) return;
-      if (d.event === 'ready') {
-        ['play', 'playing', 'timeupdate'].forEach(function (ev) {
-          try {
-            frame.contentWindow.postMessage(JSON.stringify({ method: 'addEventListener', value: ev }), '*');
-          } catch (err) { /* messaging unavailable; poster stays */ }
-        });
-      } else if (d.event === 'play' || d.event === 'playing' ||
-                 (d.event === 'timeupdate' && d.data && d.data.seconds > 0.05)) {
-        reveal();
-      }
-    });
-
-    // TAP TO PLAY. If the reel has not started 2 seconds after the player
-    // loads, offer the tap. The tap asks the player to play; if the phone
-    // still refuses, the card swaps to Vimeo's own player with controls,
-    // whose play button counts as a real tap on every phone. Never a dead end.
+    var v = document.getElementById('reelVideo');
     var playBtn = document.getElementById('reelPlay');
+    if (!v) return;
+    var m = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+    var playing = false;
+    var offered = false;
+    v.addEventListener('playing', function () {
+      playing = true;
+      if (playBtn) playBtn.hidden = true;
+    });
+    function offer() {
+      if (offered || !playBtn) return;
+      offered = true;
+      setTimeout(function () { if (!playing) playBtn.hidden = false; }, 2000);
+    }
+    function apply() {
+      if (m && m.matches) {
+        v.autoplay = false;
+        v.removeAttribute('autoplay');
+        v.pause();
+      } else {
+        v.autoplay = true;
+        var p = v.play();
+        if (p && p.catch) p.catch(function () { /* refused; the tap offer covers it */ });
+      }
+    }
+    apply();
+    if (m && m.addEventListener) m.addEventListener('change', apply);
+    v.addEventListener('canplay', offer);
+    setTimeout(offer, 4000); // backstop in case canplay came and went
     if (playBtn) {
-      var armed = false;
-      var arm = function () {
-        if (armed) return;
-        armed = true;
-        setTimeout(function () { if (!revealed) playBtn.hidden = false; }, 2000);
-      };
-      frame.addEventListener('load', arm);
-      setTimeout(arm, 4000); // backstop in case the load event came and went
       playBtn.addEventListener('click', function () {
         playBtn.hidden = true;
-        try {
-          frame.contentWindow.postMessage(JSON.stringify({ method: 'play' }), '*');
-        } catch (err) { /* messaging unavailable; the swap below still runs */ }
-        setTimeout(function () {
-          if (revealed) return;
-          frame.src = frame.src.replace('background=1', 'background=0&controls=1&playsinline=1');
-          reveal();
-        }, 1500);
+        v.muted = true;
+        var p = v.play();
+        if (p && p.catch) p.catch(function () { v.controls = true; });
       });
     }
   })();
@@ -576,7 +550,7 @@ try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.document
     <a href="/brand" class="footer-link">Brand</a>
     <a href="/legal" class="footer-link">Legal</a>
   </div>
-  <div class="footer-copy">© 2026 Forum Playbook · V3 BETA LANE · REGENERATED MON / 2026-10-26 / 9:29 AM CT</div>
+  <div class="footer-copy">© 2026 Forum Playbook · V3 BETA LANE · REGENERATED MON / 2026-10-26 / 8:50 PM CT</div>
 </footer>
 
 <script>

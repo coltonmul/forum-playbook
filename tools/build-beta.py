@@ -14,8 +14,15 @@ Lane residents (2026-09-26, awaiting Colton's side by side review):
      on branch sept7-reel-fallback).
   2. NO GOOGLE TAG MANAGER: the empty GTM container is removed (Colton
      does not run ads; Cloudflare Web Analytics already counts visits).
-To graduate: apply the same edits to index.html (the ready commit is
-on branch reel-fallback-ship), delete these blocks, rerun.
+  3. SELF-HOSTED REEL (2026-10-26, Colton is leaving Vimeo): the Vimeo
+     iframe becomes a <video> loop served from /video/ (a 26 second
+     stretch of the reel, 1920x1080, no audio, its first frame as the
+     poster). Reduced motion: no autoplay, poster stays. Replaces
+     experiment 1's Vimeo tap script with a <video> version.
+To graduate: apply the same edits to index.html (the ready commit for
+1 is on branch reel-fallback-ship and still embeds Vimeo, so 3 has to
+land on top of it), change legal.html's "the reel on the homepage from
+Vimeo" line, delete these blocks, rerun.
 
 Graduated: the Forum 14 slow-motion reel card (2026-08-10 afternoon)
 and the hero stats rework with the Hours in the Room counter + ledger
@@ -29,7 +36,7 @@ for the reel card's block as a pattern), then rerun:
 
 Rerun after ANY homepage edit so the lane never drifts stale.
 The script fails loudly if an anchor it needs is missing.
-VERSION 1.5.0 (2026-09-26). Changelog: CHANGELOG.md at the repo root.
+VERSION 1.6.0 (2026-10-26). Changelog: CHANGELOG.md at the repo root.
 """
 import datetime
 import pathlib
@@ -234,6 +241,86 @@ t = must_replace(t, """  })();
   })();
   </script>
   <div class="hero-inner">""", 'reel tap script')
+
+# ── EXPERIMENT 3: self-hosted reel loop (no Vimeo) ──
+# Runs after experiment 1 and replaces its Vimeo-specific script.
+def must_replace_span(text, start, end, new, label):
+    i = text.find(start)
+    j = text.find(end, i + 1) if i != -1 else -1
+    if i == -1 or j == -1:
+        sys.exit(f'build-beta: anchor missing for {label!r}; index.html changed shape, update tools/build-beta.py')
+    return text[:i] + new + text[j + len(end):]
+
+
+t = must_replace_span(t, '  .reel-video iframe {', '  .reel-poster.gone { opacity: 0; }\n', """  .reel-video video {
+    position: absolute;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border: 0;
+  }
+""", 'reel video css')
+
+t = must_replace_span(t, '        <iframe id="reelFrame"', '<div class="reel-poster" id="reelPoster" aria-hidden="true"></div>\n', """        <video id="reelVideo" autoplay muted loop playsinline preload="metadata"
+          poster="/video/forum-mini-retreat-2026-04-poster.jpg" aria-hidden="true">
+          <source src="/video/forum-mini-retreat-2026-04-loop.mp4" type="video/mp4">
+        </video>
+""", 'reel video markup')
+
+t = must_replace_span(t, '  <script>\n  // Fade the poster the moment', """  })();
+  </script>
+  <div class="hero-inner">""", """  <script>
+  // The reel loop is served from this site (no Vimeo). Its poster is the
+  // loop's own first frame, so the card never sits as a dark box. With
+  // reduced motion turned on it never autoplays and the poster stays.
+  // TAP TO PLAY: if the reel is not playing 2 seconds after it can play
+  // (phones in Low Power Mode or data saver refuse muted autoplay, and
+  // reduced motion holds it), the tap offer goes up. If a phone still
+  // refuses the tap, the video shows its own controls. Never a dead end.
+  (function () {
+    var v = document.getElementById('reelVideo');
+    var playBtn = document.getElementById('reelPlay');
+    if (!v) return;
+    var m = window.matchMedia ? window.matchMedia('(prefers-reduced-motion: reduce)') : null;
+    var playing = false;
+    var offered = false;
+    v.addEventListener('playing', function () {
+      playing = true;
+      if (playBtn) playBtn.hidden = true;
+    });
+    function offer() {
+      if (offered || !playBtn) return;
+      offered = true;
+      setTimeout(function () { if (!playing) playBtn.hidden = false; }, 2000);
+    }
+    function apply() {
+      if (m && m.matches) {
+        v.autoplay = false;
+        v.removeAttribute('autoplay');
+        v.pause();
+      } else {
+        v.autoplay = true;
+        var p = v.play();
+        if (p && p.catch) p.catch(function () { /* refused; the tap offer covers it */ });
+      }
+    }
+    apply();
+    if (m && m.addEventListener) m.addEventListener('change', apply);
+    v.addEventListener('canplay', offer);
+    setTimeout(offer, 4000); // backstop in case canplay came and went
+    if (playBtn) {
+      playBtn.addEventListener('click', function () {
+        playBtn.hidden = true;
+        v.muted = true;
+        var p = v.play();
+        if (p && p.catch) p.catch(function () { v.controls = true; });
+      });
+    }
+  })();
+  </script>
+  <div class="hero-inner">""", 'reel video script')
 
 OUT.parent.mkdir(exist_ok=True)
 OUT.write_text(t, encoding='utf-8')
