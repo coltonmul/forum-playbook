@@ -241,4 +241,15 @@
   });
 })();
 </script>
+<script>
+/* Retreat video tiles: play muted on loop; with reduced motion on, the poster stays. */
+(function () {
+  var reduce = false;
+  try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { /* old browser */ }
+  if (reduce) return;
+  document.querySelectorAll('video[data-autoplay]').forEach(function (v) {
+    var p = v.play(); if (p && p.catch) p.catch(function () { v.controls = true; });
+  });
+})();
+</script>
 </body></html>

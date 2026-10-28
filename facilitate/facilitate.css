@@ -1,4 +1,8 @@
-/* facilitate.css 1.0.0 (2026-10-26): forumplaybook.com/facilitate, "Have Colton facilitate your retreat".
+/* facilitate.css 1.2.0 (2026-10-28): the landing-page layout (the block at the end).
+   1.1.0 (2026-10-27): member quotes in italics so they read as their words; wide video tiles; feature and captop photo tiles; tiles drop the browser's 40px blockquote and figure side margins (every tile ran 80px
+   narrower than its column, one word per line on a phone); 12px floor
+   on captions; the reduced-motion block no longer stretches every button across two columns.
+   1.0.0 (2026-10-26): forumplaybook.com/facilitate, "Have Colton facilitate your retreat".
    Brand tokens from styles.css. Phone first; the grid grows to four columns on a desktop.
    Contrast, computed: #0E0E0C on #F0EBE0 17.4:1; #4A4038 on #F0EBE0 8.2:1; #F0EBE0 on #0E0E0C 17.4:1;
    #C9C2B6 on #0E0E0C 11.9:1; #FFFFFF on #B83A14 6.4:1 (buttons, not reading text); #0E0E0C on #FFFFFF 19.3:1. */
@@ -51,19 +55,23 @@ ul.list li { margin: 0 0 8px; color: var(--pitch); }
 
 /* the grid of quotes and photos */
 .grid { display: grid; grid-template-columns: repeat(2, 1fr); grid-auto-flow: dense; gap: 10px; margin: 14px 0; }
-.tile { position: relative; background: var(--white); border: 1px solid var(--dust); min-width: 0; overflow: hidden; }
+.tile { position: relative; margin: 0; background: var(--white); border: 1px solid var(--dust); min-width: 0; overflow: hidden; }
 .tile.photo { padding: 0; aspect-ratio: 4 / 5; }
 .tile.photo.wide { grid-column: span 2; aspect-ratio: 16 / 9; }
 .tile.photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s cubic-bezier(.2,.9,.3,1.1); }
 .tile.photo:hover img { transform: scale(1.03); }
-.tile.photo figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 12px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--linen); background: linear-gradient(to top, rgba(14,14,12,.85), rgba(14,14,12,0)); }
+.tile.photo figcaption, .tile.video figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 12px; font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--linen); background: linear-gradient(to top, rgba(14,14,12,.85), rgba(14,14,12,0)); }
 .tile.video { padding: 0; aspect-ratio: 4 / 5; background: var(--pitch); }
+.tile.video.wide { grid-column: span 2; aspect-ratio: 16 / 9; }
+.tile.photo.feature { grid-column: span 2; grid-row: span 2; aspect-ratio: 4 / 5; }
+.tile.photo.feature img { object-position: 50% 92%; }
+.tile.photo.captop figcaption { top: 0; bottom: auto; background: linear-gradient(to bottom, rgba(14,14,12,.85), rgba(14,14,12,0)); }
 .tile.video video { width: 100%; height: 100%; object-fit: cover; display: block; }
 .tile.quote { padding: 18px 18px 16px; display: flex; flex-direction: column; justify-content: space-between; gap: 12px; border-left: 4px solid var(--burn); }
 .tile.quote.wide { grid-column: span 2; }
-.tile.quote p { margin: 0; font-size: 17px; line-height: 1.5; color: var(--pitch); }
+.tile.quote p { margin: 0; font-size: 17px; line-height: 1.5; color: var(--pitch); font-style: italic; }
 .tile.quote.big p { font-size: 20px; font-weight: 400; line-height: 1.4; }
-.tile.quote cite { font-style: normal; font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--deep-dust); }
+.tile.quote cite { font-style: normal; font-family: var(--font-mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--deep-dust); }
 .tile.quote cite b { color: var(--brick); font-weight: 500; }
 @media (min-width: 700px) { .grid { grid-template-columns: repeat(3, 1fr); gap: 12px; } }
 @media (min-width: 1000px) { .grid { grid-template-columns: repeat(4, 1fr); } .tile.quote.wide { grid-column: span 2; } }
@@ -76,7 +84,7 @@ ul.list li { margin: 0 0 8px; color: var(--pitch); }
 .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
 .shots figure { margin: 0; }
 .shots img { width: 100%; height: auto; display: block; border: 1px solid var(--dust); background: var(--white); }
-.shots figcaption { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--deep-dust); margin-top: 6px; }
+.shots figcaption { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--deep-dust); margin-top: 6px; }
 .callout { background: var(--white); border: 1px solid var(--dust); border-left: 4px solid var(--gold); padding: 14px 18px; margin: 14px 0; max-width: 760px; }
 .callout p:last-child { margin-bottom: 0; }
 .back { background: var(--white); border: 1px solid var(--dust); padding: 18px; margin: 14px 0; max-width: 760px; }
@@ -116,10 +124,9 @@ ul.list li { margin: 0 0 8px; color: var(--pitch); }
 .cfoot-nav a[aria-current="page"] { color: var(--burn); }
 .cfoot-line a, .cfoot-ver { color: var(--quiet-on-dark); }
 .cfoot-ver { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; margin-top: 10px; }
-@media (prefers-reduced-motion: reduce) { .btn, .tile.photo.wide { grid-column: span 2; aspect-ratio: 16 / 9; }
+@media (prefers-reduced-motion: reduce) { .btn { transition: none; }
 .tile.photo img { transition: none; } .btn:hover { transform: none; } .tile.photo:hover img { transform: none; } }
-
-/* 1.1.0: the landing-page pieces */
+/* 1.2.0 (2026-10-28): the landing-page pieces: the band quote, the three areas, side photos, single picks, two rotators, the strip */
 .bandquote { background: var(--pitch); color: var(--linen); padding: 34px 0; border-top: 1px solid #2A2A22; }
 .bandquote .hq { margin: 0; }
 .bandquote .hq p { font-family: var(--font-display); font-weight: 700; font-size: clamp(26px, 4.2vw, 46px); line-height: 1.05; color: var(--linen); max-width: 1000px; margin: 0 0 10px; }
@@ -148,6 +155,9 @@ blockquote.pick cite, .rot-item cite { font-style: normal; font-family: var(--fo
 .rot-dots button[aria-selected="true"] span { background: var(--burn); transform: scale(1.3); }
 .strip { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 18px 0 0; }
 .strip figure.pic { aspect-ratio: 4 / 3; }
-.strip figure.pic img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.strip figure.pic img, .strip figure.pic video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.strip figure.pic.wide { grid-column: span 2; aspect-ratio: 16 / 9; }
+.side figure.pic video { width: 100%; height: auto; display: block; }
+blockquote.pick p, .rot-item p, .bandquote .hq p { font-style: italic; }
 @media (min-width: 820px) { .areas3 { grid-template-columns: repeat(3, 1fr); } .strip { grid-template-columns: repeat(3, 1fr); } }
 @media (prefers-reduced-motion: reduce) { .rot-item.is-on { animation: none; } .rot-dots button span { transition: none; } }

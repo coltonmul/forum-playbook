@@ -18,58 +18,76 @@ GOOGLE_API_KEY: 'AIzaSyD-DZWNK5YL8qgVzAVCv0qt87VHGnykh8Y',
 // type: 'doc' = Google Doc (downloads as DOCX + PDF)
 // type: 'sheet' = Google Sheet (downloads as XLSX + PDF)
 // type: 'links' = External link card - supply `links: [{label, url}]` instead of fileId
+// type: 'file' = A file housed on this site - supply `url` (download + open buttons)
+// bullets: two to four short lines under the title saying what the resource is (Colton, 2026-10-27).
 // Update fileId here if you ever replace these files in Drive.
+// The official EO documents live in the library's own bucket (EO Legal), not up here.
 CORE_RESOURCES: [
 {
 title: 'Forum Timer',
-subtitle: 'MEETING TIMER · IOS APP COMING SOON',
-badge: 'WEB APP',
+badge: 'IOS APP NOW AVAILABLE',
 type: 'links',
 icon: 'timer',
+bullets: [
+'A timer built for the nuances of forum, readable from across the room',
+'Automatic timing from your agenda, block by block',
+'Green, gold, then red, so everyone sees where the time stands',
+],
 links: [
 {
-label: '▶ Open the Timer',
+label: '▶ Use the Web App',
 url: '/timer',
 },
 {
-label: '↗ About the iOS App',
-url: '/timer#about',
+label: '↓ Download the iOS App',
+url: 'https://apps.apple.com/us/app/forum-playbook/id6789998894',
 },
 ],
 },
 {
+title: '5% Reflection Worksheet',
+badge: 'PDF · PRINT OR GOODNOTES',
+type: 'file',
+url: '/worksheets/5-percent-reflection-sheet.pdf',
+bullets: [
+'EQ up top: three 5% topics, from headline to what you realize about yourself',
+'IQ at the bottom: 1-2 learning topics to bring to the room',
+'Your four ratings and next month\'s wager',
+],
+},
+{
 title: 'Nashville Forum Constitution Template',
-subtitle: 'GOOGLE DOC · FORUM FOUNDATION',
+badge: 'GOOGLE DOC',
+bullets: [
+'Best practices built on years of learning',
+'Attendance, punctuality, phones, confidentiality, fines, and roles',
+'Make it yours, then review it every year at retreat',
+],
 fileId: '1h2AYwSQ0HcMY3EpF5L8kq1ZrZA63kwiT-J5w7BtcmWQ',
 type: 'doc',
 },
 {
 title: 'Forum Organizer Spreadsheet',
-subtitle: 'DYNAMIC AGENDA, SCHEDULE, PARKING LOT',
+badge: 'GOOGLE SHEET',
+bullets: [
+'Parking lot and schedule',
+'5% Reflection worksheet',
+'Presenter\'s and coach\'s worksheets',
+'Agendas, roles, and how-to links for every meeting',
+],
 fileId: '1KbdvEq8kFxR9yOO-J0p76oj4KLBVzmVyyk1FLCY60Zg',
 type: 'sheet',
 },
 {
 title: 'Clearing Round & Repair Process',
-subtitle: 'GOOGLE DOC · FACILITATION TOOLS',
+badge: 'GOOGLE DOC',
+bullets: [
+'3 to 5 minutes in every forum meeting',
+'What the healthiest forums do',
+'Word-for-word steps for repairing a conflict',
+],
 fileId: '18GbUZDJoT__ETZ2b2hSVgOZXOrKp4Z9aM-jke5NLiUc',
 type: 'doc',
-},
-{
-title: 'Official EO Docs & Resources',
-subtitle: 'EONETWORK.ORG · LOGIN REQUIRED',
-badge: 'OFFICIAL EO',
-type: 'links',
-links: [
-{
-label: '↗ Forum & Mod Docs',
-url: 'https://member.eonetwork.org/member/forum/for-forum-moderators',
-},
-{
-label: '↗ Forum Chair Docs',
-url: 'https://member.eonetwork.org/member/forum/for-forum-chairs',
-},
-],
 },
 ],
 // ── Root Drive Folder ───────────────────────────────────

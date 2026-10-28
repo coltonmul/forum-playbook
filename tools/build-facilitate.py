@@ -9,7 +9,10 @@ build-catalyst.py, the one canonical list), stamps the page, and guards against 
 promise words (NO PROMISES IN PUBLIC COPY). The changelog stays here and in CHANGELOG.md, never on the page.
 
 Changelog
-  1.1.0  A landing page: the hook, what Colton does, the app, the price, with quotes rotating in two blocks and single picks in the sections; quotes carry the chapter forum only; photos sit beside sections and in a strip (Colton, 2026-10-28).
+  1.2.0  A landing page: the hook, what Colton does, the app, the price, with quotes rotating in two blocks and single picks in the sections; quotes carry the chapter forum only; photos sit beside sections and in a strip (Colton, 2026-10-28). Merged over the October 27 session's 1.1.x (photo classes, video tiles started by the page script, italics).
+  1.1.2  Version bump for the tile margin fix in facilitate.css.
+  1.1.1  Version bump so the stylesheet link (?v=) changes with the feature tile CSS.
+  1.1.0  Photos take "classes" (feature, captop); video tiles can be wide and start from the page script (never under reduced motion); quotes render in italics (facilitate.css 1.1.0). Colton, 2026-10-27.
   1.0.0  First version, the Monday after the Uncharted retreat, from Colton's brief of 2026-10-26.
 """
 import datetime, html, importlib.util, json, os, re, subprocess, sys
@@ -18,7 +21,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 spec = importlib.util.spec_from_file_location("bc", os.path.join(ROOT, "tools", "build-catalyst.py"))
 bc = importlib.util.module_from_spec(spec); spec.loader.exec_module(bc)
 
-VERSION = "1.1.0"
+VERSION = "1.2.0"
 D = os.path.join(ROOT, "facilitate")
 STAMP = subprocess.check_output(["date", "+Updated %a / %Y-%m-%d / %-I:%M %p CT"], text=True).strip()
 
@@ -55,7 +58,12 @@ def rotator(items, label):
 
 def photo_fig(p, cls="pic"):
     cap = esc(p.get("caption", ""))
-    return f'<figure class="{cls}"><img src="{esc(p["src"])}" alt="{esc(p.get("alt", cap))}" loading="lazy" width="{p.get("w", 800)}" height="{p.get("h", 600)}"><figcaption>{cap}</figcaption></figure>'
+    wide = " wide" if p.get("wide") else ""
+    if p.get("video"):
+        # No autoplay attribute: the page script starts it, and never under reduced motion (the poster stays).
+        return (f'<figure class="{cls}{wide}"><video src="{esc(p["video"])}" poster="{esc(p.get("src",""))}" muted loop playsinline preload="metadata" data-autoplay aria-label="{esc(p.get("alt", cap))}"></video>'
+                f'<figcaption>{cap}</figcaption></figure>')
+    return f'<figure class="{cls}{wide}"><img src="{esc(p["src"])}" alt="{esc(p.get("alt", cap))}" loading="lazy" width="{p.get("w", 800)}" height="{p.get("h", 600)}"><figcaption>{cap}</figcaption></figure>'
 
 def photo_slot(slot):
     for p in photos:

@@ -330,7 +330,7 @@ try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.document
     .reel-meta { letter-spacing: 0.04em; }
   }
   </style>
-  <aside class="reel-card" aria-label="A real forum, tight and awesome, in slow motion">
+  <aside class="reel-card" aria-label="A real forum, tight and awesome">
     <div class="reel-frame">
       <div class="reel-video">
         <video id="reelVideo" autoplay muted loop playsinline preload="metadata"
@@ -342,7 +342,7 @@ try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.document
         </button>
       </div>
       <div class="reel-q">Don't you want your forum<br>to be <span class="accent">this tight and awesome?</span></div>
-      <div class="reel-meta"><span>COLTON'S REAL FORUM (FORUM 14: EO NASHVILLE)</span><span>APRIL 2026 · SLOW MOTION</span></div>
+      <div class="reel-meta"><span>COLTON'S REAL FORUM (FORUM 14: EO NASHVILLE)</span><span>APRIL 2026</span></div>
     </div>
   </aside>
   <script>
@@ -456,6 +456,25 @@ try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.document
     <h2 class="section-title">CORE RESOURCES</h2>
     <div class="section-rule"></div>
   </div>
+  <style>
+  /* ── CORE CARDS: a title and two to four bullets saying what each one is (Colton, 2026-10-27).
+     Kept here, next to the cards, because styles.css is held by the IN FLIGHT mobile repair.
+     Legibility law: 12px and up, contrast computed on white (deep dust 10.6:1, brick 6.0:1),
+     44px targets. The bullets sit left-aligned under the centered title; buttons pin to the
+     bottom so the cards line up. Five cards: five across from 1321px, three, two, then one. ── */
+  .core-card .core-badge { font-size: 12px; letter-spacing: 0.1em; color: var(--brick); border-color: var(--brick); padding: 3px 8px; }
+  .core-card .card-title { text-align: center; margin-bottom: 12px; }
+  .core-bullets { list-style: none; margin: 0 0 18px; padding: 0; width: 100%; text-align: left; }
+  .core-bullets li { position: relative; padding-left: 16px; margin: 0 0 7px; font-family: var(--font-body); font-size: 14px; line-height: 1.4; color: var(--deep-dust); }
+  .core-bullets li::before { content: ''; position: absolute; left: 0; top: 0.5em; width: 6px; height: 6px; background: var(--burn); }
+  .core-card .card-btns { margin-top: auto; }
+  .core-card .card-btns .btn, .core-card-links .core-links-btns .btn { font-size: 12px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
+  .core-card .card-btns .btn { white-space: nowrap; letter-spacing: 0.04em; padding: 6px 2px; }
+  @media (min-width: 1321px) { .core-grid { grid-template-columns: repeat(5, 1fr); } }
+  @media (max-width: 1320px) { .core-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 1000px) { .core-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 620px) { .core-grid { grid-template-columns: 1fr; } }
+  </style>
   <div class="cards core-grid" id="core-grid" aria-label="Core resource cards"></div>
 </section>
 
@@ -550,7 +569,7 @@ try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.document
     <a href="/brand" class="footer-link">Brand</a>
     <a href="/legal" class="footer-link">Legal</a>
   </div>
-  <div class="footer-copy">© 2026 Forum Playbook · V3 BETA LANE · REGENERATED MON / 2026-10-26 / 8:50 PM CT</div>
+  <div class="footer-copy">© 2026 Forum Playbook · V3 BETA LANE · REGENERATED TUE / 2026-10-27 / 7:30 PM CT</div>
 </footer>
 
 <script>
@@ -590,8 +609,8 @@ try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.document
   }
 })();
 </script>
-<script src="/config.js"></script>
-<script src="/app.js"></script>
+<script src="/config.js?v=2026-10-27c"></script>
+<script src="/app.js?v=2026-10-27b"></script>
 <script src="/sting.js" defer></script>
 <script src="/podcasts.js"></script>
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c20145f631df48ff8dc17a09c0c3fcdb"}'></script><!-- End Cloudflare Web Analytics -->
