@@ -21,7 +21,11 @@
   "alt": "The Outlaws Forum standing under the Milky Way in Jackson Hole, Wyoming",
   "w": 801,
   "h": 1200,
-  "wide": false
+  "wide": false,
+  "classes": [
+   "feature",
+   "captop"
+  ]
  },
  {
   "src": "/facilitate/img/v2-jackson-tetons.jpg",

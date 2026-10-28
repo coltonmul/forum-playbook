@@ -9,7 +9,7 @@ build-catalyst.py, the one canonical list), stamps the page, and guards against 
 promise words (NO PROMISES IN PUBLIC COPY). The changelog stays here and in CHANGELOG.md, never on the page.
 
 Changelog
-  1.1.0  Video tiles can be wide and start from the page script (never under reduced motion); quotes render in
+  1.1.0  Photos take "classes" (feature, captop); video tiles can be wide and start from the page script (never under reduced motion); quotes render in
          italics (facilitate.css 1.1.0). Colton, 2026-10-27.
   1.0.0  First version, the Monday after the Uncharted retreat, from Colton's brief of 2026-10-26.
 """
@@ -40,7 +40,8 @@ def tile_photo(p):
         # No autoplay attribute: the page script starts it, and never under reduced motion (the poster stays).
         return (f'<figure class="tile video{" wide" if p.get("wide") else ""}"><video src="{esc(p["video"])}" poster="{esc(p.get("src",""))}" muted loop playsinline preload="metadata" data-autoplay aria-label="{esc(p.get("alt", cap))}"></video>'
                 f'<figcaption>{cap}</figcaption></figure>')
-    return f'<figure class="tile photo{" wide" if p.get("wide") else ""}"><img src="{esc(p["src"])}" alt="{esc(p.get("alt", cap))}" loading="lazy" width="{p.get("w", 800)}" height="{p.get("h", 1000)}"><figcaption>{cap}</figcaption></figure>'
+    extra = "".join(" " + c for c in p.get("classes", []))  # "feature": two columns at 4:5; "captop": caption at the top
+    return f'<figure class="tile photo{" wide" if p.get("wide") else ""}{extra}"><img src="{esc(p["src"])}" alt="{esc(p.get("alt", cap))}" loading="lazy" width="{p.get("w", 800)}" height="{p.get("h", 1000)}"><figcaption>{cap}</figcaption></figure>'
 
 def tile_quote(q):
     who = esc(q.get("who", ""))
