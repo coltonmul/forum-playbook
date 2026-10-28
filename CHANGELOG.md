@@ -2,6 +2,7 @@
 
 ## 2026-10-28 (Wed)
 
+- **/facilitate/ v1.2.1**: a section "Why forums bring Colton in" (the four reasons) and "What a facilitation is made of" (the forum-health half and the theme half), in Colton's words.
 - **/facilitate/ v1.2.0**: rebuilt as a landing page (Colton, 2026-10-28): the hook and the booking button first, one big quote, what Colton does in three blocks, the forum's app, the price ($1,000 per person, no discounts mentioned), two rotating quote blocks (the EO San Diego forum's eight, then every other forum's, the seven from the October 27 survey mining included) that turn every eight seconds and pause on hover, single quotes dropped into the sections, the photos beside sections and in a strip, then the calendar. Every quote is attributed by chapter forum only, no names and no roles. Four video testimonials from the EO San Diego forum (NAS, Colton Media, 2026 10 26 EO San Diego Uncharted Retreat Testimonials) were transcribed on Calvin with whisper; the Spanish one is translated; the four lines joined the San Diego block.
 
 ## 2026-10-27 (Tue)

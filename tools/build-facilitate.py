@@ -9,6 +9,7 @@ build-catalyst.py, the one canonical list), stamps the page, and guards against 
 promise words (NO PROMISES IN PUBLIC COPY). The changelog stays here and in CHANGELOG.md, never on the page.
 
 Changelog
+  1.2.1  "Why forums bring Colton in" and the two halves of a facilitation, in his words (Colton, 2026-10-28).
   1.2.0  A landing page: the hook, what Colton does, the app, the price, with quotes rotating in two blocks and single picks in the sections; quotes carry the chapter forum only; photos sit beside sections and in a strip (Colton, 2026-10-28). Merged over the October 27 session's 1.1.x (photo classes, video tiles started by the page script, italics).
   1.1.2  Version bump for the tile margin fix in facilitate.css.
   1.1.1  Version bump so the stylesheet link (?v=) changes with the feature tile CSS.
@@ -21,7 +22,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 spec = importlib.util.spec_from_file_location("bc", os.path.join(ROOT, "tools", "build-catalyst.py"))
 bc = importlib.util.module_from_spec(spec); spec.loader.exec_module(bc)
 
-VERSION = "1.2.0"
+VERSION = "1.2.1"
 D = os.path.join(ROOT, "facilitate")
 STAMP = subprocess.check_output(["date", "+Updated %a / %Y-%m-%d / %-I:%M %p CT"], text=True).strip()
 

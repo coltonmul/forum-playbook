@@ -161,3 +161,4 @@ blockquote.pick cite, .rot-item cite { font-style: normal; font-family: var(--fo
 blockquote.pick p, .rot-item p, .bandquote .hq p { font-style: italic; }
 @media (min-width: 820px) { .areas3 { grid-template-columns: repeat(3, 1fr); } .strip { grid-template-columns: repeat(3, 1fr); } }
 @media (prefers-reduced-motion: reduce) { .rot-item.is-on { animation: none; } .rot-dots button span { transition: none; } }
+@media (min-width: 820px) { .areas3.two { grid-template-columns: repeat(2, 1fr); } }
