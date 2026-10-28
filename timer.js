@@ -4,7 +4,7 @@
    browser: quick timer, agenda-based timer, synthesized
    overtime melodies, escalation curves, bars + clock face.
 
-   VERSION 1.1.0 · 2026-08-10
+   VERSION 1.1.1 · 2026-10-22
    Changelog lives on the page (timer.html #changelog) and in
    the repo CHANGELOG.md.
    ═══════════════════════════════════════════════════════════ */
@@ -1351,35 +1351,40 @@ const App = {
         r3.appendChild(bm);
       }
     } else {
+      /* Same add-time grid as idle, in the SAME positions. The controls
+         (PAUSE/STOP) go in their own row BELOW, never on top of a time
+         button, so tapping +5:00 again always adds time, never Stop. */
       const r1 = row();
       [[30, '+0:30'], [60, '+1:00'], [120, '+2:00']].forEach(([s, l]) => r1.appendChild(ghost(l, () => e.addSeconds(s))));
+      const r2 = row();
+      [[180, '+3:00'], [240, '+4:00'], [300, '+5:00']].forEach(([s, l]) => r2.appendChild(ghost(l, () => e.addSeconds(s))));
 
       /* the gap, then the big verbs: PAUSE and STOP, full words */
-      const r2 = row('controls gap-top');
+      const r3 = row('controls gap-top');
       const pause = document.createElement('button');
       pause.id = 'pauseBtn';
       pause.className = 'ft-pause';
       pause.innerHTML = `<em class="pp-ico">${e.isRunning ? '⏸' : '▶'}</em><span>${e.isRunning ? 'PAUSE' : 'RESUME'}</span>`;
       pause.addEventListener('click', () => e.pauseResume());
-      r2.appendChild(pause);
+      r3.appendChild(pause);
       const stop = document.createElement('button');
       stop.className = 'ft-stop';
       stop.innerHTML = '<em>■</em><span>STOP</span>';
       stop.setAttribute('aria-label', 'Stop and clear the timer');
       stop.addEventListener('click', () => e.reset());
-      r2.appendChild(stop);
+      r3.appendChild(stop);
 
       /* signals: the pre-time chime dropdown, plus next/chain */
-      const r3 = row('controls');
+      const r4 = row('controls');
       const chime = document.createElement('button');
       chime.className = 'ft-drop';
       const chimeLabel = notifyPoint(e.notify).label.toUpperCase();
       chime.innerHTML = `<span>PRE-TIME CHIME · ${e.notify === 'off' ? 'OFF' : chimeLabel}</span><em>▾</em>`;
       chime.setAttribute('aria-label', 'Pre-time chime and room signals');
       chime.addEventListener('click', (ev) => this.openChimeMenu(ev.currentTarget));
-      r3.appendChild(chime);
-      if (e.queue.length) r3.appendChild(circle('⏭', 'Next timer', () => e.advanceNow()));
-      r3.appendChild(circle('⋯', 'Chain timers and cadences', (ev) => this.openMoreMenu(ev.currentTarget)));
+      r4.appendChild(chime);
+      if (e.queue.length) r4.appendChild(circle('⏭', 'Next timer', () => e.advanceNow()));
+      r4.appendChild(circle('⋯', 'Chain timers and cadences', (ev) => this.openMoreMenu(ev.currentTarget)));
     }
   },
 

@@ -1,0 +1,67 @@
+/* chapters.css v1.1.1 (2026-10-08, hover fills only on hover-capable devices; 1.1.0 2026-10-08; 1.0.0 2026-10-07): /chapters/ only. Loads after concepts.css and reuses its tokens. Measured: Pitch on White 19.3:1, Quiet #5C5348 on Linen 6.6:1, Brick on White 5.7:1, Teal #2F7373 on White 5.6:1 (display sizes only), Linen on Pitch 16.3:1, Gold #D4A832 on Pitch 8.7:1. */
+.jump{display:flex;flex-wrap:wrap;gap:8px;margin:22px 0 0;padding:0;list-style:none}
+.jump a{font-family:var(--mono);font-size:13px;letter-spacing:.04em;min-height:44px;display:inline-flex;align-items:center;padding:0 14px;border:.5px solid var(--border);background:var(--white);text-decoration:none;color:var(--pitch)}
+.jump a:focus-visible{background:var(--teal);color:#fff}@media (hover:hover){.jump a:hover{background:var(--teal);color:#fff}}
+.menu{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,320px),1fr));gap:18px}
+.menu .card{padding:18px 20px 20px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.menu .tag{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--quiet)}
+.menu h3{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:28px;line-height:1;margin:0;letter-spacing:-.3px}
+.menu p{margin:0;font-size:16px;line-height:1.5}
+.menu .go{margin-top:auto;padding-top:8px;font-family:var(--mono);font-size:13px;letter-spacing:.06em;color:var(--brick);text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
+.menu .go:hover,.menu .go:focus-visible{text-decoration:underline}
+.prose{max-width:72ch}
+.prose p{margin:0 0 14px}
+.sub{font-family:var(--display);font-weight:700;text-transform:uppercase;font-size:22px;color:var(--teal);margin:28px 0 10px;line-height:1}
+/* run of show: one vertical column, always (timeline law: never a grid) */
+.ros{list-style:none;margin:0;padding:0;position:relative;max-width:760px}
+.ros::before{content:"";position:absolute;left:7px;top:10px;bottom:10px;width:2px;background-image:radial-gradient(circle,var(--quiet) 1.2px,transparent 1.7px);background-size:2px 9px;background-repeat:repeat-y}
+.ros li{position:relative;padding:0 0 18px 36px}
+.ros li::before{content:"";position:absolute;left:0;top:6px;width:16px;height:16px;border-radius:50%;background:var(--white);border:2px solid var(--burn);box-sizing:border-box}
+.ros b{display:block;font-family:var(--mono);font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--brick);margin-bottom:2px}
+.ros span{display:block;font-size:16px;line-height:1.5}
+.tools{display:flex;flex-wrap:wrap;gap:8px;list-style:none;margin:0;padding:0}
+.tools li{background:var(--white);border:.5px solid var(--border);padding:8px 12px;font-size:15px}
+.quote{background:var(--white);border-left:3px solid var(--burn);padding:18px 22px;font-size:18px;margin:18px 0 0;max-width:72ch}
+.quote small{display:block;font-size:14px;color:var(--quiet);margin-top:8px}
+/* the money table */
+.money{width:100%;border-collapse:collapse;background:var(--white);border:.5px solid var(--border);font-size:16px}
+.money th,.money td{text-align:left;vertical-align:top;padding:14px 16px;border-bottom:.5px solid var(--border)}
+.money thead th{font-family:var(--mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--quiet);font-weight:500;background:var(--linen-d)}
+.money tbody th{font-weight:700;width:24%}
+.money td.amt{font-family:var(--mono);font-size:15px;white-space:nowrap}
+@media (max-width:760px){
+  .money thead{display:none}
+  .money,.money tbody,.money tr,.money th,.money td{display:block;width:100%}
+  .money tr{border-bottom:.5px solid var(--border);padding:12px 14px}
+  .money th,.money td,.money tbody th{padding:2px 0;border:0;width:100%}
+  .money td.amt{white-space:normal;color:var(--brick);margin:4px 0}
+}
+.cta{background:var(--pitch);color:var(--linen);padding:26px 28px;margin-top:44px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px 28px;align-items:center}
+.cta strong{font-family:var(--display);font-weight:900;text-transform:uppercase;font-size:clamp(30px,4vw,40px);line-height:.95;color:#fff;display:block;margin-bottom:6px}
+.cta p{margin:0;font-size:17px}
+.cta a{font-family:var(--mono);font-size:14px;letter-spacing:.06em;min-height:44px;display:inline-flex;align-items:center;padding:0 18px;background:#D4A832;color:var(--pitch);text-decoration:none;font-weight:500}
+.cta a:focus-visible{background:#fff}@media (hover:hover){.cta a:hover{background:#fff}}
+@media (max-width:760px){.cta{grid-template-columns:minmax(0,1fr)}}
+/* 1.1.0 icons: Phosphor light, chips matched to Regional Training Days. Teal #2F7373 on Linen-d #E8E2D6 4.9:1, Brick on Linen-d 5.0:1 (3:1 graphic floor). */
+.icon{display:block;flex:none}
+.ico{width:38px;height:38px;border-radius:50%;background:var(--linen-d);color:var(--teal);display:inline-grid;place-items:center;flex:none;
+  transition:background .3s,color .3s,transform .45s cubic-bezier(.34,1.56,.64,1)}
+@media (hover:hover){.card:hover .ico,.steps li:hover .ico,.ros li:hover .ico{background:var(--teal);color:#fff;transform:rotate(-12deg) scale(1.08)}}
+.mhead{display:flex;align-items:center;gap:12px}
+.mhead h3{margin:0}
+.sec-ic{display:flex;align-items:center;gap:10px}
+.sec-ic .icon{color:var(--burn)}
+.ros-ic::before{left:15px;top:20px;bottom:20px}
+.ros-ic li{padding:0 0 18px 50px;min-height:38px}
+.ros-ic li::before{content:none}
+.ros-ic li>.ico{position:absolute;left:0;top:0;width:32px;height:32px;background:var(--white);border:1.5px solid var(--burn);color:var(--brick)}
+@media (hover:hover){.ros-ic li:hover>.ico{background:var(--burn);color:#fff}}
+.tools li{display:inline-flex;align-items:center;gap:8px}
+.tools li .icon{color:var(--teal)}
+.rowh{display:inline-flex;align-items:center;gap:8px}
+.rowh .icon{color:var(--teal)}
+.steps-ic li .ico{float:right;margin:-2px -4px 0 8px}
+.stack{display:flex;gap:12px;align-items:flex-start;background:var(--white);border:.5px solid var(--border);border-left:3px solid var(--teal);padding:14px 16px;margin:4px 0 14px;max-width:760px;font-size:16px}
+.stack .ico{width:32px;height:32px}
+.cta a{gap:8px}
+@media (prefers-reduced-motion:reduce){.ico{transition:none}.card:hover .ico,.steps li:hover .ico,.ros li:hover .ico{transform:none}}

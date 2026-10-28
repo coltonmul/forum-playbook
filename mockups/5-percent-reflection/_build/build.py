@@ -2,7 +2,7 @@
 """
 5% REFLECTION SHEET MOCKUPS: the generator.
 
-VERSION 0.1.1
+VERSION 0.2.0
 
 What this builds, into the folder above this one (mockups/5-percent-reflection/):
   - six one-page sheets as HTML: three content iterations (A, B, C), each in a
@@ -31,6 +31,12 @@ pdftoppm). Fails loudly if a PDF is not exactly one page, if the brand fonts did
 not embed, or if an em dash sneaks into any generated file.
 
 Changelog
+  0.2.0 (2026-10-27) release mode: `build.py --release` builds ONLY the sheet Colton put on
+        the homepage, iteration B in the Forum Playbook skin (the one he filed neutral in Forum 14's
+        Drive folder on 2026-09-18), as v1.0 with no "Mockup" label,
+        into /worksheets/ at the site root (5-percent-reflection-sheet.pdf + .png, a stable
+        address the homepage card links to). The mockups and gallery are left as they are.
+        Colton, 2026-10-27: "I want one with the Forum Playbook branding" for the homepage.
   0.1.1 (2026-09-25) every generated page (six sheets + the gallery) carries the
         forumplaybook.com visitor counter, one line before </body> (CF_COUNTER
         below). The og card is a build-time screenshot, never published, so it
@@ -49,11 +55,15 @@ import time
 from pathlib import Path
 from zoneinfo import ZoneInfo
 
-VERSION = "0.1.1"
+VERSION = "0.2.0"
 SHEET_VERSION = "v0.1"
+RELEASE_VERSION = "v1.0"
+RELEASE_KEY = "b"  # the iteration that shipped: Colton filed the neutral B in Forum 14's Drive folder (2026-09-18)
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE.parent
+RELEASE_DIR = HERE.parents[2] / "worksheets"
+RELEASE_NAME = "5-percent-reflection-sheet"
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 SITE = "https://forumplaybook.com/mockups/5-percent-reflection/"
 EM_DASH = chr(0x2014)
@@ -271,7 +281,7 @@ h1 { font-family: var(--display); font-weight: 900; text-transform: uppercase;
 """
 
 
-def sheet_html(it, skin):
+def sheet_html(it, skin, release=False):
     k = it["key"]
     fp = skin["key"] == "forum-playbook"
     letter = k.upper()
@@ -279,14 +289,17 @@ def sheet_html(it, skin):
     agenda = k == "c"
 
     if fp:
-        title_tag = f"5% Reflection Sheet, Mockup {letter} {SHEET_VERSION} | Forum Playbook"
+        title_tag = (f"5% Reflection Sheet {RELEASE_VERSION} | Forum Playbook" if release
+                     else f"5% Reflection Sheet, Mockup {letter} {SHEET_VERSION} | Forum Playbook")
+        doc_title = "5% REFLECTION SHEET" if release else f"5% REFLECTION SHEET · MOCKUP {letter}"
+        ver = RELEASE_VERSION if release else SHEET_VERSION
         favicon = FP_FAVICON
         header = (
             '<header class="doc-header"><span class="h-mark">⎇ </span><span class="h-name">FORUM PLAYBOOK</span>'
             '<span class="h-gap">&nbsp;&nbsp;&nbsp;</span><span class="h-cat">[ MEETING TOOLS ]</span>'
             '<span class="h-sep">&nbsp;&nbsp;│&nbsp;&nbsp;</span><span class="h-doc">DOCUMENT&nbsp;&nbsp;</span>'
-            f'<span class="h-title">5% REFLECTION SHEET · MOCKUP {letter}</span>'
-            f'<span class="h-sep">&nbsp;&nbsp;│&nbsp;</span><span class="h-ver">{SHEET_VERSION}&nbsp;</span>'
+            f'<span class="h-title">{doc_title}</span>'
+            f'<span class="h-sep">&nbsp;&nbsp;│&nbsp;</span><span class="h-ver">{ver}&nbsp;</span>'
             f'<span class="h-sep">│&nbsp;</span><span class="h-meta">Updated: {MONTH_YEAR}&nbsp;</span>'
             '<span class="h-sep">│&nbsp;</span><span class="h-meta">ForumPlaybook.com</span></header>'
         )
@@ -835,7 +848,29 @@ document.fonts.ready.then(function () {
 
 # ---------------------------------------------------------------- main
 
+def release():
+    """Build only the shipped sheet (iteration C, Forum Playbook skin) as v1.0 into /worksheets/."""
+    it = next(i for i in ITERATIONS if i["key"] == RELEASE_KEY)
+    skin = next(k for k in SKINS if k["key"] == "forum-playbook")
+    RELEASE_DIR.mkdir(exist_ok=True)
+    page = sheet_html(it, skin, release=True)
+    if EM_DASH in page:
+        sys.exit("FAILED: em dash in the release sheet.")
+    with tempfile.TemporaryDirectory() as tmp:
+        profile = Path(tmp) / "chrome-profile"
+        html_path = Path(tmp) / f"{RELEASE_NAME}.html"
+        html_path.write_text(page, encoding="utf-8")
+        pdf = RELEASE_DIR / f"{RELEASE_NAME}.pdf"
+        render_pdf(html_path, pdf, profile)
+        subprocess.run(["pdftoppm", "-png", "-r", "110", "-singlefile", str(pdf), str(RELEASE_DIR / RELEASE_NAME)], check=True)
+        got = measure(html_path, profile, tmp)
+    print(f"Released {pdf} ({RELEASE_VERSION}): EQ row {got['eq-in']} in, IQ row {got['iq-in']} in")
+    print(f"Stamp: Updated {STAMP}")
+
+
 def main():
+    if "--release" in sys.argv:
+        return release()
     for tool in ("pdfinfo", "pdffonts", "pdftoppm"):
         if not shutil.which(tool):
             sys.exit(f"FAILED: {tool} not found (brew install poppler).")

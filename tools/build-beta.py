@@ -9,12 +9,13 @@ lane lives at the /beta/ path instead of a beta host).
 Lane residents: NONE right now; the lane is empty and ready for the
 next experiment.
 
-Graduated: the Forum 14 slow-motion reel card (2026-08-10 afternoon)
+Graduated: the Forum 14 slow-motion reel card (2026-08-10 afternoon),
 the hero stats rework with the Hours in the Room counter + ledger
 (2026-08-10 evening, with Colton's corrections; constants now live in
-index.html's inline stats script), and the reel tap to play + phone
-order + Google Tag Manager removal (graduated on Colton's word after
-the 2026-09-26 side by side).
+index.html's inline stats script), and, together on Colton's word after
+the side by side, the reel tap to play + phone order + Google Tag
+Manager removal (2026-09-26 lane) with the self-hosted reel loop from
+/video/ in place of the Vimeo player (2026-10-26 lane).
 
 To run a new experiment: add its insertion block below (see git history
 for the reel card's block as a pattern), then rerun:
@@ -23,7 +24,7 @@ for the reel card's block as a pattern), then rerun:
 
 Rerun after ANY homepage edit so the lane never drifts stale.
 The script fails loudly if an anchor it needs is missing.
-VERSION 1.6.0 (2026-09-26). Changelog: CHANGELOG.md at the repo root.
+VERSION 1.7.0 (2026-10-28). Changelog: CHANGELOG.md at the repo root.
 """
 import datetime
 import pathlib
@@ -59,7 +60,7 @@ t = must_replace(t, '<title>Forum Playbook', '<title>V3 BETA · Forum Playbook',
 
 # Root-absolute assets so the copy works from /beta/.
 for asset in ['styles.css', 'sting.css', 'config.js', 'app.js', 'podcasts.js', 'sting.js']:
-    t = must_replace(t, f'"{asset}"', f'"/{asset}"', asset)
+    t = must_replace(t, f'"{asset}', f'"/{asset}', asset)  # prefix match: index.html may carry ?v= on a script
 
 # The lane badge in the nav.
 t = must_replace(t, '    FORUM PLAYBOOK\n  </a>',

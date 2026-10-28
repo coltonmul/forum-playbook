@@ -1,0 +1,62 @@
+{
+  "generated": "Mon / 2026-10-26 / 9:45 AM CT",
+  "source": "Colton's Google Calendar, read by Claude on the date above; the hard dates only, trainings he can move are left as possible",
+  "blackout": [
+    {
+      "from": "2026-11-01",
+      "to": "2026-11-02",
+      "label": "Booked: a forum retreat in Nashville"
+    },
+    {
+      "from": "2026-11-10",
+      "to": "2026-11-13",
+      "label": "EO forum trainer conference, abroad"
+    },
+    {
+      "from": "2026-11-16",
+      "to": "2026-11-17",
+      "label": "Booked: EO Charlotte training"
+    },
+    {
+      "from": "2026-11-25",
+      "to": "2026-11-27",
+      "label": "Thanksgiving"
+    },
+    {
+      "from": "2026-12-21",
+      "to": "2027-01-03",
+      "label": "The holidays"
+    },
+    {
+      "from": "2027-01-08",
+      "to": "2027-01-11",
+      "label": "Family weekend"
+    },
+    {
+      "from": "2027-01-26",
+      "to": "2027-01-29",
+      "label": "Out of the office, Salt Lake City"
+    },
+    {
+      "from": "2027-02-07",
+      "to": "2027-02-13",
+      "label": "Family trip"
+    },
+    {
+      "from": "2027-02-18",
+      "to": "2027-02-21",
+      "label": "EO Nashville's own retreat, Miami"
+    },
+    {
+      "from": "2027-02-28",
+      "to": "2027-03-02",
+      "label": "Booked: a forum retreat, EO Charlotte"
+    },
+    {
+      "from": "2027-03-31",
+      "to": "2027-04-14",
+      "label": "Japan: the trip and the EO Global Leadership Conference"
+    }
+  ],
+  "read_through": "2027-04-30"
+}
