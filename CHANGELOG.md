@@ -1,5 +1,9 @@
 # Changelog: forum-playbook (forumplaybook.com)
 
+## 2026-10-28 (Wed)
+
+- **/facilitate/ v1.1.0**: rebuilt as a landing page (Colton, 2026-10-28): the hook and the booking button first, one big quote, what Colton does in three blocks, the forum's app, the price ($1,000 per person, no discounts mentioned), two rotating quote blocks (the EO San Diego forum's eight, then every other forum's) that turn every eight seconds and pause on hover, single quotes dropped into the sections, the photos beside sections and in a strip, then the calendar. Every quote is attributed by chapter forum only, no names and no roles. Four video testimonials from the EO San Diego forum (NAS, Colton Media, 2026 10 26 EO San Diego Uncharted Retreat Testimonials) were transcribed on Calvin with whisper; the Spanish one is translated; the four lines joined the San Diego block.
+
 ## 2026-10-26 (Mon)
 
 - **/beta/ only: the homepage reel plays from forumplaybook.com instead of Vimeo** (Colton is leaving Vimeo; background loops are self-hosted, click-to-play films move later). tools/build-beta.py 1.6.0 adds experiment 3: the reel card's Vimeo iframe becomes a `<video>` loop from /video/forum-mini-retreat-2026-04-loop.mp4, a 26 second stretch from the start of the April 2026 reel (the group on the overlook), 1920x1080, H.264, no audio track, 6.2 MB, looping with a half-second crossfade, its first frame as the poster (/video/forum-mini-retreat-2026-04-poster.jpg, 97 KB). With reduced motion turned on it does not autoplay and the poster stays. Experiment 1's tap to play now drives the video directly; if a phone refuses even the tap, the video shows its own controls. The live homepage (index.html), legal.html and reel-poster.jpg are untouched. To graduate: the `reel-fallback-ship` branch still embeds Vimeo, so experiment 3 lands on top of it, and legal.html's "the reel on the homepage from Vimeo" line changes in the same commit. Same video file as forum14.com.

@@ -1,58 +1,9 @@
 [
- {
-  "src": "/facilitate/img/p1-saas-fee.jpg",
-  "caption": "EO Zurich, Forum K. Saas-Fee, Switzerland, June 2023",
-  "alt": "EO Zurich, Forum K. Saas-Fee, Switzerland, June 2023",
-  "w": 802,
-  "h": 1200,
-  "wide": false
- },
- {
-  "src": "/facilitate/img/p2-nashville.jpg",
-  "caption": "EO San Diego, Uncharted. Nashville, October 2026",
-  "alt": "EO San Diego, Uncharted. Nashville, October 2026",
-  "w": 1182,
-  "h": 664,
-  "wide": true
- },
- {
-  "src": "/facilitate/img/p3-chalet.jpg",
-  "caption": "The chalet above Saas-Fee, the forum on the balcony",
-  "alt": "The chalet above Saas-Fee, the forum on the balcony",
-  "w": 1400,
-  "h": 788,
-  "wide": true
- },
- {
-  "src": "/facilitate/img/p4-telluride.jpg",
-  "caption": "Colton's own forum, Forum 14. Telluride, August 2025",
-  "alt": "Colton's own forum, Forum 14. Telluride, August 2025",
-  "w": 1400,
-  "h": 788,
-  "wide": true
- },
- {
-  "src": "/facilitate/img/p5-bluff-2026.jpg",
-  "caption": "Forum 14 on the bluff, April 2026",
-  "alt": "Forum 14 on the bluff, April 2026",
-  "w": 1400,
-  "h": 788,
-  "wide": true
- },
- {
-  "src": "/facilitate/img/p6-balcony.jpg",
-  "caption": "Forum K lined up above Saas-Fee, June 2023",
-  "alt": "Forum K lined up above Saas-Fee, June 2023",
-  "w": 1400,
-  "h": 788,
-  "wide": true
- },
- {
-  "src": "/facilitate/img/p7-bluff-2025.jpg",
-  "caption": "Forum 14, the evening before, April 2025",
-  "alt": "Forum 14, the evening before, April 2025",
-  "w": 1400,
-  "h": 788,
-  "wide": true
- }
+ {"src": "/facilitate/img/p2-nashville.jpg", "caption": "EO San Diego Forum. Nashville, October 2026", "alt": "A forum of eight on a Nashville rooftop with Colton, October 2026", "w": 1182, "h": 664, "wide": true, "slot": "does"},
+ {"src": "/facilitate/img/p4-telluride.jpg", "caption": "EO Nashville Forum, Colton's own. Telluride, August 2025", "alt": "Colton's own forum on a deck in Telluride, August 2025", "w": 1400, "h": 788, "wide": true, "slot": "price"},
+ {"src": "/facilitate/img/p1-saas-fee.jpg", "caption": "EO Zurich Forum. Saas-Fee, Switzerland, June 2023", "alt": "A forum of eight with Colton on a balcony above Saas-Fee, the Alps behind", "w": 802, "h": 1200, "wide": false},
+ {"src": "/facilitate/img/p3-chalet.jpg", "caption": "The chalet above Saas-Fee, the forum on the balcony", "alt": "A timber chalet above Saas-Fee with the forum lined up on the balcony", "w": 1400, "h": 788, "wide": true},
+ {"src": "/facilitate/img/p5-bluff-2026.jpg", "caption": "EO Nashville Forum on the bluff, April 2026", "alt": "Eight people on a rock ledge above a wooded valley at golden hour", "w": 1400, "h": 788, "wide": true},
+ {"src": "/facilitate/img/p6-balcony.jpg", "caption": "EO Zurich Forum above Saas-Fee, June 2023", "alt": "The forum standing in a line on a chalet balcony, mountains behind", "w": 1400, "h": 788, "wide": true},
+ {"src": "/facilitate/img/p7-bluff-2025.jpg", "caption": "EO Nashville Forum, April 2025", "alt": "Seven people on a bluff in evening light, a valley behind", "w": 1400, "h": 788, "wide": true}
 ]

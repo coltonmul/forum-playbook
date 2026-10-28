@@ -9,6 +9,7 @@ build-catalyst.py, the one canonical list), stamps the page, and guards against 
 promise words (NO PROMISES IN PUBLIC COPY). The changelog stays here and in CHANGELOG.md, never on the page.
 
 Changelog
+  1.1.0  A landing page: the hook, what Colton does, the app, the price, with quotes rotating in two blocks and single picks in the sections; quotes carry the chapter forum only; photos sit beside sections and in a strip (Colton, 2026-10-28).
   1.0.0  First version, the Monday after the Uncharted retreat, from Colton's brief of 2026-10-26.
 """
 import datetime, html, importlib.util, json, os, re, subprocess, sys
@@ -17,7 +18,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 spec = importlib.util.spec_from_file_location("bc", os.path.join(ROOT, "tools", "build-catalyst.py"))
 bc = importlib.util.module_from_spec(spec); spec.loader.exec_module(bc)
 
-VERSION = "1.0.0"
+VERSION = "1.1.0"
 D = os.path.join(ROOT, "facilitate")
 STAMP = subprocess.check_output(["date", "+Updated %a / %Y-%m-%d / %-I:%M %p CT"], text=True).strip()
 
@@ -31,33 +32,38 @@ avail = load("availability.json", {"blackout": [], "generated": "", "note": ""})
 
 def esc(s): return html.escape(str(s or ""), quote=False)
 
-# ---------- the grid: photos and quotes, interleaved so every photo sits by a quote ----------
-def tile_photo(p):
+# ---------- quotes: the hero quote, two rotators, single picks; photos: slots and the strip ----------
+used = set()
+def q_html(q, cls="rot-item"):
+    return f'<blockquote class="{cls}"><p>{esc(q["text"])}</p><cite>{esc(q.get("where", ""))}</cite></blockquote>'
+
+def quote_hero():
+    q = quotes[0]; used.add(id(q))
+    return f'<blockquote class="hq"><p>{esc(q["text"])}</p><cite>{esc(q.get("where", ""))}</cite></blockquote>'
+
+def quote_pick(sub):
+    for q in quotes:
+        if id(q) not in used and sub.lower() in q["text"].lower():
+            used.add(id(q)); return q_html(q, "pick")
+    return ""
+
+def rotator(items, label):
+    if not items: return ""
+    inner = "".join(q_html(q) for q in items)
+    for q in items: used.add(id(q))
+    return f'<div class="rotator" data-interval="8000" aria-roledescription="carousel" aria-label="{esc(label)}"><div class="rot-track">{inner}</div><div class="rot-dots" role="tablist" aria-label="Pick a quote"></div></div>'
+
+def photo_fig(p, cls="pic"):
     cap = esc(p.get("caption", ""))
-    if p.get("video"):
-        return (f'<figure class="tile video"><video src="{esc(p["video"])}" poster="{esc(p.get("src",""))}" muted loop playsinline autoplay preload="metadata" aria-label="{cap}"></video>'
-                f'<figcaption>{cap}</figcaption></figure>')
-    return f'<figure class="tile photo{" wide" if p.get("wide") else ""}"><img src="{esc(p["src"])}" alt="{esc(p.get("alt", cap))}" loading="lazy" width="{p.get("w", 800)}" height="{p.get("h", 1000)}"><figcaption>{cap}</figcaption></figure>'
+    return f'<figure class="{cls}"><img src="{esc(p["src"])}" alt="{esc(p.get("alt", cap))}" loading="lazy" width="{p.get("w", 800)}" height="{p.get("h", 600)}"><figcaption>{cap}</figcaption></figure>'
 
-def tile_quote(q):
-    who = esc(q.get("who", ""))
-    where = esc(q.get("where", ""))
-    cls = "tile quote" + (" wide" if len(q.get("text", "")) > 170 else "") + (" big" if len(q.get("text", "")) < 90 else "")
-    cite = f'<cite><b>{who}</b>{(" · " + where) if where else ""}</cite>' if who else (f'<cite>{where}</cite>' if where else "")
-    return f'<blockquote class="{cls}"><p>{esc(q["text"])}</p>{cite}</blockquote>'
+def photo_slot(slot):
+    for p in photos:
+        if p.get("slot") == slot: return photo_fig(p)
+    return ""
 
-def grid():
-    out = []
-    qi, pi = 0, 0
-    # pattern: quote, photo, quote, quote, photo ... until both run out
-    pattern = ["q", "p", "q", "q", "p", "q", "p", "q"]
-    k = 0
-    while qi < len(quotes) or pi < len(photos):
-        kind = pattern[k % len(pattern)]; k += 1
-        if kind == "p" and pi < len(photos): out.append(tile_photo(photos[pi])); pi += 1
-        elif qi < len(quotes): out.append(tile_quote(quotes[qi])); qi += 1
-        elif pi < len(photos): out.append(tile_photo(photos[pi])); pi += 1
-    return "\n".join(out)
+def photo_strip():
+    return "\n".join(photo_fig(p) for p in photos if not p.get("slot"))
 
 # ---------- availability: twelve months from this month; blackout days dark, everything else "possible, ask" ----------
 def availability():
@@ -91,7 +97,14 @@ def availability():
 months_html, blackouts_html = availability()
 
 src = open(os.path.join(D, "_src", "index.html")).read()
-s = src.replace("{{GRID}}", grid()).replace("{{MONTHS}}", months_html).replace("{{BLACKOUTS}}", blackouts_html)
+s = src.replace("{{MONTHS}}", months_html).replace("{{BLACKOUTS}}", blackouts_html)
+s = s.replace("{{QUOTE_HERO}}", quote_hero())
+s = re.sub(r"\{\{QUOTE_PICK:([^}]+)\}\}", lambda m: quote_pick(m.group(1)), s)
+sd = [q for q in quotes if str(q.get("where", "")).startswith("EO San Diego Forum") and id(q) not in used]
+s = s.replace("{{ROTATOR_SD}}", rotator(sd, "What the EO San Diego forum said"))
+rest = [q for q in quotes if id(q) not in used]
+s = s.replace("{{ROTATOR_REST}}", rotator(rest, "What other forums said"))
+s = s.replace("{{PHOTO_DOES}}", photo_slot("does")).replace("{{PHOTO_PRICE}}", photo_slot("price")).replace("{{PHOTO_STRIP}}", photo_strip())
 s = s.replace("{{STAMP}}", STAMP).replace("{{STAMPDATE}}", STAMP.replace("Updated ", "")).replace("{{VERSION}}", VERSION)
 s = s.replace("{{AVAIL_GENERATED}}", esc(avail.get("generated", STAMP.replace("Updated ", ""))))
 hero = os.path.join(D, "img", "hero.jpg")
