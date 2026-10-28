@@ -18,6 +18,7 @@ GOOGLE_API_KEY: 'AIzaSyD-DZWNK5YL8qgVzAVCv0qt87VHGnykh8Y',
 // type: 'doc' = Google Doc (downloads as DOCX + PDF)
 // type: 'sheet' = Google Sheet (downloads as XLSX + PDF)
 // type: 'links' = External link card - supply `links: [{label, url}]` instead of fileId
+// type: 'file' = A file housed on this site - supply `url` (download + open buttons)
 // bullets: two to four short lines under the title saying what the resource is (Colton, 2026-10-27).
 // Update fileId here if you ever replace these files in Drive.
 // The official EO documents live in the library's own bucket (EO Legal), not up here.
@@ -41,6 +42,17 @@ url: '/timer',
 label: '↓ Download the iOS App',
 url: 'https://apps.apple.com/us/app/forum-playbook/id6789998894',
 },
+],
+},
+{
+title: '5% Reflection Worksheet',
+badge: 'PDF · PRINT OR GOODNOTES',
+type: 'file',
+url: '/worksheets/5-percent-reflection-sheet.pdf',
+bullets: [
+'EQ up top: three 5% topics, from headline to what you realize about yourself',
+'IQ at the bottom: 1-2 learning topics to bring to the room',
+'Your four ratings, next month\'s wager, and how the meeting uses the sheet',
 ],
 },
 {

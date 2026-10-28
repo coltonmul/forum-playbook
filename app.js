@@ -88,6 +88,11 @@ function buildCoreCardHTML(resource) {
       const external = /^https?:/i.test(l.url);
       return `<a href="${l.url}" class="${cls}"${external ? ' target="_blank" rel="noopener"' : ''}><span>${l.label}</span></a>`;
     }).join('');
+  } else if (resource.type === 'file') {
+    // A file housed on this site (the 5% Reflection Sheet PDF): download it, or open it in a tab.
+    icon     = coreIconDoc();
+    buttons += `<a href="${resource.url}" download class="btn btn-primary sh warm"><span>↓ PDF</span></a>`;
+    buttons += `<a href="${resource.url}" class="btn sh warm" target="_blank" rel="noopener"><span>↗ Open</span></a>`;
   } else {
     const base     = `https://www.googleapis.com/drive/v3/files/${resource.fileId}/export?key=${CONFIG.GOOGLE_API_KEY}`;
     const driveUrl = `https://drive.google.com/open?id=${resource.fileId}`;
