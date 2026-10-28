@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""build-facilitate.py: builds forumplaybook.com/facilitate/ ("Have Colton facilitate your retreat"). VERSION 1.1.0 (2026-10-27)
+"""build-facilitate.py: builds forumplaybook.com/facilitate/ ("Have Colton facilitate your retreat"). VERSION 1.1.1 (2026-10-27)
 
   python3 tools/build-facilitate.py
 
@@ -9,6 +9,7 @@ build-catalyst.py, the one canonical list), stamps the page, and guards against 
 promise words (NO PROMISES IN PUBLIC COPY). The changelog stays here and in CHANGELOG.md, never on the page.
 
 Changelog
+  1.1.1  Version bump so the stylesheet link (?v=) changes with the feature tile CSS.
   1.1.0  Photos take "classes" (feature, captop); video tiles can be wide and start from the page script (never under reduced motion); quotes render in
          italics (facilitate.css 1.1.0). Colton, 2026-10-27.
   1.0.0  First version, the Monday after the Uncharted retreat, from Colton's brief of 2026-10-26.
@@ -19,7 +20,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 spec = importlib.util.spec_from_file_location("bc", os.path.join(ROOT, "tools", "build-catalyst.py"))
 bc = importlib.util.module_from_spec(spec); spec.loader.exec_module(bc)
 
-VERSION = "1.1.0"
+VERSION = "1.1.1"
 D = os.path.join(ROOT, "facilitate")
 STAMP = subprocess.check_output(["date", "+Updated %a / %Y-%m-%d / %-I:%M %p CT"], text=True).strip()
 
