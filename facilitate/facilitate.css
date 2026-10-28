@@ -1,4 +1,5 @@
-/* facilitate.css 1.2.0 (2026-10-28): the landing-page layout (the block at the end).
+/* facilitate.css 1.3.0 (2026-10-28): Popular retreats, six cards with their pictures (the last block); the four 10px and 11px sizes raised to 12px.
+   1.2.0 (2026-10-28): the landing-page layout (the block at the end).
    1.1.0 (2026-10-27): member quotes in italics so they read as their words; wide video tiles; feature and captop photo tiles; tiles drop the browser's 40px blockquote and figure side margins (every tile ran 80px
    narrower than its column, one word per line on a phone); 12px floor
    on captions; the reduced-motion block no longer stretches every button across two columns.
@@ -97,7 +98,7 @@ ul.list li { margin: 0 0 8px; color: var(--pitch); }
 .month { background: var(--white); border: 1px solid var(--dust); padding: 10px 10px 8px; }
 .month h4 { margin: 0 0 6px; font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--pitch); }
 .days { display: grid; grid-template-columns: repeat(7, 1fr); gap: 2px; }
-.days span { aspect-ratio: 1; display: grid; place-items: center; font-family: var(--font-mono); font-size: 10px; color: var(--pitch); background: var(--linen); }
+.days span { aspect-ratio: 1; display: grid; place-items: center; font-family: var(--font-mono); font-size: 12px; color: var(--pitch); background: var(--linen); }
 .days span.pad { background: transparent; }
 .days span.no { background: var(--pitch); color: var(--linen); }
 .days span.ask { background: var(--gold); color: var(--pitch); }
@@ -133,17 +134,17 @@ ul.list li { margin: 0 0 8px; color: var(--pitch); }
 .bandquote .hq cite { font-style: normal; font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--burn); }
 .areas3 { display: grid; grid-template-columns: 1fr; gap: 12px; }
 .area { background: var(--white); border: 1px solid var(--dust); border-top: 4px solid var(--burn); padding: 16px 18px; min-width: 0; }
-.area .k { font-family: var(--font-mono); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--brick); margin-bottom: 4px; }
+.area .k { font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; color: var(--brick); margin-bottom: 4px; }
 .area h3 { margin: 0 0 6px; font-size: 22px; }
 .area p { margin: 0; font-size: 16px; }
 .side { display: grid; grid-template-columns: 1fr; gap: 16px; align-items: start; margin: 8px 0; }
 .side figure.pic, .strip figure.pic { margin: 0; position: relative; overflow: hidden; border: 1px solid var(--dust); background: var(--white); }
 .side figure.pic img { width: 100%; height: auto; display: block; }
-figure.pic figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 12px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--linen); background: linear-gradient(to top, rgba(14,14,12,.85), rgba(14,14,12,0)); }
+figure.pic figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 12px; font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--linen); background: linear-gradient(to top, rgba(14,14,12,.85), rgba(14,14,12,0)); }
 @media (min-width: 900px) { .side { grid-template-columns: 1.25fr 1fr; } .side.flip { grid-template-columns: 1fr 1.25fr; } }
 blockquote.pick { background: var(--white); border: 1px solid var(--dust); border-left: 4px solid var(--burn); padding: 16px 18px; margin: 16px 0 0; max-width: 760px; }
 blockquote.pick p { margin: 0 0 8px; font-size: 18px; line-height: 1.45; color: var(--pitch); max-width: none; }
-blockquote.pick cite, .rot-item cite { font-style: normal; font-family: var(--font-mono); font-size: 11px; letter-spacing: .12em; text-transform: uppercase; color: var(--brick); }
+blockquote.pick cite, .rot-item cite { font-style: normal; font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--brick); }
 .rotator { position: relative; background: var(--white); border: 1px solid var(--dust); border-left: 4px solid var(--burn); padding: 22px 22px 10px; max-width: 880px; margin: 14px 0; }
 .rot-item { display: none; margin: 0; }
 .rot-item.is-on { display: block; animation: rotIn .5s ease-out; }
@@ -162,3 +163,29 @@ blockquote.pick p, .rot-item p, .bandquote .hq p { font-style: italic; }
 @media (min-width: 820px) { .areas3 { grid-template-columns: repeat(3, 1fr); } .strip { grid-template-columns: repeat(3, 1fr); } }
 @media (prefers-reduced-motion: reduce) { .rot-item.is-on { animation: none; } .rot-dots button span { transition: none; } }
 @media (min-width: 820px) { .areas3.two { grid-template-columns: repeat(2, 1fr); } }
+
+/* 1.3.0 (2026-10-28): Popular retreats. Six cards, each with its picture: the North Star sky as a video, the other five drawn.
+   Panel tints, computed: #0E0E0C text on #F4E9C9 16.0:1, on #E0EFED 15.6:1; drawing strokes #E8521A 3.1:1, #2F7272 4.6:1, #B83A14 4.8:1 on every tint. */
+.rt-grid { display: grid; grid-template-columns: 1fr; gap: 14px; margin: 18px 0 0; }
+@media (min-width: 680px) { .rt-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .rt-grid { grid-template-columns: repeat(3, 1fr); } }
+.rt-card { background: var(--white); border: 1px solid var(--dust); min-width: 0; display: flex; flex-direction: column; transition: transform .35s cubic-bezier(.2,.9,.3,1.3); }
+.rt-card:hover { transform: translateY(-4px); }
+.rt-art { position: relative; aspect-ratio: 1 / 1; overflow: hidden; }
+.rt-art svg, .rt-art video { width: 100%; height: 100%; display: block; }
+.rt-art svg { transition: transform .5s cubic-bezier(.2,.9,.3,1.3); }
+.rt-card:hover .rt-art svg { transform: scale(1.04); }
+.rt-art video { object-fit: cover; }
+.rt-dark { background: var(--pitch); } .rt-gold { background: #F4E9C9; } .rt-teal { background: #E0EFED; } .rt-linen { background: var(--linen); }
+.rt-art text { font-family: var(--font-mono); font-size: 14px; letter-spacing: .06em; fill: var(--pitch); }
+.rt-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 12px; font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--linen); background: linear-gradient(to top, rgba(14,14,12,.85), rgba(14,14,12,0)); }
+.rt-body { padding: 16px 18px 18px; border-top: 4px solid var(--burn); flex: 1; }
+.rt-k { font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; text-transform: uppercase; color: var(--brick); margin: 0 0 4px; }
+.rt-body h3 { margin: 0 0 8px; font-size: 24px; line-height: 1.05; }
+.rt-body p:last-child { margin: 0; font-size: 16px; line-height: 1.55; }
+/* the drawings draw in: the page script holds a card in rt-wait until it scrolls into view */
+.rt-card .dr { stroke-dasharray: 1 1; stroke-dashoffset: 0; transition: stroke-dashoffset 1.1s cubic-bezier(.3,.7,.2,1) var(--d, 0s), opacity .15s linear var(--d, 0s); }
+.rt-card .fl, .rt-card .tx { transition: opacity .6s ease-out var(--d, 0s); }
+.rt-card.rt-wait .dr { stroke-dashoffset: 1; opacity: 0; transition: none; }
+.rt-card.rt-wait .fl, .rt-card.rt-wait .tx { opacity: 0; transition: none; }
+@media (prefers-reduced-motion: reduce) { .rt-card, .rt-art svg, .rt-card .dr, .rt-card .fl, .rt-card .tx { transition: none; } .rt-card:hover, .rt-card:hover .rt-art svg { transform: none; } }
