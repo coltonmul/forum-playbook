@@ -24,11 +24,12 @@
   "wide": true
  },
  {
-  "src": "/facilitate/img/p4-telluride.jpg",
-  "caption": "Colton's own forum, Forum 14. Telluride, August 2025",
-  "alt": "Colton's own forum, Forum 14. Telluride, August 2025",
-  "w": 1400,
-  "h": 788,
+  "src": "/facilitate/img/v1-saas-fee-clouds.jpg",
+  "video": "/facilitate/img/v1-saas-fee-clouds.mp4",
+  "caption": "EO Zurich, Forum K retreat. Saas-Fee, June 2023",
+  "alt": "Clouds moving through the valley at Saas-Fee, Switzerland",
+  "w": 1280,
+  "h": 720,
   "wide": true
  },
  {
@@ -43,14 +44,6 @@
   "src": "/facilitate/img/p6-balcony.jpg",
   "caption": "Forum K lined up above Saas-Fee, June 2023",
   "alt": "Forum K lined up above Saas-Fee, June 2023",
-  "w": 1400,
-  "h": 788,
-  "wide": true
- },
- {
-  "src": "/facilitate/img/p7-bluff-2025.jpg",
-  "caption": "Forum 14, the evening before, April 2025",
-  "alt": "Forum 14, the evening before, April 2025",
   "w": 1400,
   "h": 788,
   "wide": true

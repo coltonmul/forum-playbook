@@ -1,4 +1,6 @@
-/* facilitate.css 1.0.0 (2026-10-26): forumplaybook.com/facilitate, "Have Colton facilitate your retreat".
+/* facilitate.css 1.1.0 (2026-10-27): member quotes in italics so they read as their words; wide video tiles; 12px floor
+   on captions; the reduced-motion block no longer stretches every button across two columns.
+   1.0.0 (2026-10-26): forumplaybook.com/facilitate, "Have Colton facilitate your retreat".
    Brand tokens from styles.css. Phone first; the grid grows to four columns on a desktop.
    Contrast, computed: #0E0E0C on #F0EBE0 17.4:1; #4A4038 on #F0EBE0 8.2:1; #F0EBE0 on #0E0E0C 17.4:1;
    #C9C2B6 on #0E0E0C 11.9:1; #FFFFFF on #B83A14 6.4:1 (buttons, not reading text); #0E0E0C on #FFFFFF 19.3:1. */
@@ -56,14 +58,15 @@ ul.list li { margin: 0 0 8px; color: var(--pitch); }
 .tile.photo.wide { grid-column: span 2; aspect-ratio: 16 / 9; }
 .tile.photo img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .6s cubic-bezier(.2,.9,.3,1.1); }
 .tile.photo:hover img { transform: scale(1.03); }
-.tile.photo figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 12px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--linen); background: linear-gradient(to top, rgba(14,14,12,.85), rgba(14,14,12,0)); }
+.tile.photo figcaption, .tile.video figcaption { position: absolute; left: 0; right: 0; bottom: 0; padding: 10px 12px; font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--linen); background: linear-gradient(to top, rgba(14,14,12,.85), rgba(14,14,12,0)); }
 .tile.video { padding: 0; aspect-ratio: 4 / 5; background: var(--pitch); }
+.tile.video.wide { grid-column: span 2; aspect-ratio: 16 / 9; }
 .tile.video video { width: 100%; height: 100%; object-fit: cover; display: block; }
 .tile.quote { padding: 18px 18px 16px; display: flex; flex-direction: column; justify-content: space-between; gap: 12px; border-left: 4px solid var(--burn); }
 .tile.quote.wide { grid-column: span 2; }
-.tile.quote p { margin: 0; font-size: 17px; line-height: 1.5; color: var(--pitch); }
+.tile.quote p { margin: 0; font-size: 17px; line-height: 1.5; color: var(--pitch); font-style: italic; }
 .tile.quote.big p { font-size: 20px; font-weight: 400; line-height: 1.4; }
-.tile.quote cite { font-style: normal; font-family: var(--font-mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--deep-dust); }
+.tile.quote cite { font-style: normal; font-family: var(--font-mono); font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--deep-dust); }
 .tile.quote cite b { color: var(--brick); font-weight: 500; }
 @media (min-width: 700px) { .grid { grid-template-columns: repeat(3, 1fr); gap: 12px; } }
 @media (min-width: 1000px) { .grid { grid-template-columns: repeat(4, 1fr); } .tile.quote.wide { grid-column: span 2; } }
@@ -76,7 +79,7 @@ ul.list li { margin: 0 0 8px; color: var(--pitch); }
 .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
 .shots figure { margin: 0; }
 .shots img { width: 100%; height: auto; display: block; border: 1px solid var(--dust); background: var(--white); }
-.shots figcaption { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--deep-dust); margin-top: 6px; }
+.shots figcaption { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--deep-dust); margin-top: 6px; }
 .callout { background: var(--white); border: 1px solid var(--dust); border-left: 4px solid var(--gold); padding: 14px 18px; margin: 14px 0; max-width: 760px; }
 .callout p:last-child { margin-bottom: 0; }
 .back { background: var(--white); border: 1px solid var(--dust); padding: 18px; margin: 14px 0; max-width: 760px; }
@@ -116,5 +119,5 @@ ul.list li { margin: 0 0 8px; color: var(--pitch); }
 .cfoot-nav a[aria-current="page"] { color: var(--burn); }
 .cfoot-line a, .cfoot-ver { color: var(--quiet-on-dark); }
 .cfoot-ver { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; margin-top: 10px; }
-@media (prefers-reduced-motion: reduce) { .btn, .tile.photo.wide { grid-column: span 2; aspect-ratio: 16 / 9; }
+@media (prefers-reduced-motion: reduce) { .btn { transition: none; }
 .tile.photo img { transition: none; } .btn:hover { transform: none; } .tile.photo:hover img { transform: none; } }

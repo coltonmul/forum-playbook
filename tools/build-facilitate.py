@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""build-facilitate.py: builds forumplaybook.com/facilitate/ ("Have Colton facilitate your retreat"). VERSION 1.0.0 (2026-10-26)
+"""build-facilitate.py: builds forumplaybook.com/facilitate/ ("Have Colton facilitate your retreat"). VERSION 1.1.0 (2026-10-27)
 
   python3 tools/build-facilitate.py
 
@@ -9,6 +9,8 @@ build-catalyst.py, the one canonical list), stamps the page, and guards against 
 promise words (NO PROMISES IN PUBLIC COPY). The changelog stays here and in CHANGELOG.md, never on the page.
 
 Changelog
+  1.1.0  Video tiles can be wide and start from the page script (never under reduced motion); quotes render in
+         italics (facilitate.css 1.1.0). Colton, 2026-10-27.
   1.0.0  First version, the Monday after the Uncharted retreat, from Colton's brief of 2026-10-26.
 """
 import datetime, html, importlib.util, json, os, re, subprocess, sys
@@ -17,7 +19,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 spec = importlib.util.spec_from_file_location("bc", os.path.join(ROOT, "tools", "build-catalyst.py"))
 bc = importlib.util.module_from_spec(spec); spec.loader.exec_module(bc)
 
-VERSION = "1.0.0"
+VERSION = "1.1.0"
 D = os.path.join(ROOT, "facilitate")
 STAMP = subprocess.check_output(["date", "+Updated %a / %Y-%m-%d / %-I:%M %p CT"], text=True).strip()
 
@@ -35,7 +37,8 @@ def esc(s): return html.escape(str(s or ""), quote=False)
 def tile_photo(p):
     cap = esc(p.get("caption", ""))
     if p.get("video"):
-        return (f'<figure class="tile video"><video src="{esc(p["video"])}" poster="{esc(p.get("src",""))}" muted loop playsinline autoplay preload="metadata" aria-label="{cap}"></video>'
+        # No autoplay attribute: the page script starts it, and never under reduced motion (the poster stays).
+        return (f'<figure class="tile video{" wide" if p.get("wide") else ""}"><video src="{esc(p["video"])}" poster="{esc(p.get("src",""))}" muted loop playsinline preload="metadata" data-autoplay aria-label="{esc(p.get("alt", cap))}"></video>'
                 f'<figcaption>{cap}</figcaption></figure>')
     return f'<figure class="tile photo{" wide" if p.get("wide") else ""}"><img src="{esc(p["src"])}" alt="{esc(p.get("alt", cap))}" loading="lazy" width="{p.get("w", 800)}" height="{p.get("h", 1000)}"><figcaption>{cap}</figcaption></figure>'
 

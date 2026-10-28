@@ -114,7 +114,9 @@ function buildCoreCardHTML(resource) {
       <div class="core-badge">${badge}</div>
       <div class="core-icon-wrap">${icon}</div>
       <div class="card-title">${resource.title.toUpperCase()}</div>
-      <div class="card-meta">${resource.subtitle}</div>
+      ${resource.bullets && resource.bullets.length
+        ? `<ul class="core-bullets">${resource.bullets.map(t => `<li>${t}</li>`).join('')}</ul>`
+        : `<div class="card-meta">${resource.subtitle || ''}</div>`}
       <div class="card-btns${btnsClass}">${buttons}</div>
     </div>
   `;
@@ -379,8 +381,25 @@ function renderRail() {
       activeBucket = btn.dataset.bucket;
       if (searchQuery) { searchQuery = ''; searchInput.value = ''; }
       renderAccordion();
+      keepFinderInView();
     });
   });
+}
+
+// The rail is sticky, so a bucket can be clicked from deep inside a long list. When the new
+// bucket is short (the official EO one is a single notice), the page shrinks by thousands of
+// pixels and the browser clamps the scroll into How-To Videos (Colton, 2026-10-27: "it jumped
+// to the videos page"). Bring the top of the finder back under the nav instead.
+function keepFinderInView() {
+  const finder = document.getElementById('finder');
+  if (!finder) return;
+  const nav = document.querySelector('.nav');
+  const offset = (nav ? nav.offsetHeight : 0) + 16;
+  const top = finder.getBoundingClientRect().top;
+  if (top >= offset) return;
+  let smooth = true;
+  try { smooth = !matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { /* old browser */ }
+  window.scrollTo({ top: top + window.scrollY - offset, behavior: smooth ? 'smooth' : 'auto' });
 }
 
 function wireFinderRows() {
