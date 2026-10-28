@@ -32,7 +32,8 @@ not embed, or if an em dash sneaks into any generated file.
 
 Changelog
   0.2.0 (2026-10-27) release mode: `build.py --release` builds ONLY the sheet Colton put on
-        the homepage, iteration C in the Forum Playbook skin, as v1.0 with no "Mockup" label,
+        the homepage, iteration B in the Forum Playbook skin (the one he filed neutral in Forum 14's
+        Drive folder on 2026-09-18), as v1.0 with no "Mockup" label,
         into /worksheets/ at the site root (5-percent-reflection-sheet.pdf + .png, a stable
         address the homepage card links to). The mockups and gallery are left as they are.
         Colton, 2026-10-27: "I want one with the Forum Playbook branding" for the homepage.
@@ -57,7 +58,7 @@ from zoneinfo import ZoneInfo
 VERSION = "0.2.0"
 SHEET_VERSION = "v0.1"
 RELEASE_VERSION = "v1.0"
-RELEASE_KEY = "c"  # the iteration that shipped
+RELEASE_KEY = "b"  # the iteration that shipped: Colton filed the neutral B in Forum 14's Drive folder (2026-09-18)
 
 HERE = Path(__file__).resolve().parent
 OUT = HERE.parent

@@ -52,7 +52,7 @@ url: '/worksheets/5-percent-reflection-sheet.pdf',
 bullets: [
 'EQ up top: three 5% topics, from headline to what you realize about yourself',
 'IQ at the bottom: 1-2 learning topics to bring to the room',
-'Your four ratings, next month\'s wager, and how the meeting uses the sheet',
+'Your four ratings and next month\'s wager',
 ],
 },
 {
