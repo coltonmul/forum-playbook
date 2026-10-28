@@ -16,6 +16,23 @@
   "wide": true
  },
  {
+  "src": "/facilitate/img/p7-jackson-stars.jpg",
+  "caption": "EO Tampa Bay, Outlaws Forum. Jackson Hole, November 2021",
+  "alt": "The Outlaws Forum standing under the Milky Way in Jackson Hole, Wyoming",
+  "w": 801,
+  "h": 1200,
+  "wide": false
+ },
+ {
+  "src": "/facilitate/img/v2-jackson-tetons.jpg",
+  "video": "/facilitate/img/v2-jackson-tetons.mp4",
+  "caption": "Flying in over the Tetons for the Outlaws retreat, November 2021",
+  "alt": "The Teton range from the plane on the approach into Jackson Hole",
+  "w": 1280,
+  "h": 720,
+  "wide": true
+ },
+ {
   "src": "/facilitate/img/p3-chalet.jpg",
   "caption": "The chalet above Saas-Fee, the forum on the balcony",
   "alt": "The chalet above Saas-Fee, the forum on the balcony",
