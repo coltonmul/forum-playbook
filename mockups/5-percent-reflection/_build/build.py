@@ -57,7 +57,7 @@ from zoneinfo import ZoneInfo
 
 VERSION = "0.2.0"
 SHEET_VERSION = "v0.1"
-RELEASE_VERSION = "v1.0"
+RELEASE_VERSION = "v1.1"
 RELEASE_KEY = "b"  # the iteration that shipped: Colton filed the neutral B in Forum 14's Drive folder (2026-09-18)
 
 HERE = Path(__file__).resolve().parent
@@ -268,8 +268,9 @@ h1 { font-family: var(--display); font-weight: 900; text-transform: uppercase;
               display: flex; align-items: baseline; justify-content: space-between; }
 .f-mark { font-size: 7pt; color: var(--burn); }
 .f-name { font-size: 7pt; font-weight: 700; color: var(--pitch); }
-.f-tag  { font-size: 6pt; color: var(--dust); }
-.f-url  { font-size: 5.5pt; color: var(--dust); }
+.f-tag  { font-size: 6pt; color: var(--deep-dust); }
+.f-url  { font-size: 6.5pt; color: var(--deep-dust); }
+.f-url a { color: inherit; text-decoration: none; }
 .f-by   { font-size: 6pt; color: var(--deep-dust); }
 
 .print-btn { position: fixed; top: 16px; right: 16px; z-index: 10; font-family: var(--chrome);
@@ -306,9 +307,8 @@ def sheet_html(it, skin, release=False):
         footer = (
             '<footer class="doc-footer"><span><span class="f-mark">⎇ </span>'
             '<span class="f-name">FORUM PLAYBOOK&nbsp;&nbsp;</span>'
-            '<span class="f-tag">A Resource Hub for Forums, Moderators, &amp; Facilitators.</span></span>'
-            '<span><span class="f-by">Built by Colton with Claude</span>'
-            '<span class="f-url">&nbsp;&nbsp;│&nbsp;&nbsp;ForumPlaybook.com</span></span></footer>'
+            '<span class="f-tag">The operating system and tools to make Forum easy and awesome.</span></span>'
+            '<span class="f-url"><a href="https://builtbycolton.com">builtbycolton.com</a>&nbsp;/&nbsp;<a href="https://forumplaybook.com">forumplaybook.com</a></span></footer>'
         )
     else:
         title_tag = f"5% Reflection Sheet, Mockup {letter} {SHEET_VERSION}"

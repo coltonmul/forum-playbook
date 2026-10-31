@@ -1,4 +1,4 @@
-# FORUM PLAYBOOK One-Pager Template Contract v1.2
+# FORUM PLAYBOOK One-Pager Template Contract v1.3
 
 This file is the law. Any session producing a Forum Playbook one-pager must follow it exactly. If this contract and your instincts disagree, the contract wins. If this contract and a user request disagree, ask; do not silently deviate. Nothing outside an EDIT-SLOT may ever change.
 
@@ -87,14 +87,16 @@ Header title (run 7) is the document title, ALL CAPS, max 44 characters; abbrevi
 
 ## 6. Footer chrome (LOCKED, run-for-run from docx)
 
-One line, Consolas, left group + right-aligned URL:
+One line, Consolas, left group + right-aligned links (v1.3, Colton 2026-10-31: "builtbycolton.com/forumplaybook.com in the lower right-hand corner ... that's my new method"):
 
 | Run | Text | Size | Weight | Color |
 |---|---|---|---|---|
 | 1 | `⎇ ` | 7pt | 400 | Burn |
 | 2 | `FORUM PLAYBOOK  ` | 7pt | 700 | Pitch |
-| 3 | `A Resource Hub for Forums, Moderators, & Facilitators.` | 6pt | 400 | Dust |
-| 4 (right) | `ForumPlaybook.com` | 5.5pt | 400 | Dust |
+| 3 | `The operating system and tools to make Forum easy and awesome.` | 6pt | 400 | Deep Dust |
+| 4 (right) | `builtbycolton.com / forumplaybook.com`, each name a link (https://builtbycolton.com, https://forumplaybook.com), no underline | 6.5pt | 400 | Deep Dust |
+
+Runs 3 and 4 moved from Dust to Deep Dust in v1.3 because the tagline and the links are read, and Dust on white is 1.9:1 (Deep Dust is 10.1:1). Google Docs editions use Roboto Mono for Consolas and put run 4 on its own right-aligned second line, because a Google Doc footer has no right tab the API can set.
 
 ## 7. Cards and callouts (LOCKED)
 
@@ -165,9 +167,9 @@ A document (an agenda, a workbook, a worksheet, a handout, a facilitator's copy)
 4. **Writing space.** Open white space, no box and no lines, nothing written in it. Labels, placeholders and "open space" are banned, and so are boxes (Colton, 2026-10-20: "the boxes aren't working at all... do away with the boxes, you're going to have more space for everything to write in").
 5. **Page balance.** The writing space grows to fill the page it sits on, and the page count is fixed by the design (the Uncharted workbook is three pages), so a change of icon size or spacing is paid for in writing space, never in a fourth page. Short-answer prompts (a blank or two) sit at the bottom of their page, just above the footer chrome. A page is never left half empty with a section pushed onto the next one.
 8. **Air under the chrome.** The first line of every page (the title, or a page's first section head) sits 18pt below the header chrome, never tight against it.
-6. **Sources.** Only on a facilitator-facing document (an agenda, notes for Colton), as the last line of the last page, pinned just above the footer chrome. A client-facing document (a worksheet, a handout, anything a member holds) carries no sources line and no Built by Colton line; the brand's footer chrome is its signature.
+6. **Sources.** Only on a facilitator-facing document (an agenda, notes for Colton), as the last line of the last page, pinned just above the footer chrome. A client-facing document (a worksheet, a handout, anything a member holds) carries no sources line; the footer chrome is its signature, and since v1.3 that chrome carries builtbycolton.com. A document Colton adapted from others may carry one Consolas 7pt credit line under the title ("Adapted by Colton Mulligan, building on the work of many others.").
 7. **Tables** are allowed on documents (an agenda grid, a numbers handout, a three-column moves grid): 0.5px #D4CCC0 hairlines, a Linen Dark #E8E2D6 head row in Consolas 7pt caps, Roboto 9.5pt cells, numbers right-aligned.
 
 Tools. HTML documents follow `onepager-template.html` with the `.page` block repeated per page; the Uncharted pre-work PDF (`forums/uncharted/pages/prework-pdf.html` in coltonmul/forum-playbook-forums) is the model. Word documents come from `Projects/ForumPlaybook.com/one-pager-system/docx-builder/make_fpdoc.py`, which builds on the master .docx run for run and embeds the icons as PNGs rendered by icon.py; its `specs/` folder holds the Uncharted set of 2026-10-20 (the Friday agenda, What Drives You, the survey handout) as the exemplars.
 
-Changelog: v1.2 (2026-10-20) section 13, the multi-page document class: every page carries the chrome, no body kicker, Phosphor thin concept icons as dark-gray lines on section heads and prompts, open writing space (no boxes) that fills the page at a fixed page count, air under the chrome, short-answer prompts at the bottom, sources only on facilitator-facing documents, tables allowed; tools named (the HTML page pattern and the Word builder). No one-pager slot, token, geometry or block changed. v1.1 (2026-09-25) section 9 gains the fixed web line: the visitor counter, one locked line before `</body>` in the template and all four editions (queue row CWQ-166, Colton approved the counter 2026-09-18). No slot, token, geometry or block changed. v1.0 (2026-07-10) initial contract, built overnight from docx v1.1 measurements + Brand Guide v2.0.
+Changelog: v1.3 (2026-10-31) section 6: the tagline becomes "The operating system and tools to make Forum easy and awesome." and the lower right reads builtbycolton.com / forumplaybook.com, both linked; runs 3 and 4 move to Deep Dust for contrast; section 13.6 allows a credit line under the title on adapted documents. Template, every one-pager, the 5% sheet, the six October drafts and the new Ikigai Worksheet re-rendered. v1.2 (2026-10-20) section 13, the multi-page document class: every page carries the chrome, no body kicker, Phosphor thin concept icons as dark-gray lines on section heads and prompts, open writing space (no boxes) that fills the page at a fixed page count, air under the chrome, short-answer prompts at the bottom, sources only on facilitator-facing documents, tables allowed; tools named (the HTML page pattern and the Word builder). No one-pager slot, token, geometry or block changed. v1.1 (2026-09-25) section 9 gains the fixed web line: the visitor counter, one locked line before `</body>` in the template and all four editions (queue row CWQ-166, Colton approved the counter 2026-09-18). No slot, token, geometry or block changed. v1.0 (2026-07-10) initial contract, built overnight from docx v1.1 measurements + Brand Guide v2.0.

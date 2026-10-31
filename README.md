@@ -1,2 +1,2 @@
 # forum-playbook
-Forum Playbook - facilitation resource hub
+Forum Playbook: the operating system and tools to make Forum easy and awesome
