@@ -1,4 +1,4 @@
-/* Catalyst Collective sandbox: renders the public feedback log. VERSION 2.0.1 (2026-10-08; the proposed label no longer names the retired beta lane. 2.0.0 2026-10-07: moved to forumplaybook.com, reads the log from the sandbox API) */
+/* Catalyst Collective sandbox: renders the public feedback log. VERSION 3.0.0 (2026-11-02: base from <html data-base>, the kit pages named in the log; 2.0.1 2026-10-08; the proposed label no longer names the retired beta lane. 2.0.0 2026-10-07: moved to forumplaybook.com, reads the log from the sandbox API) */
 (function () {
   'use strict';
   var log = document.getElementById('log');
@@ -7,8 +7,8 @@
   var filter = 'all';
   var esc = function (s) { return window.ccEscape ? window.ccEscape(s) : String(s); };
   var LABEL = { received: 'Received', reviewing: 'Reviewing', proposed: 'Proposed, waiting for approval', approved: 'Approved', live: 'Live', declined: 'Declined' };
-  var B = '/concepts/catalystcollective';
-  var PAGES = { '/': 'Overview', '/journey/': 'Journeys', '/model/': 'Financial model', '/surveys/': 'Surveys', '/library/': 'Already built', '/feedback/': 'Feedback log' };
+  var B = document.documentElement.getAttribute('data-base') || '/concepts/catalystcollective';
+  var PAGES = { '/': 'Overview', '/journey/': 'Journeys', '/model/': 'Financial model', '/surveys/': 'Surveys', '/surveys/alumni/': 'Alumni survey', '/library/': 'Already built', '/library/offering/': 'The Offering', '/library/fit-finder/': 'Find your room', '/library/video/': 'The 60-second video', '/library/memo/': 'The strategy memo', '/feedback/': 'Feedback log' };
   Object.keys(PAGES).forEach(function (k) { PAGES[B + k] = PAGES[k]; });
 
   function fmtDate(iso) {

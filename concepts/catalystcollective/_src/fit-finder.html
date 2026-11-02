@@ -1,0 +1,38 @@
+      <p class="cc-kick">Find your room &middot; prospect facing &middot; from the Three Tracks Kit</p>
+      <h1>Which room <span>fits?</span></h1>
+      <p class="cc-lede"><b>EO Nashville has three rooms, each built around a different season of entrepreneurship.</b> Here is what each one is for, and a two-minute fit finder below. No wrong answers, and nothing you enter is stored or sent anywhere. Built September 10 as part of the Three Tracks Kit, now kept here.</p>
+      <div class="cc-meta">
+        <span>{{icon:eye}}Audience: <b>prospects and members, show this</b></span>
+        <span>{{icon:shield-check}}Privacy: <b>nothing stored, nothing sent</b></span>
+        <span>{{icon:door-open}}Pairs with <b><a class="white" href="{{B}}/library/offering/">the Offering</a></b></span>
+      </div>
+<!--BODY-->
+<section class="cc-sec">
+  {{sh:signpost|The three rooms|What each one is for}}
+  <div class="branch">
+    <div class="bnode ja"><span class="k">Catalyst</span><h3>Build it past a million</h3><p>Classes, a cohort, and mentors for founders whose mission is growth: more customers, more revenue, a business that's undeniably working.</p></div>
+    <div class="bnode jb"><span class="k">Catalyst Collective</span><h3>Run it well</h3><p><b>An ongoing membership, by invitation.</b> Peers, a mentor, monthly access to learning and social events, and programming for the business you actually want, whatever your growth targets and strategy. Possible future benefits: subsidized software to help you run your business, and discounted or subsidized consulting engagements.</p></div>
+    <div class="bnode jc"><span class="k">EO Nashville</span><h3>Lead at scale</h3><p>Full membership and forum for founders past $1M whose hardest problems are leadership, strategy, and what all of it is for.</p></div>
+  </div>
+</section>
+
+<section class="cc-sec" id="finder">
+  {{sh:list-checks|The fit finder|Eight questions, two minutes}}
+  <p class="intro">Answer for how things actually are, not how the brochure version of you would answer. It only works honest.</p>
+  <form id="quiz" class="quiz" novalidate><p class="muted">Loading the questions.</p></form>
+  <noscript><p class="notice err p1014">The fit finder needs JavaScript to run. The three rooms above still tell you what each one is for.</p></noscript>
+  <div id="result" class="resultcard" hidden>
+    <span class="chip concept" id="r-tag"></span>
+    <h3 id="r-name"></h3>
+    <p id="r-desc"></p>
+    <ul class="bars rbars" id="r-bars"></ul>
+    <h4>The room you need</h4>
+    <p id="r-room"></p>
+    <h4>Where that lives at EO Nashville today</h4>
+    <p id="r-eo"></p>
+    <div class="btn-row"><a class="btn primary" id="r-mail" href="mailto:colton@foxfuelcreative.com">Tell Colton if this got you right</a><button class="btn secondary" type="button" id="r-retake">Retake</button></div>
+  </div>
+</section>
+
+{{FEEDBACK}}
+<!--SCRIPT fit.js-->

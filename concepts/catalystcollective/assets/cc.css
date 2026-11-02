@@ -1,4 +1,5 @@
-/* cc.css v2.0.0 (2026-10-07): the Catalyst Collective concept on forumplaybook.com/concepts/catalystcollective/.
+/* cc.css v3.0.0 (2026-11-02): utility classes replace every inline style attribute (the builtbycolton.com policy forbids them), the Three Tracks Kit pages (offering, fit finder, video, memo) get their styles, and cc-full.css lays the same sheet out full-screen on builtbycolton.com.
+   v2.0.0 (2026-10-07): the Catalyst Collective concept on forumplaybook.com/concepts/catalystcollective/.
    The same sheet grammar as Regional Training Days (.eo in concepts.css): an EO-navy band over a white body,
    inset on the Forum Playbook linen page. Everything is scoped under .cc so it never collides with concepts.css.
    Colors are EO's only: base navy #0C0C31, EO Blue #3D46F2, lavender #A3A7E4. The Catalyst salmon stays retired.
@@ -443,3 +444,62 @@ button.tile[aria-pressed="true"]{border-color:var(--eo);box-shadow:0 0 0 1px var
 .cc .rate-c{margin:0;min-height:44px;padding:0 4px}
 @media (max-width:560px){.cc .rate-row{grid-template-columns:1fr}}
 @media (prefers-reduced-motion:reduce){.qlist li.q,.qlist li.q:hover{transform:none;transition:none}}
+
+/* ---------- 3.0.0: utility classes, one per former inline style attribute (CSP: no style attributes) ---------- */
+.cc .white{color:#fff}
+.cc .n4{--n:4}
+.cc .n8{--n:8}
+.cc .w23{--w:23%}.cc .w29{--w:29%}.cc .w50{--w:50%}.cc .w58{--w:58%}.cc .w75{--w:75%}.cc .w90{--w:90%}
+.cc .mb12{margin-bottom:12px}
+.cc .mb26{margin-bottom:26px}
+.cc .m06{margin:0 0 6px}
+.cc .m0{margin:0}
+.cc .mt10{margin:10px 0 0}
+.cc .mt12{margin-top:12px}
+.cc .mt16{margin-top:16px}
+.cc .mt18{margin-top:18px}
+.cc .mneg{margin:-6px 0 10px}
+.cc .p1210{padding:12px 0 10px}
+.cc .p010{padding:0 0 10px}
+.cc .p1014{padding:10px 14px}
+.cc .lsn{list-style:none}
+.cc .legend .c1{background:var(--chart-1)}.cc .legend .c2{background:var(--chart-2)}.cc .legend .c3{background:var(--chart-3)}.cc .legend .c4{background:var(--chart-4)}
+
+/* ---------- 3.0.0: the Three Tracks Kit pages ---------- */
+.cc .aud{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:999px;margin-bottom:10px;line-height:1.4}
+.cc .aud svg{width:15px;height:15px}
+.cc .aud.public{background:var(--green-t);color:var(--green)}
+.cc .aud.internal{background:var(--amber-t);color:var(--amber)}
+.kroom{border:1px solid var(--rule);border-top:6px solid var(--c);border-radius:6px;padding:22px 24px 16px;margin:0 0 16px;background:#fff;transition:transform .3s,box-shadow .3s}
+.kroom:hover{transform:translateY(-3px);box-shadow:0 14px 28px rgba(12,12,49,.12)}
+.kroom h3{font-size:clamp(24px,3.4vw,34px);font-weight:900;line-height:1.05;margin:4px 0 8px}
+.kroom .big{font-size:17px;line-height:1.55;max-width:66ch;color:var(--base);margin:0 0 14px}
+.kroom .ilist{margin:0 0 16px}
+.kroom .ilist li{font-size:15px}
+.kroom .ic{background:var(--t);color:var(--ck)}
+.kroom .btn-row{margin:0}
+.quiz{display:flex;flex-direction:column;gap:14px;margin:12px 0 0}
+.quiz .q{border:1px solid var(--rule);border-radius:6px;padding:14px 16px 12px;margin:0;min-width:0}
+.quiz legend{font-weight:700;color:var(--base);font-size:16.5px;padding:0;margin:0 0 10px;line-height:1.4}
+.quiz .qnum{font-family:'DM Mono',monospace;font-weight:500;color:var(--eo-d);margin-right:8px;font-size:14px}
+.quiz .opts{display:flex;flex-direction:column;gap:8px}
+.quiz .opt{display:flex;gap:10px;align-items:flex-start;background:var(--tint);border:1px solid #8589AE;border-radius:6px;padding:10px 12px;cursor:pointer;font-size:15px;line-height:1.45;min-height:44px;transition:border-color .25s,background .25s}
+.quiz .opt:hover{border-color:var(--eo)}
+.quiz .opt.picked{border-color:var(--eo);background:var(--tint2)}
+.quiz .opt input{margin:3px 0 0;accent-color:var(--eo);width:18px;height:18px;flex:0 0 auto}
+.resultcard{border:1px solid var(--rule);border-top:6px solid var(--c);border-radius:6px;padding:22px 24px 18px;margin-top:22px;scroll-margin-top:20px;background:#fff}
+.resultcard h3{font-size:28px;font-weight:900;margin:8px 0 6px}
+.resultcard h4{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ck);margin:16px 0 4px}
+.resultcard p{max-width:66ch}
+.resultcard .rbars{margin:12px 0 4px;max-width:520px}
+.resultcard .rbars li{grid-template-columns:150px minmax(0,1fr) 52px}
+.resultcard .btn-row{margin-top:16px}
+.cc .vtable th,.cc .vtable td{text-align:left;white-space:normal;vertical-align:top;min-width:120px;font-size:14px;line-height:1.5}
+.cc .vtable td:first-child{font-family:'DM Mono',monospace;font-weight:500;color:var(--eo-d);white-space:nowrap;min-width:0}
+.cc .vtable thead th{position:static}
+.memo p{font-size:16.5px;max-width:72ch}
+@media (max-width:560px){.resultcard .rbars li{grid-template-columns:minmax(0,1fr) 52px}}
+/* 3.0.0: the Feedback + changelog page folds each version's full note under its one-line entry */
+.changelog .cl-more{margin:4px 0 2px}
+.changelog .cl-more summary{cursor:pointer;min-height:44px;display:inline-flex;align-items:center;font-size:13.5px;font-weight:700;color:var(--eo-d)}
+.changelog .cl-more p{font-size:14px;color:var(--label);margin:0 0 6px;max-width:80ch}

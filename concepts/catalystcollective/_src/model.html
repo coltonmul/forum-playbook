@@ -19,7 +19,7 @@
       <button class="btn secondary small" type="button" data-preset="lean">Lean, volunteer-run</button>
       <button class="btn secondary small" type="button" data-preset="ambitious">Ambitious</button>
     </div>
-    <p class="small muted" style="margin:-6px 0 10px">Presets are starting points, not positions. The defaults are Colton's; the others are labeled with whose number they carry.</p>
+    <p class="small muted mneg">Presets are starting points, not positions. The defaults are Colton's; the others are labeled with whose number they carry.</p>
 
     <details open>
       <summary>Pipeline from Catalyst</summary>
@@ -77,7 +77,7 @@
       <div class="inp"><label for="i-contingency">Contingency on all costs<span class="src">Guess: 10%.</span></label><div class="suf" data-suf="%"><input id="i-contingency" type="number" min="0" max="50" step="1" data-key="contingency"></div></div>
     </details>
 
-    <div class="btn-row" style="padding:12px 0 10px">
+    <div class="btn-row p1210">
       <button class="btn primary small" type="button" id="copyLink">Copy link to this scenario</button>
       <button class="btn secondary small" type="button" id="sendScenario">Send this scenario to Colton</button>
     </div>
@@ -90,12 +90,12 @@
     <h2>Members over time</h2>
     <p class="muted small">Who is in the room at the end of each year, and how many graduated into EO along the way.</p>
     <svg class="chart" id="chartMembers" viewBox="0 0 760 320" role="img" aria-label="Members by year"></svg>
-    <div class="legend"><span><i style="background:var(--chart-1)"></i>Carried over from last year</span><span><i style="background:var(--chart-2)"></i>New from the graduating class</span><span><i style="background:var(--chart-3)"></i>Recruited past graduates (year 1)</span><span><i style="background:var(--chart-4)"></i>Graduated into EO that year</span></div>
+    <div class="legend"><span><i class="c1"></i>Carried over from last year</span><span><i class="c2"></i>New from the graduating class</span><span><i class="c3"></i>Recruited past graduates (year 1)</span><span><i class="c4"></i>Graduated into EO that year</span></div>
 
     <h2>Money over time</h2>
     <p class="muted small">Dues and other revenue against the dedicated resource, fixed costs, and events. The line is net.</p>
     <svg class="chart" id="chartMoney" viewBox="0 0 760 320" role="img" aria-label="Revenue, cost and net by year"></svg>
-    <div class="legend"><span><i style="background:var(--chart-2)"></i>Revenue</span><span><i style="background:var(--chart-4)"></i>Total cost</span><span><i style="background:var(--chart-1)"></i>Net</span></div>
+    <div class="legend"><span><i class="c2"></i>Revenue</span><span><i class="c4"></i>Total cost</span><span><i class="c1"></i>Net</span></div>
 
     <h2>The pro forma</h2>
     <div class="tablewrap"><table id="proforma"></table></div>
@@ -118,7 +118,7 @@
       <li>Break-even members is the fixed cost divided by the margin per member (dues minus the per-member EC cost). It ignores events, which mostly scale with attendance, so treat it as a floor.</li>
       <li>The EO impact line is informational: EO dues and initiation are not Collective revenue, but they show what the pipeline is worth to the chapter.</li>
     </ul>
-    <div class="panel open" style="margin-top:16px"><span class="chip open">{{icon:question}}Still open</span>
+    <div class="panel open mt16"><span class="chip open">{{icon:question}}Still open</span>
       <h3>Things the model cannot know yet</h3>
       <ul>
         <li>Whether Collective dues credit toward EO initiation (a chapter revenue question, not a Collective one).</li>
@@ -139,10 +139,10 @@
     <p>It is reproduced here exactly as she built it, with her numbers as the defaults and every fee and count turned into a lever. Where it touches the concept model above: she assumes $2,500 dues (the model above defaults to $3,000), 50% of graduates joining, 90% retention with half of the retained converting to EO in year 2, Rainey Cronin as the paid operator instead of a dedicated staff hire, and a per-member learning and social allocation instead of per-event costs. Neither table changes the other; they are two ways to see the same program.</p>
   </div>
 
-<div class="model-layout b-wide" style="margin-top:18px">
+<div class="model-layout b-wide mt18">
   <aside class="inputs" aria-label="Brittany's budget inputs">
     <p class="kicker">{{icon:sliders-horizontal}}Her levers</p>
-    <div class="btn-row" style="padding:0 0 10px">
+    <div class="btn-row p010">
       <button class="btn secondary small" type="button" id="b-reset">Brittany's numbers</button>
     </div>
 
@@ -179,7 +179,7 @@
       <div class="inp"><label for="b-video">Recruitment video<span class="src">Her note: "Every other year", so year 1 only here.</span></label><div class="pre" data-pre="$"><input id="b-video" type="number" min="0" step="100" data-bkey="video"></div></div>
     </details>
 
-    <div class="btn-row" style="padding:12px 0 10px">
+    <div class="btn-row p1210">
       <button class="btn primary small" type="button" id="b-copyLink">Copy link to this version</button>
       <button class="btn secondary small" type="button" id="b-send">Send this version to Colton</button>
     </div>

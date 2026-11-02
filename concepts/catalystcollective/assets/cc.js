@@ -1,11 +1,11 @@
-/* Catalyst Collective on forumplaybook.com: shared page behavior. VERSION 2.0.0 (2026-10-07)
+/* Catalyst Collective on forumplaybook.com: shared page behavior. VERSION 3.0.0 (2026-11-02: the site base comes from <html data-base>, so one script serves builtbycolton.com and the forumplaybook.com mirror; 2.0.0 2026-10-07)
    The feedback box (posts to the sandbox's own API, which stays at catalystcollective.pages.dev with the
    database), the bar charts that grow in when scrolled into view, the hover timeline, and copy buttons.
    No third-party scripts. */
 (function () {
   'use strict';
   var API = 'https://catalystcollective.pages.dev/api';
-  var B = '/concepts/catalystcollective';
+  var B = document.documentElement.getAttribute('data-base') || '/concepts/catalystcollective';
   window.CC_API = API;
   window.CC_BASE = B;
 

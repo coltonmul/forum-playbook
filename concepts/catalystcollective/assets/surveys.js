@@ -62,7 +62,7 @@
           { id: 'gap', t: 'If you are or were in Bridge: what is the biggest gap? If you left or never joined: what would have kept you, or gotten you in?', type: 'text', why: 'The retention question, asked straight.' }
         ] },
         { h: 'C. The Collective (watch the explainer or read the overview first)', q: [
-          { id: 'value', t: 'Read the overview at forumplaybook.com/concepts/catalystcollective, or watch the 60-second explainer. In one sentence, does the Catalyst Collective represent real value to you? Why or why not?', type: 'text', why: 'The question the whole survey exists to ask.' },
+          { id: 'value', t: 'Read the overview page of this site, or watch the 60-second explainer. In one sentence, does the Catalyst Collective represent real value to you? Why or why not?', type: 'text', why: 'The question the whole survey exists to ask.' },
           { id: 'track', t: 'Which track would you place yourself in today?', type: 'single', o: TRACKS },
           { id: 'room', t: 'Would you rather be in a room of people at your exact stage, or a mixed room that includes entrepreneurs further ahead?', type: 'single', o: ['A room at my exact stage', 'A mixed room, including people further ahead', 'No strong preference'], why: 'The two-track forum question.' },
           { id: 'placement', t: 'Placement by a short intake, not picking your own track: comfortable with that, or would you rather self-select?', type: 'single', o: ['Comfortable with placement', 'I would rather self-select', 'Either is fine'] },
