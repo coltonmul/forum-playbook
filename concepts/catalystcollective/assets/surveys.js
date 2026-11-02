@@ -1,4 +1,8 @@
-/* Catalyst Collective sandbox: renders the four draft surveys as working forms. VERSION 2.0.1 (2026-10-07; "deep dive" wording replaced; moved to forumplaybook.com, posts to the sandbox API on catalystcollective.pages.dev, invitation question updated for the application)
+/* Catalyst Collective sandbox: renders the four draft surveys as working forms. VERSION 2.2.0 (2026-11-02; the alumni survey
+   has its own page, surveys/alumni/, which renders the questions as a readable list (with a note on what each one is for)
+   and then the form; its spec now carries every question from the September 9 working draft and the September 10 sample
+   survey; new "rate" question type; the overview link points at this site. 2.0.1, 2026-10-07: "deep dive" wording
+   replaced; moved to forumplaybook.com, posts to the sandbox API on catalystcollective.pages.dev.)
    Question specs live here so the council can see exactly what would be asked. Responses post to
    /api/survey and are stored privately; only counts are public. */
 (function () {
@@ -37,33 +41,40 @@
     },
     alumni: {
       title: 'Catalyst alumni survey',
-      audience: 'Every past Catalyst graduate, including current Bridge members, lapsed Bridge members, and graduates who never joined Bridge.',
-      purpose: 'Learn where alumni are today, what they got from Catalyst and Bridge, whether the Collective represents real value to them, and what they would pay.',
+      audience: 'Every past Catalyst graduate: current Bridge members, lapsed Bridge members, graduates who never joined Bridge, and the class in Catalyst now.',
+      purpose: 'Learn where alumni are today, what Catalyst and Bridge did and did not do for them, whether the Catalyst Collective would represent real value to them, and what they would pay. Watch the 60-second explainer or read the overview first.',
       needName: false,
       sections: [
         { h: 'A. Where you are today', q: [
-          { id: 'status', t: 'Where are you today?', type: 'single', o: ['Current Bridge member', 'Lapsed Bridge member', 'Catalyst graduate who never joined Bridge', 'Currently in Catalyst', 'EO member who came through Catalyst'] },
-          { id: 'when', t: 'Roughly how long ago did you finish Catalyst?', type: 'single', o: ['Less than a year', '1 to 2 years', '3 to 5 years', 'More than 5 years'] },
-          { id: 'week', t: 'Which of these sounds most like your week?', type: 'single', o: WEEK },
-          { id: 'team', t: 'How many people are on your team, and do any of them manage others?', type: 'short' },
-          { id: 'revenue', t: 'Roughly where is annual revenue?', type: 'single', o: REVENUE },
-          { id: 'growth', t: 'Is growing past $1M a goal you are actively pursuing, a someday thing, or not the point of your business?', type: 'single', o: ['Actively pursuing it', 'A someday thing', 'Not the point of my business'] }
+          { id: 'status', t: 'Where are you today?', type: 'single', o: ['Current Bridge member', 'Lapsed Bridge member', 'Catalyst graduate who never joined Bridge', 'Currently in Catalyst', 'EO member who came through Catalyst'], why: 'Sorts every answer into the groups the council wants to compare.' },
+          { id: 'when', t: 'Roughly how long ago did you finish Catalyst?', type: 'single', o: ['Less than a year', '1 to 2 years', '3 to 5 years', 'More than 5 years', 'Still in it'] },
+          { id: 'week', t: 'Which of these sounds most like your week?', type: 'single', o: WEEK, why: 'The track question in disguise: stage, not revenue.' },
+          { id: 'team', t: 'How many people are on your team, and do any of them manage others?', type: 'short', why: 'Matt\u2019s complexity axis.' },
+          { id: 'revenue', t: 'Roughly where is annual revenue?', type: 'single', o: REVENUE, why: 'Kept coarse on purpose.' },
+          { id: 'growth', t: 'Is growing past $1M a goal you are actively pursuing, a someday thing, or not the point of your business?', type: 'single', o: ['Actively pursuing it', 'A someday thing', 'Not the point of my business'], why: 'Separates strivers from stabilizers without judgment.' }
         ] },
-        { h: 'B. Your Catalyst and Bridge experience', q: [
+        { h: 'B. Why you came, and what you got', q: [
+          { id: 'hoped', t: 'What did you hope Catalyst or Bridge would do for you when you joined?', type: 'text' },
+          { id: 'problem', t: 'What is the one problem you most wanted help carrying?', type: 'text', why: 'Matt\u2019s "what problem are we solving", answered from the trenches.' },
           { id: 'valuable', t: 'What was the single most valuable part of your Catalyst experience?', type: 'text' },
-          { id: 'gap', t: 'If you are or were in Bridge: what is the biggest gap? If you left or never joined: what would have kept you, or gotten you in?', type: 'text' },
-          { id: 'redundant', t: '"The format became redundant for me over time." Agree or disagree, and when did that start?', type: 'text' }
+          { id: 'rate', t: 'Rate the value you got from each, 1 (none) to 5 (a lot).', type: 'rate', o: ['The classes', 'Your cohort or forum', 'Your mentor', 'Learning events', 'Social events'], why: 'Which parts of the program earn their keep.' },
+          { id: 'redundant', t: '"The format became redundant for me over time." Agree or disagree, and when did that start?', type: 'text', why: 'Tests the redundancy signal the council heard, without naming anyone.' },
+          { id: 'gap', t: 'If you are or were in Bridge: what is the biggest gap? If you left or never joined: what would have kept you, or gotten you in?', type: 'text', why: 'The retention question, asked straight.' }
         ] },
-        { h: 'C. The Collective', q: [
-          { id: 'value', t: 'Read the overview at catalystcollective.pages.dev. In one sentence, does the Catalyst Collective represent real value to you? Why or why not?', type: 'text' },
+        { h: 'C. The Collective (watch the explainer or read the overview first)', q: [
+          { id: 'value', t: 'Read the overview at forumplaybook.com/concepts/catalystcollective, or watch the 60-second explainer. In one sentence, does the Catalyst Collective represent real value to you? Why or why not?', type: 'text', why: 'The question the whole survey exists to ask.' },
           { id: 'track', t: 'Which track would you place yourself in today?', type: 'single', o: TRACKS },
+          { id: 'room', t: 'Would you rather be in a room of people at your exact stage, or a mixed room that includes entrepreneurs further ahead?', type: 'single', o: ['A room at my exact stage', 'A mixed room, including people further ahead', 'No strong preference'], why: 'The two-track forum question.' },
           { id: 'placement', t: 'Placement by a short intake, not picking your own track: comfortable with that, or would you rather self-select?', type: 'single', o: ['Comfortable with placement', 'I would rather self-select', 'Either is fine'] },
-          { id: 'use', t: 'Which of these would you actually use? Check all that apply.', type: 'multi', o: USE },
-          { id: 'price', t: 'At what annual price does a membership like that feel obviously worth it?', type: 'single', o: PRICE },
-          { id: 'mentor', t: 'Would you give an hour a month to mentor someone a stage behind you?', type: 'single', o: ['Yes', 'Maybe', 'No'] }
+          { id: 'missing', t: 'What is missing? What would you want in addition to what is on the page?', type: 'text' },
+          { id: 'use', t: 'Which of these would you actually use? Check all that apply.', type: 'multi', o: USE, why: 'The programming menu from the September 8 huddle, priced by demand.' },
+          { id: 'price', t: 'At what annual price does a membership like that feel obviously worth it?', type: 'single', o: PRICE, why: 'Against $1,750 for Bridge today with no programming attached. Van Westendorp lite.' },
+          { id: 'mentor', t: 'Would you give an hour a month to mentor someone a stage behind you?', type: 'single', o: ['Yes', 'Maybe', 'No'], why: 'Tests the mentor supply line.' }
         ] },
-        { h: 'D. Wrap', q: [
-          { id: 'focus', t: 'Would you join a small focus group, 5 to 6 people, to go deeper on this with Sameera and Matt?', type: 'single', o: ['Yes', 'Maybe', 'No'] },
+        { h: 'D. The bottom line', q: [
+          { id: 'nps', t: 'How likely are you to recommend Catalyst or Bridge to another entrepreneur, 0 (not at all) to 10 (already have)?', type: 'single', o: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], why: 'NPS with teeth, with the next question.' },
+          { id: 'move', t: 'What is the one change that would move that answer up?', type: 'text' },
+          { id: 'focus', t: 'Would you join a small focus group, 5 to 6 people, to go deeper on this with Sameera and Matt?', type: 'single', o: ['Yes', 'Maybe', 'No'], why: 'The survey recruits its own second round.' },
           { id: 'else', t: 'Anything else the strategic council should know before this locks?', type: 'text' }
         ] }
       ]
@@ -124,10 +135,18 @@
     if (q.type === 'short') {
       return '<div class="field">' + label + '<input type="text" name="' + name + '" maxlength="300"></div>';
     }
+    if (q.type === 'rate') {
+      return '<div class="field">' + label + '<div class="rate">' + q.o.map(function (o, k) {
+        var n = name + '__' + k;
+        return '<div class="rate-row"><span class="rate-l">' + esc(o) + '</span><span class="rate-o">' + [1, 2, 3, 4, 5].map(function (v) {
+          return '<label class="check rate-c"><input type="radio" name="' + n + '" value="' + v + '"> <span>' + v + '</span></label>';
+        }).join('') + '</span></div>';
+      }).join('') + '</div></div>';
+    }
     return '<div class="field">' + label + '<textarea name="' + name + '" maxlength="2000"></textarea></div>';
   }
 
-  function render(sid) {
+  function render(sid, noScroll) {
     var s = SURVEYS[sid];
     var n = 0;
     var html = '<div class="callout blue" style="margin-top:22px"><p class="kicker" style="margin:0">' + esc(s.title) + '</p>' +
@@ -167,6 +186,10 @@
         } else if (q.type === 'single') {
           var sel = form.querySelector('[name="' + q.id + '"]:checked');
           if (sel) { answers[q.id] = sel.value; answered++; }
+        } else if (q.type === 'rate') {
+          var rated = [];
+          q.o.forEach(function (o, k) { var r = form.querySelector('[name="' + q.id + '__' + k + '"]:checked'); if (r) rated.push(o + ': ' + r.value); });
+          if (rated.length) { answers[q.id] = rated; answered++; }
         } else {
           var el = form.querySelector('[name="' + q.id + '"]');
           if (el && el.value.trim()) { answers[q.id] = el.value.trim(); answered++; }
@@ -194,7 +217,33 @@
         }
       }).catch(function () { btn.disabled = false; out.className = 'notice err'; out.textContent = 'Could not reach the site. Email Colton instead: colton@foxfuelcreative.com'; });
     });
-    host.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (!noScroll) host.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // The readable list: every question with its options and a note on what it is for (the alumni page).
+  function questionsText(s) {
+    var lines = [s.title, 'Audience: ' + s.audience, 'Purpose: ' + s.purpose, ''];
+    var k = 0;
+    s.sections.forEach(function (sec) { lines.push(sec.h); sec.q.forEach(function (q) { k++; lines.push(k + '. ' + q.t + (q.o ? ' (' + q.o.join(' / ') + (q.type === 'rate' ? '; each 1 to 5' : '') + ')' : '') + (q.why ? ' [Why: ' + q.why + ']' : '')); }); lines.push(''); });
+    return lines.join('\n');
+  }
+  function renderRead(sid, el) {
+    var s = SURVEYS[sid];
+    var n = 0;
+    var html = '';
+    s.sections.forEach(function (sec) {
+      html += '<h3>' + esc(sec.h) + '</h3><ol class="qlist">';
+      sec.q.forEach(function (q) {
+        n++;
+        var kind = q.type === 'single' ? 'One answer' : q.type === 'multi' ? 'Check all that apply' : q.type === 'rate' ? 'Each item 1 to 5' : q.type === 'short' ? 'A short answer' : 'Open text';
+        html += '<li class="q"><span class="n">' + (n < 10 ? '0' : '') + n + '</span><span><span class="t">' + esc(q.t) + '</span>' +
+          '<span class="opts">' + kind + (q.o ? ': ' + esc(q.o.join(' / ')) : '') + '</span>' +
+          (q.why ? '<span class="why">Why it is here: ' + esc(q.why) + '</span>' : '') + '</span></li>';
+      });
+      html += '</ol>';
+    });
+    html += '<p class="small muted">' + n + ' questions. The numbering matches the form below.</p>';
+    el.innerHTML = html;
   }
 
   document.querySelectorAll('#survey-tabs [data-survey]').forEach(function (b) {
@@ -207,6 +256,19 @@
     if (c && f) c.textContent = counts[f.getAttribute('data-survey')] || 0;
   }).catch(function () {});
 
-  var initial = (location.hash || '').replace('#', '');
-  if (SURVEYS[initial]) { render(initial); } else { render('council'); window.scrollTo(0, 0); }
+  var readEl = document.getElementById('alumni-read');
+  if (readEl) {
+    // the alumni page: readable list, copy button, then the form, no scrolling
+    renderRead('alumni', readEl);
+    var cp = document.getElementById('al-copy');
+    if (cp) cp.addEventListener('click', function () {
+      var btn = this; var o = btn.innerHTML;
+      navigator.clipboard.writeText(questionsText(SURVEYS.alumni)).then(function () { btn.textContent = 'Copied'; setTimeout(function () { btn.innerHTML = o; }, 1800); }).catch(function () { btn.textContent = 'Select and copy manually'; });
+    });
+    render('alumni', true);
+  } else {
+    var initial = (location.hash || '').replace('#', '');
+    if (initial === 'alumni') { location.replace(window.CC_BASE ? window.CC_BASE + '/surveys/alumni/' : '/concepts/catalystcollective/surveys/alumni/'); return; }
+    if (SURVEYS[initial]) { render(initial); } else { render('council'); window.scrollTo(0, 0); }
+  }
 })();

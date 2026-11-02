@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """build-catalyst.py: builds forumplaybook.com/concepts/catalystcollective/ from its page sources.
-VERSION 2.0.0 (2026-10-07)
+VERSION 2.2.0 (2026-11-02)
 
   python3 tools/build-catalyst.py            build every page, patch the /concepts/ footers, run the guards
 
@@ -16,10 +16,12 @@ and the body. Tokens:
   {{STAMP}}                            "Updated Wed / 2026-10-07 / 6:58 PM CT", from the clock at build time
 
 The footer page list for the WHOLE /concepts/ section is SITE_PAGES below: the one canonical list. This
-script writes it into every Catalyst page and patches it into /concepts/, /concepts/regionaltrainingexperience/ and /chapters/.
+script writes it into every Catalyst page and patches it into /concepts/, /concepts/regionaltrainingexperience/, its charlotte/ page and /chapters/.
 (2.1.1: Regional Training Days became the Regional Training Experience at that address; the old path is a redirect stub and is left alone.)
 
 Changelog
+  2.2.0  A page may be a sub-page (tab label None): it gets no tab of its own, the parent tab stays current,
+         and it is listed in the footer like every other page (surveys/alumni/ is the first).
   2.0.0  First version: the sandbox moves from catalystcollective.pages.dev to forumplaybook.com and gets
          the Regional Training Days design (versions continue the old site's 1.x numbering).
 """
@@ -35,13 +37,13 @@ import icon as _icon  # noqa: E402
 # the one visitor-counter line every forumplaybook.com page carries (copied from timer.html)
 COUNTER = "<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{\"token\": \"c20145f631df48ff8dc17a09c0c3fcdb\"}'></script><!-- End Cloudflare Web Analytics -->"
 
-VERSION = "2.1.3"
+VERSION = "2.2.0"
 B = "/concepts/catalystcollective"
 OLD = "https://catalystcollective.pages.dev"
 SITE = "https://forumplaybook.com"
 STAMP = "Updated " + subprocess.check_output(["date", "+%a / %Y-%m-%d / %-I:%M %p CT"], text=True).strip()
 
-# slug, source file, tab label, tab icon, <title>, description, og image (relative to B)
+# slug, source file, tab label (None = sub-page, no tab, parent tab stays current), tab icon, <title>, description, og image (relative to B)
 PAGES = [
     ("", "overview", "Overview", "squares-four", "Catalyst Collective | Forum Playbook",
      "EO Nashville's proposed membership between Catalyst and EO, as an evolving model: the concept, how you apply, three journeys, a financial model you can change, and the surveys.", "og.png"),
@@ -51,6 +53,8 @@ PAGES = [
      "A five-year financial model for the proposed Catalyst Collective, plus Brittany Lorenzi's preliminary budget. Every number is adjustable and shareable by link.", "og.png"),
     ("surveys/", "surveys", "Surveys", "clipboard-text", "The surveys | Catalyst Collective",
      "Four draft surveys about the proposed Catalyst Collective, as working forms the council can test.", "og.png"),
+    ("surveys/alumni/", "alumni", None, None, "The alumni survey, a draft | Catalyst Collective",
+     "A draft survey for Catalyst alumni, including current and former Bridge members: would the Catalyst Collective represent real value to them, and at what price. Not live, nothing sent; a suggestion for the council.", "og.png"),
     ("library/", "library", "Already built", "books", "Already built | Catalyst Collective",
      "Everything built so far for the Catalyst Collective: the working draft, the Three Tracks Kit, council perspectives, and the logo files.", "og.png"),
     ("feedback/", "feedback", "Feedback + changelog", "chat-circle-text", "Feedback and changelog | Catalyst Collective",
@@ -64,10 +68,11 @@ SITE_PAGES = [
     ("/concepts/regionaltrainingexperience/charlotte/", "Charlotte, Nov 16 and 17"),
     ("/facilitate/", "Have Colton facilitate your retreat"),
     (B + "/", "Catalyst Collective"), (B + "/journey/", "Catalyst journeys"), (B + "/model/", "Catalyst model"),
-    (B + "/surveys/", "Catalyst surveys"), (B + "/library/", "Catalyst library"), (B + "/feedback/", "Catalyst feedback"),
+    (B + "/surveys/", "Catalyst surveys"), (B + "/surveys/alumni/", "Catalyst alumni survey (draft)"), (B + "/library/", "Catalyst library"), (B + "/feedback/", "Catalyst feedback"),
 ]
 
 CHANGELOG = [
+    ("2.2.0", "Mon / 2026-11-02", "the alumni survey gets its own page, at Colton's direction after Sameera Lowe asked on November 2 where the list of questions for past Bridge members had gone. The page carries the wrapping text from the September 9 working draft (would the Collective represent real value to the people it is for), every question from that draft and from the September 10 sample survey in the Three Tracks Kit with a note on what each one is for, the same questions as a working form, and links to the earlier copies. It is marked as a draft, not live, a suggestion for how the council could solicit alumni feedback. The alumni form's overview link now points at this site instead of the old address."),
     ("2.1.3", "Wed / 2026-10-21", "the footer lists the Charlotte run of the Regional Training Experience (November 16 and 17, 2026, hosted by EO Charlotte), so every page in the section links it."),
     ("2.1.2", "Mon / 2026-10-12", "On a phone, the Revenue, Expense and Result labels in Brittany's table (and the People, Revenue, Costs and Result labels in the main model) now stay in view while you swipe sideways, instead of sliding off the left edge. The rest of the October 11 freeze was already live; this closes it. From Colton's October 12 email."),
     ("2.1.1", "Sun / 2026-10-11", "Brittany's budget table runs the full width of the page, with her levers in a panel above it instead of a column beside it, and its heading row (Line, Fee, the year counts and amounts, her note) stays frozen at the top of the screen while you scroll, like a frozen row in a spreadsheet. On a phone, where the table is wider than the screen, the line names also stay frozen at the left while you swipe sideways. Her notes column now wraps instead of forcing a sideways scroll. From Colton's October 11 email."),
@@ -123,7 +128,10 @@ def footer_nav(current):
 def tabs(current_slug):
     out = []
     for slug, _src, label, ic, *_ in PAGES:
-        cur = ' aria-current="page"' if slug == current_slug else ""
+        if label is None:
+            continue
+        is_cur = slug == current_slug or (slug != "" and current_slug.startswith(slug))
+        cur = ' aria-current="page"' if is_cur else ""
         out.append(f'<a href="{B}/{slug}"{cur}>{icon(ic)}<span>{label}</span></a>')
     return '<nav class="cc-tabs" aria-label="Catalyst Collective pages">' + "".join(out) + "</nav>"
 
@@ -248,6 +256,7 @@ def main():
         print("  built", os.path.relpath(out, ROOT))
     patch_footer(os.path.join(ROOT, "concepts", "index.html"), "/concepts/")
     patch_footer(os.path.join(ROOT, "concepts", "regionaltrainingexperience", "index.html"), "/concepts/regionaltrainingexperience/")
+    patch_footer(os.path.join(ROOT, "concepts", "regionaltrainingexperience", "charlotte", "index.html"), "/concepts/regionaltrainingexperience/charlotte/")
     patch_footer(os.path.join(ROOT, "chapters", "index.html"), "/chapters/")
     # guards: no em dashes, no leftover tokens, every page has its stamp, footer list, feedback box and og image
     bad = 0

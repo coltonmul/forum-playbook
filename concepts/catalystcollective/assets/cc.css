@@ -425,3 +425,21 @@ button.tile[aria-pressed="true"]{border-color:var(--eo);box-shadow:0 0 0 1px var
   .tablewrap.frozen tbody tr:hover td:first-child{background:var(--tint)}
   .tablewrap.frozen td:last-child{min-width:260px}
 }
+
+/* 2.2.0: the alumni survey page (draft banner, readable question list, 1-to-5 rating rows) */
+.cc .callout.amber{background:var(--amber-t);border-left:3px solid var(--amber);padding:16px 20px;border-radius:0 6px 6px 0}
+.cc .callout.amber .chip{margin-bottom:8px}
+.qlist{list-style:none;margin:0 0 6px;padding:0}
+.cc h3+.qlist{margin-top:4px}
+.qlist li.q{display:grid;grid-template-columns:40px minmax(0,1fr);gap:10px;margin:0 0 14px;line-height:1.5;padding:10px 12px;border:1px solid var(--rule);border-radius:6px;background:#fff;transition:transform .45s var(--spring),box-shadow .3s,border-color .3s}
+.qlist li.q:hover{transform:translateY(-2px);border-color:var(--eo);box-shadow:0 6px 16px rgba(12,12,49,.08)}
+.qlist li.q .n{font-family:'DM Mono',monospace;font-weight:500;color:var(--eo-d);font-size:14px;padding-top:2px}
+.qlist li.q .t{display:block;font-weight:500;color:var(--base)}
+.qlist li.q .opts{display:block;font-size:14px;color:var(--label);margin-top:3px}
+.qlist li.q .why{display:block;font-size:13.5px;color:var(--label);margin-top:3px;font-style:italic}
+.cc .rate{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+.cc .rate-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center}
+.cc .rate-o{display:inline-flex;gap:6px}
+.cc .rate-c{margin:0;min-height:44px;padding:0 4px}
+@media (max-width:560px){.cc .rate-row{grid-template-columns:1fr}}
+@media (prefers-reduced-motion:reduce){.qlist li.q,.qlist li.q:hover{transform:none;transition:none}}
