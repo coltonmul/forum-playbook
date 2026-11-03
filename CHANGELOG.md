@@ -1,5 +1,11 @@
 # Changelog: forum-playbook (forumplaybook.com)
 
+## 2026-11-03 (Tue)
+
+- **Catalyst Collective 3.2.0: the price question and the offer** (Colton's pricing note, November 3). The price question on the alumni and graduating-class surveys now offers $2,500, $3,000, $3,500 and $4,000 and nothing lower, because dues are paid up front for the year; the $1,000 and $1,750 options are gone and the question no longer anchors on Bridge. The alumni survey carries an offer above the name and email fields, in the readable list and in the copied text: an honest answer with a name and email earns the first year at the $2,500 price. Built for both homes by tools/build-catalyst.py 3.2.0.
+- **Catalyst Collective 3.1.0** (earlier today): the alumni survey cut from twenty-four questions to twelve and framed as EO Nashville exploring how to expand the Catalyst experience beyond graduation; no survey page names a council.
+- **Catalyst Collective 3.0.0** (November 2): one site, two homes. builtbycolton.com/catalystcollective/ is the full-screen address to share; these pages are its mirror, built from the same sources; the Three Tracks Kit pages joined under Already built.
+
 ## 2026-11-02 (Mon)
 
 - **Catalyst Collective 2.2.0: the alumni survey gets its own page** at /concepts/catalystcollective/surveys/alumni/ (Colton's November 2 email, after Sameera Lowe asked where the list of questions for past Bridge members had gone). The page carries the September 9 working draft's framing (would the Collective represent real value to the people it is for), every question from that draft and from the September 10 Three Tracks Kit sample survey (24 in four sections, each with a note on what it is for), the same questions as a working form, links to the earlier copies, and a draft-not-live banner: a suggestion for how the council could solicit alumni feedback, nothing sent. Build tool 2.2.0 learns sub-pages (no tab of their own, parent tab stays current, listed in the canonical footer), and now patches the Charlotte page's footer too. surveys.js 2.2.0: readable list renderer, a 1-to-5 rating question type, the alumni form's overview link points at this site instead of catalystcollective.pages.dev. The surveys, overview and library pages link the new page.

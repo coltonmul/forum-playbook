@@ -1,4 +1,7 @@
-/* Catalyst Collective sandbox: renders the four draft surveys as working forms. VERSION 2.3.0 (2026-11-03: the alumni survey
+/* Catalyst Collective sandbox: renders the four draft surveys as working forms. VERSION 2.4.0 (2026-11-03, Colton's pricing note:
+   the price question offers $2,500, $3,000, $3,500 and $4,000 and nothing lower, since dues are paid up front for the year;
+   the Bridge-price anchor is gone from it; the alumni survey carries an offer above the name and email fields, in the readable
+   list and in the copied text: an honest answer with a name and email earns the first year at the $2,500 price. 2.3.0, 2026-11-03: the alumni survey
    is cut from 24 questions to 12 on Colton's note, four pairs combined and eight dropped, and framed as EO Nashville exploring
    how to expand the Catalyst experience beyond graduation; no survey text names a council. 2.2.0, 2026-11-02; the alumni survey
    has its own page, surveys/alumni/, which renders the questions as a readable list (with a note on what each one is for)
@@ -15,7 +18,8 @@
   var REVENUE = ['Under $250K', '$250K to $500K', '$500K to $1M', '$1M to $2M', 'Over $2M'];
   var TRACKS = ['Growth & Scaling', 'Stabilizing & Optimizing', 'Still firefighting, honestly', 'Not sure'];
   var USE = ['A moderated forum in my track', 'Rotating advisors by function (finance, sales, people)', 'The ability to audit past Catalyst classes', 'Monthly learning events on my track', 'Social hours with the whole Collective', 'Quarterly themed sessions led by EO members who solved my exact problem', 'Subsidized software to help run the business', 'Discounted or subsidized consulting engagements', 'An operating system with accountability (EOS, Petra or similar)', 'A financial dashboard or decision tool', 'An Entrepreneur Center membership bundle', '90-day execution cycles with accountability'];
-  var PRICE = ['$1,000', '$1,750 (what Bridge costs today)', '$2,500', '$3,000', 'More than $3,000'];
+  var PRICE = ['$2,500', '$3,000', '$3,500', '$4,000'];
+  var OFFER = 'Leave your name and email with an honest answer and your first year in the Collective is at the $2,500 price.';
 
   var SURVEYS = {
     council: {
@@ -46,6 +50,7 @@
       audience: 'Every past Catalyst graduate: current Bridge members, lapsed Bridge members, graduates who never joined Bridge, and the class in Catalyst now.',
       purpose: 'EO Nashville is exploring how to expand the Catalyst experience beyond graduation. This asks where you are today, what Catalyst and Bridge did and did not do for you, whether the Catalyst Collective would represent real value to you, and what you would pay. Watch the 60-second explainer or read the overview first.',
       needName: false,
+      incentive: OFFER,
       sections: [
         { h: 'A. Where you are today', q: [
           { id: 'status', t: 'Where are you today?', type: 'single', o: ['Current Bridge member', 'Lapsed Bridge member', 'Catalyst graduate who never joined Bridge', 'Currently in Catalyst', 'EO member who came through Catalyst'], why: 'Sorts every answer into the groups being compared: current, lapsed, never joined, still in it.' },
@@ -61,7 +66,7 @@
           { id: 'value', t: 'EO Nashville is exploring how to expand the Catalyst experience beyond graduation. Having read the overview page or watched the 60-second explainer: does the Catalyst Collective represent real value to you? Why or why not?', type: 'text', why: 'The question the whole survey exists to ask.' },
           { id: 'room', t: 'Would you rather be in a room of people at your exact stage, or a mixed room that includes entrepreneurs further ahead?', type: 'single', o: ['A room at my exact stage', 'A mixed room, including people further ahead', 'No strong preference'], why: 'Same-stage rooms or mixed rooms: the two-track forum question.' },
           { id: 'use', t: 'Which of these would you actually use? Check all that apply.', type: 'multi', o: USE, why: 'The programming menu, priced by demand: what gets built first.' },
-          { id: 'price', t: 'At what annual price does a membership like that feel obviously worth it?', type: 'single', o: PRICE, why: 'Against $1,750 for Bridge today with no programming attached.' }
+          { id: 'price', t: 'At what annual price does a membership like that feel obviously worth it?', type: 'single', o: PRICE, why: 'Nothing under $2,500 is offered (Colton, November 3): dues are paid up front for the year, and the lowest option is also the price in the offer at the end of the survey.' }
         ] },
         { h: 'D. The bottom line', q: [
           { id: 'focus', t: 'Would you join a small focus group, 5 to 6 people, to go deeper on this with Sameera and Matt?', type: 'single', o: ['Yes', 'Maybe', 'No'], why: 'The survey recruits its own second round.' },
@@ -147,9 +152,9 @@
       html += '<h2>' + esc(sec.h) + '</h2>';
       sec.q.forEach(function (q) { html += field(sid, q, n); n++; });
     });
-    html += '<h2>About you</h2><div class="two-col">' +
+    html += '<h2>About you</h2>' + (s.incentive ? '<p class="offer"><b>The offer.</b> ' + esc(s.incentive) + '</p>' : '') + '<div class="two-col">' +
       '<div class="field"><label>Your name' + (s.needName ? '' : ' <span class="hint">optional</span>') + '<input type="text" name="respondent" maxlength="80" autocomplete="name"></label></div>' +
-      '<div class="field"><label>Email <span class="hint">optional, only if you want a reply</span><input type="email" name="email" maxlength="120" autocomplete="email"></label></div></div>';
+      '<div class="field"><label>Email <span class="hint">' + (s.incentive ? 'optional; needed for the offer' : 'optional, only if you want a reply') + '</span><input type="email" name="email" maxlength="120" autocomplete="email"></label></div></div>';
     html += '<div class="vh" aria-hidden="true"><label>Leave this empty<input type="text" name="website" tabindex="-1" autocomplete="off"></label></div>';
     html += '<div class="btn-row"><button class="btn primary" type="submit">Submit ' + esc(s.title.toLowerCase()) + '</button><button class="btn secondary" type="button" id="sv-copy">Copy the questions as text</button></div>';
     html += '<div id="sv-result" class="notice" role="status"></div></form>';
@@ -215,6 +220,7 @@
     var lines = [s.title, 'Audience: ' + s.audience, 'Purpose: ' + s.purpose, ''];
     var k = 0;
     s.sections.forEach(function (sec) { lines.push(sec.h); sec.q.forEach(function (q) { k++; lines.push(k + '. ' + q.t + (q.o ? ' (' + q.o.join(' / ') + (q.type === 'rate' ? '; each 1 to 5' : '') + ')' : '') + (q.why ? ' [Why: ' + q.why + ']' : '')); }); lines.push(''); });
+    if (s.incentive) lines.push('The offer, after the last question: ' + s.incentive, '');
     return lines.join('\n');
   }
   function renderRead(sid, el) {
@@ -233,6 +239,7 @@
       html += '</ol>';
     });
     html += '<p class="small muted">' + n + ' questions. The numbering matches the form below.</p>';
+    if (s.incentive) html += '<p class="offer"><b>The offer, after the last question:</b> ' + esc(s.incentive) + '</p>';
     el.innerHTML = html;
   }
 

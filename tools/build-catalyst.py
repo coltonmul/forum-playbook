@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """build-catalyst.py: builds the Catalyst Collective pages for BOTH of their homes from one set of sources.
-VERSION 3.1.0 (2026-11-03)
+VERSION 3.2.0 (2026-11-03)
 
   python3 tools/build-catalyst.py            build every page for both homes, patch the /concepts/ footers, run the guards
 
@@ -30,6 +30,8 @@ script writes it into every Catalyst page and patches it into /concepts/, /conce
 (2.1.1: Regional Training Days became the Regional Training Experience at that address; the old path is a redirect stub and is left alone.)
 
 Changelog
+  3.2.0  The price question offers $2,500 to $4,000 and nothing lower, and the alumni survey carries the first-year offer
+         for an honest answer with a name and email (Colton's pricing note, 2026-11-03).
   3.1.0  The alumni survey is cut to twelve questions and framed as EO Nashville exploring how to expand the Catalyst
          experience beyond graduation (Colton, 2026-11-03); the survey pages no longer name a council.
   3.0.0  Two homes from one source (full-screen at builtbycolton.com, mirror here); the Three Tracks Kit pages join
@@ -51,7 +53,7 @@ import icon as _icon  # noqa: E402
 # the one visitor-counter line every forumplaybook.com page carries (copied from timer.html)
 COUNTER = "<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{\"token\": \"c20145f631df48ff8dc17a09c0c3fcdb\"}'></script><!-- End Cloudflare Web Analytics -->"
 
-VERSION = "3.1.0"
+VERSION = "3.2.0"
 OLD = "https://catalystcollective.pages.dev"
 STAMP = "Updated " + subprocess.check_output(["date", "+%a / %Y-%m-%d / %-I:%M %p CT"], text=True).strip()
 
@@ -106,6 +108,8 @@ SITE_PAGES = [
 
 # version, date, the short line (every footer), the full note (Feedback + changelog page, folded under the short line)
 CHANGELOG = [
+    ("3.2.0", "Tue / 2026-11-03", "the price question on the alumni and graduating-class surveys offers $2,500, $3,000, $3,500 and $4,000 and nothing lower; the alumni survey adds an offer: an honest answer with a name and email earns the first year at the $2,500 price.",
+     "Colton's note on November 3: dues are paid up front for the year, so the survey does not float a price below what the program would ask. The $1,000 and $1,750 options are gone from the price question on the alumni survey and the graduating-class survey, and the question no longer anchors on Bridge. The alumni survey now carries an offer above the name and email fields, in the readable list and in the copied text: leave your name and email with an honest answer and the first year in the Collective is at the $2,500 price, the lowest option. Whether the price question stays in the survey at all is EO Nashville's call."),
     ("3.1.0", "Tue / 2026-11-03", "the alumni survey is cut from twenty-four questions to twelve and framed as EO Nashville exploring how to expand the Catalyst experience beyond graduation.",
      "On Colton's note of November 3 (combine questions, get to twelve or fewer, cut anything that would not change a decision about building the program, and never reference a council, since nobody outside it knows what that is). Four pairs became one question each: why you came with what problem you wanted help carrying; the biggest gap with whether the format became redundant; what is missing with anything else to know; and the explainer framing now opens the real-value question. Eight questions were dropped: how long ago you finished Catalyst, team size, annual revenue, the open most-valuable-part question (the 1-to-5 rating covers it), which track you would place yourself in, comfort with placement by intake, the mentor-an-hour-a-month question, and the 0-to-10 recommend score with its follow-up. The alumni page, the surveys page and the form status line now say EO Nashville where they said the council; the pages written for the group itself are unchanged. Every dropped question is still in the September 9 draft and the September 10 sample survey, linked from the page."),
     ("3.0.0", "Mon / 2026-11-02", "one site, two homes: the full-screen version at builtbycolton.com/catalystcollective/ is the address to share, forumplaybook.com carries a mirror built from the same source, and the Three Tracks Kit pages moved in under Already built.",
@@ -337,7 +341,7 @@ def guard(files, full):
     bad = 0
     for f in files:
         s = open(f).read()
-        if "—" in s:
+        if "\u2014" in s:
             print("  FAIL em dash in", f); bad += 1
         if f.endswith(".html"):
             needs = [STAMP, 'id="fb-form"', 'og:image', 'builtbycolton.com', 'data-base=']
