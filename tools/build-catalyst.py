@@ -134,7 +134,7 @@ CHANGELOG = [
      "Identity pass, at Colton's direction. The lockup is always stacked and traced to vector; the salmon from the Catalyst invitation is gone everywhere; the identity is EO's base navy with EO Blue as the one highlight. Jay Graves's Project Elevate draft gets its own full page."),
     ("1.1.0", "Fri / 2026-09-18", "attribution made explicit: the concept, where the room leaned, and perspectives kept apart on every page.",
      "Attribution made explicit everywhere, at Colton's direction: the concept Colton presented, where the room leaned on September 17 (Colton's read of the recording), and perspectives from individual council members under their own names are kept apart on every page. The reconvene time matches Sameera's calendar invite (October 14, 10:30 to 11:30 AM CT, on Zoom)."),
-    ("1.0.0", "Thu / 2026-09-17", "first live version, built the afternoon of the September 17 strategic council.",
+    ("1.0.0", "Thu / 2026-09-17", "first live version, built the afternoon of the September 17 meeting.",
      "First live version, built the afternoon of the September 17 strategic council: the overview, three journeys, the five-year model, four draft surveys, the library, the public feedback log with the #Calvin change-request flow, and the lockup. Brittany Lorenzi's stage-two model and Jay Graves's Project Elevate draft blended in the same afternoon."),
 ]
 
@@ -265,7 +265,7 @@ def page(home, full, slug, src, label, ic, title, desc, og):
 {expand(body, base).strip()}
     </div>
     <footer class="cc-foot">
-      <p><b>Concept only.</b> A working concept for EO Nashville's strategic council, prepared by Colton Mulligan. Not an official EO Nashville publication, not an adopted program, not a board decision, not a promise to anyone.</p>
+      <p><b>Concept only.</b> A working concept for EO Nashville, prepared by Colton Mulligan. Not an official EO Nashville publication, not an adopted program, not a board decision, not a promise to anyone.</p>
       {'<p>These pages are kept at <a href="' + FULL_URL + '/">builtbycolton.com/catalystcollective</a>, the address to share; <a href="' + MIRROR_URL + '/' + slug + '" target="_blank" rel="noopener">forumplaybook.com</a> carries a mirror built from the same source.</p>' if full else
        '<p>This is the mirror. The full-screen version, the address to share, is <a href="' + FULL_URL + '/' + slug + '" target="_blank" rel="noopener">builtbycolton.com/catalystcollective</a>; both are built from the same source at the same moment.</p>'}
       {'<details class="cfoot-ver"><summary>v' + VERSION + ' &middot; changelog</summary><ul>' + changelog_short() + '</ul></details>' if full else ''}
