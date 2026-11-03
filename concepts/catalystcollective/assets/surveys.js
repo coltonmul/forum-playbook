@@ -1,9 +1,11 @@
-/* Catalyst Collective sandbox: renders the four draft surveys as working forms. VERSION 2.2.0 (2026-11-02; the alumni survey
+/* Catalyst Collective sandbox: renders the four draft surveys as working forms. VERSION 2.3.0 (2026-11-03: the alumni survey
+   is cut from 24 questions to 12 on Colton's note, four pairs combined and eight dropped, and framed as EO Nashville exploring
+   how to expand the Catalyst experience beyond graduation; no survey text names a council. 2.2.0, 2026-11-02; the alumni survey
    has its own page, surveys/alumni/, which renders the questions as a readable list (with a note on what each one is for)
    and then the form; its spec now carries every question from the September 9 working draft and the September 10 sample
    survey; new "rate" question type; the overview link points at this site. 2.0.1, 2026-10-07: "deep dive" wording
    replaced; moved to forumplaybook.com, posts to the sandbox API on catalystcollective.pages.dev.)
-   Question specs live here so the council can see exactly what would be asked. Responses post to
+   Question specs live here so anyone reviewing a survey can see exactly what would be asked. Responses post to
    /api/survey and are stored privately; only counts are public. */
 (function () {
   'use strict';
@@ -42,40 +44,28 @@
     alumni: {
       title: 'Catalyst alumni survey',
       audience: 'Every past Catalyst graduate: current Bridge members, lapsed Bridge members, graduates who never joined Bridge, and the class in Catalyst now.',
-      purpose: 'Learn where alumni are today, what Catalyst and Bridge did and did not do for them, whether the Catalyst Collective would represent real value to them, and what they would pay. Watch the 60-second explainer or read the overview first.',
+      purpose: 'EO Nashville is exploring how to expand the Catalyst experience beyond graduation. This asks where you are today, what Catalyst and Bridge did and did not do for you, whether the Catalyst Collective would represent real value to you, and what you would pay. Watch the 60-second explainer or read the overview first.',
       needName: false,
       sections: [
         { h: 'A. Where you are today', q: [
-          { id: 'status', t: 'Where are you today?', type: 'single', o: ['Current Bridge member', 'Lapsed Bridge member', 'Catalyst graduate who never joined Bridge', 'Currently in Catalyst', 'EO member who came through Catalyst'], why: 'Sorts every answer into the groups the council wants to compare.' },
-          { id: 'when', t: 'Roughly how long ago did you finish Catalyst?', type: 'single', o: ['Less than a year', '1 to 2 years', '3 to 5 years', 'More than 5 years', 'Still in it'] },
-          { id: 'week', t: 'Which of these sounds most like your week?', type: 'single', o: WEEK, why: 'The track question in disguise: stage, not revenue.' },
-          { id: 'team', t: 'How many people are on your team, and do any of them manage others?', type: 'short', why: 'Matt\u2019s complexity axis.' },
-          { id: 'revenue', t: 'Roughly where is annual revenue?', type: 'single', o: REVENUE, why: 'Kept coarse on purpose.' },
-          { id: 'growth', t: 'Is growing past $1M a goal you are actively pursuing, a someday thing, or not the point of your business?', type: 'single', o: ['Actively pursuing it', 'A someday thing', 'Not the point of my business'], why: 'Separates strivers from stabilizers without judgment.' }
+          { id: 'status', t: 'Where are you today?', type: 'single', o: ['Current Bridge member', 'Lapsed Bridge member', 'Catalyst graduate who never joined Bridge', 'Currently in Catalyst', 'EO member who came through Catalyst'], why: 'Sorts every answer into the groups being compared: current, lapsed, never joined, still in it.' },
+          { id: 'week', t: 'Which of these sounds most like your week?', type: 'single', o: WEEK, why: 'Stage, not revenue: the track question in disguise.' },
+          { id: 'growth', t: 'Is growing past $1M a goal you are actively pursuing, a someday thing, or not the point of your business?', type: 'single', o: ['Actively pursuing it', 'A someday thing', 'Not the point of my business'], why: 'Separates the people who want to scale from the people who want to run it well, without judgment.' }
         ] },
-        { h: 'B. Why you came, and what you got', q: [
-          { id: 'hoped', t: 'What did you hope Catalyst or Bridge would do for you when you joined?', type: 'text' },
-          { id: 'problem', t: 'What is the one problem you most wanted help carrying?', type: 'text', why: 'Matt\u2019s "what problem are we solving", answered from the trenches.' },
-          { id: 'valuable', t: 'What was the single most valuable part of your Catalyst experience?', type: 'text' },
-          { id: 'rate', t: 'Rate the value you got from each, 1 (none) to 5 (a lot).', type: 'rate', o: ['The classes', 'Your cohort or forum', 'Your mentor', 'Learning events', 'Social events'], why: 'Which parts of the program earn their keep.' },
-          { id: 'redundant', t: '"The format became redundant for me over time." Agree or disagree, and when did that start?', type: 'text', why: 'Tests the redundancy signal the council heard, without naming anyone.' },
-          { id: 'gap', t: 'If you are or were in Bridge: what is the biggest gap? If you left or never joined: what would have kept you, or gotten you in?', type: 'text', why: 'The retention question, asked straight.' }
+        { h: 'B. What Catalyst and Bridge did for you', q: [
+          { id: 'hoped', t: 'What did you hope Catalyst or Bridge would do for you, and what is the one problem you most wanted help carrying?', type: 'text', why: 'Two earlier questions in one (why you came, what problem). The answer is what the program has to solve.' },
+          { id: 'rate', t: 'Rate the value you got from each part, 1 (none) to 5 (a lot).', type: 'rate', o: ['The classes', 'Your cohort or forum', 'Your mentor', 'Learning events', 'Social events'], why: 'Which parts of the program earn their keep. Replaces the open "most valuable part" question.' },
+          { id: 'gap', t: 'If you are or were in Bridge: what is the biggest gap, and did the format ever start to feel redundant? If you left or never joined: what would have kept you, or gotten you in?', type: 'text', why: 'The retention question and the redundancy question in one: is "it became redundant" a format problem or a fit problem?' }
         ] },
         { h: 'C. The Collective (watch the explainer or read the overview first)', q: [
-          { id: 'value', t: 'Read the overview page of this site, or watch the 60-second explainer. In one sentence, does the Catalyst Collective represent real value to you? Why or why not?', type: 'text', why: 'The question the whole survey exists to ask.' },
-          { id: 'track', t: 'Which track would you place yourself in today?', type: 'single', o: TRACKS },
-          { id: 'room', t: 'Would you rather be in a room of people at your exact stage, or a mixed room that includes entrepreneurs further ahead?', type: 'single', o: ['A room at my exact stage', 'A mixed room, including people further ahead', 'No strong preference'], why: 'The two-track forum question.' },
-          { id: 'placement', t: 'Placement by a short intake, not picking your own track: comfortable with that, or would you rather self-select?', type: 'single', o: ['Comfortable with placement', 'I would rather self-select', 'Either is fine'] },
-          { id: 'missing', t: 'What is missing? What would you want in addition to what is on the page?', type: 'text' },
-          { id: 'use', t: 'Which of these would you actually use? Check all that apply.', type: 'multi', o: USE, why: 'The programming menu from the September 8 huddle, priced by demand.' },
-          { id: 'price', t: 'At what annual price does a membership like that feel obviously worth it?', type: 'single', o: PRICE, why: 'Against $1,750 for Bridge today with no programming attached. Van Westendorp lite.' },
-          { id: 'mentor', t: 'Would you give an hour a month to mentor someone a stage behind you?', type: 'single', o: ['Yes', 'Maybe', 'No'], why: 'Tests the mentor supply line.' }
+          { id: 'value', t: 'EO Nashville is exploring how to expand the Catalyst experience beyond graduation. Having read the overview page or watched the 60-second explainer: does the Catalyst Collective represent real value to you? Why or why not?', type: 'text', why: 'The question the whole survey exists to ask.' },
+          { id: 'room', t: 'Would you rather be in a room of people at your exact stage, or a mixed room that includes entrepreneurs further ahead?', type: 'single', o: ['A room at my exact stage', 'A mixed room, including people further ahead', 'No strong preference'], why: 'Same-stage rooms or mixed rooms: the two-track forum question.' },
+          { id: 'use', t: 'Which of these would you actually use? Check all that apply.', type: 'multi', o: USE, why: 'The programming menu, priced by demand: what gets built first.' },
+          { id: 'price', t: 'At what annual price does a membership like that feel obviously worth it?', type: 'single', o: PRICE, why: 'Against $1,750 for Bridge today with no programming attached.' }
         ] },
         { h: 'D. The bottom line', q: [
-          { id: 'nps', t: 'How likely are you to recommend Catalyst or Bridge to another entrepreneur, 0 (not at all) to 10 (already have)?', type: 'single', o: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10'], why: 'NPS with teeth, with the next question.' },
-          { id: 'move', t: 'What is the one change that would move that answer up?', type: 'text' },
           { id: 'focus', t: 'Would you join a small focus group, 5 to 6 people, to go deeper on this with Sameera and Matt?', type: 'single', o: ['Yes', 'Maybe', 'No'], why: 'The survey recruits its own second round.' },
-          { id: 'else', t: 'Anything else the strategic council should know before this locks?', type: 'text' }
+          { id: 'else', t: 'What is missing from what you read, and is there anything else EO Nashville should know before this takes shape?', type: 'text', why: 'Two earlier questions in one (what is missing, anything else).' }
         ] }
       ]
     },
@@ -151,7 +141,7 @@
     var n = 0;
     var html = '<div class="callout blue" style="margin-top:22px"><p class="kicker" style="margin:0">' + esc(s.title) + '</p>' +
       '<p style="margin:6px 0 4px"><b>Audience:</b> ' + esc(s.audience) + '</p><p style="margin:0 0 4px"><b>Purpose:</b> ' + esc(s.purpose) + '</p>' +
-      '<p class="small muted" style="margin:0">Status: draft for council review, open for testing. Responses so far: <span id="sv-count">' + (counts[sid] || 0) + '</span>. Answers are private; only the count is public.</p></div>';
+      '<p class="small muted" style="margin:0">Status: draft, not live, open for testing. Responses so far: <span id="sv-count">' + (counts[sid] || 0) + '</span>. Answers are private; only the count is public.</p></div>';
     html += '<form id="sv-form" data-survey="' + sid + '" novalidate>';
     s.sections.forEach(function (sec) {
       html += '<h2>' + esc(sec.h) + '</h2>';

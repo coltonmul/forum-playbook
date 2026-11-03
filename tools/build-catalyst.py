@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """build-catalyst.py: builds the Catalyst Collective pages for BOTH of their homes from one set of sources.
-VERSION 3.0.0 (2026-11-02)
+VERSION 3.1.0 (2026-11-03)
 
   python3 tools/build-catalyst.py            build every page for both homes, patch the /concepts/ footers, run the guards
 
@@ -30,6 +30,8 @@ script writes it into every Catalyst page and patches it into /concepts/, /conce
 (2.1.1: Regional Training Days became the Regional Training Experience at that address; the old path is a redirect stub and is left alone.)
 
 Changelog
+  3.1.0  The alumni survey is cut to twelve questions and framed as EO Nashville exploring how to expand the Catalyst
+         experience beyond graduation (Colton, 2026-11-03); the survey pages no longer name a council.
   3.0.0  Two homes from one source (full-screen at builtbycolton.com, mirror here); the Three Tracks Kit pages join
          as sub-pages of Already built; CSP-safe output (no inline style or script); light changelog in the footer.
   2.2.0  A page may be a sub-page (tab label None): it gets no tab of its own, the parent tab stays current,
@@ -49,7 +51,7 @@ import icon as _icon  # noqa: E402
 # the one visitor-counter line every forumplaybook.com page carries (copied from timer.html)
 COUNTER = "<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{\"token\": \"c20145f631df48ff8dc17a09c0c3fcdb\"}'></script><!-- End Cloudflare Web Analytics -->"
 
-VERSION = "3.0.0"
+VERSION = "3.1.0"
 OLD = "https://catalystcollective.pages.dev"
 STAMP = "Updated " + subprocess.check_output(["date", "+%a / %Y-%m-%d / %-I:%M %p CT"], text=True).strip()
 
@@ -73,7 +75,7 @@ PAGES = [
     ("surveys/", "surveys", "Surveys", "clipboard-text", "The surveys | Catalyst Collective",
      "Four draft surveys about the proposed Catalyst Collective, as working forms the council can test.", "og.png"),
     ("surveys/alumni/", "alumni", None, None, "The alumni survey, a draft | Catalyst Collective",
-     "A draft survey for Catalyst alumni, including current and former Bridge members: would the Catalyst Collective represent real value to them, and at what price. Not live, nothing sent; a suggestion for the council.", "og.png"),
+     "EO Nashville is exploring how to expand the Catalyst experience beyond graduation. A twelve-question draft survey for Catalyst alumni, including current and former Bridge members: would the Catalyst Collective represent real value to them, and at what price. Not live, nothing sent.", "og.png"),
     ("library/", "library", "Already built", "books", "Already built | Catalyst Collective",
      "Everything built so far for the Catalyst Collective: the working draft, the Three Tracks Kit pages, council perspectives, and the logo files.", "og.png"),
     ("library/offering/", "offering", None, None, "The Offering: three rooms | Catalyst Collective",
@@ -104,6 +106,8 @@ SITE_PAGES = [
 
 # version, date, the short line (every footer), the full note (Feedback + changelog page, folded under the short line)
 CHANGELOG = [
+    ("3.1.0", "Tue / 2026-11-03", "the alumni survey is cut from twenty-four questions to twelve and framed as EO Nashville exploring how to expand the Catalyst experience beyond graduation.",
+     "On Colton's note of November 3 (combine questions, get to twelve or fewer, cut anything that would not change a decision about building the program, and never reference a council, since nobody outside it knows what that is). Four pairs became one question each: why you came with what problem you wanted help carrying; the biggest gap with whether the format became redundant; what is missing with anything else to know; and the explainer framing now opens the real-value question. Eight questions were dropped: how long ago you finished Catalyst, team size, annual revenue, the open most-valuable-part question (the 1-to-5 rating covers it), which track you would place yourself in, comfort with placement by intake, the mentor-an-hour-a-month question, and the 0-to-10 recommend score with its follow-up. The alumni page, the surveys page and the form status line now say EO Nashville where they said the council; the pages written for the group itself are unchanged. Every dropped question is still in the September 9 draft and the September 10 sample survey, linked from the page."),
     ("3.0.0", "Mon / 2026-11-02", "one site, two homes: the full-screen version at builtbycolton.com/catalystcollective/ is the address to share, forumplaybook.com carries a mirror built from the same source, and the Three Tracks Kit pages moved in under Already built.",
      "At Colton's direction on November 2, after the Catalyst Collective pages and the Three Tracks Kit (September 10, its own dark site) had drifted apart. The full-screen version at builtbycolton.com/catalystcollective/ is now the one to use with everybody; forumplaybook.com/concepts/catalystcollective/ is a mirror built from the same source files at the same moment, so the two cannot diverge again. The kit's four pages (the Offering, Find Your Room, the 60-second video script, the strategy memo) are now pages here under Already built, in this design, with their words kept; the kit's sample survey already lives on the alumni survey page. The kit's old addresses forward here. Version and changelog stay at the bottom of every page, one line per version, with the full notes on this page."),
     ("2.2.0", "Mon / 2026-11-02", "the alumni survey gets its own page (draft, not live): every proposed question readable with a note on what it is for, then the form.",
