@@ -3,6 +3,7 @@
 ## 2026-11-03 (Tue)
 
 - **Catalyst Collective 3.2.0: the price question and the offer** (Colton's pricing note, November 3). The price question on the alumni and graduating-class surveys now offers $2,500, $3,000, $3,500 and $4,000 and nothing lower, because dues are paid up front for the year; the $1,000 and $1,750 options are gone and the question no longer anchors on Bridge. The alumni survey carries an offer above the name and email fields, in the readable list and in the copied text: an honest answer with a name and email earns the first year at the $2,500 price. Built for both homes by tools/build-catalyst.py 3.2.0.
+- **Catalyst Collective 3.2.1**: same pages with new asset addresses, because the content network had cached the 3.2.0 survey script before the deploy finished.
 - **Catalyst Collective 3.1.0** (earlier today): the alumni survey cut from twenty-four questions to twelve and framed as EO Nashville exploring how to expand the Catalyst experience beyond graduation; no survey page names a council.
 - **Catalyst Collective 3.0.0** (November 2): one site, two homes. builtbycolton.com/catalystcollective/ is the full-screen address to share; these pages are its mirror, built from the same sources; the Three Tracks Kit pages joined under Already built.
 

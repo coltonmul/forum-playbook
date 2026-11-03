@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """build-catalyst.py: builds the Catalyst Collective pages for BOTH of their homes from one set of sources.
-VERSION 3.2.0 (2026-11-03)
+VERSION 3.2.1 (2026-11-03)
 
   python3 tools/build-catalyst.py            build every page for both homes, patch the /concepts/ footers, run the guards
 
@@ -30,6 +30,7 @@ script writes it into every Catalyst page and patches it into /concepts/, /conce
 (2.1.1: Regional Training Days became the Regional Training Experience at that address; the old path is a redirect stub and is left alone.)
 
 Changelog
+  3.2.1  Same pages, new asset addresses: the mirror's CDN had cached the 3.2.0 survey script before it landed.
   3.2.0  The price question offers $2,500 to $4,000 and nothing lower, and the alumni survey carries the first-year offer
          for an honest answer with a name and email (Colton's pricing note, 2026-11-03).
   3.1.0  The alumni survey is cut to twelve questions and framed as EO Nashville exploring how to expand the Catalyst
@@ -53,7 +54,7 @@ import icon as _icon  # noqa: E402
 # the one visitor-counter line every forumplaybook.com page carries (copied from timer.html)
 COUNTER = "<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{\"token\": \"c20145f631df48ff8dc17a09c0c3fcdb\"}'></script><!-- End Cloudflare Web Analytics -->"
 
-VERSION = "3.2.0"
+VERSION = "3.2.1"
 OLD = "https://catalystcollective.pages.dev"
 STAMP = "Updated " + subprocess.check_output(["date", "+%a / %Y-%m-%d / %-I:%M %p CT"], text=True).strip()
 
@@ -108,6 +109,8 @@ SITE_PAGES = [
 
 # version, date, the short line (every footer), the full note (Feedback + changelog page, folded under the short line)
 CHANGELOG = [
+    ("3.2.1", "Tue / 2026-11-03", "same pages as 3.2.0 with new asset addresses, so the mirror serves the new survey script at once.",
+     "The mirror's content network had cached the 3.2.0 survey script under its new address before the deploy finished, so the pages were rebuilt under 3.2.1 to get fresh addresses. No content change."),
     ("3.2.0", "Tue / 2026-11-03", "the price question on the alumni and graduating-class surveys offers $2,500, $3,000, $3,500 and $4,000 and nothing lower; the alumni survey adds an offer: an honest answer with a name and email earns the first year at the $2,500 price.",
      "Colton's note on November 3: dues are paid up front for the year, so the survey does not float a price below what the program would ask. The $1,000 and $1,750 options are gone from the price question on the alumni survey and the graduating-class survey, and the question no longer anchors on Bridge. The alumni survey now carries an offer above the name and email fields, in the readable list and in the copied text: leave your name and email with an honest answer and the first year in the Collective is at the $2,500 price, the lowest option. Whether the price question stays in the survey at all is EO Nashville's call."),
     ("3.1.0", "Tue / 2026-11-03", "the alumni survey is cut from twenty-four questions to twelve and framed as EO Nashville exploring how to expand the Catalyst experience beyond graduation.",
