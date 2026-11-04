@@ -1,13 +1,12 @@
-/* Catalyst Collective sandbox: renders the four draft surveys as working forms. VERSION 2.4.0 (2026-11-03, Colton's pricing note:
-   the price question offers $2,500, $3,000, $3,500 and $4,000 and nothing lower, since dues are paid up front for the year;
-   the Bridge-price anchor is gone from it; the alumni survey carries an offer above the name and email fields, in the readable
-   list and in the copied text: an honest answer with a name and email earns the first year at the $2,500 price. 2.3.0, 2026-11-03: the alumni survey
-   is cut from 24 questions to 12 on Colton's note, four pairs combined and eight dropped, and framed as EO Nashville exploring
-   how to expand the Catalyst experience beyond graduation; no survey text names a council. 2.2.0, 2026-11-02; the alumni survey
-   has its own page, surveys/alumni/, which renders the questions as a readable list (with a note on what each one is for)
-   and then the form; its spec now carries every question from the September 9 working draft and the September 10 sample
-   survey; new "rate" question type; the overview link points at this site. 2.0.1, 2026-10-07: "deep dive" wording
-   replaced; moved to forumplaybook.com, posts to the sandbox API on catalystcollective.pages.dev.)
+/* Catalyst Collective sandbox: renders the four draft surveys as working forms. VERSION 2.5.0 (2026-11-03, Colton's note on the
+   alumni page: nobody reads a preamble above every question, and a survey shown twice is nuts. The alumni survey now has three
+   sections instead of four, the per-question "why" notes are gone, the readable list is gone, and the alumni page renders the form
+   once with a one-line status instead of the audience-and-purpose box. 2.4.0, 2026-11-03: the price question offers $2,500, $3,000,
+   $3,500 and $4,000 and nothing lower, since dues are paid up front for the year; the alumni survey carries an offer above the name
+   and email fields: an honest answer with a name and email earns the first year at the $2,500 price. 2.3.0, 2026-11-03: the alumni
+   survey is cut from 24 questions to 12 and framed as EO Nashville exploring how to expand the Catalyst experience beyond graduation;
+   no survey text names a council. 2.2.0, 2026-11-02: the alumni survey gets its own page, surveys/alumni/. 2.0.1, 2026-10-07:
+   "deep dive" wording replaced; moved to forumplaybook.com, posts to the sandbox API on catalystcollective.pages.dev.)
    Question specs live here so anyone reviewing a survey can see exactly what would be asked. Responses post to
    /api/survey and are stored privately; only counts are public. */
 (function () {
@@ -48,29 +47,28 @@
     alumni: {
       title: 'Catalyst alumni survey',
       audience: 'Every past Catalyst graduate: current Bridge members, lapsed Bridge members, graduates who never joined Bridge, and the class in Catalyst now.',
-      purpose: 'EO Nashville is exploring how to expand the Catalyst experience beyond graduation. This asks where you are today, what Catalyst and Bridge did and did not do for you, whether the Catalyst Collective would represent real value to you, and what you would pay. Watch the 60-second explainer or read the overview first.',
+      purpose: 'EO Nashville is exploring how to expand the Catalyst experience beyond graduation. Where you are today, what Catalyst and Bridge did and did not do for you, and whether the Catalyst Collective would be worth it to you, at what price.',
       needName: false,
+      lean: true,
       incentive: OFFER,
       sections: [
-        { h: 'A. Where you are today', q: [
-          { id: 'status', t: 'Where are you today?', type: 'single', o: ['Current Bridge member', 'Lapsed Bridge member', 'Catalyst graduate who never joined Bridge', 'Currently in Catalyst', 'EO member who came through Catalyst'], why: 'Sorts every answer into the groups being compared: current, lapsed, never joined, still in it.' },
-          { id: 'week', t: 'Which of these sounds most like your week?', type: 'single', o: WEEK, why: 'Stage, not revenue: the track question in disguise.' },
-          { id: 'growth', t: 'Is growing past $1M a goal you are actively pursuing, a someday thing, or not the point of your business?', type: 'single', o: ['Actively pursuing it', 'A someday thing', 'Not the point of my business'], why: 'Separates the people who want to scale from the people who want to run it well, without judgment.' }
+        { h: '1. Where you are today', q: [
+          { id: 'status', t: 'Where are you today?', type: 'single', o: ['Current Bridge member', 'Lapsed Bridge member', 'Catalyst graduate who never joined Bridge', 'Currently in Catalyst', 'EO member who came through Catalyst'] },
+          { id: 'week', t: 'Which of these sounds most like your week?', type: 'single', o: WEEK },
+          { id: 'growth', t: 'Is growing past $1M a goal you are actively pursuing, a someday thing, or not the point of your business?', type: 'single', o: ['Actively pursuing it', 'A someday thing', 'Not the point of my business'] }
         ] },
-        { h: 'B. What Catalyst and Bridge did for you', q: [
-          { id: 'hoped', t: 'What did you hope Catalyst or Bridge would do for you, and what is the one problem you most wanted help carrying?', type: 'text', why: 'Two earlier questions in one (why you came, what problem). The answer is what the program has to solve.' },
-          { id: 'rate', t: 'Rate the value you got from each part, 1 (none) to 5 (a lot).', type: 'rate', o: ['The classes', 'Your cohort or forum', 'Your mentor', 'Learning events', 'Social events'], why: 'Which parts of the program earn their keep. Replaces the open "most valuable part" question.' },
-          { id: 'gap', t: 'If you are or were in Bridge: what is the biggest gap, and did the format ever start to feel redundant? If you left or never joined: what would have kept you, or gotten you in?', type: 'text', why: 'The retention question and the redundancy question in one: is "it became redundant" a format problem or a fit problem?' }
+        { h: '2. What Catalyst and Bridge did for you', q: [
+          { id: 'hoped', t: 'What did you hope Catalyst or Bridge would do for you, and what is the one problem you most wanted help carrying?', type: 'text' },
+          { id: 'rate', t: 'Rate the value you got from each part, 1 (none) to 5 (a lot).', type: 'rate', o: ['The classes', 'Your cohort or forum', 'Your mentor', 'Learning events', 'Social events'] },
+          { id: 'gap', t: 'If you are or were in Bridge: what is the biggest gap, and did the format ever start to feel redundant? If you left or never joined: what would have kept you, or gotten you in?', type: 'text' }
         ] },
-        { h: 'C. The Collective (watch the explainer or read the overview first)', q: [
-          { id: 'value', t: 'EO Nashville is exploring how to expand the Catalyst experience beyond graduation. Having read the overview page or watched the 60-second explainer: does the Catalyst Collective represent real value to you? Why or why not?', type: 'text', why: 'The question the whole survey exists to ask.' },
-          { id: 'room', t: 'Would you rather be in a room of people at your exact stage, or a mixed room that includes entrepreneurs further ahead?', type: 'single', o: ['A room at my exact stage', 'A mixed room, including people further ahead', 'No strong preference'], why: 'Same-stage rooms or mixed rooms: the two-track forum question.' },
-          { id: 'use', t: 'Which of these would you actually use? Check all that apply.', type: 'multi', o: USE, why: 'The programming menu, priced by demand: what gets built first.' },
-          { id: 'price', t: 'At what annual price does a membership like that feel obviously worth it?', type: 'single', o: PRICE, why: 'Nothing under $2,500 is offered (Colton, November 3): dues are paid up front for the year, and the lowest option is also the price in the offer at the end of the survey.' }
-        ] },
-        { h: 'D. The bottom line', q: [
-          { id: 'focus', t: 'Would you join a small focus group, 5 to 6 people, to go deeper on this with Sameera and Matt?', type: 'single', o: ['Yes', 'Maybe', 'No'], why: 'The survey recruits its own second round.' },
-          { id: 'else', t: 'What is missing from what you read, and is there anything else EO Nashville should know before this takes shape?', type: 'text', why: 'Two earlier questions in one (what is missing, anything else).' }
+        { h: '3. The Collective, and the price', q: [
+          { id: 'value', t: 'EO Nashville is exploring how to expand the Catalyst experience beyond graduation. Having read the overview page or watched the 60-second explainer: does the Catalyst Collective represent real value to you? Why or why not?', type: 'text' },
+          { id: 'room', t: 'Would you rather be in a room of people at your exact stage, or a mixed room that includes entrepreneurs further ahead?', type: 'single', o: ['A room at my exact stage', 'A mixed room, including people further ahead', 'No strong preference'] },
+          { id: 'use', t: 'Which of these would you actually use? Check all that apply.', type: 'multi', o: USE },
+          { id: 'price', t: 'At what annual price does a membership like that feel obviously worth it?', type: 'single', o: PRICE },
+          { id: 'focus', t: 'Would you join a small focus group, 5 to 6 people, to go deeper on this with Sameera and Matt?', type: 'single', o: ['Yes', 'Maybe', 'No'] },
+          { id: 'else', t: 'What is missing from what you read, and is there anything else EO Nashville should know before this takes shape?', type: 'text' }
         ] }
       ]
     },
@@ -120,7 +118,7 @@
 
   function field(sid, q, i) {
     var name = q.id;
-    var label = '<p style="margin:0 0 8px"><b>' + (i + 1) + '.</b> ' + esc(q.t) + '</p>';
+    var label = '<p class="ql"><b>' + (i + 1) + '.</b> ' + esc(q.t) + '</p>';
     if (q.type === 'single') {
       return '<div class="field">' + label + q.o.map(function (o) { return '<label class="check"><input type="radio" name="' + name + '" value="' + esc(o) + '"> <span>' + esc(o) + '</span></label>'; }).join('') + '</div>';
     }
@@ -144,9 +142,12 @@
   function render(sid, noScroll) {
     var s = SURVEYS[sid];
     var n = 0;
-    var html = '<div class="callout blue" style="margin-top:22px"><p class="kicker" style="margin:0">' + esc(s.title) + '</p>' +
-      '<p style="margin:6px 0 4px"><b>Audience:</b> ' + esc(s.audience) + '</p><p style="margin:0 0 4px"><b>Purpose:</b> ' + esc(s.purpose) + '</p>' +
-      '<p class="small muted" style="margin:0">Status: draft, not live, open for testing. Responses so far: <span id="sv-count">' + (counts[sid] || 0) + '</span>. Answers are private; only the count is public.</p></div>';
+    var status = 'Responses so far: <span id="sv-count">' + (counts[sid] || 0) + '</span>.';
+    var html = s.lean
+      ? '<p class="small muted sv-status">' + status + '</p>'
+      : '<div class="callout blue sv-head"><p class="kicker m0">' + esc(s.title) + '</p>' +
+        '<p class="sv-meta"><b>Audience:</b> ' + esc(s.audience) + '</p><p class="sv-meta"><b>Purpose:</b> ' + esc(s.purpose) + '</p>' +
+        '<p class="small muted m0">Status: draft, not live, open for testing. ' + status + ' Answers are private; only the count is public.</p></div>';
     html += '<form id="sv-form" data-survey="' + sid + '" novalidate>';
     s.sections.forEach(function (sec) {
       html += '<h2>' + esc(sec.h) + '</h2>';
@@ -166,7 +167,8 @@
     document.getElementById('sv-copy').addEventListener('click', function () {
       var lines = [s.title, 'Audience: ' + s.audience, 'Purpose: ' + s.purpose, ''];
       var k = 0;
-      s.sections.forEach(function (sec) { lines.push(sec.h); sec.q.forEach(function (q) { k++; lines.push(k + '. ' + q.t + (q.o ? ' (' + q.o.join(' / ') + ')' : '')); }); lines.push(''); });
+      s.sections.forEach(function (sec) { lines.push(sec.h); sec.q.forEach(function (q) { k++; lines.push(k + '. ' + q.t + (q.o ? ' (' + q.o.join(' / ') + (q.type === 'rate' ? '; each 1 to 5' : '') + ')' : '')); }); lines.push(''); });
+      if (s.incentive) lines.push('The offer, after the last question: ' + s.incentive, '');
       var btn = this;
       navigator.clipboard.writeText(lines.join('\n')).then(function () { var o = btn.textContent; btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = o; }, 1800); }).catch(function () { btn.textContent = 'Select and copy manually'; });
     });
@@ -215,34 +217,6 @@
     if (!noScroll) host.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }
 
-  // The readable list: every question with its options and a note on what it is for (the alumni page).
-  function questionsText(s) {
-    var lines = [s.title, 'Audience: ' + s.audience, 'Purpose: ' + s.purpose, ''];
-    var k = 0;
-    s.sections.forEach(function (sec) { lines.push(sec.h); sec.q.forEach(function (q) { k++; lines.push(k + '. ' + q.t + (q.o ? ' (' + q.o.join(' / ') + (q.type === 'rate' ? '; each 1 to 5' : '') + ')' : '') + (q.why ? ' [Why: ' + q.why + ']' : '')); }); lines.push(''); });
-    if (s.incentive) lines.push('The offer, after the last question: ' + s.incentive, '');
-    return lines.join('\n');
-  }
-  function renderRead(sid, el) {
-    var s = SURVEYS[sid];
-    var n = 0;
-    var html = '';
-    s.sections.forEach(function (sec) {
-      html += '<h3>' + esc(sec.h) + '</h3><ol class="qlist">';
-      sec.q.forEach(function (q) {
-        n++;
-        var kind = q.type === 'single' ? 'One answer' : q.type === 'multi' ? 'Check all that apply' : q.type === 'rate' ? 'Each item 1 to 5' : q.type === 'short' ? 'A short answer' : 'Open text';
-        html += '<li class="q"><span class="n">' + (n < 10 ? '0' : '') + n + '</span><span><span class="t">' + esc(q.t) + '</span>' +
-          '<span class="opts">' + kind + (q.o ? ': ' + esc(q.o.join(' / ')) : '') + '</span>' +
-          (q.why ? '<span class="why">Why it is here: ' + esc(q.why) + '</span>' : '') + '</span></li>';
-      });
-      html += '</ol>';
-    });
-    html += '<p class="small muted">' + n + ' questions. The numbering matches the form below.</p>';
-    if (s.incentive) html += '<p class="offer"><b>The offer, after the last question:</b> ' + esc(s.incentive) + '</p>';
-    el.innerHTML = html;
-  }
-
   document.querySelectorAll('#survey-tabs [data-survey]').forEach(function (b) {
     b.addEventListener('click', function () { render(b.getAttribute('data-survey')); history.replaceState(null, '', '#' + b.getAttribute('data-survey')); });
   });
@@ -253,15 +227,8 @@
     if (c && f) c.textContent = counts[f.getAttribute('data-survey')] || 0;
   }).catch(function () {});
 
-  var readEl = document.getElementById('alumni-read');
-  if (readEl) {
-    // the alumni page: readable list, copy button, then the form, no scrolling
-    renderRead('alumni', readEl);
-    var cp = document.getElementById('al-copy');
-    if (cp) cp.addEventListener('click', function () {
-      var btn = this; var o = btn.innerHTML;
-      navigator.clipboard.writeText(questionsText(SURVEYS.alumni)).then(function () { btn.textContent = 'Copied'; setTimeout(function () { btn.innerHTML = o; }, 1800); }).catch(function () { btn.textContent = 'Select and copy manually'; });
-    });
+  if (host && host.getAttribute('data-survey') === 'alumni') {
+    // the alumni page: the form once, no scrolling
     render('alumni', true);
   } else {
     var initial = (location.hash || '').replace('#', '');

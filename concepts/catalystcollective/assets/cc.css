@@ -506,3 +506,9 @@ button.tile[aria-pressed="true"]{border-color:var(--eo);box-shadow:0 0 0 1px var
 /* 3.2.0: the offer attached to the alumni survey (above the name and email fields, and under the readable list) */
 .cc .offer{background:var(--tint);border-left:3px solid var(--eo);border-radius:0 10px 10px 0;padding:12px 16px;margin:0 0 16px;color:var(--ink);font-size:15.5px;line-height:1.55}
 .cc .offer b{color:var(--eo-d)}
+
+/* 3.3.0: survey form headers without inline styles */
+.cc .field .ql{margin:0 0 8px}
+.cc .sv-status{margin:0 0 4px}
+.cc .sv-head{margin-top:22px}
+.cc .sv-meta{margin:6px 0 4px}

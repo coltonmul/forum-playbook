@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """build-catalyst.py: builds the Catalyst Collective pages for BOTH of their homes from one set of sources.
-VERSION 3.2.1 (2026-11-03)
+VERSION 3.3.0 (2026-11-03)
 
   python3 tools/build-catalyst.py            build every page for both homes, patch the /concepts/ footers, run the guards
 
@@ -30,6 +30,8 @@ script writes it into every Catalyst page and patches it into /concepts/, /conce
 (2.1.1: Regional Training Days became the Regional Training Experience at that address; the old path is a redirect stub and is left alone.)
 
 Changelog
+  3.3.0  The alumni survey page is the three points of the survey and the form, once: no readable list, no note under
+         every question, no audience-and-purpose box (Colton, 2026-11-03).
   3.2.1  Same pages, new asset addresses: the mirror's CDN had cached the 3.2.0 survey script before it landed.
   3.2.0  The price question offers $2,500 to $4,000 and nothing lower, and the alumni survey carries the first-year offer
          for an honest answer with a name and email (Colton's pricing note, 2026-11-03).
@@ -54,7 +56,7 @@ import icon as _icon  # noqa: E402
 # the one visitor-counter line every forumplaybook.com page carries (copied from timer.html)
 COUNTER = "<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{\"token\": \"c20145f631df48ff8dc17a09c0c3fcdb\"}'></script><!-- End Cloudflare Web Analytics -->"
 
-VERSION = "3.2.1"
+VERSION = "3.3.0"
 OLD = "https://catalystcollective.pages.dev"
 STAMP = "Updated " + subprocess.check_output(["date", "+%a / %Y-%m-%d / %-I:%M %p CT"], text=True).strip()
 
@@ -109,6 +111,8 @@ SITE_PAGES = [
 
 # version, date, the short line (every footer), the full note (Feedback + changelog page, folded under the short line)
 CHANGELOG = [
+    ("3.3.0", "Tue / 2026-11-03", "the alumni survey page is three bullets on what the survey asks and then the twelve questions, once; the readable list, the note under every question and the audience-and-purpose box are gone.",
+     "Colton's note on November 3: nobody reads a preamble above every question, and showing the same survey twice (a readable list, then the form) forces people to read far too much. The page now opens with three bullets, one per section of the survey (where you are today; what Catalyst and Bridge did for you; the Collective, and the price), and then the form, with a one-line status in place of the audience-and-purpose box. The sections went from four to three to match the bullets; the twelve questions, their order and the offer are unchanged. The links to the earlier drafts are one line under the form."),
     ("3.2.1", "Tue / 2026-11-03", "same pages as 3.2.0 with new asset addresses, so the mirror serves the new survey script at once.",
      "The mirror's content network had cached the 3.2.0 survey script under its new address before the deploy finished, so the pages were rebuilt under 3.2.1 to get fresh addresses. No content change."),
     ("3.2.0", "Tue / 2026-11-03", "the price question on the alumni and graduating-class surveys offers $2,500, $3,000, $3,500 and $4,000 and nothing lower; the alumni survey adds an offer: an honest answer with a name and email earns the first year at the $2,500 price.",
