@@ -14,11 +14,15 @@ const CONFIG = {
 // Enabled APIs: Google Drive API v3 + YouTube Data API v3
 GOOGLE_API_KEY: 'AIzaSyD-DZWNK5YL8qgVzAVCv0qt87VHGnykh8Y',
 // ── Core Resources ──────────────────────────────────────
-// These cards appear in the "Core Resources" section above the Resource Library.
-// type: 'doc' = Google Doc (downloads as DOCX + PDF)
-// type: 'sheet' = Google Sheet (downloads as XLSX + PDF)
-// type: 'links' = External link card - supply `links: [{label, url}]` instead of fileId
-// type: 'file' = A file housed on this site - supply `url` (download + open buttons)
+// CORE_RESOURCES: the featured Forum Playbook cards at the top of the homepage
+// (Colton, 2026-11-04: feature the items that are on Playbook, more of them, each with a Preview).
+// OTHER_RESOURCES: useful documents that are not Forum Playbook-made, in the smaller
+// "Other Resources" row under the featured cards.
+// type: 'doc' = Google Doc (downloads as DOCX + PDF; preview = the Drive thumbnail of page one)
+// type: 'sheet' = Google Sheet (downloads as XLSX + PDF; preview = the Drive thumbnail)
+// type: 'links' = External link card - supply `links: [{label, url}]` instead of fileId (no preview)
+// type: 'file' = A file housed on this site - supply `url` (download + open buttons),
+//   `preview` (page-one PNG, built by tools/build-previews.py) and optionally `web` (the HTML version).
 // bullets: two to four short lines under the title saying what the resource is (Colton, 2026-10-27).
 // Update fileId here if you ever replace these files in Drive.
 // The official EO documents live in the library's own bucket (EO Legal), not up here.
@@ -45,16 +49,96 @@ url: 'https://apps.apple.com/us/app/forum-playbook/id6789998894',
 ],
 },
 {
+title: 'The 4-Hour Forum Meeting Blueprint',
+badge: 'ONE-PAGER · PDF',
+type: 'file',
+url: '/one-pagers/4-hour-forum-meeting-blueprint-v1.0.pdf',
+web: '/one-pagers/4-hour-forum-meeting-blueprint-v1.0.html',
+preview: '/previews/4-hour-forum-meeting-blueprint-v1.0.png',
+bullets: [
+'Hour 1: opening rituals, clearing round, and 5% reflections',
+'Hour 2: the planned deep dive, coached a week ahead',
+'Hours 3-4: the impromptu queue, EQ topics first, then IQ lightning rounds',
+'Close: confirm next month\'s presenter, coach, and host',
+],
+},
+{
 title: '5% Reflection Worksheet',
 badge: 'PDF · PRINT OR GOODNOTES',
 type: 'file',
 url: '/worksheets/5-percent-reflection-sheet.pdf',
+preview: '/previews/5-percent-reflection-sheet.png',
 bullets: [
 'EQ up top: three 5% topics, from headline to what you realize about yourself',
 'IQ at the bottom: 1-2 learning topics to bring to the room',
 'Your four ratings and next month\'s wager',
 ],
 },
+{
+title: 'Clearing Round & Repair Process',
+badge: 'GOOGLE DOC',
+bullets: [
+'3 to 5 minutes in every forum meeting',
+'What the healthiest forums do',
+'Word-for-word steps for repairing a conflict',
+],
+fileId: '18GbUZDJoT__ETZ2b2hSVgOZXOrKp4Z9aM-jke5NLiUc',
+type: 'doc',
+},
+{
+title: 'EQ vs IQ Topics',
+badge: 'ONE-PAGER · PDF',
+type: 'file',
+url: '/one-pagers/eq-vs-iq-topics-v1.0.pdf',
+web: '/one-pagers/eq-vs-iq-topics-v1.0.html',
+preview: '/previews/eq-vs-iq-topics-v1.0.png',
+bullets: [
+'Match the size of the conversation to the kind of topic',
+'EQ topics, the whys, get a 30-40 minute deep dive',
+'IQ topics, the what and the how, get 10-12 minute lightning rounds',
+],
+},
+{
+title: 'Open Coaching',
+badge: 'ONE-PAGER · PDF',
+type: 'file',
+url: '/one-pagers/open-coaching-v4.0.pdf',
+web: '/one-pagers/open-coaching-v4.0.html',
+preview: '/previews/open-coaching-v4.0.png',
+bullets: [
+'Four opening questions: headline, three emotions, one year from now, and the experiences they are curious to hear',
+'Questions that split the topic to find the core struggle',
+'Close with the prompt, then silence and experience shares',
+],
+},
+{
+title: 'The Retreat Thirds Rule',
+badge: 'ONE-PAGER · PDF',
+type: 'file',
+url: '/one-pagers/retreat-thirds-rule-v1.0.pdf',
+web: '/one-pagers/retreat-thirds-rule-v1.0.html',
+preview: '/previews/retreat-thirds-rule-v1.0.png',
+bullets: [
+'One third exercises, one third activities, one third unstructured time',
+'Front-load the heavy exercises on day one',
+'What keeps a retreat from souring',
+],
+},
+{
+title: 'Ikigai Worksheet',
+badge: 'RETREAT · 11X17 PDF',
+type: 'file',
+url: '/worksheets/ikigai-worksheet-11x17.pdf',
+preview: '/previews/ikigai-worksheet-11x17.png',
+landscape: true,
+bullets: [
+'Eight prompts on what you love, what you are good at, and what the world needs',
+'The four circles show where your ikigai sits',
+'Three actions to take, and how the forum can support you',
+],
+},
+],
+OTHER_RESOURCES: [
 {
 title: 'Nashville Forum Constitution Template',
 badge: 'GOOGLE DOC',
@@ -77,17 +161,6 @@ bullets: [
 ],
 fileId: '1KbdvEq8kFxR9yOO-J0p76oj4KLBVzmVyyk1FLCY60Zg',
 type: 'sheet',
-},
-{
-title: 'Clearing Round & Repair Process',
-badge: 'GOOGLE DOC',
-bullets: [
-'3 to 5 minutes in every forum meeting',
-'What the healthiest forums do',
-'Word-for-word steps for repairing a conflict',
-],
-fileId: '18GbUZDJoT__ETZ2b2hSVgOZXOrKp4Z9aM-jke5NLiUc',
-type: 'doc',
 },
 ],
 // ── Root Drive Folder ───────────────────────────────────

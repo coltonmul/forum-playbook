@@ -461,7 +461,7 @@ try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.document
      Kept here, next to the cards, because styles.css is held by the IN FLIGHT mobile repair.
      Legibility law: 12px and up, contrast computed on white (deep dust 10.6:1, brick 6.0:1),
      44px targets. The bullets sit left-aligned under the centered title; buttons pin to the
-     bottom so the cards line up. Five cards: five across from 1321px, three, two, then one. ── */
+     bottom so the cards line up. Column counts: see FEATURED + PREVIEW below. ── */
   .core-card .core-badge { font-size: 12px; letter-spacing: 0.1em; color: var(--brick); border-color: var(--brick); padding: 3px 8px; }
   .core-card .card-title { text-align: center; margin-bottom: 12px; }
   .core-bullets { list-style: none; margin: 0 0 18px; padding: 0; width: 100%; text-align: left; }
@@ -470,12 +470,76 @@ try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.document
   .core-card .card-btns { margin-top: auto; }
   .core-card .card-btns .btn, .core-card-links .core-links-btns .btn { font-size: 12px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; }
   .core-card .card-btns .btn { white-space: nowrap; letter-spacing: 0.04em; padding: 6px 2px; }
-  @media (min-width: 1321px) { .core-grid { grid-template-columns: repeat(5, 1fr); } }
-  @media (max-width: 1320px) { .core-grid { grid-template-columns: repeat(3, 1fr); } }
-  @media (max-width: 1000px) { .core-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (max-width: 620px) { .core-grid { grid-template-columns: 1fr; } }
+  /* ── FEATURED + PREVIEW (Colton, 2026-11-04): eight Forum Playbook cards, four across from
+     1100px, two, then one; every card with a document gets a full-width Preview button that opens
+     the library's preview sheet in its large form (page one, sharp, with the download buttons).
+     Under them, "Other Resources": the documents that are not Forum Playbook-made, as smaller
+     side-icon cards. Close is 44px and stays on screen on a phone; reduced motion drops the fade. ── */
+  .core-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  @media (max-width: 1099px) { .core-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 620px) { .core-grid { grid-template-columns: minmax(0, 1fr); } }
+  .core-section-header .section-tag { font-size: 12px; color: var(--brick); border-color: var(--brick); }
+  .core-actions { margin-top: auto; width: 100%; display: flex; flex-direction: column; gap: 8px; }
+  .core-card .core-actions .card-btns { margin-top: 0; }
+  .core-card .core-preview-btn { width: 100%; font-size: 12px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; letter-spacing: 0.06em; }
+  .core-preview-btn span { display: inline-flex; align-items: center; gap: 7px; }
+  .core-eye { flex: none; }
+  .other-head { display: flex; align-items: center; gap: 12px; padding: 22px 40px 14px; background: var(--linen-dark); }
+  .other-title { margin: 0; font-family: var(--font-display); font-size: 22px; font-weight: 700; letter-spacing: 0.02em; color: var(--pitch); white-space: nowrap; }
+  .core-grid.other-grid { border-top: 0; padding-top: 0; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .core-card-other { display: grid; grid-template-columns: 56px minmax(0, 1fr); column-gap: 14px; text-align: left; align-items: start; }
+  .core-card-other .core-icon-wrap { grid-column: 1; grid-row: 1 / span 4; margin: 0; }
+  .core-card-other .core-icon-wrap svg { width: 44px; height: 44px; }
+  .core-card-other .core-badge { grid-column: 2; justify-self: start; margin-bottom: 8px; }
+  .core-card-other .card-title { grid-column: 2; text-align: left; margin-bottom: 8px; }
+  .core-card-other .core-bullets { grid-column: 2; margin-bottom: 12px; }
+  .core-card-other .core-actions { grid-column: 2; flex-direction: row; flex-wrap: wrap; }
+  .core-card-other .core-preview-btn { width: auto; flex: 1 1 140px; }
+  .core-card-other .core-actions .card-btns { flex: 3 1 260px; }
+  @media (max-width: 760px) {
+    .other-head { padding: 18px 20px 12px; flex-wrap: wrap; }
+    .core-grid.other-grid { grid-template-columns: minmax(0, 1fr); }
+    .core-card-other { grid-template-columns: 44px minmax(0, 1fr); column-gap: 12px; }
+    .core-card-other .core-icon-wrap svg { width: 36px; height: 36px; }
+    .core-card-other .core-actions { grid-column: 1 / -1; }
+  }
+  /* the preview sheet, large form */
+  .fx-sheet-close { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--deep-dust); z-index: 3; }
+  .fx-sheet-close:hover { color: var(--brick); }
+  .fx-sheet-close:focus-visible, .fx-sheet .btn:focus-visible, .core-preview-btn:focus-visible { outline: 2px solid var(--brick); outline-offset: 2px; }
+  .fx-sheet .fx-thumb-cap, .fx-sheet .fx-peek-load { font-size: 12px; color: #5A5048; }
+  .fx-sheet-large { max-width: 1120px; padding: 54px 28px 26px; }
+  .fx-sheet-large .fx-prev { grid-template-columns: minmax(0, 1.55fr) minmax(250px, 1fr); gap: 30px; }
+  .fx-sheet-large .fx-thumb { height: auto; min-height: 320px; display: block; background: #fff; box-shadow: 0 6px 22px rgba(0,0,0,0.12); }
+  .fx-sheet-large .fx-thumb .fx-peek-load { display: flex; align-items: center; justify-content: center; min-height: 320px; }
+  .fx-sheet-large .fx-thumb img { width: 100%; height: auto; max-height: calc(90vh - 130px); object-fit: contain; object-position: top center; }
+  .fx-sheet-large.fx-sheet-landscape .fx-prev { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .fx-sheet-large.fx-sheet-landscape .fx-thumb { width: fit-content; max-width: 100%; margin: 0 auto; }
+  .fx-sheet-large.fx-sheet-landscape .fx-thumb img { width: auto; max-width: 100%; max-height: calc(90vh - 340px); margin: 0 auto; }
+  .fx-sheet-large.fx-sheet-landscape .fx-thumb-cap { text-align: center; }
+  .fx-sheet-large .fx-prev-badge { margin-bottom: 10px; font-size: 12px; letter-spacing: 0.1em; color: var(--brick); border-color: var(--brick); padding: 3px 8px; }
+  .fx-sheet-large .fx-prev-title { font-size: 30px; line-height: 1.05; margin-bottom: 12px; }
+  .fx-sheet-large .fx-prev-bullets { margin-bottom: 18px; }
+  .fx-sheet-large .fx-btns-big .btn { font-size: 12px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; padding: 6px 14px; }
+  @media (max-width: 880px) {
+    .fx-sheet { padding: 10px; align-items: flex-start; }
+    .fx-sheet-panel { max-height: calc(100vh - 20px); max-height: calc(100dvh - 20px); }
+    .fx-sheet-large { padding: 58px 14px 18px; }
+    .fx-sheet-large .fx-prev { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+    .fx-sheet-large .fx-thumb img, .fx-sheet-large.fx-sheet-landscape .fx-thumb img { max-height: none; }
+    .fx-sheet-large .fx-sheet-close { position: fixed; top: 18px; right: 18px; background: #fff; border: 0.5px solid #8A8070; }
+    .fx-sheet-large .fx-prev-title { font-size: 24px; }
+  }
+  @media (prefers-reduced-motion: reduce) { .fx-sheet { transition: none; } }
   </style>
-  <div class="cards core-grid" id="core-grid" aria-label="Core resource cards"></div>
+  <div class="cards core-grid" id="core-grid" aria-label="Featured Forum Playbook resources"></div>
+  <div id="other-resources">
+    <div class="other-head">
+      <h3 class="other-title">OTHER RESOURCES</h3>
+      <div class="section-rule"></div>
+    </div>
+    <div class="cards core-grid other-grid" id="other-grid" aria-label="Other resources"></div>
+  </div>
 </section>
 
 <!-- RESOURCE LIBRARY -->
@@ -569,7 +633,7 @@ try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.document
     <a href="/brand" class="footer-link">Brand</a>
     <a href="/legal" class="footer-link">Legal</a>
   </div>
-  <div class="footer-copy">© 2026 Forum Playbook · V3 BETA LANE · REGENERATED SAT / 2026-10-31 / 9:52 AM CT</div>
+  <div class="footer-copy">© 2026 Forum Playbook · V3 BETA LANE · REGENERATED WED / 2026-11-04 / 4:31 PM CT</div>
 </footer>
 
 <script>
@@ -609,8 +673,8 @@ try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.document
   }
 })();
 </script>
-<script src="/config.js?v=2026-10-27c"></script>
-<script src="/app.js?v=2026-10-27b"></script>
+<script src="/config.js?v=2026-11-04"></script>
+<script src="/app.js?v=2026-11-04"></script>
 <script src="/sting.js" defer></script>
 <script src="/podcasts.js"></script>
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c20145f631df48ff8dc17a09c0c3fcdb"}'></script><!-- End Cloudflare Web Analytics -->

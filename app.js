@@ -61,25 +61,77 @@ async function init() {
 // ════════════════════════════════════════════════════════════
 function renderCoreResources() {
   if (!coreGrid || !CONFIG.CORE_RESOURCES || !CONFIG.CORE_RESOURCES.length) return;
-  coreGrid.innerHTML = CONFIG.CORE_RESOURCES.map(r => buildCoreCardHTML(r)).join('');
-  coreGrid.querySelectorAll('[data-download-url]').forEach(btn => {
+  coreGrid.innerHTML = CONFIG.CORE_RESOURCES.map((r, i) => buildCoreCardHTML(r, 'core:' + i)).join('');
+  wireCoreCards(coreGrid);
+  // Other Resources: useful documents that are not Forum Playbook-made (Colton, 2026-11-04).
+  const otherGrid = document.getElementById('other-grid');
+  const others = CONFIG.OTHER_RESOURCES || [];
+  if (otherGrid && others.length) {
+    otherGrid.innerHTML = others.map((r, i) => buildCoreCardHTML(r, 'other:' + i, ' core-card-other')).join('');
+    wireCoreCards(otherGrid);
+  } else {
+    const wrap = document.getElementById('other-resources');
+    if (wrap) wrap.hidden = true;
+  }
+}
+
+function wireCoreCards(grid) {
+  grid.querySelectorAll('[data-download-url]').forEach(btn => {
     btn.addEventListener('click', e => {
       e.preventDefault();
       downloadFile(btn.dataset.downloadUrl, btn.dataset.filename);
     });
   });
+  grid.querySelectorAll('[data-core-preview]').forEach(btn => {
+    btn.addEventListener('click', () => openCorePreview(btn.dataset.corePreview, btn));
+  });
 }
 
-function buildCoreCardHTML(resource) {
+function coreResourceByKey(key) {
+  const [list, idx] = key.split(':');
+  const arr = list === 'other' ? CONFIG.OTHER_RESOURCES : CONFIG.CORE_RESOURCES;
+  return arr ? arr[Number(idx)] : null;
+}
+
+// The buttons that take the document: on the card and again inside the preview.
+function coreDocButtonsHTML(resource) {
+  let buttons = '';
+  if (resource.type === 'file') {
+    buttons += `<a href="${resource.url}" download class="btn btn-primary sh warm"><span>↓ PDF</span></a>`;
+    buttons += `<a href="${resource.url}" class="btn sh warm" target="_blank" rel="noopener"><span>↗ Open</span></a>`;
+  } else if (resource.type === 'doc' || resource.type === 'sheet') {
+    const base     = `https://www.googleapis.com/drive/v3/files/${resource.fileId}/export?key=${CONFIG.GOOGLE_API_KEY}`;
+    const driveUrl = `https://drive.google.com/open?id=${resource.fileId}`;
+    const pdfUrl   = `${base}&mimeType=application/pdf`;
+    if (resource.type === 'doc') {
+      const docxUrl = `${base}&mimeType=application/vnd.openxmlformats-officedocument.wordprocessingml.document`;
+      buttons += btnDownload('↓ DOCX', docxUrl, `${resource.title}.docx`, 'primary');
+    } else {
+      const xlsxUrl = `${base}&mimeType=application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`;
+      buttons += btnDownload('↓ XLSX', xlsxUrl, `${resource.title}.xlsx`, 'primary');
+    }
+    buttons += btnDownload('↓ PDF', pdfUrl, `${resource.title}.pdf`, 'secondary');
+    buttons += coreBtnGhost('↗ GDrive', driveUrl);
+  }
+  return buttons;
+}
+
+function corePreviewSrc(resource) {
+  if (resource.type === 'file') return resource.preview || '';
+  if (resource.fileId) return `https://drive.google.com/thumbnail?id=${resource.fileId}&sz=w1400`;
+  return '';
+}
+
+function buildCoreCardHTML(resource, key, cardClass) {
   const badge      = resource.badge || 'CORE RESOURCE';
   let icon         = '';
   let buttons      = '';
-  let extraClass   = '';
+  let extraClass   = cardClass || '';
   let btnsClass    = '';
 
   if (resource.type === 'links') {
     icon       = resource.icon === 'timer' ? coreIconTimer() : coreIconLinks();
-    extraClass = ' core-card-links';
+    extraClass += ' core-card-links';
     btnsClass  = ' core-links-btns';
     buttons    = (resource.links || []).map((l, i) => {
       const style = i === 0 ? 'primary' : 'secondary';
@@ -88,29 +140,16 @@ function buildCoreCardHTML(resource) {
       const external = /^https?:/i.test(l.url);
       return `<a href="${l.url}" class="${cls}"${external ? ' target="_blank" rel="noopener"' : ''}><span>${l.label}</span></a>`;
     }).join('');
-  } else if (resource.type === 'file') {
-    // A file housed on this site (the 5% Reflection Sheet PDF): download it, or open it in a tab.
-    icon     = coreIconDoc();
-    buttons += `<a href="${resource.url}" download class="btn btn-primary sh warm"><span>↓ PDF</span></a>`;
-    buttons += `<a href="${resource.url}" class="btn sh warm" target="_blank" rel="noopener"><span>↗ Open</span></a>`;
   } else {
-    const base     = `https://www.googleapis.com/drive/v3/files/${resource.fileId}/export?key=${CONFIG.GOOGLE_API_KEY}`;
-    const driveUrl = `https://drive.google.com/open?id=${resource.fileId}`;
-    icon = resource.type === 'doc' ? coreIconDoc() : coreIconSheet();
-    if (resource.type === 'doc') {
-      const docxUrl = `${base}&mimeType=application/vnd.openxmlformats-officedocument.wordprocessingml.document`;
-      const pdfUrl  = `${base}&mimeType=application/pdf`;
-      buttons += btnDownload('↓ DOCX', docxUrl, `${resource.title}.docx`, 'primary');
-      buttons += btnDownload('↓ PDF',  pdfUrl,  `${resource.title}.pdf`,  'secondary');
-      buttons += coreBtnGhost('↗ GDrive', driveUrl);
-    } else if (resource.type === 'sheet') {
-      const xlsxUrl = `${base}&mimeType=application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`;
-      const pdfUrl  = `${base}&mimeType=application/pdf`;
-      buttons += btnDownload('↓ XLSX', xlsxUrl, `${resource.title}.xlsx`, 'primary');
-      buttons += btnDownload('↓ PDF',  pdfUrl,  `${resource.title}.pdf`,  'secondary');
-      buttons += coreBtnGhost('↗ GDrive', driveUrl);
-    }
+    icon    = resource.type === 'sheet' ? coreIconSheet() : coreIconDoc();
+    buttons = coreDocButtonsHTML(resource);
   }
+
+  // Preview: every card with a document opens a large look at page one (Colton, 2026-11-04:
+  // "so people don't have to download it to see what it is").
+  const preview = corePreviewSrc(resource)
+    ? `<button type="button" class="btn btn-ghost sh cool core-preview-btn" data-core-preview="${key}" aria-haspopup="dialog"><span>${eyeIcon()} Preview</span></button>`
+    : '';
 
   return `
     <div class="card core-card${extraClass}">
@@ -122,9 +161,36 @@ function buildCoreCardHTML(resource) {
       ${resource.bullets && resource.bullets.length
         ? `<ul class="core-bullets">${resource.bullets.map(t => `<li>${t}</li>`).join('')}</ul>`
         : `<div class="card-meta">${resource.subtitle || ''}</div>`}
-      <div class="card-btns${btnsClass}">${buttons}</div>
+      <div class="core-actions">
+        ${preview}
+        <div class="card-btns${btnsClass}">${buttons}</div>
+      </div>
     </div>
   `;
+}
+
+function eyeIcon() {
+  return `<svg class="core-eye" width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M1 8s2.6-5 7-5 7 5 7 5-2.6 5-7 5-7-5-7-5z" stroke="currentColor" stroke-width="1.2"/><circle cx="8" cy="8" r="2.2" stroke="currentColor" stroke-width="1.2"/></svg>`;
+}
+
+// Large preview of a featured card's document, in the library's preview sheet.
+function openCorePreview(key, opener) {
+  const r = coreResourceByKey(key);
+  if (!r) return;
+  let buttons = coreDocButtonsHTML(r);
+  if (r.web) buttons += coreBtnGhost('↗ Web Version', r.web);
+  const kind = r.type === 'sheet' ? 'the first tab' : 'page one';
+  openPreviewSheet({
+    title: r.title,
+    badge: r.badge || '',
+    bullets: r.bullets || [],
+    thumb: corePreviewSrc(r),
+    cap: `Preview: ${kind}`,
+    buttons,
+    large: true,
+    landscape: !!r.landscape,
+    opener,
+  });
 }
 
 function coreBtnGhost(label, url) {
@@ -493,8 +559,20 @@ function findFileById(id) {
 function openSheet(id) {
   const file = findFileById(id);
   if (!file) return;
+  openPreviewSheet({
+    title: cleanFileName(file.name),
+    desc: `${getMimeLabel(file.mimeType)}. Look it over, then take it in the format you want.`,
+    thumb: thumbSrc(file, 640),
+    cap: 'Preview: the document you are about to get',
+    buttons: buildDocButtonsHTML(file),
+  });
+}
+
+// One preview sheet for the library tiles and the featured cards: Close button, Esc,
+// a click on the backdrop, focus moved in, held inside with Tab, and returned on close.
+let sheetOpener = null;
+function openPreviewSheet(o) {
   hidePeek();
-  const title = cleanFileName(file.name);
   let sheet = document.getElementById('fxSheet');
   if (!sheet) {
     sheet = document.createElement('div');
@@ -502,20 +580,36 @@ function openSheet(id) {
     sheet.className = 'fx-sheet';
     document.body.appendChild(sheet);
     sheet.addEventListener('click', e => { if (e.target === sheet || e.target.closest('.fx-sheet-close')) closeSheet(); });
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeSheet(); });
+    document.addEventListener('keydown', e => {
+      if (!sheet.classList.contains('on')) return;
+      if (e.key === 'Escape') { closeSheet(); return; }
+      if (e.key === 'Tab') {
+        const f = [...sheet.querySelectorAll('a[href], button:not([disabled])')].filter(el => el.offsetParent !== null);
+        if (!f.length) return;
+        const first = f[0], last = f[f.length - 1];
+        if (e.shiftKey && (document.activeElement === first || !sheet.contains(document.activeElement))) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && (document.activeElement === last || !sheet.contains(document.activeElement))) { e.preventDefault(); first.focus(); }
+      }
+    });
   }
+  sheetOpener = o.opener || document.activeElement;
+  const cls = 'fx-sheet-panel' + (o.large ? ' fx-sheet-large' : '') + (o.landscape ? ' fx-sheet-landscape' : '');
+  const desc = o.bullets && o.bullets.length
+    ? `<ul class="core-bullets fx-prev-bullets">${o.bullets.map(t => `<li>${t}</li>`).join('')}</ul>`
+    : `<div class="fx-prev-desc">${o.desc || ''}</div>`;
   sheet.innerHTML = `
-    <div class="fx-sheet-panel" role="dialog" aria-label="${title}">
-      <button class="fx-sheet-close" aria-label="Close preview">✕</button>
+    <div class="${cls}" role="dialog" aria-modal="true" aria-labelledby="fxSheetTitle">
+      <button type="button" class="fx-sheet-close" aria-label="Close preview"><span class="fx-sheet-close-word">Close</span> ✕</button>
       <div class="fx-prev">
-        <div>
-          <div class="fx-thumb" data-thumb="${thumbSrc(file, 640)}"></div>
-          <div class="fx-thumb-cap">Preview: the document you are about to get</div>
+        <div class="fx-prev-left">
+          <div class="fx-thumb" data-thumb="${o.thumb}"><span class="fx-peek-load">Loading preview</span></div>
+          <div class="fx-thumb-cap">${o.cap || ''}</div>
         </div>
         <div class="fx-prev-right">
-          <div class="fx-prev-title">${title}</div>
-          <div class="fx-prev-desc">${getMimeLabel(file.mimeType)}. Look it over, then take it in the format you want.</div>
-          <div class="fx-btns-big">${buildDocButtonsHTML(file)}</div>
+          ${o.badge ? `<div class="core-badge fx-prev-badge">${o.badge}</div>` : ''}
+          <div class="fx-prev-title" id="fxSheetTitle">${o.title}</div>
+          ${desc}
+          <div class="fx-btns-big">${o.buttons}</div>
         </div>
       </div>
     </div>`;
@@ -527,10 +621,15 @@ function openSheet(id) {
   });
   loadRowThumb(sheet);
   sheet.classList.add('on');
+  const close = sheet.querySelector('.fx-sheet-close');
+  requestAnimationFrame(() => { if (close) close.focus(); });
 }
 function closeSheet() {
   const sheet = document.getElementById('fxSheet');
-  if (sheet) sheet.classList.remove('on');
+  if (!sheet || !sheet.classList.contains('on')) return;
+  sheet.classList.remove('on');
+  if (sheetOpener && document.contains(sheetOpener)) sheetOpener.focus();
+  sheetOpener = null;
 }
 
 function loadRowThumb(row) {
