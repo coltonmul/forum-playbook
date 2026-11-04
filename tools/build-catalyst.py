@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """build-catalyst.py: builds the Catalyst Collective pages for BOTH of their homes from one set of sources.
-VERSION 3.3.0 (2026-11-03)
+VERSION 3.3.1 (2026-11-03)
 
   python3 tools/build-catalyst.py            build every page for both homes, patch the /concepts/ footers, run the guards
 
@@ -56,7 +56,7 @@ import icon as _icon  # noqa: E402
 # the one visitor-counter line every forumplaybook.com page carries (copied from timer.html)
 COUNTER = "<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{\"token\": \"c20145f631df48ff8dc17a09c0c3fcdb\"}'></script><!-- End Cloudflare Web Analytics -->"
 
-VERSION = "3.3.0"
+VERSION = "3.3.1"
 OLD = "https://catalystcollective.pages.dev"
 STAMP = "Updated " + subprocess.check_output(["date", "+%a / %Y-%m-%d / %-I:%M %p CT"], text=True).strip()
 
@@ -111,6 +111,8 @@ SITE_PAGES = [
 
 # version, date, the short line (every footer), the full note (Feedback + changelog page, folded under the short line)
 CHANGELOG = [
+    ("3.3.1", "Tue / 2026-11-03", "the three section headings on the alumni survey carry no numbers; only the questions are numbered.",
+     "The headings had been numbered 1 to 3 directly above questions numbered 1 to 12, which read as two numbering systems on one page."),
     ("3.3.0", "Tue / 2026-11-03", "the alumni survey page is three bullets on what the survey asks and then the twelve questions, once; the readable list, the note under every question and the audience-and-purpose box are gone.",
      "Colton's note on November 3: nobody reads a preamble above every question, and showing the same survey twice (a readable list, then the form) forces people to read far too much. The page now opens with three bullets, one per section of the survey (where you are today; what Catalyst and Bridge did for you; the Collective, and the price), and then the form, with a one-line status in place of the audience-and-purpose box. The sections went from four to three to match the bullets; the twelve questions, their order and the offer are unchanged. The links to the earlier drafts are one line under the form."),
     ("3.2.1", "Tue / 2026-11-03", "same pages as 3.2.0 with new asset addresses, so the mirror serves the new survey script at once.",

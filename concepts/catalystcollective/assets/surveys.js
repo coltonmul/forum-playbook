@@ -1,4 +1,4 @@
-/* Catalyst Collective sandbox: renders the four draft surveys as working forms. VERSION 2.5.0 (2026-11-03, Colton's note on the
+/* Catalyst Collective sandbox: renders the four draft surveys as working forms. VERSION 2.5.1 (2026-11-03, section headings carry no numbers, the questions do. 2.5.0, Colton's note on the
    alumni page: nobody reads a preamble above every question, and a survey shown twice is nuts. The alumni survey now has three
    sections instead of four, the per-question "why" notes are gone, the readable list is gone, and the alumni page renders the form
    once with a one-line status instead of the audience-and-purpose box. 2.4.0, 2026-11-03: the price question offers $2,500, $3,000,
@@ -52,17 +52,17 @@
       lean: true,
       incentive: OFFER,
       sections: [
-        { h: '1. Where you are today', q: [
+        { h: 'Where you are today', q: [
           { id: 'status', t: 'Where are you today?', type: 'single', o: ['Current Bridge member', 'Lapsed Bridge member', 'Catalyst graduate who never joined Bridge', 'Currently in Catalyst', 'EO member who came through Catalyst'] },
           { id: 'week', t: 'Which of these sounds most like your week?', type: 'single', o: WEEK },
           { id: 'growth', t: 'Is growing past $1M a goal you are actively pursuing, a someday thing, or not the point of your business?', type: 'single', o: ['Actively pursuing it', 'A someday thing', 'Not the point of my business'] }
         ] },
-        { h: '2. What Catalyst and Bridge did for you', q: [
+        { h: 'What Catalyst and Bridge did for you', q: [
           { id: 'hoped', t: 'What did you hope Catalyst or Bridge would do for you, and what is the one problem you most wanted help carrying?', type: 'text' },
           { id: 'rate', t: 'Rate the value you got from each part, 1 (none) to 5 (a lot).', type: 'rate', o: ['The classes', 'Your cohort or forum', 'Your mentor', 'Learning events', 'Social events'] },
           { id: 'gap', t: 'If you are or were in Bridge: what is the biggest gap, and did the format ever start to feel redundant? If you left or never joined: what would have kept you, or gotten you in?', type: 'text' }
         ] },
-        { h: '3. The Collective, and the price', q: [
+        { h: 'The Collective, and the price', q: [
           { id: 'value', t: 'EO Nashville is exploring how to expand the Catalyst experience beyond graduation. Having read the overview page or watched the 60-second explainer: does the Catalyst Collective represent real value to you? Why or why not?', type: 'text' },
           { id: 'room', t: 'Would you rather be in a room of people at your exact stage, or a mixed room that includes entrepreneurs further ahead?', type: 'single', o: ['A room at my exact stage', 'A mixed room, including people further ahead', 'No strong preference'] },
           { id: 'use', t: 'Which of these would you actually use? Check all that apply.', type: 'multi', o: USE },
