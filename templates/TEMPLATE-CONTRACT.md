@@ -1,4 +1,4 @@
-# FORUM PLAYBOOK One-Pager Template Contract v1.3
+# FORUM PLAYBOOK One-Pager Template Contract v1.7
 
 This file is the law. Any session producing a Forum Playbook one-pager must follow it exactly. If this contract and your instincts disagree, the contract wins. If this contract and a user request disagree, ask; do not silently deviate. Nothing outside an EDIT-SLOT may ever change.
 
@@ -31,7 +31,7 @@ Overflow protocol: if content does not fit on one page, CUT CONTENT (shorten cop
 | Brick | #B83A14 | Bold accent text at body sizes (step numbers, step leads, DON'T card heads) |
 | Teal | #3A8A8A | DO card heads (14pt+ bold only) |
 | Linen | #F0EBE0 | Callout block background only |
-| Dust | #C4B8A8 | Header/footer chrome runs and bottom-right corner ticks ONLY. Never body text. |
+| Dust | #C4B8A8 | Chrome separators (the │ runs and gaps) and bottom-right corner ticks ONLY. Never text anyone reads (v1.4). |
 | Deep Dust | #4A4038 | Intro paragraph, callout attributions, sources/footnote text |
 | Card border | #D4CCC0 | 0.5px card and callout borders |
 
@@ -48,7 +48,7 @@ Consolas is a system font; fallback stack is `Consolas, 'Menlo', 'Courier New', 
 |---|---|---|---|---|---|
 | H1 document title | Big Shoulders Display | 26pt | 900 | Pitch | ALL CAPS, letter-spacing -0.5px, line-height 1.0 |
 | H2 section head | Big Shoulders Display | 14pt | 700 | Burn | ALL CAPS, space before 14pt, after 5pt |
-| H2 aside (optional bracketed note) | Consolas | 7pt | 400 | Dust | as written, e.g. `[...and how to apologize like an adult.]` |
+| H2 aside (optional bracketed note) | Consolas | 8pt | 400 | Deep Dust | as written, e.g. `[...and how to apologize like an adult.]` (v1.4: was 7pt Dust, which Colton could not read) |
 | Body kicker (category) | Consolas | 7pt | 700 | Burn | `[ CATEGORY ]` with inner spaces, margin-bottom 2pt |
 | Intro paragraph | Roboto | 11pt | 400 | Deep Dust | sentence case, line-height 1.35 |
 | Body text / list items | Roboto | 10.5pt | 400 | Pitch | line-height 1.3, paragraph spacing 4pt |
@@ -74,14 +74,14 @@ One line, Consolas, white-space nowrap, in this exact order:
 | 3 | `   ` (3 spaces) | 5.5pt | 400 | Dust |
 | 4 | `[ CATEGORY ]` | 6pt | 700 | Burn |
 | 5 | `  │  ` | 6pt | 400 | Dust |
-| 6 | `DOCUMENT  ` | 5.5pt | 400 | Dust |
+| 6 | `DOCUMENT  ` | 5.5pt | 400 | Deep Dust |
 | 7 | TITLE IN CAPS | 6pt | 700 | Pitch |
 | 8 | `  │ ` | 6pt | 400 | Dust |
 | 9 | `vMAJOR.MINOR ` | 6pt | 700 | Pitch |
 | 10 | `│ ` | 6pt | 400 | Dust |
-| 11 | `Updated: Month Year ` | 6.5pt | 400 | Dust |
+| 11 | `Updated: Month Year ` | 6.5pt | 400 | Deep Dust |
 | 12 | `│ ` | 6pt | 400 | Dust |
-| 13 | `ForumPlaybook.com` | 6.5pt | 400 | Dust |
+| 13 | `ForumPlaybook.com` | 6.5pt | 400 | Deep Dust |
 
 Header title (run 7) is the document title, ALL CAPS, max 44 characters; abbreviate if longer. Every document carries a version and a category label in this header. No exceptions.
 
@@ -94,7 +94,7 @@ One line, Consolas, left group + right-aligned links (v1.3, Colton 2026-10-31: "
 | 1 | `⎇ ` | 7pt | 400 | Burn |
 | 2 | `FORUM PLAYBOOK  ` | 7pt | 700 | Pitch |
 | 3 | `The operating system and tools to make Forum easy and awesome.` | 6pt | 400 | Deep Dust |
-| 4 (right) | `builtbycolton.com / forumplaybook.com`, each name a link (https://builtbycolton.com, https://forumplaybook.com), no underline | 6.5pt | 400 | Deep Dust |
+| 4 (right) | `forumplaybook.com` over `builtbycolton.com`, stacked on two lines, right-aligned, each a link, no underline, no slash (v1.5) | 6.5pt | 400 | Deep Dust |
 
 Runs 3 and 4 moved from Dust to Deep Dust in v1.3 because the tagline and the links are read, and Dust on white is 1.9:1 (Deep Dust is 10.1:1). Google Docs editions use Roboto Mono for Consolas and put run 4 on its own right-aligned second line, because a Google Doc footer has no right tab the API can set.
 
@@ -111,9 +111,9 @@ An edition uses the intro plus 3 to 5 of these, in any order:
 
 1. **NUMBERED STEPS**: H2 + ordered list; Brick bold number and lead phrase, body text follows.
 2. **DO / DON'T COLUMNS**: two cards in a 1fr 1fr grid, Teal DO head, Brick DON'T head.
-3. **CALLOUT QUOTE**: Linen block, italic quote, Consolas attribution.
+3. **CALLOUT QUOTE**: Linen block, italic quote, Consolas attribution. Never a quote from Colton or credited to him, his trainings or his coaching (v1.7; Colton, 2026-11-05: "ditch the goofy quotes from me, I don't like that at all. It looks self aggrandizing."). A callout may quote an outside source or a member, named as such; example language a member can use goes in the steps, with no attribution.
 4. **PLAIN SECTION**: H2 + body paragraphs.
-5. **FOOTER NOTE (sources)**: Consolas 7pt line pinned above the footer chrome (margin-top auto). Every edition has one.
+5. **FOOTER NOTE (sources)**: Consolas 7pt line pinned above the footer chrome (margin-top auto). Optional since v1.5: only to credit someone outside Forum Playbook (section 14).
 
 No tables, no images, no charts, no new block types without amending this contract (bump its version).
 
@@ -125,7 +125,7 @@ Marked in the HTML with `<!-- EDIT-SLOT: ... -->` comments:
 |---|---|
 | CATEGORY | One label from the whitelist in section 10, in both header run 4 and the body kicker (they must match) |
 | TITLE | Document title, in header run 7 (caps, max 44 chars), the `<title>` tag, and the H1 |
-| VERSION | vMAJOR.MINOR in header run 9. New doc = v1.0. Copy edits = minor bump. Structure/meaning changes = major bump. |
+| VERSION | vMAJOR.MINOR in header run 9. New doc = v1.0. Copy edits = minor bump. Structure/meaning changes = major bump. Every version is its own file named with its version (open-coaching-v4.0.html/.pdf); the earlier file is never overwritten, and links move to the new file (v1.6). |
 | UPDATED | `Updated: Month Year` in header run 11 |
 | INTRO | The intro paragraph, 1 to 3 sentences |
 | BLOCKS | The content blocks area, using only section 8 block types |
@@ -154,8 +154,8 @@ Everything else, including all CSS, the chrome lines, the fonts link, and the pr
 4. Fonts: only Big Shoulders Display (headings), Roboto (body), Consolas stack (chrome). Zero DM Sans/DM Mono.
 5. Colors: only section 2 tokens; no Dust body text; no Burn below 14pt bold outside chrome/kicker.
 6. Square corners everywhere; burn corner tick on every card and callout.
-7. Print preview (or headless render) fits exactly one page at 100% scale with no clipped text.
-8. Sources line present.
+7. `python3 tools/docqa.py --pdf <file.html>` passes (section 14), and the session has read both images it lists: the full page and the bottom-band crop.
+8. Sources line only if it credits someone outside; one line (section 14).
 
 ## 13. Documents: the multi-page class (added v1.2, 2026-10-20)
 
@@ -167,9 +167,31 @@ A document (an agenda, a workbook, a worksheet, a handout, a facilitator's copy)
 4. **Writing space.** Open white space, no box and no lines, nothing written in it. Labels, placeholders and "open space" are banned, and so are boxes (Colton, 2026-10-20: "the boxes aren't working at all... do away with the boxes, you're going to have more space for everything to write in").
 5. **Page balance.** The writing space grows to fill the page it sits on, and the page count is fixed by the design (the Uncharted workbook is three pages), so a change of icon size or spacing is paid for in writing space, never in a fourth page. Short-answer prompts (a blank or two) sit at the bottom of their page, just above the footer chrome. A page is never left half empty with a section pushed onto the next one.
 8. **Air under the chrome.** The first line of every page (the title, or a page's first section head) sits 18pt below the header chrome, never tight against it.
-6. **Sources.** Only on a facilitator-facing document (an agenda, notes for Colton), as the last line of the last page, pinned just above the footer chrome. A client-facing document (a worksheet, a handout, anything a member holds) carries no sources line; the footer chrome is its signature, and since v1.3 that chrome carries builtbycolton.com. A document Colton adapted from others may carry one Consolas 7pt credit line under the title ("Adapted by Colton Mulligan, building on the work of many others.").
+6. **Sources.** Only on a facilitator-facing document (an agenda, notes for Colton), and only to credit someone outside (section 14), as the last line of the last page, pinned just above the footer chrome. A client-facing document (a worksheet, a handout, anything a member holds) carries no sources line; the footer chrome is its signature, and since v1.3 that chrome carries builtbycolton.com. A document Colton adapted from others may carry one Consolas 7pt credit line under the title ("Adapted by Colton Mulligan, building on the work of many others.").
 7. **Tables** are allowed on documents (an agenda grid, a numbers handout, a three-column moves grid): 0.5px #D4CCC0 hairlines, a Linen Dark #E8E2D6 head row in Consolas 7pt caps, Roboto 9.5pt cells, numbers right-aligned.
 
 Tools. HTML documents follow `onepager-template.html` with the `.page` block repeated per page; the Uncharted pre-work PDF (`forums/uncharted/pages/prework-pdf.html` in coltonmul/forum-playbook-forums) is the model. Word documents come from `Projects/ForumPlaybook.com/one-pager-system/docx-builder/make_fpdoc.py`, which builds on the master .docx run for run and embeds the icons as PNGs rendered by icon.py; its `specs/` folder holds the Uncharted set of 2026-10-20 (the Friday agenda, What Drives You, the survey handout) as the exemplars.
 
-Changelog: v1.3 (2026-10-31) section 6: the tagline becomes "The operating system and tools to make Forum easy and awesome." and the lower right reads builtbycolton.com / forumplaybook.com, both linked; runs 3 and 4 move to Deep Dust for contrast; section 13.6 allows a credit line under the title on adapted documents. Template, every one-pager, the 5% sheet, the six October drafts and the new Ikigai Worksheet re-rendered. v1.2 (2026-10-20) section 13, the multi-page document class: every page carries the chrome, no body kicker, Phosphor thin concept icons as dark-gray lines on section heads and prompts, open writing space (no boxes) that fills the page at a fixed page count, air under the chrome, short-answer prompts at the bottom, sources only on facilitator-facing documents, tables allowed; tools named (the HTML page pattern and the Word builder). No one-pager slot, token, geometry or block changed. v1.1 (2026-09-25) section 9 gains the fixed web line: the visitor counter, one locked line before `</body>` in the template and all four editions (queue row CWQ-166, Colton approved the counter 2026-09-18). No slot, token, geometry or block changed. v1.0 (2026-07-10) initial contract, built overnight from docx v1.1 measurements + Brand Guide v2.0.
+## 14. The sources line and the render check (added v1.4, 2026-10-31)
+
+Colton, 2026-10-31, on the 4-Hour Blueprint, whose three-line sources line was sliced in half at the bottom of the page: "it doesn't need to be three lines. It needs to fit on one line or less."
+
+**The sources line (v1.5).** Colton, 2026-10-31: "we only need to use sources when it's somebody outside. I actually think it looks kind of douchy to source the reference to myself when I'm already down there at the bottom."
+1. Only when crediting someone outside Forum Playbook: an idea adapted from another person ("Clearing formula adapted from Cesar Quintero."), or EO material named as such. No outside credit, no sources line.
+2. Never Colton himself, his trainings, his podcast, his workshops or Forum Playbook: the footer chrome already signs the page.
+3. One line or less at render (about 110 characters; the render check decides).
+4. Never companion documents, "pairs with", version history or where else to find it.
+5. When present, it sits directly above the footer chrome, last thing in the body.
+
+**The footer's right side (v1.5).** Colton, same day: "we can't have a slash there because that's used in the concept of URLs." forumplaybook.com sits over builtbycolton.com, stacked and right-aligned; the left group lines up with the first line. In Word, the second address follows a line break and a tab to the right tab stop.
+
+**Why the cut happened, and the render check.** `.doc-body` hides overflow, so content that runs a few pixels past the body box is cut silently instead of pushing anything to a second page; the page count stays one and the text layer still holds the words, so a page-count check and a text check both pass. The fix is to measure the layout, then look.
+
+Before any Forum Playbook PDF is posted, uploaded, sent or linked:
+1. Run `python3 tools/docqa.py --pdf <file.html>` (add `--pages N` for a multi-page document). It fails on: anything inside `.page` or `.doc-body` running past its box (clipped), a sources line over one line, crediting Colton or Forum Playbook, or not the last thing above the footer chrome, a slash in the footer, a page count off the spec, an em dash.
+2. Read both images it lists for every page: the full page at 150 dpi and the bottom band (the last 1.4 in) at 300 dpi. A cut line, a two-line sources line, a gap or an overlap at the footer, or any read text in light Dust is a fail even when every program check passed.
+3. The reply that delivers it says it passed docqa and names the images looked at.
+
+Word documents (make_fpdoc.py) follow the same sources rule; render them to PDF in Word and run steps 2 and 3 on that PDF.
+
+Changelog: v1.7 (2026-11-05) section 8: no callout quotes Colton or credits him; the pull quotes come off the four one-pagers, released as new files with the earlier ones kept: open-coaching-v4.1, eq-vs-iq-topics-v1.3, 4-hour-forum-meeting-blueprint-v1.3, retreat-thirds-rule-v1.3 (v1.3, not v1.2, because the MacBook holds unpushed v1.2 files under those names). Open Coaching's splitting questions move into the "Split the topic" step. v1.6 (2026-10-31) section 9: every version is its own file named with its version; the earlier file is never overwritten. Colton: "You should never have a 1.0 and then just replace that. That doesn't make any sense. It's not helpful at all. That's how things get confused." The four one-pagers move to open-coaching-v4.0, eq-vs-iq-topics-v1.2, 4-hour-forum-meeting-blueprint-v1.2 and retreat-thirds-rule-v1.2; the 5% sheet to 5-percent-reflection-sheet-v1.2, the Ikigai sheet to ikigai-worksheet-11x17-v1.1, the Word template to v1.2, the drafts to v0.2; the earlier files are back to what they were. v1.5 (2026-10-31) the sources line is optional and only credits someone outside Forum Playbook, never Colton; the footer's right side stacks forumplaybook.com over builtbycolton.com with no slash (section 6 run 4, the Word template footer too); docqa fails on either. Template, four one-pagers, six drafts, the 5% Reflection Sheet (v1.2) and the Ikigai Worksheet (v1.1) re-rendered; Open Coaching closes on the EQ deep dive experience-share language. v1.4 (2026-10-31) section 14: the sources line is one line or less, opens "Sources: Created by Colton Mulligan.", and carries only short real sources; tools/docqa.py is the render check (nothing clipped, sources one line, page count) plus a look at the full page and the bottom-band crop. H2 asides move to 8pt Deep Dust and header runs 6, 11 and 13 to Deep Dust (Colton: the bracketed context was "illegible based on the lightness"); Dust is for separators and ticks only. Template, four one-pagers (Open Coaching rebuilt as v4.0 from his recordings) and the six October drafts re-rendered. v1.3 (2026-10-31) section 6: the tagline becomes "The operating system and tools to make Forum easy and awesome." and the lower right reads builtbycolton.com / forumplaybook.com, both linked; runs 3 and 4 move to Deep Dust for contrast; section 13.6 allows a credit line under the title on adapted documents. Template, every one-pager, the 5% sheet, the six October drafts and the new Ikigai Worksheet re-rendered. v1.2 (2026-10-20) section 13, the multi-page document class: every page carries the chrome, no body kicker, Phosphor thin concept icons as dark-gray lines on section heads and prompts, open writing space (no boxes) that fills the page at a fixed page count, air under the chrome, short-answer prompts at the bottom, sources only on facilitator-facing documents, tables allowed; tools named (the HTML page pattern and the Word builder). No one-pager slot, token, geometry or block changed. v1.1 (2026-09-25) section 9 gains the fixed web line: the visitor counter, one locked line before `</body>` in the template and all four editions (queue row CWQ-166, Colton approved the counter 2026-09-18). No slot, token, geometry or block changed. v1.0 (2026-07-10) initial contract, built overnight from docx v1.1 measurements + Brand Guide v2.0.

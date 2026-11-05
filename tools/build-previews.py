@@ -17,10 +17,10 @@ LONG_EDGE = 1600  # px on the long side: sharp in a large overlay, light enough 
 PDFS = [
     'worksheets/5-percent-reflection-sheet.pdf',
     'worksheets/ikigai-worksheet-11x17.pdf',
-    'one-pagers/4-hour-forum-meeting-blueprint-v1.0.pdf',
-    'one-pagers/eq-vs-iq-topics-v1.0.pdf',
-    'one-pagers/open-coaching-v4.0.pdf',
-    'one-pagers/retreat-thirds-rule-v1.0.pdf',
+    'one-pagers/4-hour-forum-meeting-blueprint-v1.3.pdf',
+    'one-pagers/eq-vs-iq-topics-v1.3.pdf',
+    'one-pagers/open-coaching-v4.1.pdf',
+    'one-pagers/retreat-thirds-rule-v1.3.pdf',
 ]
 
 def render(rel):

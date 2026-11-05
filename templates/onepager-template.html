@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <!-- ============================================================
-     FORUM PLAYBOOK ONE-PAGER TEMPLATE v1.2
+     FORUM PLAYBOOK ONE-PAGER TEMPLATE v1.3
      Governed by TEMPLATE-CONTRACT.md in this folder. Read it first.
      ONLY regions marked EDIT-SLOT may be changed. Everything else,
      including every line of CSS below, is LOCKED.
@@ -56,10 +56,10 @@ body { font-family: var(--body); color: var(--pitch); }
 .h-gap   { font-size: 5.5pt; color: var(--dust); }
 .h-cat   { font-size: 6pt;   font-weight: 700; color: var(--burn); }
 .h-sep   { font-size: 6pt;   color: var(--dust); }
-.h-doc   { font-size: 5.5pt; color: var(--dust); }
+.h-doc   { font-size: 5.5pt; color: var(--deep-dust); }
 .h-title { font-size: 6pt;   font-weight: 700; color: var(--pitch); }
 .h-ver   { font-size: 6pt;   font-weight: 700; color: var(--pitch); }
-.h-meta  { font-size: 6.5pt; color: var(--dust); }
+.h-meta  { font-size: 6.5pt; color: var(--deep-dust); }
 
 /* Body zone starts 0.625in from top edge (0.492 + 0.133) */
 .doc-body { flex: 1 1 auto; display: flex; flex-direction: column;
@@ -74,8 +74,8 @@ h1 { font-family: var(--display); font-weight: 900; text-transform: uppercase;
 h2 { font-family: var(--display); font-weight: 700; text-transform: uppercase;
      font-size: 14pt; letter-spacing: 0.02em; color: var(--burn);
      margin: 14pt 0 5pt; }
-.h2-aside { font-family: var(--chrome); font-size: 7pt; font-weight: 400;
-            color: var(--dust); text-transform: none; letter-spacing: 0; }
+.h2-aside { font-family: var(--chrome); font-size: 8pt; font-weight: 400;
+            color: var(--deep-dust); text-transform: none; letter-spacing: 0; }
 p, li { font-size: 10.5pt; line-height: 1.3; margin-bottom: 4pt; }
 
 /* Block: numbered steps */
@@ -124,7 +124,7 @@ p, li { font-size: 10.5pt; line-height: 1.3; margin-bottom: 4pt; }
 .f-mark { font-size: 7pt; color: var(--burn); }
 .f-name { font-size: 7pt; font-weight: 700; color: var(--pitch); }
 .f-tag  { font-size: 6pt; color: var(--deep-dust); }
-.f-url  { font-size: 6.5pt; color: var(--deep-dust); }
+.f-url  { font-size: 6.5pt; color: var(--deep-dust); display: flex; flex-direction: column; align-items: flex-end; line-height: 1.35; }
 .f-url a { color: inherit; text-decoration: none; }
 
 /* Print button (screen only) */
@@ -211,13 +211,13 @@ p, li { font-size: 10.5pt; line-height: 1.3; margin-bottom: 4pt; }
     <!-- /EDIT-SLOT:BLOCKS -->
 
     <!-- EDIT-SLOT:FOOTNOTE (BLOCK TYPE 5, required on every edition) -->
-    <div class="sources"><b>Sources:</b> Document created by Colton Mulligan for Forum Playbook; note any adapted concepts and their originators here.</div>
+    <!-- Only when crediting someone outside Forum Playbook, never Colton himself, one line: <div class="sources"><b>Sources:</b> Clearing formula adapted from Cesar Quintero.</div> -->
     <!-- /EDIT-SLOT:FOOTNOTE -->
 
   </main>
 
   <!-- LOCKED: footer chrome. Never changes. -->
-  <footer class="doc-footer"><span><span class="f-mark">⎇ </span><span class="f-name">FORUM PLAYBOOK&nbsp;&nbsp;</span><span class="f-tag">The operating system and tools to make Forum easy and awesome.</span></span><span class="f-url"><a href="https://builtbycolton.com">builtbycolton.com</a>&nbsp;/&nbsp;<a href="https://forumplaybook.com">forumplaybook.com</a></span></footer>
+  <footer class="doc-footer"><span><span class="f-mark">⎇ </span><span class="f-name">FORUM PLAYBOOK&nbsp;&nbsp;</span><span class="f-tag">The operating system and tools to make Forum easy and awesome.</span></span><span class="f-url"><a href="https://forumplaybook.com">forumplaybook.com</a><a href="https://builtbycolton.com">builtbycolton.com</a></span></footer>
 
 </div>
 
