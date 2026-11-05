@@ -16,6 +16,8 @@ GOOGLE_API_KEY: 'AIzaSyD-DZWNK5YL8qgVzAVCv0qt87VHGnykh8Y',
 // ── Core Resources ──────────────────────────────────────
 // CORE_RESOURCES: the featured Forum Playbook cards at the top of the homepage
 // (Colton, 2026-11-04: feature the items that are on Playbook, more of them, each with a Preview).
+// Order (Colton, 2026-11-05): the original top cards (Forum Timer, 5% Reflection Worksheet),
+// then Open Coaching (the four-questions version), then Clearing Round, then the rest.
 // OTHER_RESOURCES: useful documents that are not Forum Playbook-made, in the smaller
 // "Other Resources" row under the featured cards.
 // type: 'doc' = Google Doc (downloads as DOCX + PDF; preview = the Drive thumbnail of page one)
@@ -49,20 +51,6 @@ url: 'https://apps.apple.com/us/app/forum-playbook/id6789998894',
 ],
 },
 {
-title: 'The 4-Hour Forum Meeting Blueprint',
-badge: 'ONE-PAGER · PDF',
-type: 'file',
-url: '/one-pagers/4-hour-forum-meeting-blueprint-v1.3.pdf',
-web: '/one-pagers/4-hour-forum-meeting-blueprint-v1.3.html',
-preview: '/previews/4-hour-forum-meeting-blueprint-v1.3.png',
-bullets: [
-'Hour 1: opening rituals, clearing round, and 5% reflections',
-'Hour 2: the planned deep dive, coached a week ahead',
-'Hours 3-4: the impromptu queue, EQ topics first, then IQ lightning rounds',
-'Close: confirm next month\'s presenter, coach, and host',
-],
-},
-{
 title: '5% Reflection Worksheet',
 badge: 'PDF · PRINT OR GOODNOTES',
 type: 'file',
@@ -72,6 +60,19 @@ bullets: [
 'EQ up top: three 5% topics, from headline to what you realize about yourself',
 'IQ at the bottom: 1-2 learning topics to bring to the room',
 'Your four ratings and next month\'s wager',
+],
+},
+{
+title: 'Open Coaching',
+badge: 'ONE-PAGER · PDF',
+type: 'file',
+url: '/one-pagers/open-coaching-v4.1.pdf',
+web: '/one-pagers/open-coaching-v4.1.html',
+preview: '/previews/open-coaching-v4.1.png',
+bullets: [
+'Four opening questions: headline, three emotions, one year from now, and the experiences they are curious to hear',
+'Questions that split the topic to find the core struggle',
+'Close with the prompt, then silence and experience shares',
 ],
 },
 {
@@ -86,6 +87,20 @@ fileId: '18GbUZDJoT__ETZ2b2hSVgOZXOrKp4Z9aM-jke5NLiUc',
 type: 'doc',
 },
 {
+title: 'The 4-Hour Forum Meeting Blueprint',
+badge: 'ONE-PAGER · PDF',
+type: 'file',
+url: '/one-pagers/4-hour-forum-meeting-blueprint-v1.3.pdf',
+web: '/one-pagers/4-hour-forum-meeting-blueprint-v1.3.html',
+preview: '/previews/4-hour-forum-meeting-blueprint-v1.3.png',
+bullets: [
+'Hour 1: opening rituals, clearing round, and 5% reflections',
+'Hour 2: the planned deep dive, coached a week ahead',
+'Hours 3-4: the impromptu queue, EQ topics first, then IQ lightning rounds',
+'Close: confirm next month\'s presenter, coach, and host',
+],
+},
+{
 title: 'EQ vs IQ Topics',
 badge: 'ONE-PAGER · PDF',
 type: 'file',
@@ -96,19 +111,6 @@ bullets: [
 'Match the size of the conversation to the kind of topic',
 'EQ topics, the whys, get a 30-40 minute deep dive',
 'IQ topics, the what and the how, get 10-12 minute lightning rounds',
-],
-},
-{
-title: 'Open Coaching',
-badge: 'ONE-PAGER · PDF',
-type: 'file',
-url: '/one-pagers/open-coaching-v4.1.pdf',
-web: '/one-pagers/open-coaching-v4.1.html',
-preview: '/previews/open-coaching-v4.1.png',
-bullets: [
-'Four opening questions: headline, three emotions, one year from now, and the experiences they are curious to hear',
-'Questions that split the topic to find the core struggle',
-'Close with the prompt, then silence and experience shares',
 ],
 },
 {
