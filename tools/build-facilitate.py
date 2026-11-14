@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""build-facilitate.py: builds forumplaybook.com/facilitate/ ("Have Colton facilitate your retreat"). VERSION 1.0.0 (2026-10-26)
+"""build-facilitate.py: builds forumplaybook.com/facilitate/ ("Have Colton facilitate your retreat"). VERSION 1.4.0 (2026-11-14)
 
   python3 tools/build-facilitate.py
 
@@ -9,6 +9,8 @@ build-catalyst.py, the one canonical list), stamps the page, and guards against 
 promise words (NO PROMISES IN PUBLIC COPY). The changelog stays here and in CHANGELOG.md, never on the page.
 
 Changelog
+  1.4.0  The North Star card links to its own page, /facilitate/north-star/, and Popular retreats closes with how most
+         themes run, before, during and after, with icons (Colton, 2026-11-14).
   1.3.0  Popular retreats: six cards (North Star with the Telluride sky time-lapse, Life Wheel, Ikigai, Goal Setting and Accountability, Values and Meaning, My Identity vs. My Values), each with its picture (Colton, 2026-10-28).
   1.2.1  "Why forums bring Colton in" and the two halves of a facilitation, in his words (Colton, 2026-10-28).
   1.2.0  A landing page: the hook, what Colton does, the app, the price, with quotes rotating in two blocks and single picks in the sections; quotes carry the chapter forum only; photos sit beside sections and in a strip (Colton, 2026-10-28). Merged over the October 27 session's 1.1.x (photo classes, video tiles started by the page script, italics).
@@ -23,7 +25,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 spec = importlib.util.spec_from_file_location("bc", os.path.join(ROOT, "tools", "build-catalyst.py"))
 bc = importlib.util.module_from_spec(spec); spec.loader.exec_module(bc)
 
-VERSION = "1.3.0"
+VERSION = "1.4.0"
 D = os.path.join(ROOT, "facilitate")
 STAMP = subprocess.check_output(["date", "+Updated %a / %Y-%m-%d / %-I:%M %p CT"], text=True).strip()
 
@@ -107,6 +109,11 @@ def availability():
 months_html, blackouts_html = availability()
 
 src = open(os.path.join(D, "_src", "index.html")).read()
+ICON_PY = os.path.expanduser("~/Sites/brand-assets/icons/icon.py")
+def icon(name, size=48):
+    svg = subprocess.check_output(["python3", ICON_PY, "svg", name, "--weight", "thin", "--size", str(size)], cwd=os.path.dirname(ICON_PY)).decode().strip()
+    return svg.replace("<svg ", '<svg aria-hidden="true" focusable="false" ', 1)
+src = re.sub(r"\{\{IC:([a-z0-9-]+)\}\}", lambda m: icon(m.group(1)), src)
 s = src.replace("{{MONTHS}}", months_html).replace("{{BLACKOUTS}}", blackouts_html)
 s = s.replace("{{QUOTE_HERO}}", quote_hero())
 s = re.sub(r"\{\{QUOTE_PICK:([^}]+)\}\}", lambda m: quote_pick(m.group(1)), s)
@@ -124,7 +131,7 @@ s = re.sub(r'<nav class="cfoot-nav".*?</nav>', bc.footer_nav("/facilitate/"), s,
 s = s.replace("</body>", bc.COUNTER + "\n</body>", 1)
 
 # guards
-if "—" in s: sys.exit("guard failed: em dash")
+if "\u2014" in s: sys.exit("guard failed: em dash")
 left = re.findall(r"\{\{[^}]*\}\}", s)
 if left: sys.exit("guard failed: leftover tokens " + ", ".join(left[:5]))
 PROMISES = ["guarantee", "guaranteed", "never ", "always ", "forever", "100%", "any time you want", "no questions asked"]

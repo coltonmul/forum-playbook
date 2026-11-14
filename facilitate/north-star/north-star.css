@@ -1,0 +1,66 @@
+/* north-star.css 1.0.0 (2026-11-14): steps run three across from 900px (.three); .ns-sky is the night-sky note.
+   First written: forumplaybook.com/facilitate/north-star/, the North Star retreat exercise.
+   Loads after /facilitate/facilitate.css and adds only what this page needs: the night-sky hero, the four purpose
+   cards on tinted blocks, the steps of the night, and the icon draw-in (a left-to-right reveal when a card or step
+   scrolls into view; with reduced motion on, the icons arrive drawn).
+   Contrast, computed (tools/build-north-star.py prints the table on every build and stops on a fail):
+   #0E0E0C on #F6E9C9 16.0:1, on #DCEBEA 15.7:1, on #F8DFD3 15.2:1, on #E8E2D6 15.0:1;
+   #4A4038 on #F6E9C9 8.4:1, on #DCEBEA 8.2:1, on #F8DFD3 7.9:1, on #E8E2D6 7.8:1; #B83A14 step numbers on #FFFFFF 5.7:1;
+   #F0EBE0 on #434343 8.3:1: the hero text over the .78 dark layer even if the sky behind it were pure white. */
+:root { --tint-gold:#F6E9C9; --tint-teal:#DCEBEA; --tint-burn:#F8DFD3; --spring:cubic-bezier(.2,.9,.3,1.3); }
+
+/* hero: the Telluride time-lapse under a dark layer so the words read */
+.ns-hero { padding: 64px 0 40px; min-height: 560px; display: flex; align-items: flex-end; }
+.ns-hero .hero-media video { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ns-hero .hero-media::after { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(14,14,12,.9) 0%, rgba(14,14,12,.78) 65%, rgba(14,14,12,.5) 100%); }
+.ns-hero .wrap { width: 100%; }
+.hero-cap { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--quiet-on-dark); margin: 22px 0 0; }
+
+/* the four things it is for, on tinted blocks */
+.ns-cards { display: grid; grid-template-columns: 1fr; gap: 12px; margin: 18px 0 4px; }
+@media (min-width: 700px) { .ns-cards { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1040px) { .ns-cards { grid-template-columns: repeat(4, 1fr); } }
+.ns-card { padding: 20px 18px 18px; border: 1px solid transparent; transition: transform .35s var(--spring), border-color .2s; }
+.ns-card:hover { transform: translateY(-4px); border-color: var(--dust); }
+.ns-card.t-gold { background: var(--tint-gold); }
+.ns-card.t-teal { background: var(--tint-teal); }
+.ns-card.t-burn { background: var(--tint-burn); }
+.ns-card.t-linen { background: var(--linen-dark); }
+.ns-card h3 { margin: 12px 0 6px; font-size: 26px; line-height: 1; }
+.ns-card p { margin: 0; font-size: 16px; line-height: 1.55; color: var(--pitch); }
+.ns-ic { display: block; width: 52px; height: 52px; color: var(--pitch); }
+.ns-ic svg { width: 52px; height: 52px; display: block; }
+
+/* the night, step by step */
+.ns-steps { list-style: none; margin: 18px 0 0; padding: 0; display: grid; gap: 10px; }
+@media (min-width: 820px) { .ns-steps { grid-template-columns: repeat(2, 1fr); column-gap: 14px; } }
+@media (min-width: 900px) { .ns-steps.three { grid-template-columns: repeat(3, 1fr); } }
+.ns-steps.three .ns-step { grid-template-columns: 1fr; gap: 10px; }
+.ns-steps.three .ns-step .ns-ic, .ns-steps.three .ns-step .ns-ic svg { width: 48px; height: 48px; }
+.ns-sky { display: flex; gap: 10px; align-items: center; margin: 18px 0 0; color: var(--deep-dust); font-size: 16px; }
+.ns-sky svg { width: 28px; height: 28px; flex: 0 0 auto; color: var(--pitch); }
+.ns-step { display: grid; grid-template-columns: 48px 1fr; gap: 14px; align-items: start; background: var(--white); border: 1px solid var(--dust); padding: 16px; transition: transform .35s var(--spring); }
+.ns-step:hover { transform: translateY(-3px); }
+.ns-step .ns-ic, .ns-step .ns-ic svg { width: 44px; height: 44px; }
+.ns-step h3 { margin: 0 0 4px; font-size: 22px; line-height: 1.05; }
+.ns-step .n { color: var(--brick); }
+.ns-step .t { display: inline-block; font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--deep-dust); margin: 0 0 6px; }
+.ns-step p { margin: 0; font-size: 16px; line-height: 1.55; }
+
+/* photos: four across on a desktop */
+.ns-photos { margin-top: 18px; }
+@media (min-width: 1000px) { .ns-photos { grid-template-columns: repeat(4, 1fr); } }
+
+/* what the forum takes home */
+.ns-home { display: grid; grid-template-columns: 1fr; gap: 20px; align-items: start; }
+@media (min-width: 820px) { .ns-home { grid-template-columns: 1.2fr 1fr; } }
+.ns-home ul.list li b { color: var(--brick); }
+
+/* icon draw-in: the page script adds .ns-wait, then removes it when the block scrolls into view */
+.ns-wait .ns-ic svg { clip-path: inset(0 100% 0 0); }
+.ns-ic svg { clip-path: inset(0 0 0 0); transition: clip-path 1.1s cubic-bezier(.65,0,.35,1) .1s; }
+@media (prefers-reduced-motion: reduce) {
+  .ns-ic svg { transition: none; clip-path: none; }
+  .ns-card, .ns-step { transition: none; }
+  .ns-card:hover, .ns-step:hover { transform: none; }
+}
