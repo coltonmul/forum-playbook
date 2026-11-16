@@ -1,5 +1,9 @@
 # Changelog: forum-playbook (forumplaybook.com)
 
+## IN FLIGHT
+
+- **Homepage Core Resources regroup, plus new /constitution/ and /process/ pages** (Calvin session for Colton, started Mon / 2026-11-16 / 5 PM CT): the work is on branch `preview/constitution-organizer-homepage` and is previewed at beta.forumplaybook.com, not on the live site. It restructures the Core Resources block in index.html, config.js and app.js. Until this entry clears, keep edits to those three files on main small and additive.
+
 ## 2026-11-16 (Mon)
 
 - **/chapters/ 1.3.1** (Colton, same day: "I want that to be called a Forum Masterclass or Forum Health Day"): the free section's sub-head now reads "With every Forum Masterclass or Forum Health Day" and its opening line names both as equals instead of treating Masterclass as an alias.
