@@ -1,5 +1,6 @@
 /* ═══════════════════════════════════════════════════════════════════
-   FORUM PLAYBOOK - interior.css  v1.0.0
+   FORUM PLAYBOOK - interior.css  v1.0.1
+   (1.0.1, 2026-11-16: the page name, meta, links and button are 12px, up from 9 to 11px; legibility law.)
    THE INTERIOR BAR: the slim menu bar that interior pages wear instead
    of the homepage's tall header. The homepage keeps its big header on
    purpose (it is the front door). Interior pages are content-heavy at
@@ -154,7 +155,7 @@
 .ibar-page {
   flex-shrink: 0;
   font-family: var(--ib-mono);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 500;
   letter-spacing: 0.14em;
   text-transform: uppercase;
@@ -163,7 +164,7 @@
 .ibar-meta {
   flex-shrink: 0;
   font-family: var(--ib-mono);
-  font-size: 9px;
+  font-size: 12px;
   font-weight: 400;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -181,7 +182,7 @@
 .ibar-nav::-webkit-scrollbar { display: none; }
 .ibar-link {
   font-family: var(--ib-mono);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 400;
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -189,7 +190,7 @@
 }
 .ibar-cta {
   font-family: var(--ib-mono);
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 400;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -229,7 +230,7 @@
   .ibar { padding: 0 12px 0 16px; gap: 8px; }
   .ibar-word { font-size: 14px; }
   .ibar-hit { height: 40px; padding: 0 8px; }
-  .ibar-link { font-size: 11px; }
+  .ibar-link { font-size: 12px; }
   .ibar-cta  { display: none; }
   /* Narrow enough that the row has to scroll. Scrolling forces the shadow to
      clip, which is the right trade on a phone: no hover, and the alternative

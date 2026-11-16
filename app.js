@@ -37,7 +37,6 @@ const lightbox      = document.getElementById('lightbox');
 const lightboxEmbed = document.getElementById('lightbox-embed');
 const lightboxClose = document.getElementById('lightbox-close');
 const lightboxBg    = document.getElementById('lightbox-backdrop');
-const coreGrid      = document.getElementById('core-grid');
 
 
 // ════════════════════════════════════════════════════════════
@@ -57,205 +56,161 @@ async function init() {
 
 
 // ════════════════════════════════════════════════════════════
-// CORE RESOURCES - centered icon, Option B style
+// CORE RESOURCES: three groups from CONFIG.CORE_GROUPS (Colton, 2026-11-16).
+// Forum Tools and Retreat Exercises are cards that show the thing itself (page one of the
+// document, or a picture) with its own Phosphor icon; Process Breakdowns are rows, one process
+// per row, with its formats (web page, PDF, video) lined up in the same three columns.
+// Icons come from core-icons.js (tools/build-core-icons.py holds the one list).
 // ════════════════════════════════════════════════════════════
-function renderCoreResources() {
-  if (!coreGrid || !CONFIG.CORE_RESOURCES || !CONFIG.CORE_RESOURCES.length) return;
-  coreGrid.innerHTML = CONFIG.CORE_RESOURCES.map((r, i) => buildCoreCardHTML(r, 'core:' + i)).join('');
-  wireCoreCards(coreGrid);
-  // Other Resources: useful documents that are not Forum Playbook-made (Colton, 2026-11-04).
-  const otherGrid = document.getElementById('other-grid');
-  const others = CONFIG.OTHER_RESOURCES || [];
-  if (otherGrid && others.length) {
-    otherGrid.innerHTML = others.map((r, i) => buildCoreCardHTML(r, 'other:' + i, ' core-card-other')).join('');
-    wireCoreCards(otherGrid);
-  } else {
-    const wrap = document.getElementById('other-resources');
-    if (wrap) wrap.hidden = true;
-  }
-}
+const CORE_EXPORT_MIME = {
+  pdf:  'application/pdf',
+  docx: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+  xlsx: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+};
 
-function wireCoreCards(grid) {
-  grid.querySelectorAll('[data-download-url]').forEach(btn => {
+function renderCoreResources() {
+  const wrap = document.getElementById('core-groups');
+  const groups = CONFIG.CORE_GROUPS || [];
+  if (!wrap || !groups.length) return;
+  wrap.innerHTML = groups.map((g, gi) => {
+    const build = g.layout === 'rows' ? coreRowHTML : coreCardHTML;
+    return `
+    <div class="cg cg-${g.tint || 'burn'}" id="cg-${g.id}">
+      <div class="section-header core-section-header cg-head">
+        ${coreIcon(g.icon, 'ci-head')}
+        <h2 class="section-title">${g.title.toUpperCase()}</h2>
+        ${g.tag ? `<div class="section-tag">${g.tag}</div>` : ''}
+        <div class="section-rule"></div>
+      </div>
+      ${g.note ? `<p class="cg-note">${g.note}</p>` : ''}
+      <div class="cg-grid cg-${g.layout || 'cards'}">${g.items.map((r, i) => build(r, gi + ':' + i)).join('')}</div>
+    </div>`;
+  }).join('');
+  wrap.querySelectorAll('[data-download-url]').forEach(btn => {
     btn.addEventListener('click', e => {
       e.preventDefault();
       downloadFile(btn.dataset.downloadUrl, btn.dataset.filename);
     });
   });
-  grid.querySelectorAll('[data-core-preview]').forEach(btn => {
+  wrap.querySelectorAll('[data-core-preview]').forEach(btn => {
     btn.addEventListener('click', () => openCorePreview(btn.dataset.corePreview, btn));
   });
+  coreDrawIn(wrap);
 }
 
-function coreResourceByKey(key) {
-  const [list, idx] = key.split(':');
-  const arr = list === 'other' ? CONFIG.OTHER_RESOURCES : CONFIG.CORE_RESOURCES;
-  return arr ? arr[Number(idx)] : null;
+function coreIcon(name, cls) {
+  const svg = (typeof CORE_ICONS !== 'undefined' && CORE_ICONS[name]) || '';
+  return svg ? `<span class="ci ${cls || ''}" aria-hidden="true">${svg}</span>` : '';
 }
 
-// The buttons that take the document: on the card and again inside the preview.
-function coreDocButtonsHTML(resource) {
-  let buttons = '';
-  if (resource.type === 'file') {
-    buttons += `<a href="${resource.url}" download class="btn btn-primary sh warm"><span>↓ PDF</span></a>`;
-    buttons += `<a href="${resource.url}" class="btn sh warm" target="_blank" rel="noopener"><span>↗ Open</span></a>`;
-  } else if (resource.type === 'doc' || resource.type === 'sheet') {
-    const base     = `https://www.googleapis.com/drive/v3/files/${resource.fileId}/export?key=${CONFIG.GOOGLE_API_KEY}`;
-    const driveUrl = `https://drive.google.com/open?id=${resource.fileId}`;
-    const pdfUrl   = `${base}&mimeType=application/pdf`;
-    if (resource.type === 'doc') {
-      const docxUrl = `${base}&mimeType=application/vnd.openxmlformats-officedocument.wordprocessingml.document`;
-      buttons += btnDownload('↓ DOCX', docxUrl, `${resource.title}.docx`, 'primary');
-    } else {
-      const xlsxUrl = `${base}&mimeType=application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`;
-      buttons += btnDownload('↓ XLSX', xlsxUrl, `${resource.title}.xlsx`, 'primary');
-    }
-    buttons += btnDownload('↓ PDF', pdfUrl, `${resource.title}.pdf`, 'secondary');
-    buttons += coreBtnGhost('↗ GDrive', driveUrl);
+function coreItemByKey(key) {
+  const [g, i] = key.split(':');
+  const group = (CONFIG.CORE_GROUPS || [])[Number(g)];
+  return group ? group.items[Number(i)] : null;
+}
+
+function coreDriveThumb(r, width) {
+  return r.fileId ? `https://drive.google.com/thumbnail?id=${r.fileId}&sz=w${width}` : '';
+}
+// The picture on the card, and the large page-one picture the Preview opens.
+function coreShotSrc(r)    { return r.shot || r.preview || coreDriveThumb(r, 800); }
+function corePreviewSrc(r) { return r.preview || coreDriveThumb(r, 1400); }
+
+// One button. `soon` is a format that is not made yet: shown, not clickable.
+function coreActionHTML(r, a) {
+  const label = `<span>${a.icon ? coreIcon(a.icon, 'ci-btn') : ''}${a.label}</span>`;
+  if (a.soon) return `<span class="btn cg-soon">${label}</span>`;
+  const cls = a.style === 'primary' ? 'btn btn-primary sh warm' : a.style === 'ghost' ? 'btn btn-ghost sh cool' : 'btn sh warm';
+  if (a.export && r.fileId) {
+    const url = `https://www.googleapis.com/drive/v3/files/${r.fileId}/export?key=${CONFIG.GOOGLE_API_KEY}&mimeType=${CORE_EXPORT_MIME[a.export]}`;
+    return `<button type="button" class="${cls}" data-download-url="${url}" data-filename="${r.title}.${a.export}">${label}</button>`;
   }
-  return buttons;
+  const url = a.drive && r.fileId ? `https://drive.google.com/open?id=${r.fileId}` : a.url;
+  // Same-site links (the Forum Timer web app, the web pages) stay in this tab; a file opens in a new one.
+  const newTab = /^https?:/i.test(url) || (/\.(pdf|html)$/i.test(url) && !a.download);
+  return `<a href="${url}" class="${cls}"${a.download ? ' download' : ''}${newTab ? ' target="_blank" rel="noopener"' : ''}>${label}</a>`;
+}
+function coreActionsHTML(r, withSoon) {
+  return (r.actions || []).filter(a => withSoon || !a.soon).map(a => coreActionHTML(r, a)).join('');
 }
 
-function corePreviewSrc(resource) {
-  if (resource.type === 'file') return resource.preview || '';
-  if (resource.fileId) return `https://drive.google.com/thumbnail?id=${resource.fileId}&sz=w1400`;
-  return '';
-}
-
-function buildCoreCardHTML(resource, key, cardClass) {
-  const badge      = resource.badge || 'CORE RESOURCE';
-  let icon         = '';
-  let buttons      = '';
-  let extraClass   = cardClass || '';
-  let btnsClass    = '';
-
-  if (resource.type === 'links') {
-    icon       = resource.icon === 'timer' ? coreIconTimer() : coreIconLinks();
-    extraClass += ' core-card-links';
-    btnsClass  = ' core-links-btns';
-    buttons    = (resource.links || []).map((l, i) => {
-      const style = i === 0 ? 'primary' : 'secondary';
-      const cls   = style === 'primary' ? 'btn btn-primary sh warm' : 'btn sh warm';
-      // Same-site links (the Forum Timer web app) stay in this tab.
-      const external = /^https?:/i.test(l.url);
-      return `<a href="${l.url}" class="${cls}"${external ? ' target="_blank" rel="noopener"' : ''}><span>${l.label}</span></a>`;
-    }).join('');
-  } else {
-    icon    = resource.type === 'sheet' ? coreIconSheet() : coreIconDoc();
-    buttons = coreDocButtonsHTML(resource);
-  }
-
-  // Preview: every card with a document opens a large look at page one (Colton, 2026-11-04:
-  // "so people don't have to download it to see what it is").
-  const preview = corePreviewSrc(resource)
-    ? `<button type="button" class="btn btn-ghost sh cool core-preview-btn" data-core-preview="${key}" aria-haspopup="dialog"><span>${eyeIcon()} Preview</span></button>`
-    : '';
-
+// A card: the thing itself on top (a click opens the large preview), then its icon, title,
+// bullets and buttons.
+function coreCardHTML(r, key) {
+  const src = coreShotSrc(r);
+  const img = src ? `<img src="${src}" alt="${r.shotAlt || ''}" loading="lazy" decoding="async">` : '';
+  const fit = r.shotFit === 'photo' ? ' cg-shot-photo' : r.landscape ? ' cg-shot-land' : '';
+  const shot = corePreviewSrc(r)
+    ? `<button type="button" class="cg-shot${fit}" data-core-preview="${key}" aria-haspopup="dialog" aria-label="Preview: ${r.title}">${img}<span class="cg-shot-cap">${coreIcon('eye', 'ci-btn')}Preview</span></button>`
+    : `<div class="cg-shot cg-shot-still${fit}">${img}</div>`;
   return `
-    <div class="card core-card${extraClass}">
+    <article class="card cg-card cg-reveal">
       <div class="corner-tl"></div>
       <div class="corner-br"></div>
-      <div class="core-badge">${badge}</div>
-      <div class="core-icon-wrap">${icon}</div>
-      <div class="card-title">${resource.title.toUpperCase()}</div>
-      ${resource.bullets && resource.bullets.length
-        ? `<ul class="core-bullets">${resource.bullets.map(t => `<li>${t}</li>`).join('')}</ul>`
-        : `<div class="card-meta">${resource.subtitle || ''}</div>`}
-      <div class="core-actions">
-        ${preview}
-        <div class="card-btns${btnsClass}">${buttons}</div>
+      ${shot}
+      <div class="cg-body">
+        <div class="cg-headline">
+          ${coreIcon(r.icon, 'ci-lg')}
+          <div>
+            ${r.badge ? `<div class="core-badge">${r.badge}</div>` : ''}
+            <h3 class="card-title">${r.title.toUpperCase()}</h3>
+          </div>
+        </div>
+        ${r.bullets && r.bullets.length ? `<ul class="core-bullets">${r.bullets.map(t => `<li>${t}</li>`).join('')}</ul>` : ''}
+        <div class="cg-actions">${coreActionsHTML(r, true)}</div>
       </div>
-    </div>
-  `;
+    </article>`;
 }
 
-function eyeIcon() {
-  return `<svg class="core-eye" width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true"><path d="M1 8s2.6-5 7-5 7 5 7 5-2.6 5-7 5-7-5-7-5z" stroke="currentColor" stroke-width="1.2"/><circle cx="8" cy="8" r="2.2" stroke="currentColor" stroke-width="1.2"/></svg>`;
+// A row: one process, its one line, and its formats in the same three columns on every row.
+function coreRowHTML(r, key) {
+  const src = coreShotSrc(r);
+  const thumb = src
+    ? `<button type="button" class="cg-thumb" data-core-preview="${key}" aria-haspopup="dialog" aria-label="Preview: ${r.title}"><img src="${src}" alt="" loading="lazy" decoding="async"></button>`
+    : `<div class="cg-thumb"></div>`;
+  return `
+    <article class="card cg-row cg-reveal">
+      <div class="corner-tl"></div>
+      <div class="corner-br"></div>
+      ${thumb}
+      <div class="cg-row-main">
+        ${coreIcon(r.icon, 'ci-lg')}
+        <div>
+          <h3 class="card-title">${r.title.toUpperCase()}</h3>
+          <p class="cg-line">${r.line || ''}</p>
+        </div>
+      </div>
+      <div class="cg-formats">${coreActionsHTML(r, true)}</div>
+    </article>`;
 }
 
-// Large preview of a featured card's document, in the library's preview sheet.
+// Large preview of a document, in the library's preview sheet.
 function openCorePreview(key, opener) {
-  const r = coreResourceByKey(key);
+  const r = coreItemByKey(key);
   if (!r) return;
-  let buttons = coreDocButtonsHTML(r);
-  if (r.web) buttons += coreBtnGhost('↗ Web Version', r.web);
-  const kind = r.type === 'sheet' ? 'the first tab' : 'page one';
   openPreviewSheet({
     title: r.title,
     badge: r.badge || '',
     bullets: r.bullets || [],
     thumb: corePreviewSrc(r),
-    cap: `Preview: ${kind}`,
-    buttons,
+    cap: `Preview: ${r.type === 'sheet' ? 'the first tab' : 'page one'}`,
+    buttons: coreActionsHTML(r, false),
     large: true,
     landscape: !!r.landscape,
     opener,
   });
 }
 
-function coreBtnGhost(label, url) {
-  return `<a href="${url}" class="btn btn-ghost sh cool" target="_blank" rel="noopener"><span>${label}</span></a>`;
-}
-
-// Large centered doc icon
-function coreIconDoc() {
-  return `<svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect x="6" y="2" width="32" height="42" stroke="#E8521A" stroke-width="1.5"/>
-    <rect x="2" y="6" width="32" height="42" stroke="#C4B8A8" stroke-width="1" fill="#F8F4EE"/>
-    <rect x="10" y="14" width="16" height="2" fill="#E8521A"/>
-    <rect x="10" y="19" width="16" height="1.5" fill="#C4B8A8"/>
-    <rect x="10" y="23" width="16" height="1.5" fill="#C4B8A8"/>
-    <rect x="10" y="27" width="10" height="1.5" fill="#C4B8A8"/>
-    <rect x="10" y="31" width="13" height="1.5" fill="#C4B8A8"/>
-    <circle cx="38" cy="38" r="9" fill="#F0EBE0" stroke="#E8521A" stroke-width="1.2"/>
-    <path d="M35 38l2.5 2.5L42 35" stroke="#E8521A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>`;
-}
-
-// Large centered globe + external-link icon (for 'links' type cards)
-// Large centered timer dial (the Forum Timer web app card)
-function coreIconTimer() {
-  return `<svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="26" cy="27" r="19" stroke="#E8521A" stroke-width="1.5" fill="#F8F4EE"/>
-    <path d="M26 27 L26 11 A16 16 0 1 1 12.14 35 Z" fill="#3A8A5A"/>
-    <circle cx="26" cy="27" r="16" stroke="#0E0E0C" stroke-width="1" fill="none"/>
-    <line x1="26" y1="27" x2="26" y2="11" stroke="#0E0E0C" stroke-width="1.4" stroke-linecap="round"/>
-    <line x1="26" y1="8"  x2="26" y2="5"  stroke="#C4B8A8" stroke-width="1.2"/>
-    <line x1="45" y1="27" x2="48" y2="27" stroke="#C4B8A8" stroke-width="1.2"/>
-    <line x1="26" y1="46" x2="26" y2="49" stroke="#C4B8A8" stroke-width="1.2"/>
-    <line x1="7"  y1="27" x2="4"  y2="27" stroke="#C4B8A8" stroke-width="1.2"/>
-    <rect x="22" y="1" width="8" height="3" rx="1.5" fill="#E8521A"/>
-  </svg>`;
-}
-
-function coreIconLinks() {
-  return `<svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <circle cx="22" cy="22" r="16" stroke="#E8521A" stroke-width="1.5" fill="#F8F4EE"/>
-    <ellipse cx="22" cy="22" rx="16" ry="6" stroke="#C4B8A8" stroke-width="0.9"/>
-    <ellipse cx="22" cy="22" rx="6" ry="16" stroke="#C4B8A8" stroke-width="0.9"/>
-    <line x1="6"  y1="22" x2="38" y2="22" stroke="#E8521A" stroke-width="1"/>
-    <line x1="22" y1="6"  x2="22" y2="38" stroke="#E8521A" stroke-width="1"/>
-    <rect x="32" y="32" width="16" height="16" fill="#F0EBE0" stroke="#E8521A" stroke-width="1.2"/>
-    <path d="M37 43l6-6" stroke="#E8521A" stroke-width="1.2" stroke-linecap="round"/>
-    <path d="M39 37h4v4" stroke="#E8521A" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
-  </svg>`;
-}
-
-// Large centered sheet icon
-function coreIconSheet() {
-  return `<svg width="52" height="52" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <rect x="2" y="6" width="32" height="42" stroke="#C4B8A8" stroke-width="1" fill="#F8F4EE"/>
-    <rect x="6" y="2" width="40" height="44" stroke="#3A8A8A" stroke-width="1.5" fill="#fff"/>
-    <line x1="6" y1="12" x2="46" y2="12" stroke="#3A8A8A" stroke-width="1.2"/>
-    <line x1="6" y1="22" x2="46" y2="22" stroke="#C4B8A8" stroke-width="0.8"/>
-    <line x1="6" y1="32" x2="46" y2="32" stroke="#C4B8A8" stroke-width="0.8"/>
-    <line x1="6" y1="42" x2="46" y2="42" stroke="#C4B8A8" stroke-width="0.8"/>
-    <line x1="20" y1="2" x2="20" y2="46" stroke="#C4B8A8" stroke-width="0.8"/>
-    <line x1="34" y1="2" x2="34" y2="46" stroke="#C4B8A8" stroke-width="0.8"/>
-    <rect x="6" y="2" width="14" height="10" fill="#3A8A8A" fill-opacity="0.2"/>
-    <rect x="20" y="2" width="14" height="10" fill="#3A8A8A" fill-opacity="0.1"/>
-    <rect x="34" y="2" width="12" height="10" fill="#3A8A8A" fill-opacity="0.1"/>
-  </svg>`;
+// The icons draw in, left to right, when their card or row scrolls into view.
+// With reduced motion on they arrive drawn (the CSS also stops the transition).
+function coreDrawIn(wrap) {
+  let reduce = false;
+  try { reduce = matchMedia('(prefers-reduced-motion: reduce)').matches; } catch (e) { /* old browser */ }
+  if (reduce || !('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.remove('cg-wait'); io.unobserve(e.target); } });
+  }, { threshold: 0.25 });
+  wrap.querySelectorAll('.cg-reveal').forEach(el => { el.classList.add('cg-wait'); io.observe(el); });
 }
 
 
