@@ -1,0 +1,13 @@
+[
+ {"slot": "hero-a", "src": "/masterclass/img/athens-street.jpg", "w": 1600, "h": 900, "alt": "Colton taking a group selfie with seven EO forum trainers on a street at night", "caption": "EO forum trainers from around the world. Athens, November 2026"},
+ {"slot": "hero-b", "src": "/facilitate/img/p1-saas-fee.jpg", "w": 802, "h": 1200, "alt": "A forum of eight with Colton on a balcony above Saas-Fee, the Alps behind", "caption": "EO Zurich Forum. Saas-Fee, June 2023"},
+ {"slot": "hero-c", "src": "/facilitate/img/p2-nashville.jpg", "w": 1182, "h": 664, "alt": "A forum of eight on a Nashville rooftop with Colton", "caption": "EO San Diego Forum. Nashville, October 2026"},
+ {"slot": "night", "src": "/masterclass/img/athens-dinner.jpg", "w": 1600, "h": 1200, "alt": "Colton taking a selfie at a dinner table with three forum trainers", "caption": "The night-before dinner, trainer edition. Athens, November 2026"},
+ {"slot": "who", "src": "/masterclass/img/athens-trainers.jpg", "w": 1600, "h": 900, "alt": "Colton and three EO trainers from Japan holding up their name badges", "caption": "With trainers from Japan at Train the Trainers. Athens, November 2026"},
+ {"strip": true, "src": "/masterclass/img/detroit-summit.jpg", "w": 1600, "h": 900, "alt": "Colton taking a selfie with an EO Detroit member at a vineyard", "caption": "EO Detroit Leadership Summit, June 2025"},
+ {"strip": true, "src": "/facilitate/img/p5-bluff-2026.jpg", "w": 1400, "h": 788, "alt": "A forum standing on a rock bluff above a green valley", "caption": "EO Nashville Forum, Colton's own, on the bluff. April 2026"},
+ {"strip": true, "src": "/facilitate/img/p6-balcony.jpg", "w": 1400, "h": 788, "alt": "Eight forum members standing on a balcony with the Alps behind", "caption": "EO Zurich Forum above Saas-Fee, June 2023"},
+ {"strip": true, "src": "/facilitate/img/p7-jackson-stars.jpg", "w": 801, "h": 1200, "alt": "A forum standing under the Milky Way in Jackson Hole, Wyoming", "caption": "EO Tampa Bay Forum under the stars. Jackson Hole, November 2021"},
+ {"strip": true, "src": "/masterclass/img/athens-street.jpg", "w": 1600, "h": 900, "alt": "Colton taking a group selfie with seven EO forum trainers on a street at night", "caption": "EO forum trainers. Athens, November 2026"},
+ {"strip": true, "src": "/facilitate/img/ns1-telluride-selfie.jpg", "w": 1000, "h": 1250, "alt": "Colton and a Forum 14 member in a selfie on Telluride main street, the mountains behind them", "caption": "Colton and Forum 14. Telluride, August 2025"}
+]
