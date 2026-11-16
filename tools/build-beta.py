@@ -59,7 +59,7 @@ t = must_replace(t, '<meta charset="UTF-8" />',
 t = must_replace(t, '<title>Forum Playbook', '<title>V3 BETA · Forum Playbook', 'title')
 
 # Root-absolute assets so the copy works from /beta/.
-for asset in ['styles.css', 'sting.css', 'config.js', 'app.js', 'podcasts.js', 'sting.js']:
+for asset in ['styles.css', 'sting.css', 'config.js', 'core-icons.js', 'app.js', 'podcasts.js', 'sting.js']:
     t = must_replace(t, f'"{asset}', f'"/{asset}', asset)  # prefix match: index.html may carry ?v= on a script
 
 # The lane badge in the nav.
