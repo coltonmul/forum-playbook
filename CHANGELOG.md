@@ -2,7 +2,7 @@
 
 ## IN FLIGHT
 
-- **Homepage Core Resources regroup, plus new /constitution/ and /process/ pages** (Calvin session for Colton, started Mon / 2026-11-16 / 5 PM CT): the work is on branch `preview/constitution-organizer-homepage` and is previewed at beta.forumplaybook.com, not on the live site. It restructures the Core Resources block in index.html, config.js and app.js. Until this entry clears, keep edits to those three files on main small and additive.
+- **Homepage Core Resources regroup, plus new /constitution/ and /process/ pages** (Calvin session for Colton, started Mon / 2026-11-16 / 4:27 PM CT): the work is on branch `preview/constitution-organizer-homepage` and is previewed at https://forumplaybook-site-beta.colton-084.workers.dev, not on the live site. It waits on Colton's "ship". It restructures the Core Resources block in index.html, config.js and app.js. Until this entry clears, keep edits to those three files on main small and additive.
 
 ## 2026-11-16 (Mon)
 
