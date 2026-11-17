@@ -59,19 +59,17 @@ actions: [
 },
 {
 title: 'Forum Organizer Spreadsheet',
-badge: 'GOOGLE SHEET · V2026.11.16',
+badge: 'GOOGLE SHEET',
 icon: 'table',
 type: 'sheet',
-fileId: '1jbmebL57hRT86sn_cpJfz0dc2KY5mwEiNzv_UgQdahU',
-shot: '/previews/forum-organizer-V2026.11.16.png',
-preview: '/previews/forum-organizer-V2026.11.16.png',
+fileId: '1KbdvEq8kFxR9yOO-J0p76oj4KLBVzmVyyk1FLCY60Zg',
 bullets: [
 'An agenda for every meeting',
 'The year\'s schedule: host, presenter and coach',
 'Roles, resources and the parking lot, with a filled-in example',
 ],
 actions: [
-{ label: 'Make your own copy', icon: 'copy', url: 'https://docs.google.com/spreadsheets/d/1jbmebL57hRT86sn_cpJfz0dc2KY5mwEiNzv_UgQdahU/copy', style: 'primary' },
+{ label: 'Make your own copy', icon: 'copy', url: 'https://docs.google.com/spreadsheets/d/1KbdvEq8kFxR9yOO-J0p76oj4KLBVzmVyyk1FLCY60Zg/copy', style: 'primary' },
 { label: 'Open the sheet', icon: 'google-drive-logo', drive: true },
 { label: 'XLSX', icon: 'file-xls', export: 'xlsx' },
 ],

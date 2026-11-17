@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""build-process.py: builds the Process Breakdown pages, forumplaybook.com/process/<name>/. VERSION 1.0.0 (2026-11-16)
+"""build-process.py: builds the Process Breakdown pages, forumplaybook.com/process/<name>/. VERSION 1.1.0 (2026-11-17)
 
   /opt/homebrew/bin/python3 tools/build-process.py
 
@@ -12,6 +12,8 @@ A Process Breakdown is one process in three formats: this web page, the one-page
 two-minute video (Colton, 2026-11-16). The page copy comes from the one-pager; the one-pager stays the source.
 
 Changelog (the full history stays here and in CHANGELOG.md, never on the page)
+  1.1.0  Live (Colton, 2026-11-17: "Ship it"): the mockup note and the noindex tag are gone; the app block says what
+         the app has today.
   1.0.0  First version (Colton, 2026-11-16): Open Coaching as the mockup of the format.
 """
 import html, importlib.util, os, re, subprocess, sys
@@ -20,7 +22,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 spec = importlib.util.spec_from_file_location("bc", os.path.join(ROOT, "tools", "build-catalyst.py"))
 bc = importlib.util.module_from_spec(spec); spec.loader.exec_module(bc)
 
-VERSION = "1.0.0"
+VERSION = "1.1.0"
 P = os.path.join(ROOT, "process")
 ICON_PY = os.path.expanduser("~/Sites/brand-assets/icons/icon.py")
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
