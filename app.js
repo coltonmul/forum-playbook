@@ -139,7 +139,7 @@ function coreActionsHTML(r, withSoon) {
 function coreCardHTML(r, key) {
   const src = coreShotSrc(r);
   const img = src ? `<img src="${src}" alt="${r.shotAlt || ''}" loading="lazy" decoding="async">` : '';
-  const fit = r.shotFit === 'photo' ? ' cg-shot-photo' : r.landscape ? ' cg-shot-land' : '';
+  const fit = r.shotFit === 'photo' ? ' cg-shot-photo' : r.shotFit === 'phone' ? ' cg-shot-phone' : r.landscape ? ' cg-shot-land' : '';
   const shot = corePreviewSrc(r)
     ? `<button type="button" class="cg-shot${fit}" data-core-preview="${key}" aria-haspopup="dialog" aria-label="Preview: ${r.title}">${img}<span class="cg-shot-cap">${coreIcon('eye', 'ci-btn')}Preview</span></button>`
     : `<div class="cg-shot cg-shot-still${fit}">${img}</div>`;

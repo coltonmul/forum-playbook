@@ -22,6 +22,7 @@ GOOGLE_API_KEY: 'AIzaSyD-DZWNK5YL8qgVzAVCv0qt87VHGnykh8Y',
 // An item has:
 //   title, badge, icon   icon is a name from core-icons.js (tools/build-core-icons.py holds the one list)
 //   bullets              two to four short lines (cards); line = the one line a row shows
+//   shotFit              'photo' centers a photo; 'phone' shows a phone picture whole, on the group's tint
 //   shot                 the picture on the card; preview = the large page-one picture the Preview opens
 //                        (a Google file with no shot or preview uses its Drive thumbnail)
 //   landscape            true for a wide page
@@ -44,9 +45,9 @@ items: [
 title: 'Forum Timer',
 badge: 'WEB APP · IOS APP',
 icon: 'timer',
-shot: '/previews/forum-timer-shot.jpg',
-shotFit: 'photo',
-shotAlt: 'The Forum Timer running: a green dial with 3 minutes 56 seconds left',
+shot: '/previews/forum-timer-phone.png',
+shotFit: 'phone',
+shotAlt: 'The Forum Timer on a phone: a green dial with 3 minutes 56 seconds left',
 bullets: [
 'A timer built for the nuances of forum, readable from across the room',
 'Automatic timing from your agenda, block by block',
@@ -59,17 +60,19 @@ actions: [
 },
 {
 title: 'Forum Organizer Spreadsheet',
-badge: 'GOOGLE SHEET',
+badge: 'GOOGLE SHEET · V2026.11.18',
 icon: 'table',
 type: 'sheet',
-fileId: '1KbdvEq8kFxR9yOO-J0p76oj4KLBVzmVyyk1FLCY60Zg',
+fileId: '1jbmebL57hRT86sn_cpJfz0dc2KY5mwEiNzv_UgQdahU',
+shot: '/previews/forum-organizer-V2026.11.18.png',
+preview: '/previews/forum-organizer-V2026.11.18.png',
 bullets: [
 'An agenda for every meeting',
 'The year\'s schedule: host, presenter and coach',
 'Roles, resources and the parking lot, with a filled-in example',
 ],
 actions: [
-{ label: 'Make your own copy', icon: 'copy', url: 'https://docs.google.com/spreadsheets/d/1KbdvEq8kFxR9yOO-J0p76oj4KLBVzmVyyk1FLCY60Zg/copy', style: 'primary' },
+{ label: 'Make your own copy', icon: 'copy', url: 'https://docs.google.com/spreadsheets/d/1jbmebL57hRT86sn_cpJfz0dc2KY5mwEiNzv_UgQdahU/copy', style: 'primary' },
 { label: 'Open the sheet', icon: 'google-drive-logo', drive: true },
 { label: 'XLSX', icon: 'file-xls', export: 'xlsx' },
 ],
@@ -91,7 +94,7 @@ actions: [
 },
 {
 title: 'Nashville Forum Constitution Template',
-badge: 'V2026.11.16',
+badge: 'V2026.11.18',
 icon: 'scroll',
 preview: '/previews/nashville-forum-constitution-template.png',
 bullets: [
@@ -101,8 +104,8 @@ bullets: [
 ],
 actions: [
 { label: 'Read it', icon: 'browser', url: '/constitution/', style: 'primary' },
-{ label: 'Word', icon: 'file-doc', url: '/constitution/nashville-forum-constitution-template-V2026.11.16.docx', download: true },
-{ label: 'PDF', icon: 'file-pdf', url: '/constitution/nashville-forum-constitution-template-V2026.11.16.pdf', download: true },
+{ label: 'Word', icon: 'file-doc', url: '/constitution/nashville-forum-constitution-template-V2026.11.18.docx', download: true },
+{ label: 'PDF', icon: 'file-pdf', url: '/constitution/nashville-forum-constitution-template-V2026.11.18.pdf', download: true },
 ],
 },
 ],

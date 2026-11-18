@@ -1,7 +1,7 @@
 # content.py: the Nashville Forum Constitution Template, the ONE source for the page, the Markdown, the Word
 # document and the PDF (tools/build-constitution.py renders all four from this file).
 #
-# The rule text is the chapter template as regrouped by topic (sections 01-16, appendices A-C), word for word.
+# The rule text is the chapter template as regrouped by topic (sections 01-16, appendices A-B), word for word.
 # Nothing here is rewritten: change a rule only when the chapter template changes, and bump VERSION when it does.
 #
 # Inline marks the builder understands, in any string:
@@ -20,7 +20,7 @@
 #   ("roles", [role, ...])                     the role roster, a name to write beside each role
 #   ("roster", count)                          the member roster, name and business
 
-VERSION = "V2026.11.16"
+VERSION = "V2026.11.18"
 TITLE = "Nashville Forum Constitution Template"
 MOTTO = "Clear is kind and kind is clear."
 CREDIT = "Nashville Forum Constitution Template · " + VERSION + " · A Forum Playbook resource by Colton Mulligan · forumplaybook.com"
@@ -252,21 +252,6 @@ SECTIONS = [
             [("07", "n"), "Confirm or replace the retreat budget ranges", "[05 Retreats](#retreats)"],
             [("08", "n"), "Decide: prohibit member business over $1,000, or disclose and file resolutions", "[07 Business](#business)"],
             [("09", "n"), "Signatures, one per member", "[16 Signatures](#sign)"],
-        ]),
-    ]),
-    dict(id="appendix-c", num="C", toc="Open items", title="Open items in the template itself", icon="warning-circle", blocks=[
-        ("p", "Nothing here is a proposal. These are places where the chapter template contradicts itself, skips a number, or reads as garbled. They are worth fixing at the chapter level so every forum inherits a clean copy."),
-        ("table", "Needs a decision at the chapter level", ["#", "The problem", "Where"], [
-            [("01", "n"), "**Is one miss dismissal, or two?** Attendance says a member who misses two meetings is immediately dismissed. The worked example at the end refers to \"the 1+ absence rule\" and describes a member being dismissed after two misses. Two different rules are being described with the same words.", "Attendance and the examples"],
-            [("02", "n"), "**The punctuality section states the same rule three times.** A member leaving early is covered in the opening paragraph, then again as \"leaving 30+ minutes early counts as a miss\", then again as \"leaving early counts as a tardy, incurring a $100 fine\". Consolidated here into one table, but the source needs one authoritative wording.", "Punctuality"],
-            [("03", "n"), "**Section numbering skips 15.** The template runs 1 through 14, then jumps to 16. There is no section 15.", "Numbering"],
-            [("04", "n"), "**Attendance sub-items skip the letter d.** The list runs a, b, c, e, f.", "Attendance"],
-            [("05", "n"), "**Emergency meetings reads as garbled.** \"In case of scheduled meeting, member calling meeting makes final call\" and \"Late and absentee fines not affect\" are both incomplete sentences. The intent is clear but the wording is not enforceable as written.", "Emergency meetings"],
-            [("06", "n"), "**The roles list and the roles table disagree.** Nine roles are defined in the body. The signature-page table lists eight and omits the constitution manager, and labels one \"moderator elect\" where the body calls it \"moderator elect, Forum Mindset monitor, and calendar keeper\".", "Roles and the roles table"],
-            [("07", "n"), "**\"You should be shamed if you don't own your tardiness.\"** The intent is that owning it is the norm. As written it prescribes shaming a member, which sits oddly next to a document whose stated purpose is trust and respect.", "Punctuality"],
-            [("08", "n"), "**Members-only is stated twice with different scope.** The full retreat section says no family or business partners. A separate paragraph says all retreats are members only, no spouses or significant others. Consolidated here, but the source should say it once.", "Retreats"],
-            [("09", "n"), "**Fiscal year is defined three times**, at the top, in attendance, and in roles.", "Throughout"],
-            [("10", "n"), "**Missing a retreat has two penalties stacked**: dismissal from the group, and paying an amount equal to the shared expense. Both are stated, neither references the other, so it is easy to apply only one.", "Attendance"],
         ]),
     ]),
 ]

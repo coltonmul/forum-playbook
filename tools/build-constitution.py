@@ -1,9 +1,9 @@
 #!/opt/homebrew/bin/python3
-"""build-constitution.py: builds forumplaybook.com/constitution/ (the Nashville Forum Constitution Template). VERSION 1.0.0 (2026-11-16)
+"""build-constitution.py: builds forumplaybook.com/constitution/ (the Nashville Forum Constitution Template). VERSION 1.1.0 (2026-11-18)
 
   /opt/homebrew/bin/python3 tools/build-constitution.py
 
-One source, four outputs. constitution/_src/content.py holds the template's text (sections 01-16, appendices A-C);
+One source, four outputs. constitution/_src/content.py holds the template's text (sections 01-16, appendices A-B);
 this script renders from it:
   constitution/index.html                                          the page (from _src/index.html + constitution.css)
   constitution/nashville-forum-constitution-template-<VER>.md      the Markdown (the copy buttons embed the same text)
@@ -19,6 +19,8 @@ the page's own copy (the constitution's rule text is exempt), off-site links wit
 Markdown file and the text the copy buttons carry.
 
 Changelog (the full history stays here, never on the page)
+  1.1.0  Appendix C (ten open items in the chapter template) is off the public template (Colton, 2026-11-18: "Yes,
+         remove it"). Version label V2026.11.18; the V2026.11.16 files are removed from the site.
   1.0.0  First version (Colton, 2026-11-16): the Forum 14 topical layout, in Forum Playbook's Schematic Light, with the
          EO Nashville logo, copy and compare buttons, and Markdown, Word and PDF downloads. Version label V2026.11.16.
 """
@@ -585,7 +587,7 @@ ol.ladder li::marker {{ color: #B83A14; font-weight: 700; }}
 .box .hd {{ font: 700 7.5pt Menlo, Consolas, monospace; text-transform: uppercase; margin: 0 0 3pt; }}
 .box p {{ margin: 0 0 3pt; }} .box p:last-child {{ margin: 0; }}
 .tw {{ margin: 0 0 8pt; break-inside: avoid; }}
-#p-roles .tw, #p-appendix-c .tw {{ break-inside: auto; }}
+#p-roles .tw {{ break-inside: auto; }}
 thead, caption, tbody tr:first-child {{ break-after: avoid; }}
 #p-appendix-b {{ break-inside: avoid; }}
 .topic > p {{ orphans: 3; widows: 3; }}
