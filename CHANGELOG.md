@@ -1,5 +1,9 @@
 # Changelog: forum-playbook (forumplaybook.com)
 
+## 2026-11-18 (Wed)
+
+- **The preview lane is now the dev lane, at https://dev.forumplaybook.com** (Colton, 2026-11-17: "I do want beta.forumplaybook.com ... maybe it should be dev because I've been calling beta like the app ... Let's go with that same setup ... just like we've done with the collective"). tools/deploy-beta.sh is now tools/deploy-dev.sh (2.0.0): the Worker is forumplaybook-site-dev with dev.forumplaybook.com as its custom domain and no workers.dev address; the lane line reads "You are on the dev lane"; because the host is a forumplaybook.com address, the Resource Library, the videos and Google downloads load there. The old Worker forumplaybook-site-beta and its workers.dev address are deleted. Nothing on the live site changed. No lab lane exists for this site yet. The homepage-only /beta/ path is unchanged.
+
 ## 2026-11-17 (Tue)
 
 - **LIVE: Core Resources in three groups, /constitution/ and /process/open-coaching/** (Colton, 2026-11-17: "Ship it"). The preview branch `preview/constitution-organizer-homepage` is merged into main; the IN FLIGHT entry is cleared. Changes made at ship: the "Mockup for Colton" note and the noindex tags are off /process/open-coaching/ (builder 1.1.0) and /constitution/; the Open Coaching app block now says what the app has today (open coaching in its Playbook, searchable offline) in place of placeholder text; both pages join sitemap.xml; the footer page list on every page that carries it gains the two new pages (the only change on each); brand.html v2.8 lists the Constitution template in section 08 under "Shared Templates, Versioned by Date"; /beta/ regenerated.
