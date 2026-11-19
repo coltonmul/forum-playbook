@@ -1,5 +1,9 @@
 # Changelog: forum-playbook (forumplaybook.com)
 
+## IN FLIGHT
+
+- **Homepage hero rework: the headline, the polaroid and the numbers lead, the app promo moves down beside the first Forum Tools cards** (MacBook session for Colton, started Wed / 2026-11-18 / 7:12 PM CT): the work is on branch `preview/hero-compact` and is previewed at https://dev.forumplaybook.com, not on the live site. It waits on Colton's "ship". It restructures the hero in index.html and styles.css and the Forum Tools group in app.js. Until this entry clears, keep edits to those three files on main small and additive.
+
 ## 2026-11-18 (Wed)
 
 - **Constitution V2026.11.18: Appendix C is gone** (Colton, 2026-11-18: "Yes, remove it"). Appendix C listed ten places where the chapter template contradicts itself; it came from the Forum 14 working copy and is off the public template. constitution/_src/content.py drops the block, build-constitution.py 1.1.0 rebuilt the page, the Markdown, the Word file and the PDF (now 12 pages) under the new date version, and the V2026.11.16 files are removed from the site. config.js, brand.html v2.9 (section 08) and sitemap.xml point at the new files.
