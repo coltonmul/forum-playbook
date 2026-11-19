@@ -19,6 +19,8 @@ GOOGLE_API_KEY: 'AIzaSyD-DZWNK5YL8qgVzAVCv0qt87VHGnykh8Y',
 //   2. Process Breakdowns: one process per row, each as a web page, a PDF and a two-minute video.
 //   3. Retreat Exercises: the Ikigai worksheet and North Star.
 // A group has: id, title, tag, icon, note, tint ('burn' | 'teal' | 'gold'), layout ('cards' | 'rows' | 'wide'), items.
+//   promo: 'app' puts the Forum Playbook app tile in the group's grid (Colton, 2026-11-18): to the right of the
+//   cards on a wide screen, a short strip above them on anything narrower. One group carries it.
 // An item has:
 //   title, badge, icon   icon is a name from core-icons.js (tools/build-core-icons.py holds the one list)
 //   bullets              two to four short lines (cards); line = the one line a row shows
@@ -39,6 +41,7 @@ tag: 'Open every month',
 icon: 'toolbox',
 tint: 'burn',
 layout: 'cards',
+promo: 'app',
 note: 'What a forum opens at every meeting: the timer, the organizer, the reflection worksheet and the constitution.',
 items: [
 {

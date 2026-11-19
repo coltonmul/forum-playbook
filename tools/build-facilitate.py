@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""build-facilitate.py: builds forumplaybook.com/facilitate/ ("Have Colton facilitate your retreat"). VERSION 1.4.0 (2026-11-14)
+"""build-facilitate.py: builds forumplaybook.com/facilitate/ ("Have Colton facilitate your retreat"). VERSION 1.4.1 (2026-11-18)
 
   python3 tools/build-facilitate.py
 
@@ -9,6 +9,7 @@ build-catalyst.py, the one canonical list), stamps the page, and guards against 
 promise words (NO PROMISES IN PUBLIC COPY). The changelog stays here and in CHANGELOG.md, never on the page.
 
 Changelog
+  1.4.1  How most themes run, After: "Leave with intentions" replaces "Leave with one page" (Colton, 2026-11-18).
   1.4.0  The North Star card links to its own page, /facilitate/north-star/, and Popular retreats closes with how most
          themes run, before, during and after, with icons (Colton, 2026-11-14).
   1.3.0  Popular retreats: six cards (North Star with the Telluride sky time-lapse, Life Wheel, Ikigai, Goal Setting and Accountability, Values and Meaning, My Identity vs. My Values), each with its picture (Colton, 2026-10-28).
@@ -25,7 +26,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 spec = importlib.util.spec_from_file_location("bc", os.path.join(ROOT, "tools", "build-catalyst.py"))
 bc = importlib.util.module_from_spec(spec); spec.loader.exec_module(bc)
 
-VERSION = "1.4.0"
+VERSION = "1.4.1"
 D = os.path.join(ROOT, "facilitate")
 STAMP = subprocess.check_output(["date", "+Updated %a / %Y-%m-%d / %-I:%M %p CT"], text=True).strip()
 

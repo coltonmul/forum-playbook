@@ -1423,6 +1423,48 @@ body { overflow-x: clip; }
 }
 
 /* ═══════════════════════════════════════════════════════════
+   HERO, COMPACT (Colton, 2026-11-18: "The header text should be the
+   header, alongside the polaroid and the numbers"). The app promo left
+   the hero for the Forum Tools grid (index.html, .cg-app), so the hero
+   is the tagline line, then the headline, the polaroid and the numbers
+   in one row. Less padding above; room below so the tilted polaroid is
+   not cut off by the section edge. Legibility law on the small type:
+   the tagline line, the sub line and the number labels are 12px and up,
+   contrast computed on linen (#6B6052 5.2:1, deep dust 8.5:1; they were
+   9px at 2.4:1).
+   ═══════════════════════════════════════════════════════════ */
+.annot, .annot-box { font-size: 12px; color: #6B6052; letter-spacing: 0.14em; }
+.annot { line-height: 1.5; }
+.hero-sub { font-size: 15px; font-weight: 400; color: var(--deep-dust); }
+.stat-label { font-size: 12px; color: var(--deep-dust); letter-spacing: 0.1em; }
+@media (min-width: 981px) {
+  .hero { padding-top: 30px; padding-bottom: 26px; }
+  .hero .annot { margin-bottom: 16px; }
+  .hero .hero-sub { margin-top: 22px; padding-top: 18px; }
+}
+/* 981 to 1239px: the numbers sit under the headline, beside the polaroid, four across (their labels wrap),
+   instead of in a row of their own under the polaroid. */
+@media (min-width: 981px) and (max-width: 1239px) {
+  .hero { grid-template-areas: "annot annot" "h1 reel" "stats reel" "sub reel" "ledger ledger"; grid-template-rows: auto auto 1fr auto auto; }
+  .hero .stats { display: grid; grid-template-columns: repeat(4, minmax(0, max-content)); justify-content: start; gap: 12px 22px; align-self: start; padding: 22px 0 0; }
+  .hero .reel-card { align-self: start; }
+}
+@media (max-width: 980px) {
+  .hero { padding-bottom: 26px; }
+  /* the sub line, then the numbers in a row of their own (at 12px their labels no longer fit beside it) */
+  .hero-bottom { flex-direction: column; align-items: flex-start; gap: 20px; }
+}
+.stat-num { white-space: nowrap; }
+.ledger-sub, .ledger-foot { font-size: 12px; }
+@media (max-width: 680px) {
+  .stat-label { font-size: 12px; }
+  .hero-sub { font-size: 15px; }
+  /* phones: the tagline wraps between its two boxes, without the rule lines */
+  .annot { letter-spacing: 0.1em; gap: 10px; align-items: flex-start; }
+  .annot-line { display: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════
    RESOURCE LIBRARY UX ROUND 2 (Colton, 2026-08-10 night):
    rail locks at the Resource Library header and stays fully visible
    (scrolls inside itself when tall), row meta cut to the file type,

@@ -83,7 +83,7 @@ function renderCoreResources() {
         <div class="section-rule"></div>
       </div>
       ${g.note ? `<p class="cg-note">${g.note}</p>` : ''}
-      <div class="cg-grid cg-${g.layout || 'cards'}">${g.items.map((r, i) => build(r, gi + ':' + i)).join('')}</div>
+      <div class="cg-grid cg-${g.layout || 'cards'}${g.promo === 'app' ? ' cg-has-app' : ''}">${g.promo === 'app' ? coreAppPromoHTML() : ''}${g.items.map((r, i) => build(r, gi + ':' + i)).join('')}</div>
     </div>`;
   }).join('');
   wrap.querySelectorAll('[data-download-url]').forEach(btn => {
@@ -96,6 +96,24 @@ function renderCoreResources() {
     btn.addEventListener('click', () => openCorePreview(btn.dataset.corePreview, btn));
   });
   coreDrawIn(wrap);
+}
+
+// The Forum Playbook app tile (Colton, 2026-11-18: out of the hero, "in line with the first card ... settled
+// to the right side"). No box: it sits on the group's tint. The tag, the app icon with the name and See the
+// app open /app/; Apple's badge (Apple's artwork, unaltered, served by Apple) opens the listing in a new tab;
+// the phone is a CSS frame around the store screenshot of the timer. It is first in the grid so a phone or a
+// tablet shows it as a strip above the cards; the wide layout places it in the last column (index.html).
+function coreAppPromoHTML() {
+  return `
+    <aside class="cg-app" aria-label="The Forum Playbook app">
+      <a class="as-copy" href="/app/">
+        <span class="as-tag">[ Now on the App Store ]</span>
+        <span class="as-id"><img class="as-icon" src="/app/img/icon-512.png" width="52" height="52" alt=""><span class="as-name">Forum<br>Playbook</span></span>
+        <span class="as-cta">See the app <span class="as-arrow" aria-hidden="true">→</span></span>
+      </a>
+      <a class="as-phone" href="/app/" tabindex="-1" aria-hidden="true"><img src="/app/img/0-timer.jpg" width="552" height="1200" alt="" loading="lazy" decoding="async"></a>
+      <a class="ab-badge" href="https://apps.apple.com/us/app/forum-playbook/id6789998894" target="_blank" rel="noopener"><img src="https://toolbox.marketingtools.apple.com/api/v2/badges/download-on-the-app-store/black/en-us" width="138" height="46" alt="Download on the App Store"></a>
+    </aside>`;
 }
 
 function coreIcon(name, cls) {
