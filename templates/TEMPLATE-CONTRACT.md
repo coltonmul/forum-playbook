@@ -1,4 +1,4 @@
-# FORUM PLAYBOOK One-Pager Template Contract v1.7
+# FORUM PLAYBOOK One-Pager Template Contract v1.8
 
 This file is the law. Any session producing a Forum Playbook one-pager must follow it exactly. If this contract and your instincts disagree, the contract wins. If this contract and a user request disagree, ask; do not silently deviate. Nothing outside an EDIT-SLOT may ever change.
 
@@ -39,8 +39,8 @@ Contrast law (Brand Guide v2.0, overrides docx precedent): all reading text at b
 
 ## 3. Typography (LOCKED)
 
-Google Fonts CDN load, exactly this and nothing more:
-`https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Roboto:ital,wght@0,400;0,700;1,400&display=swap`
+Self-hosted from the site's own `/fonts/` folder (v1.8, 2026-11-19: no Google Fonts request, so a reader's address is not sent to Google), exactly this and nothing more:
+`<link rel="stylesheet" href="../fonts/fonts.css">` (relative, so it works on the site and when the file is rendered from disk), using only Big Shoulders Display 700 and 900 and Roboto 400, 700 and 400 italic.
 
 Consolas is a system font; fallback stack is `Consolas, 'Menlo', 'Courier New', monospace`. Never DM Sans or DM Mono in documents (those are web-only fonts).
 

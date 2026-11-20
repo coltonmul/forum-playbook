@@ -219,8 +219,9 @@ def head(home, slug, title, desc, og, extra_head, full):
     ogurl = f"{site}{base}/{og}"
     robots = "noindex, nofollow" if full else "noindex"
     site_name = "Built by Colton" if full else "Forum Playbook"
-    fonts = ("https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=DM+Mono:wght@400;500&display=swap" if full else
-             "https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&family=Roboto:wght@400;500;700;900&display=swap")
+    # Self-hosted typefaces, no Google Fonts request (2026-11-19): the mirror links the site's /fonts/fonts.css; the
+    # full-screen home carries its own copy in assets/fonts/ (copied in main()), which its 'self' CSP allows.
+    fonts = f"{base}/assets/fonts/fonts.css" if full else "/fonts/fonts.css"
     sheets = (f'<link rel="stylesheet" href="{base}/assets/cc.css?v={VERSION}">\n<link rel="stylesheet" href="{base}/assets/cc-full.css?v={VERSION}">' if full else
               f'<link rel="stylesheet" href="/interior.css">\n<link rel="stylesheet" href="/concepts/concepts.css">\n<link rel="stylesheet" href="{base}/assets/cc.css?v={VERSION}">')
     return f"""<meta charset="UTF-8">
@@ -243,7 +244,7 @@ def head(home, slug, title, desc, og, extra_head, full):
 <meta name="twitter:description" content="{desc}" />
 <meta name="twitter:image" content="{ogurl}" />
 <meta name="generator" content="Catalyst Collective v{VERSION}, built {STAMP}">
-<link href="{fonts}" rel="stylesheet">
+<link rel="stylesheet" href="{fonts}">
 {sheets}
 {extra_head}
 <script src="{base}/assets/js.js?v={VERSION}"></script>"""
@@ -390,6 +391,8 @@ def main():
                 shutil.rmtree(out_root)
             os.makedirs(out_root)
             shutil.copytree(os.path.join(CC, "assets"), os.path.join(out_root, "assets"))
+            shutil.copytree(os.path.join(ROOT, "fonts"), os.path.join(out_root, "assets", "fonts"),
+                            ignore=shutil.ignore_patterns("README.md"))
             shutil.copy(os.path.join(CC, "og.png"), os.path.join(out_root, "og.png"))
         built = []
         for p in PAGES:

@@ -548,7 +548,7 @@ def build_print_html(logo_path, icon_files):
                     f'<span class="t">{html.escape(s["title"])}</span></h2>\n{print_blocks(s["blocks"])}\n</section>')
     foot_l = f"{C.TITLE} \u00b7 {VER}\\A A Forum Playbook resource by Colton Mulligan \u00b7 forumplaybook.com"
     return f"""<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>{C.TITLE} {VER}</title>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="file://{os.path.join(ROOT, 'fonts', 'fonts.css')}">
 <style>
 @page {{ size: 8.5in 11in; margin: 0.95in 0.875in 0.95in 0.875in;
   @top-left {{ content: "\\2387  {C.TITLE.upper()}"; font: 700 7pt Menlo, Consolas, monospace; color: #0E0E0C; vertical-align: bottom; padding-bottom: 8pt; margin-bottom: 12pt; border-bottom: 0.5pt solid #D4CCC0; }}

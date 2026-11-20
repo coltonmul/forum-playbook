@@ -63,6 +63,10 @@ RELEASE_KEY = "b"  # the iteration that shipped: Colton filed the neutral B in F
 HERE = Path(__file__).resolve().parent
 OUT = HERE.parent
 RELEASE_DIR = HERE.parents[2] / "worksheets"
+# Typefaces come from the site's own /fonts/ (no Google Fonts request, 2026-11-19). Pages written into OUT link
+# FONTS_CSS, relative so it works on the site and from disk; anything written to a temp folder gets FONTS_URI.
+FONTS_CSS = "../../fonts/fonts.css"
+FONTS_URI = (HERE.parents[2] / "fonts" / "fonts.css").as_uri()
 RELEASE_NAME = "5-percent-reflection-sheet"
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 SITE = "https://forumplaybook.com/mockups/5-percent-reflection/"
@@ -359,9 +363,7 @@ def sheet_html(it, skin, release=False):
      Do not hand-edit: change the generator and rerun it. -->
 <title>{title_tag}</title>
 <link rel="icon" href="{favicon}"/>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Roboto:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{FONTS_CSS}">
 <style>{SHEET_CSS}</style>
 </head>
 <body class="{'fp' if fp else 'neutral'} iter-{k}">
@@ -469,7 +471,7 @@ def render_pdf(html_path, pdf_path, profile):
     fonts = subprocess.run(["pdffonts", str(pdf_path)], capture_output=True, text=True).stdout
     for needed in ("BigShoulders", "Roboto"):
         if needed not in fonts:
-            sys.exit(f"FAILED: {needed} did not embed in {pdf_path.name} (fonts CDN unreachable?).\n{fonts}")
+            sys.exit(f"FAILED: {needed} did not embed in {pdf_path.name} (fonts/ folder missing?).\n{fonts}")
 
 
 def measure(html_path, profile, tmpdir):
@@ -487,7 +489,7 @@ document.fonts.ready.then(function () {
   d.setAttribute('data-fits', last <= p.getBoundingClientRect().bottom ? 'yes' : 'NO');
 });
 </script></body>"""
-    probe.write_text(html_path.read_text(encoding="utf-8").replace("</body>", script), encoding="utf-8")
+    probe.write_text(html_path.read_text(encoding="utf-8").replace(FONTS_CSS, FONTS_URI).replace("</body>", script), encoding="utf-8")
     dom = chrome(["--virtual-time-budget=6000", "--window-size=900,1200", "--dump-dom", probe.as_uri()],
                  profile, "</html>")
     got = {}
@@ -701,9 +703,7 @@ def gallery_html(stats):
 <meta name="twitter:description" content="A one-page monthly reflection sheet with a big EQ zone and a small IQ zone. Three iterations, print-ready.">
 <meta name="twitter:image" content="{SITE}og.png">
 <link rel="icon" href="{FP_FAVICON}"/>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{FONTS_CSS}">
 <style>{GALLERY_CSS}</style>
 </head>
 <body>
@@ -805,7 +805,7 @@ def gallery_html(stats):
 
 
 OG_CARD = """<!DOCTYPE html><html><head><meta charset="UTF-8">
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@900&family=DM+Sans:wght@400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="@@FONTS@@">
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 body { width: 1200px; height: 630px; background: #F0EBE0; overflow: hidden; position: relative;
@@ -859,7 +859,7 @@ def release():
     with tempfile.TemporaryDirectory() as tmp:
         profile = Path(tmp) / "chrome-profile"
         html_path = Path(tmp) / f"{RELEASE_NAME}.html"
-        html_path.write_text(page, encoding="utf-8")
+        html_path.write_text(page.replace(FONTS_CSS, FONTS_URI), encoding="utf-8")
         pdf = RELEASE_DIR / f"{RELEASE_NAME}.pdf"
         render_pdf(html_path, pdf, profile)
         subprocess.run(["pdftoppm", "-png", "-r", "110", "-singlefile", str(pdf), str(RELEASE_DIR / RELEASE_NAME)], check=True)
@@ -897,7 +897,7 @@ def main():
                     stats[it["key"]] = got
 
         og_src = Path(tmp) / "og-card.html"
-        og_src.write_text(OG_CARD.replace("@@IMG@@", (OUT / (base(ITERATIONS[1], SKINS[0]) + ".png")).as_uri()),
+        og_src.write_text(OG_CARD.replace("@@FONTS@@", FONTS_URI).replace("@@IMG@@", (OUT / (base(ITERATIONS[1], SKINS[0]) + ".png")).as_uri()),
                           encoding="utf-8")
         if (OUT / "og.png").exists():
             (OUT / "og.png").unlink()

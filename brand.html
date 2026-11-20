@@ -17,7 +17,7 @@
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="Forum Playbook: Brand Guide + Templates" />
 <meta name="twitter:image" content="https://forumplaybook.com/og-image.png" />
-<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/fonts/fonts.css">
 <link rel="stylesheet" href="interior.css">
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -370,7 +370,7 @@ body {
 .page-footer-stack { display: flex; flex-direction: column; gap: 2px; }
 .page-footer-name { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; color: var(--pitch); }
 .page-footer-url { font-size: 9px; color: var(--dust); letter-spacing: 0.04em; }
-.page-footer-right { font-family: 'DM Mono', monospace; font-size: 9px; color: var(--dust); letter-spacing: 0.1em; text-align: right; line-height: 1.8; }
+.page-footer-right { font-family: 'DM Mono', monospace; font-size: 12px; color: var(--deep-dust); letter-spacing: 0.1em; text-align: right; line-height: 1.8; }
 /* ── PHONES (2026-09-22): this page had no phone layout, so the two lockup
    cards sat side by side and pushed the page to 540px wide on a 393px phone.
    The page is also locked to the screen width by interior.css. ── */
@@ -400,7 +400,7 @@ body {
   </a>
   <span class="ibar-rule" aria-hidden="true"></span>
   <span class="ibar-page">Brand Guide</span>
-  <span class="ibar-meta">v2.4 &middot; September 2026 &middot; Internal Use</span>
+  <span class="ibar-meta">Updated Thu / 2026-11-19 / 6:36 PM CT &middot; Internal Use</span>
   <nav class="ibar-nav" aria-label="Main navigation">
     <a href="/#resources" class="ibar-hit ibar-cool ibar-link"><span>Resources</span></a>
     <a href="/timer" class="ibar-hit ibar-cool ibar-link"><span>Timer</span></a>
@@ -832,14 +832,14 @@ body {
     <div style="font-family:'DM Sans',sans-serif; font-size:12px; font-weight:300; color:var(--deep-dust); line-height:1.65; max-width:640px; margin-bottom:12px;">
       The newest document templates and the current one-pagers are housed here, permanently, so nobody hunts through folders or old chats for them. Pull from this section every time. When a template or one-pager changes, this section updates in the same session.
     </div>
-    <div style="font-family:'DM Mono',monospace; font-size:8px; letter-spacing:0.14em; color:var(--dust); text-transform:uppercase; margin-bottom:20px;">
-      Current as of Wed / 2026-11-18 / 7:17 AM CT &nbsp;·&nbsp; Source of record: Projects/ForumPlaybook.com/one-pager-system (MacBook)
+    <div style="font-family:'DM Mono',monospace; font-size:12px; letter-spacing:0.14em; color:var(--deep-dust); text-transform:uppercase; margin-bottom:20px;">
+      Current as of Thu / 2026-11-19 / 6:36 PM CT &nbsp;·&nbsp; Source of record: Projects/ForumPlaybook.com/one-pager-system (MacBook)
     </div>
 
     <div class="color-tier-label">The Templates</div>
     <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; border:0.5px solid var(--border); background:#fff; padding:14px 16px; margin-bottom:8px;">
       <div style="min-width:260px;">
-        <div style="font-family:'Big Shoulders Display',sans-serif; font-size:18px; font-weight:700; color:var(--pitch);">ONE-PAGER TEMPLATE <span style="color:var(--burn);">v1.2</span></div>
+        <div style="font-family:'Big Shoulders Display',sans-serif; font-size:18px; font-weight:700; color:var(--pitch);">ONE-PAGER TEMPLATE <span style="color:var(--brick);">v1.4</span></div>
         <div style="font-family:'DM Mono',monospace; font-size:9px; color:var(--deep-dust); letter-spacing:0.06em; margin-top:3px;">The EDIT-SLOT base every one-pager starts from. Locked CSS, five block types, exactly one page.</div>
       </div>
       <div style="display:flex; gap:8px; flex-shrink:0;">
@@ -849,7 +849,7 @@ body {
     </div>
     <div style="display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; border:0.5px solid var(--border); background:#fff; padding:14px 16px; margin-bottom:8px;">
       <div style="min-width:260px;">
-        <div style="font-family:'Big Shoulders Display',sans-serif; font-size:18px; font-weight:700; color:var(--pitch);">TEMPLATE CONTRACT <span style="color:var(--burn);">v1.3</span></div>
+        <div style="font-family:'Big Shoulders Display',sans-serif; font-size:18px; font-weight:700; color:var(--pitch);">TEMPLATE CONTRACT <span style="color:var(--brick);">v1.8</span></div>
         <div style="font-family:'DM Mono',monospace; font-size:9px; color:var(--deep-dust); letter-spacing:0.06em; margin-top:3px;">The law behind the template: geometry, tokens, type, spacing, block library, production checklist.</div>
       </div>
       <div style="display:flex; gap:8px; flex-shrink:0;">
@@ -947,8 +947,8 @@ body {
   </div>
 
   <!-- CHANGELOG -->
-  <div style="margin-top:56px; padding-top:14px; border-top:0.5px solid var(--border); font-family:'DM Mono',monospace; font-size:9px; color:var(--dust); letter-spacing:0.08em; line-height:2;">
-    CHANGELOG &nbsp;·&nbsp; v2.9 (Nov 18, 2026): the Constitution template in section 08 is V2026.11.18 (sixteen topics, two appendices). &nbsp;·&nbsp; v2.8 (Nov 17, 2026): section 08 gains Shared Templates, Versioned by Date, holding the Nashville Forum Constitution Template V2026.11.18 (the page, Word, PDF and Markdown). &nbsp;·&nbsp; v2.7 (Nov 5, 2026): the one-pagers carry no quotes attributed to Colton (Colton, 2026-11-05: they read as self-aggrandizing). New files, earlier ones kept at their addresses: Open Coaching v4.1, EQ vs IQ Topics v1.3, the 4-Hour Forum Meeting Blueprint v1.3 and the Retreat Thirds Rule v1.3, built to Template Contract v1.7 (sources only credit someone outside, footer addresses stacked with no slash, header and aside text in Deep Dust). &nbsp;·&nbsp; v2.6 (Oct 31, 2026): the new tagline, "The operating system and tools to make Forum easy and awesome." (Colton, 2026-10-31), replaces "A Resource Hub for Forums, Moderators, &amp; Facilitators" everywhere; the Template Contract moves to v1.3: the footer's lower right reads builtbycolton.com / forumplaybook.com, both linked, and the footer runs move from Dust to Deep Dust so they pass contrast; every one-pager re-rendered (versions bumped, addresses unchanged); the Ikigai Worksheet (11x17) joins the set. &nbsp;·&nbsp; v2.5 (Oct 20, 2026): the Template Contract moves to v1.2 with section 13, the multi-page document class (every page in the chrome, no body kicker, Phosphor thin concept icons as dark-gray lines on section heads and prompts, open writing space that fills the page, air under the chrome, sources only on facilitator copies, tables allowed); Word documents build from the master template through the docx builder in the one-pager system. &nbsp;·&nbsp; v2.4 (Sep 25, 2026): section 08 lists the One-Pager Template and its Contract at v1.1 (the template and every one-pager now carry the site visitor counter, one locked web-only line that prints nothing). &nbsp;·&nbsp; v2.3 (Sep 18, 2026): section 08 gains an In Review tier, holding the 5% Reflection Sheet mockups (EQ on top, IQ at the bottom; the first worksheet) until Colton picks one. &nbsp;·&nbsp; v2.2 (Aug 10, 2026, afternoon): Open Coaching to v3.0, adding the light IQ version per Colton's correction. &nbsp;·&nbsp; v2.1 (Aug 10, 2026): added 08 Templates &amp; One-Pagers so the newest templates live on this page; Open Coaching updated to v2.0 (current opening language, EQ vs IQ frame); em dashes scrubbed site-wide. &nbsp;·&nbsp; v2.0 (Mar 2026): brand system locked.
+  <div style="margin-top:56px; padding-top:14px; border-top:0.5px solid var(--border); font-family:'DM Mono',monospace; font-size:12px; color:var(--deep-dust); letter-spacing:0.08em; line-height:2;">
+    CHANGELOG &nbsp;·&nbsp; v2.10 (Nov 19, 2026): the typefaces load from forumplaybook.com/fonts instead of Google Fonts, so a visit sends nothing to Google; section 08 lists the One-Pager Template v1.4 and Template Contract v1.8, which load them the same way. &nbsp;·&nbsp; v2.9 (Nov 18, 2026): the Constitution template in section 08 is V2026.11.18 (sixteen topics, two appendices). &nbsp;·&nbsp; v2.8 (Nov 17, 2026): section 08 gains Shared Templates, Versioned by Date, holding the Nashville Forum Constitution Template V2026.11.18 (the page, Word, PDF and Markdown). &nbsp;·&nbsp; v2.7 (Nov 5, 2026): the one-pagers carry no quotes attributed to Colton (Colton, 2026-11-05: they read as self-aggrandizing). New files, earlier ones kept at their addresses: Open Coaching v4.1, EQ vs IQ Topics v1.3, the 4-Hour Forum Meeting Blueprint v1.3 and the Retreat Thirds Rule v1.3, built to Template Contract v1.7 (sources only credit someone outside, footer addresses stacked with no slash, header and aside text in Deep Dust). &nbsp;·&nbsp; v2.6 (Oct 31, 2026): the new tagline, "The operating system and tools to make Forum easy and awesome." (Colton, 2026-10-31), replaces "A Resource Hub for Forums, Moderators, &amp; Facilitators" everywhere; the Template Contract moves to v1.3: the footer's lower right reads builtbycolton.com / forumplaybook.com, both linked, and the footer runs move from Dust to Deep Dust so they pass contrast; every one-pager re-rendered (versions bumped, addresses unchanged); the Ikigai Worksheet (11x17) joins the set. &nbsp;·&nbsp; v2.5 (Oct 20, 2026): the Template Contract moves to v1.2 with section 13, the multi-page document class (every page in the chrome, no body kicker, Phosphor thin concept icons as dark-gray lines on section heads and prompts, open writing space that fills the page, air under the chrome, sources only on facilitator copies, tables allowed); Word documents build from the master template through the docx builder in the one-pager system. &nbsp;·&nbsp; v2.4 (Sep 25, 2026): section 08 lists the One-Pager Template and its Contract at v1.1 (the template and every one-pager now carry the site visitor counter, one locked web-only line that prints nothing). &nbsp;·&nbsp; v2.3 (Sep 18, 2026): section 08 gains an In Review tier, holding the 5% Reflection Sheet mockups (EQ on top, IQ at the bottom; the first worksheet) until Colton picks one. &nbsp;·&nbsp; v2.2 (Aug 10, 2026, afternoon): Open Coaching to v3.0, adding the light IQ version per Colton's correction. &nbsp;·&nbsp; v2.1 (Aug 10, 2026): added 08 Templates &amp; One-Pagers so the newest templates live on this page; Open Coaching updated to v2.0 (current opening language, EQ vs IQ frame); em dashes scrubbed site-wide. &nbsp;·&nbsp; v2.0 (Mar 2026): brand system locked.
   </div>
 
   <!-- PAGE FOOTER -->
@@ -961,7 +961,7 @@ body {
       </div>
     </div>
     <div class="page-footer-right">
-      Brand Guidelines v2.9 · November 2026<br>
+      Brand Guidelines v2.10 · November 2026<br>
       Internal reference · Not for redistribution
     </div>
   </div>

@@ -30,7 +30,7 @@ GOOGLE_API_KEY: 'AIzaSyD-DZWNK5YL8qgVzAVCv0qt87VHGnykh8Y',
 //   actions              the buttons, in order. Each is { label, icon, style: 'primary' | 'ghost' (optional) } plus ONE of:
 //                          url (add download: true to save the file), export: 'pdf' | 'docx' | 'xlsx' (Google export
 //                          of fileId), drive: true (opens fileId in Google), soon: true (not made yet, shown as such)
-// The official EO documents live in the library's own bucket (EO Legal), not up here.
+// Folders the library does not show stay in their own bucket (RESTRICTED_FOLDER_NAMES below), not up here.
 CORE_GROUPS: [
 {
 id: 'tools',

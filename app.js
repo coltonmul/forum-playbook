@@ -413,7 +413,7 @@ function renderRail() {
 }
 
 // The rail is sticky, so a bucket can be clicked from deep inside a long list. When the new
-// bucket is short (the official EO one is a single notice), the page shrinks by thousands of
+// bucket is short (a restricted one is a single notice), the page shrinks by thousands of
 // pixels and the browser clamps the scroll into How-To Videos (Colton, 2026-10-27: "it jumped
 // to the videos page"). Bring the top of the finder back under the nav instead.
 function keepFinderInView() {
@@ -609,13 +609,7 @@ function railIconMic() {
 }
 function restrictedBodyHTML() {
   return `<div class="restricted-body">
-    <p class="restricted-copy">EO Legal now prohibits redistribution or external hosting of official EO materials. The full library is still available to members, you just have to access it directly from the EO member portal (login required).</p>
-    <p class="restricted-copy">For the official, up-to-date documents, head to:</p>
-    <ul class="restricted-links">
-      <li><a href="https://member.eonetwork.org/member/forum/for-forum-moderators" target="_blank" rel="noopener">↗ Forum &amp; Moderator Docs</a> <span class="restricted-note">(login required)</span></li>
-      <li><a href="https://member.eonetwork.org/member/forum/for-forum-chairs" target="_blank" rel="noopener">↗ Forum Chair Docs</a> <span class="restricted-note">(login required)</span></li>
-    </ul>
-    <p class="restricted-copy restricted-fineprint">If you can't get in, ping a trainer or chapter staff member.</p>
+    <p class="restricted-copy">This folder is not available here.</p>
   </div>`;
 }
 
@@ -754,15 +748,7 @@ function buildRestrictedAccordionHTML(name) {
         <span class="acc-caret">▼</span>
       </div>
       <div class="acc-body">
-        <div class="restricted-body">
-          <p class="restricted-copy">EO Legal now prohibits redistribution or external hosting of official EO materials. The full library is still available to members, you just have to access it directly from the EO member portal (login required).</p>
-          <p class="restricted-copy">For the official, up-to-date documents, head to:</p>
-          <ul class="restricted-links">
-            <li><a href="https://member.eonetwork.org/member/forum/for-forum-moderators" target="_blank" rel="noopener">↗ Forum &amp; Moderator Docs</a> <span class="restricted-note">(login required)</span></li>
-            <li><a href="https://member.eonetwork.org/member/forum/for-forum-chairs" target="_blank" rel="noopener">↗ Forum Chair Docs</a> <span class="restricted-note">(login required)</span></li>
-          </ul>
-          <p class="restricted-copy restricted-fineprint">If you can't get in, ping a trainer or chapter staff member.</p>
-        </div>
+        ${restrictedBodyHTML()}
       </div>
     </div>
   `;
