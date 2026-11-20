@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""build-facilitate.py: builds forumplaybook.com/facilitate/ ("Have Colton facilitate your retreat"). VERSION 1.4.0 (2026-11-14)
+"""build-facilitate.py: builds forumplaybook.com/facilitate/ ("Have Colton facilitate your retreat"). VERSION 1.5.0 (2026-11-20)
 
   python3 tools/build-facilitate.py
 
@@ -9,6 +9,9 @@ build-catalyst.py, the one canonical list), stamps the page, and guards against 
 promise words (NO PROMISES IN PUBLIC COPY). The changelog stays here and in CHANGELOG.md, never on the page.
 
 Changelog
+  1.5.0  Popular retreats: Ikigai moves ahead of the life wheel, which is now the Life Snapshot, a square holding nine
+         circles with an icon for each area of life ({{SVG:name}} inlines facilitate/img/<name>, so its drawing draws in like
+         the others); the line under the heading is in Colton's words (Colton, 2026-11-20).
   1.4.0  The North Star card links to its own page, /facilitate/north-star/, and Popular retreats closes with how most
          themes run, before, during and after, with icons (Colton, 2026-11-14).
   1.3.0  Popular retreats: six cards (North Star with the Telluride sky time-lapse, Life Wheel, Ikigai, Goal Setting and Accountability, Values and Meaning, My Identity vs. My Values), each with its picture (Colton, 2026-10-28).
@@ -25,7 +28,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 spec = importlib.util.spec_from_file_location("bc", os.path.join(ROOT, "tools", "build-catalyst.py"))
 bc = importlib.util.module_from_spec(spec); spec.loader.exec_module(bc)
 
-VERSION = "1.4.0"
+VERSION = "1.5.0"
 D = os.path.join(ROOT, "facilitate")
 STAMP = subprocess.check_output(["date", "+Updated %a / %Y-%m-%d / %-I:%M %p CT"], text=True).strip()
 
@@ -114,6 +117,8 @@ def icon(name, size=48):
     svg = subprocess.check_output(["python3", ICON_PY, "svg", name, "--weight", "thin", "--size", str(size)], cwd=os.path.dirname(ICON_PY)).decode().strip()
     return svg.replace("<svg ", '<svg aria-hidden="true" focusable="false" ', 1)
 src = re.sub(r"\{\{IC:([a-z0-9-]+)\}\}", lambda m: icon(m.group(1)), src)
+# {{SVG:name}}: a drawing kept as its own file in facilitate/img/, inlined so the page script can draw it in
+src = re.sub(r"\{\{SVG:([a-z0-9.-]+\.svg)\}\}", lambda m: re.sub(r"<\?xml[^>]*\?>\s*", "", open(os.path.join(D, "img", m.group(1))).read()).strip(), src)
 s = src.replace("{{MONTHS}}", months_html).replace("{{BLACKOUTS}}", blackouts_html)
 s = s.replace("{{QUOTE_HERO}}", quote_hero())
 s = re.sub(r"\{\{QUOTE_PICK:([^}]+)\}\}", lambda m: quote_pick(m.group(1)), s)
