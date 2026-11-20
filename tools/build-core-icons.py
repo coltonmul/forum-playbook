@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """build-core-icons.py: writes core-icons.js, the Phosphor thin drawings the homepage's Core Resources groups use.
-VERSION 1.0.0 (2026-11-16)
+VERSION 1.1.0 (2026-11-20)
+  1.1.0: chat-circle-dots (1000greatquestions.com), files (Templates and Worksheets), arrow-square-out (opens an outside site).
 
   /opt/homebrew/bin/python3 tools/build-core-icons.py
 
@@ -16,12 +17,12 @@ ICON_PY = os.path.expanduser("~/Sites/brand-assets/icons/icon.py")
 ICONS = [
     # the things
     "timer", "table", "percent", "scroll", "chats-circle", "handshake", "clock-countdown", "scales",
-    "chart-pie-slice", "flower-lotus", "star-four",
+    "chart-pie-slice", "flower-lotus", "star-four", "chat-circle-dots",
     # the group heads
-    "toolbox", "path", "mountains",
+    "toolbox", "path", "mountains", "files",
     # the formats and actions
     "browser", "file-pdf", "play-circle", "file-doc", "file-xls", "file-md", "google-drive-logo", "copy",
-    "device-mobile", "arrow-up-right", "download-simple", "eye", "app-store-logo",
+    "device-mobile", "arrow-up-right", "arrow-square-out", "download-simple", "eye", "app-store-logo",
 ]
 
 out = {}

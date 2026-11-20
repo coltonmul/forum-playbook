@@ -14,17 +14,25 @@ const CONFIG = {
 // Enabled APIs: Google Drive API v3 + YouTube Data API v3
 GOOGLE_API_KEY: 'AIzaSyD-DZWNK5YL8qgVzAVCv0qt87VHGnykh8Y',
 // ── Core Resources ──────────────────────────────────────
-// CORE_GROUPS: the top of the homepage, in three groups (Colton, 2026-11-16):
-//   1. Forum Tools: Forum Timer first, then the Forum Organizer spreadsheet, then the worksheet and the constitution.
-//   2. Process Breakdowns: one process per row, each as a web page, a PDF and a two-minute video.
-//   3. Retreat Exercises: the Ikigai worksheet and North Star.
-// A group has: id, title, tag, icon, note, tint ('burn' | 'teal' | 'gold'), layout ('cards' | 'rows' | 'wide'), items.
+// CORE_GROUPS: the top of the homepage, in four groups, in this order (Colton, 2026-11-20: the Forum Timer first,
+// then 1000greatquestions.com, "a better way to do icebreakers"; the standard forum documents further down):
+//   1. Forum Tools: the Forum Timer, 1000greatquestions.com and the app tile. Three across, nothing else up top.
+//   2. Retreat Exercises: the Ikigai worksheet and North Star.
+//   3. Process Breakdowns (quiet): one process per row, each as a web page, a PDF and a two-minute video.
+//   4. Templates and Worksheets (quiet): the Forum Organizer, the constitution template, the 5% Reflection Worksheet last.
+// A group has: id, title, tag, icon, note, tint ('burn' | 'teal' | 'gold' | 'quiet'), layout ('feature' | 'cards' | 'rows' | 'wide'), items.
+//   'feature' is two cards side by side (the top group). 'quiet' is no tinted block, a smaller head and plain buttons:
+//   the lower groups, below the fold.
 //   promo: 'app' puts the Forum Playbook app tile in the group's grid (Colton, 2026-11-18): to the right of the
-//   cards on a wide screen, a short strip above them on anything narrower. One group carries it.
+//   cards on a wide screen, a short strip under them on anything narrower. One group carries it.
+//   The ids are anchors other pages link to (/#cg-process from /process/open-coaching/), so keep them.
 // An item has:
 //   title, badge, icon   icon is a name from core-icons.js (tools/build-core-icons.py holds the one list)
 //   bullets              two to four short lines (cards); line = the one line a row shows
-//   shotFit              'photo' centers a photo; 'phone' shows a phone picture whole, on the group's tint
+//   shotFit              'photo' centers a photo; 'phone' shows a phone picture whole, on the group's tint;
+//                        'site' shows a screenshot of a web page from its top
+//   shotHref             the picture opens this address in a new tab instead of the Preview (an outside site)
+//   titleAside           a second part of the title, in plain type under it (the title keeps its own case then)
 //   shot                 the picture on the card; preview = the large page-one picture the Preview opens
 //                        (a Google file with no shot or preview uses its Drive thumbnail)
 //   landscape            true for a wide page
@@ -37,12 +45,12 @@ CORE_GROUPS: [
 {
 id: 'tools',
 title: 'Forum Tools',
-tag: 'Open every month',
+tag: 'For every meeting',
 icon: 'toolbox',
 tint: 'burn',
-layout: 'cards',
+layout: 'feature',
 promo: 'app',
-note: 'What a forum opens at every meeting: the timer, the organizer, the reflection worksheet and the constitution.',
+note: 'The Forum Timer for every meeting, and questions to open one with.',
 items: [
 {
 title: 'Forum Timer',
@@ -62,53 +70,65 @@ actions: [
 ],
 },
 {
-title: 'Forum Organizer Spreadsheet',
-badge: 'GOOGLE SHEET · V2026.11.18',
-icon: 'table',
-type: 'sheet',
-fileId: '1jbmebL57hRT86sn_cpJfz0dc2KY5mwEiNzv_UgQdahU',
-shot: '/previews/forum-organizer-V2026.11.18.png',
-preview: '/previews/forum-organizer-V2026.11.18.png',
+title: '1000greatquestions.com',
+titleAside: '(a better way to do icebreakers)',
+badge: 'WEB APP · THREE LEVELS',
+icon: 'chat-circle-dots',
+shot: '/previews/1000-great-questions.png',
+shotFit: 'site',
+shotHref: 'https://1000greatquestions.com',
+shotAlt: 'The 1000greatquestions.com home page: Skip the small talk, with its three question levels',
 bullets: [
-'An agenda for every meeting',
-'The year\'s schedule: host, presenter and coach',
-'Roles, resources and the parking lot, with a filled-in example',
+'A thousand conversation questions in three levels: warm up, go deeper, all in',
+'Pick a level, pull a question, go around the table',
+'Made for forums, retreats and any meeting that needs more than small talk',
 ],
 actions: [
-{ label: 'Make your own copy', icon: 'copy', url: 'https://docs.google.com/spreadsheets/d/1jbmebL57hRT86sn_cpJfz0dc2KY5mwEiNzv_UgQdahU/copy', style: 'primary' },
-{ label: 'Open the sheet', icon: 'google-drive-logo', drive: true },
-{ label: 'XLSX', icon: 'file-xls', export: 'xlsx' },
+{ label: 'Open the site', icon: 'arrow-square-out', url: 'https://1000greatquestions.com', style: 'primary' },
+],
+},
 ],
 },
 {
-title: '5% Reflection Worksheet',
-badge: 'PDF · PRINT OR GOODNOTES',
-icon: 'percent',
-preview: '/previews/5-percent-reflection-sheet.png',
+id: 'retreat',
+title: 'Retreat Exercises',
+tag: 'Retreat tools',
+icon: 'mountains',
+tint: 'gold',
+layout: 'wide',
+note: 'Exercises to run at a forum retreat.',
+items: [
+{
+title: 'Ikigai Worksheet',
+badge: '11X17 PDF',
+icon: 'flower-lotus',
+preview: '/previews/ikigai-worksheet-11x17.png',
+landscape: true,
 bullets: [
-'EQ up top: three 5% topics, from headline to what you realize about yourself',
-'IQ at the bottom: 1-2 learning topics to bring to the room',
-'Your four ratings and next month\'s wager',
+'Eight prompts on what you love, what you are good at, and what the world needs',
+'The four circles show where your ikigai sits',
+'Three actions to take, and how the forum can support you',
 ],
 actions: [
-{ label: 'PDF', icon: 'download-simple', url: '/worksheets/5-percent-reflection-sheet.pdf', download: true, style: 'primary' },
-{ label: 'Open', icon: 'arrow-up-right', url: '/worksheets/5-percent-reflection-sheet.pdf' },
+{ label: 'PDF', icon: 'download-simple', url: '/worksheets/ikigai-worksheet-11x17.pdf', download: true, style: 'primary' },
+{ label: 'Open', icon: 'arrow-up-right', url: '/worksheets/ikigai-worksheet-11x17.pdf' },
 ],
 },
 {
-title: 'Nashville Forum Constitution Template',
-badge: 'V2026.11.18',
-icon: 'scroll',
-preview: '/previews/nashville-forum-constitution-template.png',
+title: 'North Star',
+badge: 'FACILITATED EXERCISE',
+icon: 'star-four',
+shot: '/facilitate/img/r1-north-star-sky.jpg',
+shotFit: 'photo',
+shotAlt: 'The Milky Way over a retreat house deck at night in Telluride',
+landscape: true,
 bullets: [
-'Sixteen topics, from attendance and fines to roles and retreats',
-'Copy it, download it, or compare it to yours with one prompt',
-'Make it yours, then review it every year at retreat',
+'The North Star each member inherited, and the one that is theirs now',
+'The stars they steer by this year',
+'One page of intentions to take home',
 ],
 actions: [
-{ label: 'Read it', icon: 'browser', url: '/constitution/', style: 'primary' },
-{ label: 'Word', icon: 'file-doc', url: '/constitution/nashville-forum-constitution-template-V2026.11.18.docx', download: true },
-{ label: 'PDF', icon: 'file-pdf', url: '/constitution/nashville-forum-constitution-template-V2026.11.18.pdf', download: true },
+{ label: 'See the exercise', icon: 'browser', url: '/facilitate/north-star/', style: 'primary' },
 ],
 },
 ],
@@ -118,9 +138,9 @@ id: 'process',
 title: 'Process Breakdowns',
 tag: 'Web page · PDF · Video',
 icon: 'path',
-tint: 'teal',
+tint: 'quiet',
 layout: 'rows',
-note: 'One process at a time. Each comes as a web page, a one-page PDF and a two-minute video.',
+note: 'One process at a time, each as a web page and a one-page PDF.',
 items: [
 {
 title: 'Open Coaching',
@@ -212,45 +232,65 @@ actions: [
 ],
 },
 {
-id: 'retreat',
-title: 'Retreat Exercises',
-tag: 'Retreat tools',
-icon: 'mountains',
-tint: 'gold',
-layout: 'wide',
-note: 'Exercises to run at a forum retreat.',
+id: 'templates',
+title: 'Templates and Worksheets',
+tag: 'Sheet · Word · PDF',
+icon: 'files',
+tint: 'quiet',
+layout: 'rows',
+note: 'The organizer spreadsheet, the constitution template and the reflection worksheet, to copy and make your own.',
 items: [
 {
-title: 'Ikigai Worksheet',
-badge: '11X17 PDF',
-icon: 'flower-lotus',
-preview: '/previews/ikigai-worksheet-11x17.png',
-landscape: true,
+title: 'Forum Organizer Spreadsheet',
+badge: 'GOOGLE SHEET · V2026.11.18',
+icon: 'table',
+type: 'sheet',
+fileId: '1jbmebL57hRT86sn_cpJfz0dc2KY5mwEiNzv_UgQdahU',
+shot: '/previews/forum-organizer-V2026.11.18.png',
+preview: '/previews/forum-organizer-V2026.11.18.png',
+line: 'An agenda for every meeting, the year\'s schedule, roles and the parking lot, in one Google Sheet.',
 bullets: [
-'Eight prompts on what you love, what you are good at, and what the world needs',
-'The four circles show where your ikigai sits',
-'Three actions to take, and how the forum can support you',
+'An agenda for every meeting',
+'The year\'s schedule: host, presenter and coach',
+'Roles, resources and the parking lot, with a filled-in example',
 ],
 actions: [
-{ label: 'PDF', icon: 'download-simple', url: '/worksheets/ikigai-worksheet-11x17.pdf', download: true, style: 'primary' },
-{ label: 'Open', icon: 'arrow-up-right', url: '/worksheets/ikigai-worksheet-11x17.pdf' },
+{ label: 'Make a copy', icon: 'copy', url: 'https://docs.google.com/spreadsheets/d/1jbmebL57hRT86sn_cpJfz0dc2KY5mwEiNzv_UgQdahU/copy', style: 'primary' },
+{ label: 'Google Sheet', icon: 'google-drive-logo', drive: true },
+{ label: 'XLSX', icon: 'file-xls', export: 'xlsx' },
 ],
 },
 {
-title: 'North Star',
-badge: 'FACILITATED EXERCISE',
-icon: 'star-four',
-shot: '/facilitate/img/r1-north-star-sky.jpg',
-shotFit: 'photo',
-shotAlt: 'The Milky Way over a retreat house deck at night in Telluride',
-landscape: true,
+title: 'Nashville Forum Constitution Template',
+badge: 'V2026.11.18',
+icon: 'scroll',
+preview: '/previews/nashville-forum-constitution-template.png',
+line: 'Sixteen topics, from attendance and fines to roles and retreats. Copy it, download it or compare it to yours.',
 bullets: [
-'The North Star each member inherited, and the one that is theirs now',
-'The stars they steer by this year',
-'One page of intentions to take home',
+'Sixteen topics, from attendance and fines to roles and retreats',
+'Copy it, download it, or compare it to yours with one prompt',
+'Make it yours, then review it every year at retreat',
 ],
 actions: [
-{ label: 'See the exercise', icon: 'browser', url: '/facilitate/north-star/', style: 'primary' },
+{ label: 'Read it', icon: 'browser', url: '/constitution/', style: 'primary' },
+{ label: 'Word', icon: 'file-doc', url: '/constitution/nashville-forum-constitution-template-V2026.11.18.docx', download: true },
+{ label: 'PDF', icon: 'file-pdf', url: '/constitution/nashville-forum-constitution-template-V2026.11.18.pdf', download: true },
+],
+},
+{
+title: '5% Reflection Worksheet',
+badge: 'PDF · PRINT OR GOODNOTES',
+icon: 'percent',
+preview: '/previews/5-percent-reflection-sheet.png',
+line: 'Three 5% topics, one or two learning topics, your four ratings and next month\'s wager, on one page.',
+bullets: [
+'EQ up top: three 5% topics, from headline to what you realize about yourself',
+'IQ at the bottom: 1-2 learning topics to bring to the room',
+'Your four ratings and next month\'s wager',
+],
+actions: [
+{ label: 'PDF', icon: 'download-simple', url: '/worksheets/5-percent-reflection-sheet.pdf', download: true, style: 'primary' },
+{ label: 'Open', icon: 'arrow-up-right', url: '/worksheets/5-percent-reflection-sheet.pdf' },
 ],
 },
 ],

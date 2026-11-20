@@ -56,10 +56,11 @@ async function init() {
 
 
 // ════════════════════════════════════════════════════════════
-// CORE RESOURCES: three groups from CONFIG.CORE_GROUPS (Colton, 2026-11-16).
+// CORE RESOURCES: the groups in CONFIG.CORE_GROUPS (Colton, 2026-11-16; new order 2026-11-20).
 // Forum Tools and Retreat Exercises are cards that show the thing itself (page one of the
-// document, or a picture) with its own Phosphor icon; Process Breakdowns are rows, one process
-// per row, with its formats (web page, PDF, video) lined up in the same three columns.
+// document, a picture, or a screenshot of the site) with its own Phosphor icon; Process Breakdowns
+// and Templates and Worksheets are quiet rows, one document per row, with its formats lined up in
+// the same three columns.
 // Icons come from core-icons.js (tools/build-core-icons.py holds the one list).
 // ════════════════════════════════════════════════════════════
 const CORE_EXPORT_MIME = {
@@ -83,7 +84,7 @@ function renderCoreResources() {
         <div class="section-rule"></div>
       </div>
       ${g.note ? `<p class="cg-note">${g.note}</p>` : ''}
-      <div class="cg-grid cg-${g.layout || 'cards'}${g.promo === 'app' ? ' cg-has-app' : ''}">${g.promo === 'app' ? coreAppPromoHTML() : ''}${g.items.map((r, i) => build(r, gi + ':' + i)).join('')}</div>
+      <div class="cg-grid cg-${g.layout || 'cards'}${g.promo === 'app' ? ' cg-has-app' : ''}">${g.items.map((r, i) => build(r, gi + ':' + i)).join('')}${g.promo === 'app' ? coreAppPromoHTML() : ''}</div>
     </div>`;
   }).join('');
   wrap.querySelectorAll('[data-download-url]').forEach(btn => {
@@ -101,8 +102,9 @@ function renderCoreResources() {
 // The Forum Playbook app tile (Colton, 2026-11-18: out of the hero, "in line with the first card ... settled
 // to the right side"). No box: it sits on the group's tint. The tag, the app icon with the name and See the
 // app open /app/; Apple's badge (Apple's artwork, unaltered, served by Apple) opens the listing in a new tab;
-// the phone is a CSS frame around the store screenshot of the timer. It is first in the grid so a phone or a
-// tablet shows it as a strip above the cards; the wide layout places it in the last column (index.html).
+// the phone is a CSS frame around the store screenshot of the timer. It comes after the cards in the grid
+// (Colton, 2026-11-20: the Forum Timer is the first thing), so a phone or a tablet shows it as a strip under
+// the two cards and the wide layout places it in the last column, to their right (index.html).
 function coreAppPromoHTML() {
   return `
     <aside class="cg-app" aria-label="The Forum Playbook app">
@@ -157,8 +159,11 @@ function coreActionsHTML(r, withSoon) {
 function coreCardHTML(r, key) {
   const src = coreShotSrc(r);
   const img = src ? `<img src="${src}" alt="${r.shotAlt || ''}" loading="lazy" decoding="async">` : '';
-  const fit = r.shotFit === 'photo' ? ' cg-shot-photo' : r.shotFit === 'phone' ? ' cg-shot-phone' : r.landscape ? ' cg-shot-land' : '';
-  const shot = corePreviewSrc(r)
+  const fit = r.shotFit === 'photo' ? ' cg-shot-photo' : r.shotFit === 'phone' ? ' cg-shot-phone' : r.shotFit === 'site' ? ' cg-shot-site' : r.landscape ? ' cg-shot-land' : '';
+  // An outside site: the picture is a link that opens it in a new tab, not the Preview.
+  const shot = r.shotHref
+    ? `<a class="cg-shot${fit}" href="${r.shotHref}" target="_blank" rel="noopener" aria-label="Open ${r.title} in a new tab">${img}<span class="cg-shot-cap">${coreIcon('arrow-square-out', 'ci-btn')}Open</span></a>`
+    : corePreviewSrc(r)
     ? `<button type="button" class="cg-shot${fit}" data-core-preview="${key}" aria-haspopup="dialog" aria-label="Preview: ${r.title}">${img}<span class="cg-shot-cap">${coreIcon('eye', 'ci-btn')}Preview</span></button>`
     : `<div class="cg-shot cg-shot-still${fit}">${img}</div>`;
   return `
@@ -171,7 +176,7 @@ function coreCardHTML(r, key) {
           ${coreIcon(r.icon, 'ci-lg')}
           <div>
             ${r.badge ? `<div class="core-badge">${r.badge}</div>` : ''}
-            <h3 class="card-title">${r.title.toUpperCase()}</h3>
+            ${coreTitleHTML(r)}
           </div>
         </div>
         ${r.bullets && r.bullets.length ? `<ul class="core-bullets">${r.bullets.map(t => `<li>${t}</li>`).join('')}</ul>` : ''}
@@ -180,7 +185,15 @@ function coreCardHTML(r, key) {
     </article>`;
 }
 
-// A row: one process, its one line, and its formats in the same three columns on every row.
+// The title. A title with an aside keeps its own case (a web address reads as one) and the aside
+// sits under it in plain type, inside the same heading.
+function coreTitleHTML(r) {
+  if (!r.titleAside) return `<h3 class="card-title">${r.title.toUpperCase()}</h3>`;
+  return `<h3 class="card-title cg-title-keep">${r.title} <span class="cg-title-aside">${r.titleAside}</span></h3>`;
+}
+
+// A row: one document, its badge (the version, where it has one), its one line, and its formats
+// in the same three columns on every row.
 function coreRowHTML(r, key) {
   const src = coreShotSrc(r);
   const thumb = src
@@ -194,6 +207,7 @@ function coreRowHTML(r, key) {
       <div class="cg-row-main">
         ${coreIcon(r.icon, 'ci-lg')}
         <div>
+          ${r.badge ? `<div class="core-badge">${r.badge}</div>` : ''}
           <h3 class="card-title">${r.title.toUpperCase()}</h3>
           <p class="cg-line">${r.line || ''}</p>
         </div>

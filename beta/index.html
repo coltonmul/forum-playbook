@@ -72,6 +72,17 @@ try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.document
   </div>
 </div>
 
+<!-- PAGE STAMP: the last change to this page, and its version (same pattern as /facilitate/ and /constitution/).
+     Linen on pitch 16.3:1, 12px. The version and the same stamp repeat in the footer. -->
+<div class="stampbar" role="note"><span>Updated Fri / 2026-11-20 / 10:03 AM CT</span><span aria-hidden="true">·</span><span>forumplaybook.com V2026.11.20</span></div>
+<style>
+.stampbar { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--linen); background: var(--pitch); padding: 8px 16px; display: flex; gap: 10px; flex-wrap: wrap; }
+/* footer text at 12px, #A8A494 on pitch 7.7:1 (was 9px, #4A4A38 on pitch) */
+.footer .footer-link, .footer .footer-copy { font-size: 12px; color: #A8A494; }
+.footer .footer-link:hover, .footer .footer-link:focus-visible { color: var(--linen); }
+.footer .footer-link { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; min-width: 44px; }
+</style>
+
 <!-- NAV -->
 <header class="nav" role="banner">
   <a href="#" class="logo" aria-label="Forum Playbook home">
@@ -362,8 +373,10 @@ try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.document
 <!-- CORE RESOURCES -->
 <section id="core-resources" class="core-section" aria-label="Core Resources">
   <style>
-  /* ── CORE GROUPS (Colton, 2026-11-16): Forum Tools, Process Breakdowns, Retreat Exercises.
-     Each group sits on its own tinted block. A card shows the thing itself (page one of the
+  /* ── CORE GROUPS (Colton, 2026-11-16; new order 2026-11-20): Forum Tools (the Forum Timer, then
+     1000greatquestions.com, then the app tile), Retreat Exercises, then two quiet groups further down:
+     Process Breakdowns and Templates and Worksheets. Forum Tools and Retreat Exercises each sit on their
+     own tinted block; the quiet groups sit on the page's linen. A card shows the thing itself (page one of the
      document, or a picture) with its own Phosphor thin icon, drawn in when it scrolls into view;
      a Process Breakdown is a row with its formats in the same three columns. app.js builds it
      from CONFIG.CORE_GROUPS. Legibility law: 12px and up, 44px targets, contrast computed:
@@ -383,6 +396,7 @@ try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.document
   .cg-teal .cg-grid { background: #DCEBEA; }
   .cg-gold .cg-grid { background: #F6E9C9; }
   .cg-cards { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .cg-feature { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cg-wide  { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cg-rows  { grid-template-columns: minmax(0, 1fr); }
 
@@ -395,19 +409,30 @@ try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.document
   .cg-shot-photo img { object-position: center; }
   .cg-shot-phone { background: radial-gradient(ellipse 60% 95% at 50% 70%, #FCF0E9 0%, #F8DFD3 100%); }
   .cg-shot-phone img { object-fit: contain; object-position: center bottom; }
-  button.cg-shot:hover img, button.cg-shot:focus-visible img { transform: scale(1.04); }
+  /* the top row: both pictures in the shape of a site screenshot (1200 by 630), so the two cards line up */
+  .cg-feature .cg-shot { height: auto; aspect-ratio: 1200 / 630; }
+  .cg-shot-site img { object-fit: cover; object-position: top center; }
+  button.cg-shot:hover img, button.cg-shot:focus-visible img, a.cg-shot:hover img, a.cg-shot:focus-visible img { transform: scale(1.04); }
   .cg-shot-cap { position: absolute; right: 8px; bottom: 8px; display: inline-flex; align-items: center; gap: 6px; min-height: 28px; padding: 4px 10px; background: var(--pitch); color: var(--linen); font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; }
   .cg-shot:focus-visible, .cg-thumb:focus-visible, .cg .btn:focus-visible { outline: 2px solid var(--brick); outline-offset: 2px; }
   .cg-body { display: flex; flex-direction: column; flex: 1; padding: 16px 18px 18px; }
   .cg-headline { display: grid; grid-template-columns: 44px minmax(0, 1fr); gap: 12px; align-items: start; margin-bottom: 12px; }
   .cg .core-badge { font-size: 12px; letter-spacing: 0.1em; color: var(--brick); border-color: var(--brick); padding: 3px 8px; margin-bottom: 8px; }
   .cg .card-title { margin: 0; font-size: 22px; line-height: 1.05; text-align: left; }
+  /* a web address keeps its own case; its aside reads as plain type under it, inside the same heading */
+  .cg .card-title.cg-title-keep { text-transform: none; letter-spacing: 0.01em; overflow-wrap: anywhere; }
+  .cg-title-aside { display: block; margin-top: 5px; font-family: var(--font-body); font-size: 16px; font-weight: 400; line-height: 1.3; letter-spacing: 0; color: var(--deep-dust); }
   .core-bullets { list-style: none; margin: 0 0 18px; padding: 0; width: 100%; text-align: left; }
   .core-bullets li { position: relative; padding-left: 16px; margin: 0 0 7px; font-family: var(--font-body); font-size: 14px; line-height: 1.4; color: var(--deep-dust); }
   .core-bullets li::before { content: ''; position: absolute; left: 0; top: 0.5em; width: 6px; height: 6px; background: var(--burn); }
   .cg-actions { margin-top: auto; display: flex; flex-wrap: wrap; gap: 6px; }
   .cg .btn { min-height: 44px; display: inline-flex; align-items: center; justify-content: center; font-size: 12px; letter-spacing: 0.06em; padding: 6px 12px; white-space: nowrap; background: var(--white); }
-  .cg .btn.btn-primary { background: var(--burn); }
+  .cg .btn.btn-primary { background: var(--burn); color: var(--pitch); border-color: var(--brick); }
+  /* Contrast computed 2026-11-20: button text is pitch, never white (white on burn is 3.71:1, white on the teal
+     hover 4.05:1): pitch on burn 5.2:1, on the teal hover 4.77:1, on white 19.3:1. Edges: #8A8070 is 3.05:1 on
+     the burn tint, 3.22:1 on the gold tint, 3.89:1 on white; the brick edge on a burn button 4.51:1 on the tint. */
+  .cg .btn { border-color: #8A8070; }
+  .cg .sh.warm:hover > span, .cg .sh.cool:hover > span { color: var(--pitch); }
   .cg .btn > span, .fx-sheet .btn > span { display: inline-flex; align-items: center; gap: 7px; }
   .cg-actions .btn { flex: 1 1 auto; }
   .cg .btn.cg-soon { border: 0.5px dashed #8A8070; color: var(--deep-dust); background: transparent; cursor: default; }
@@ -423,11 +448,12 @@ try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.document
 
   /* ── THE APP TILE (Colton, 2026-11-18: "make the app promo and phone smaller ... have the app in line with
      the first card ... settled to the right side"). It left the hero, where it sat above the headline, and is
-     the first thing in the Forum Tools grid (app.js coreAppPromoHTML, config.js promo: 'app'). No box: it sits
-     on the group's tint. Three shapes: a strip above the cards (the default), a shorter strip with no phone picture
-     under 620px, and from 1280px a tile in a fifth column to the right of the four cards.
+     the last thing in the Forum Tools grid (app.js coreAppPromoHTML, config.js promo: 'app'; last since
+     2026-11-20, so the Forum Timer comes first on every screen). No box: it sits on the group's tint. Three
+     shapes: a strip under the two cards (the default), a shorter strip with no phone picture under 620px, and
+     from 1280px a tile in a third column to the right of the two cards.
      Contrast computed on the tint #F8DFD3: pitch 15.2:1, brick 4.5:1 (the tag, 12px mono, not reading text). ── */
-  .cg-app { grid-column: 1 / -1; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "phone copy badge"; align-items: center; column-gap: 22px; padding: 0 6px 6px; }
+  .cg-app { grid-column: 1 / -1; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; grid-template-areas: "phone copy badge"; align-items: center; column-gap: 22px; padding: 12px 6px 4px; }
   .as-copy { grid-area: copy; justify-self: start; display: grid; grid-template-columns: max-content max-content; grid-template-areas: "tag tag" "id cta"; align-items: center; column-gap: 28px; row-gap: 8px; text-decoration: none; color: var(--pitch); border-radius: 6px; }
   .as-tag { grid-area: tag; font-family: var(--font-mono); font-size: 12px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brick); }
   .as-id { grid-area: id; display: flex; align-items: center; gap: 12px; }
@@ -446,23 +472,23 @@ try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.document
   .as-phone { grid-area: phone; display: block; width: 46px; aspect-ratio: 552 / 1200; padding: 2px; border-radius: 9px; background: var(--pitch); box-shadow: 0 2px 4px rgba(14,14,12,.15), 0 10px 22px rgba(14,14,12,.24); transform: rotate(4deg); transition: transform .5s cubic-bezier(.34,1.56,.64,1); }
   .as-phone img { width: 100%; height: 100%; object-fit: cover; border-radius: 7px; display: block; }
   .as-phone:hover, .cg-app:has(.as-copy:hover) .as-phone { transform: rotate(0) translateY(-4px); }
-  /* Phones: the copy with the badge beside it (under it below 360px). No phone picture here:
-     the Forum Timer card right under the strip shows the same phone. */
+  /* Phones: the copy with the badge beside it (under it below 360px). No phone picture here, so the
+     strip stays short: the Forum Timer card above it shows the same phone. */
   @media (max-width: 620px) {
-    .cg-app { display: block; position: relative; padding: 0 0 8px; }
+    .cg-app { display: block; position: relative; padding: 12px 0 4px; }
     .as-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 8px; }
     .as-cta { min-height: 28px; }
     .as-phone { display: none; }
-    .ab-badge { position: absolute; right: 0; top: 26px; }  /* level with the icon and the name */
+    .ab-badge { position: absolute; right: 0; top: 38px; }  /* level with the icon and the name */
   }
   @media (max-width: 359px) {
     .ab-badge { position: static; margin-top: 10px; }
     .as-tag { letter-spacing: 0.05em; }
   }
-  /* Wide screens: four cards and the tile in one row, the tile on the right, a little narrower than a card. */
+  /* Wide screens: the two cards and the tile in one row, the tile on the right, narrower than a card. */
   @media (min-width: 1280px) {
-    .cg-has-app { grid-template-columns: repeat(4, minmax(0, 1fr)) minmax(228px, 0.82fr); }
-    .cg-app { grid-column: 5; grid-row: 1; display: flex; flex-direction: column; align-items: flex-start; padding: 6px 0 18px 16px; }
+    .cg-has-app { grid-template-columns: repeat(2, minmax(0, 1fr)) minmax(228px, 0.6fr); }
+    .cg-app { grid-column: 3; grid-row: 1; display: flex; flex-direction: column; align-items: flex-start; padding: 6px 0 18px 16px; }
     .as-copy { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; }
     .as-icon { width: 52px; height: 52px; }
     .as-name { font-size: 26px; }
@@ -494,7 +520,7 @@ try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.document
     .cg-wide .cg-shot { height: 190px; }
   }
   @media (max-width: 620px) {
-    .cg-cards { grid-template-columns: minmax(0, 1fr); }
+    .cg-cards, .cg-feature { grid-template-columns: minmax(0, 1fr); }
     .cg-head { flex-wrap: wrap; }
     .cg-row { grid-template-columns: 64px minmax(0, 1fr); gap: 12px; padding: 12px; }
     .cg-thumb { width: 64px; height: 64px; }
@@ -502,10 +528,39 @@ try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.document
     .cg-row-main .ci-lg { display: none; }
     .cg-formats { grid-template-columns: minmax(0, 1fr); }
   }
+  /* ── QUIET GROUPS (Colton, 2026-11-20: the standard forum documents further down the page). Process Breakdowns
+     and Templates and Worksheets: no tinted block, a smaller head, smaller pictures and plain buttons, one
+     document per row. Contrast computed: on linen #F0EBE0 deep dust 8.5:1 (head, tag, note); on white pitch
+     19.3:1 (titles, buttons), deep dust 10.1:1 (lines, badges); button edges #8A8070 on white 3.9:1. ── */
+  .cg-quiet .cg-head { padding-top: 34px; }
+  .cg-quiet .section-title { font-size: 20px; color: var(--deep-dust); }
+  .cg-quiet .ci-head { width: 28px; height: 28px; color: var(--deep-dust); }
+  .cg-quiet .section-tag { color: var(--deep-dust); border-color: #8A8070; }
+  .cg-quiet .cg-note { font-size: 15px; }
+  .cg-quiet .cg-grid { background: transparent; gap: 8px; padding-top: 14px; padding-bottom: 18px; }
+  .cg-quiet .cg-row { grid-template-columns: 64px minmax(0, 1fr) auto; gap: 16px; padding: 10px 14px 10px 10px; border-left: 2px solid var(--dust); }
+  .cg-quiet .cg-thumb { width: 64px; height: 64px; }
+  .cg-quiet .cg-row-main { grid-template-columns: 32px minmax(0, 1fr); gap: 12px; }
+  .cg-quiet .ci-lg { width: 32px; height: 32px; color: var(--deep-dust); }
+  .cg-quiet .card-title { font-size: 18px; }
+  .cg-quiet .cg-line { font-size: 14px; margin-top: 2px; }
+  .cg-quiet .core-badge { margin-bottom: 6px; color: var(--deep-dust); border-color: #8A8070; }
+  .cg-quiet .btn, .cg-quiet .btn.btn-primary { background: var(--white); color: var(--pitch); border: 0.5px solid #8A8070; }
+  .cg-quiet .cg-formats { grid-template-columns: repeat(3, 152px); }
+  @media (max-width: 1099px) {
+    .cg-quiet .cg-row { grid-template-columns: 64px minmax(0, 1fr); }
+    .cg-quiet .cg-formats { grid-column: 1 / -1; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  @media (max-width: 620px) {
+    .cg-quiet .cg-row { grid-template-columns: 56px minmax(0, 1fr); gap: 12px; padding: 12px; }
+    .cg-quiet .cg-thumb { width: 56px; height: 56px; }
+    .cg-quiet .cg-row-main { grid-template-columns: minmax(0, 1fr); }
+    .cg-quiet .cg-formats { grid-template-columns: minmax(0, 1fr); }
+  }
   @media (prefers-reduced-motion: reduce) {
     .cg-reveal .ci-lg svg { transition: none; clip-path: none; }
     .cg-shot img, .cg-thumb img { transition: none; }
-    button.cg-shot:hover img, .cg-thumb:hover img { transform: none; }
+    button.cg-shot:hover img, a.cg-shot:hover img, .cg-thumb:hover img { transform: none; }
   }
   /* the preview sheet, large form */
   .fx-sheet-close { min-width: 44px; min-height: 44px; display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--deep-dust); z-index: 3; }
@@ -630,7 +685,8 @@ try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.document
     <a href="/brand" class="footer-link">Brand</a>
     <a href="/legal" class="footer-link">Legal</a>
   </div>
-  <div class="footer-copy">© 2026 Forum Playbook · V3 BETA LANE · REGENERATED WED / 2026-11-18 / 7:21 PM CT</div>
+  <div class="footer-copy">© 2026 Forum Playbook · V3 BETA LANE · REGENERATED FRI / 2026-11-20 / 10:03 AM CT</div>
+  <div class="footer-copy footer-ver">V2026.11.20 · Fri / 2026-11-20 / 10:03 AM CT</div>
 </footer>
 
 <script>
@@ -670,9 +726,9 @@ try{if(matchMedia('(prefers-reduced-motion: reduce)').matches){document.document
   }
 })();
 </script>
-<script src="/config.js?v=2026-11-18b"></script>
-<script src="/core-icons.js?v=2026-11-18"></script>
-<script src="/app.js?v=2026-11-18b"></script>
+<script src="/config.js?v=2026-11-20"></script>
+<script src="/core-icons.js?v=2026-11-20"></script>
+<script src="/app.js?v=2026-11-20"></script>
 <script src="/sting.js" defer></script>
 <script src="/podcasts.js"></script>
 <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "c20145f631df48ff8dc17a09c0c3fcdb"}'></script><!-- End Cloudflare Web Analytics -->
