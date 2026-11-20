@@ -4,6 +4,9 @@
 
 - **Homepage hero rework: the headline, the polaroid and the numbers lead, the app promo moves down beside the first Forum Tools cards** (MacBook session for Colton, started Wed / 2026-11-18 / 7:12 PM CT): the work is on branch `preview/hero-compact` and is previewed at https://dev.forumplaybook.com, not on the live site. It waits on Colton's "ship". It restructures the hero in index.html and styles.css and the Forum Tools group in app.js. Until this entry clears, keep edits to those three files on main small and additive.
 
+## 2026-11-20 (Fri)
+- **/facilitate/ names no organizations** (Colton, 2026-11-20: "it just needs to say that Colton facilitates retreats for forums and peer groups around the world"). Who built this now reads "Colton Mulligan facilitates retreats for forums and peer groups around the world. He built the Forum Playbook app and this site, from Nashville." The kicker and the link-preview descriptions say "retreats for forums and peer groups." The form's forum field shows "Forum name/number, chapter." The banner shows "Chapter / Forum name/number." Quote and photo labels drop the organization names, one quote is trimmed to its excerpt, and the availability labels are neutral. Rebuilt with tools/build-facilitate.py.
+
 ## 2026-11-19 (Thu)
 
 - **Privacy fixes, live on main since Thu 2026-11-19 ~7:30 PM CT** (Colton, 2026-11-19: "Yes protect the public pages appropriately"; verified live: no Google Fonts on any page, /fonts/fonts.css 200, /legal v1.2.0, no eonetwork in app.js).
